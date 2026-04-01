@@ -12,6 +12,7 @@ using MyExpenses.Wpf.Pages;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf;

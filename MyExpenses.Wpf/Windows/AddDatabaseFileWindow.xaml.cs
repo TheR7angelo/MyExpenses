@@ -6,6 +6,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
@@ -84,7 +85,7 @@ public partial class AddDatabaseFileWindow
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
-            MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxEmptyNameErrorTitle,
+            Dialogs.MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxEmptyNameErrorTitle,
                 AddDatabaseFileResources.MessageBoxEmptyNameErrorMessage, MsgBoxImage.Error);
             return;
         }
@@ -139,10 +140,10 @@ public partial class AddDatabaseFileWindow
         => ExistingDatabases.AddRange(existingDatabases);
 
     private static void ShowErrorMessageAlreadyExist()
-        => MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorMessage, MsgBoxImage.Warning);
+        => Dialogs.MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorMessage, MsgBoxImage.Warning);
 
     private static void ShowErrorMessageContainsIncorrectChar()
-        => MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
+        => Dialogs.MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
             MsgBoxImage.Error);
 
     private void UpdateLanguage()

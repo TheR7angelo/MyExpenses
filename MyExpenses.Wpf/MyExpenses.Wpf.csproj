@@ -382,6 +382,9 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Update="Windows\Dialogs\MsgBox\MsgBoxMessageWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>

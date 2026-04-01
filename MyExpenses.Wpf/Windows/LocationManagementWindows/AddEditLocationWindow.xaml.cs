@@ -19,6 +19,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
@@ -324,7 +325,7 @@ public partial class AddEditLocationWindow
         {
             Log.Information("The API returned no result(s)");
 
-            MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
+            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
                 AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
                 MsgBoxImage.Error);
             return;
@@ -372,7 +373,7 @@ public partial class AddEditLocationWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
+        var response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -381,7 +382,7 @@ public partial class AddEditLocationWindow
         if (success)
         {
             Log.Information("Place was successfully removed");
-            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
 
             PlaceDeleted = true;
             DialogResult = true;
@@ -397,7 +398,7 @@ public partial class AddEditLocationWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
+            response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -406,7 +407,7 @@ public partial class AddEditLocationWindow
                 Place.Name);
             Place.Delete(true);
             Log.Information("Place and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
 
             PlaceDeleted = true;
             DialogResult = true;
@@ -416,7 +417,7 @@ public partial class AddEditLocationWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
+        Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -431,7 +432,7 @@ public partial class AddEditLocationWindow
         if (Place.Longitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLongitudeError;
         if (!string.IsNullOrWhiteSpace(localizedErrorMessage))
         {
-            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxButtonValidationTitleError,
+            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxButtonValidationTitleError,
                 localizedErrorMessage, MessageBoxButton.OK, MsgBoxImage.Error);
             return;
         }
@@ -485,13 +486,13 @@ public partial class AddEditLocationWindow
         {
             case 0:
                 Log.Information("The API returned no result(s)");
-                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
+                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Exclamation);
                 break;
             case 1:
                 Log.Information("The API returned one result");
-                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
+                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Check);
 
@@ -502,7 +503,7 @@ public partial class AddEditLocationWindow
                 Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
                 Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
 
-                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
+                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Information);
 

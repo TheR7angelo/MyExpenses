@@ -31,6 +31,7 @@ using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;

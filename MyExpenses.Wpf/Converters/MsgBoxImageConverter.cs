@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Converters;

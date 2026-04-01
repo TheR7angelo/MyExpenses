@@ -8,6 +8,7 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -60,7 +61,7 @@ public partial class AddEditAccountTypeWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteQuestion,
+        var response = Dialogs.MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -117,7 +118,7 @@ public partial class AddEditAccountTypeWindow
 
         if (string.IsNullOrEmpty(accountTypeName))
         {
-            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
+            Dialogs.MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
                 MsgBoxImage.Error);
             return;
         }
@@ -167,7 +168,7 @@ public partial class AddEditAccountTypeWindow
 
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
+        => Dialogs.MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
             MsgBoxImage.Warning);
 
     #endregion

@@ -13,6 +13,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 

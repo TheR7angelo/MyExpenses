@@ -31,6 +31,7 @@ using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -417,7 +418,7 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedAccount.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
+                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
 
                 // ReSharper disable once HeapView.DelegateAllocation
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == RecursiveExpense.AccountFk);
@@ -428,7 +429,7 @@ public partial class AddEditRecurrentExpenseWindow
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
+                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
             }
         }
     }
@@ -478,13 +479,13 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedCategoryTypeDeepCopy.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+                Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
                     CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+                Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
                     CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
             }
         }
@@ -492,7 +493,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteQuestion,
+        var response = Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -502,7 +503,7 @@ public partial class AddEditRecurrentExpenseWindow
         if (success)
         {
             Log.Information("Recursive expense was successfully removed");
-            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseNoUseSuccess,
+            Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseNoUseSuccess,
                 MsgBoxImage.Check);
 
             // RecursiveExpenseDeleted = true;
@@ -518,7 +519,7 @@ public partial class AddEditRecurrentExpenseWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseQuestion,
+            response = Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -527,7 +528,7 @@ public partial class AddEditRecurrentExpenseWindow
                 RecursiveExpense.Description);
             RecursiveExpense.Delete(true);
             Log.Information("Recursive expense and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseSuccess,
+            Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseSuccess,
                 MsgBoxImage.Check);
 
             // RecursiveExpenseDeleted = true;
@@ -538,7 +539,7 @@ public partial class AddEditRecurrentExpenseWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
+        Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
     }
 
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
@@ -546,7 +547,7 @@ public partial class AddEditRecurrentExpenseWindow
         var modePayment = RecursiveExpense.ModePaymentFk?.ToISql<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
-            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
+            Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
                 ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
             return;
         }
@@ -581,12 +582,12 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedModePayment.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage, MsgBoxImage.Check);
+                Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage, MsgBoxImage.Error);
+                Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage, MsgBoxImage.Error);
             }
         }
     }
@@ -596,7 +597,7 @@ public partial class AddEditRecurrentExpenseWindow
         var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
         if (place?.CanBeDeleted is false)
         {
-            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
+            Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -632,12 +633,12 @@ public partial class AddEditRecurrentExpenseWindow
             // var json = editedPlace.ToJsonString();
             // Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
+            Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -685,7 +686,7 @@ public partial class AddEditRecurrentExpenseWindow
                 ? propertyError.ErrorMessage!
                 : AddEditRecurrentExpenseWindowResources.ResourceManager.GetString(messageErrorKey)!;
 
-            MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
+            Dialogs.MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -699,7 +700,7 @@ public partial class AddEditRecurrentExpenseWindow
             var json = RecursiveExpense.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseSuccess, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseSuccess, MsgBoxImage.Check);
 
             if (EditRecurrentExpense)
             {
@@ -708,7 +709,7 @@ public partial class AddEditRecurrentExpenseWindow
                 return;
             }
 
-            var response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseQuestion, MsgBoxImage.Question,
+            var response = Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseQuestion, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
             if (response is not MessageBoxResult.Yes) Close();
 
@@ -717,7 +718,7 @@ public partial class AddEditRecurrentExpenseWindow
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseError, MsgBoxImage.Error);
+            Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseError, MsgBoxImage.Error);
         }
     }
 

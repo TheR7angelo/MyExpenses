@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.SharedUtils.Resources.Resx.MessageBox;
-using MyExpenses.Wpf.Utils;
 
-namespace MyExpenses.Wpf.Windows.MsgBox;
+namespace MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 
 public partial class MsgBoxMessageWindow
 {

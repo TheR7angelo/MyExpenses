@@ -10,6 +10,7 @@ using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.BackupSelectorRestoreManagement;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -114,7 +115,7 @@ public partial class BackupSelectorRestoreWindow
 
     private void ButtonRestoreBackup_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseQuestionTitle,
+        var response = Dialogs.MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseQuestionTitle,
             BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseQuestionMessage,
             MessageBoxButton.YesNo, MsgBoxImage.Question);
 
@@ -123,7 +124,7 @@ public partial class BackupSelectorRestoreWindow
         var existingDatabaseSelected = ExistingDatabasesBackup.FirstOrDefault(s => s.IsSelected);
         if (existingDatabaseSelected is null)
         {
-            MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxNoDatabaseSelectedTitle,
+            Dialogs.MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxNoDatabaseSelectedTitle,
                 BackupSelectorRestoreManagementResources.MessageboxNoDatabaseSelectedMessage, MessageBoxButton.OK, MsgBoxImage.Error);
             return;
         }
@@ -134,14 +135,14 @@ public partial class BackupSelectorRestoreWindow
             File.Copy(existingDatabaseSelected.FilePath, SelectedExistingDatabase.FilePath, true);
 
             Log.Information("Successfully restored the database {FileNameWithoutExtension} with the backup {FileNameWithoutExtensionBackup}", SelectedExistingDatabase.FileNameWithoutExtension, existingDatabaseSelected.FileNameWithoutExtension);
-            MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseSuccessTitle,
+            Dialogs.MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseSuccessTitle,
                 BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseSuccessMessage, MessageBoxButton.OK, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
 
-            MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseErrorTitle,
+            Dialogs.MsgBox.MsgBox.Show(BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseErrorTitle,
                 BackupSelectorRestoreManagementResources.MessageboxRestoreDatabaseErrorMessage, MessageBoxButton.OK, MsgBoxImage.Error);
         }
     }

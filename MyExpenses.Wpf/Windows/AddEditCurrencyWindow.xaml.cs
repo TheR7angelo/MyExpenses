@@ -8,6 +8,7 @@ using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -137,7 +138,7 @@ public partial class AddEditCurrencyWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteQuestion,
+        var response = Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         
         if (response is not MessageBoxResult.Yes) return;
@@ -148,7 +149,7 @@ public partial class AddEditCurrencyWindow
         if (success)
         {
             Log.Information("Currency symbol was successfully removed");
-            MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteCurrencyNoUseSuccess, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteCurrencyNoUseSuccess, MsgBoxImage.Check);
 
             CurrencyDeleted = true;
             DialogResult = true;
@@ -163,7 +164,7 @@ public partial class AddEditCurrencyWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteCurrencyUseQuestion,
+            response = Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxDeleteCurrencyUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response != MessageBoxResult.Yes) return;
@@ -174,7 +175,7 @@ public partial class AddEditCurrencyWindow
             Currency.Delete(true);
 
             Log.Information("Currency symbol and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessMessage, MsgBoxImage.Check);
+            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessMessage, MsgBoxImage.Check);
 
             CurrencyDeleted = true;
             DialogResult = true;
@@ -184,7 +185,7 @@ public partial class AddEditCurrencyWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteErrorMessage, MsgBoxImage.Error);
+        Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteErrorMessage, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -193,7 +194,7 @@ public partial class AddEditCurrencyWindow
 
         if (string.IsNullOrWhiteSpace(currencySymbol))
         {
-            MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage, MsgBoxImage.Warning);
+            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage, MsgBoxImage.Warning);
             return;
         }
 
@@ -237,7 +238,7 @@ public partial class AddEditCurrencyWindow
     }
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
+        => Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
             MsgBoxImage.Warning);
 
     #endregion

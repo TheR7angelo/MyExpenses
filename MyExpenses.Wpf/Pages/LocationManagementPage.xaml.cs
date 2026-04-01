@@ -21,6 +21,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Maps;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
