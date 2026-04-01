@@ -7,6 +7,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
@@ -17,6 +18,8 @@ using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf;
 

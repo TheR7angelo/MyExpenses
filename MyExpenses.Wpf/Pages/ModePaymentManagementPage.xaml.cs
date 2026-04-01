@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
@@ -10,6 +11,7 @@ using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using MessageBoxButton = System.Windows.MessageBoxButton;
 
 namespace MyExpenses.Wpf.Pages;
 

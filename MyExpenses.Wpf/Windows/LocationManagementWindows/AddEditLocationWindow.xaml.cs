@@ -12,6 +12,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
@@ -22,6 +23,8 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;

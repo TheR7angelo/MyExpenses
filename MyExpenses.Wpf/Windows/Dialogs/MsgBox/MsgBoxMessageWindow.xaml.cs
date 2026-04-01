@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Resources.Resx.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 

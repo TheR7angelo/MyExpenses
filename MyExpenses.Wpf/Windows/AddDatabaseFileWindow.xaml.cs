@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Utils;

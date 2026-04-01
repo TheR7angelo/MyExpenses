@@ -9,6 +9,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
@@ -19,6 +20,8 @@ using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 using TAccount = MyExpenses.Models.Sql.Bases.Tables.TAccount;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 

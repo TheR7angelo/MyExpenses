@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;

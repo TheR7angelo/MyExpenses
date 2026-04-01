@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.Wpf.Windows.Dialogs.MsgBox;
+﻿namespace MyExpenses.Presentation.Enums;
 
 public enum MsgBoxImage
 {

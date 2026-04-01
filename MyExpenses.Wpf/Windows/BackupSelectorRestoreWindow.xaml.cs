@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using FilterDataGrid;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.BackupSelectorRestoreManagement;
 using MyExpenses.Wpf.Utils;
@@ -13,6 +14,8 @@ using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Windows;
 

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using MyExpenses.Core;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
@@ -14,6 +15,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.MsgBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
 
 namespace MyExpenses.Wpf;
 
