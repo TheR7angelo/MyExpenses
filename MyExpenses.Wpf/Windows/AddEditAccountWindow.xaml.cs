@@ -142,8 +142,6 @@ public partial class AddEditAccountWindow
 
                 break;
 
-            case (Presentation.Enums.MessageBoxInputResult.None, _):
-            case (Presentation.Enums.MessageBoxInputResult.Cancel, _):
             default:
                 return;
         }
