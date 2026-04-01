@@ -1,5 +1,5 @@
 using System.Windows;
-using MessageResult = MyExpenses.Presentation.Enums.MessageBoxResult;
+using MyExpenses.Presentation.Enums;
 
 namespace MyExpenses.Wpf.Windows.Dialogs.InputDialog;
 
@@ -42,7 +42,7 @@ public partial class InputDialogWindow
         set => SetValue(TextBoxTextProperty, value);
     }
 
-    public MessageResult MessageBoxResult { get; private set; } = MessageResult.None;
+    public MessageBoxInputResult MessageBoxInputResult { get; private set; } = MessageBoxInputResult.None;
 
     public InputDialogWindow()
     {
@@ -50,17 +50,17 @@ public partial class InputDialogWindow
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
-        => SetResult(MessageResult.Valid);
+        => SetResult(MessageBoxInputResult.Valid);
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-        => SetResult(MessageResult.Cancel);
+        => SetResult(MessageBoxInputResult.Cancel);
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-        => SetResult(MessageResult.Delete);
+        => SetResult(MessageBoxInputResult.Delete);
 
-    private void SetResult(MessageResult result)
+    private void SetResult(MessageBoxInputResult inputResult)
     {
-        MessageBoxResult = result;
+        MessageBoxInputResult = inputResult;
         DialogResult = true;
         Close();
     }

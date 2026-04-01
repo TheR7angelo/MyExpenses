@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Domain.Models.Accounts;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -20,8 +21,10 @@ using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using Console = System.Console;
+using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
@@ -79,14 +82,17 @@ public partial class AddEditAccountWindow
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IAccountPresentationValidationService _accountPresentationValidationService;
     private readonly ICategoryPresentationService _categoryPresentationService;
+    private readonly IDialogService _dialogService;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
         IAccountPresentationValidationService accountPresentationValidationService,
-        ICategoryPresentationService categoryPresentationService)
+        ICategoryPresentationService categoryPresentationService,
+        IDialogService dialogService)
     {
         _accountPresentationService = accountPresentationService;
         _accountPresentationValidationService = accountPresentationValidationService;
         _categoryPresentationService = categoryPresentationService;
+        _dialogService = dialogService;
 
         _ = FillCollection();
 
@@ -118,21 +124,26 @@ public partial class AddEditAccountWindow
 
         switch (messageBoxResult, editMode)
         {
-            case (Presentation.Enums.MessageBoxResult.Delete, _):
+            case (MessageBoxInputResult.Delete, _):
                 Console.WriteLine(@"Need todo delete");
                 break;
 
-            case (Presentation.Enums.MessageBoxResult.Valid, false):
+            case (MessageBoxInputResult.Valid, false):
+                // ici création
                 // var success = _accountPresentationValidationService.Validate(input);
                 break;
 
-            case (Presentation.Enums.MessageBoxResult.Valid, true):
-                Console.WriteLine(@"Need todo valid");
+            case (MessageBoxInputResult.Valid, true):
+                var response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
                 var available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
+                if (available) return;
+                _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this changement", MsgBoxImage.Error);
+
                 break;
 
-            case (Presentation.Enums.MessageBoxResult.None, _):
-            case (Presentation.Enums.MessageBoxResult.Cancel, _):
+            case (Presentation.Enums.MessageBoxInputResult.None, _):
+            case (Presentation.Enums.MessageBoxInputResult.Cancel, _):
             default:
                 return;
         }
@@ -203,13 +214,13 @@ public partial class AddEditAccountWindow
             var json = newCategoryType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
+            Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
                 CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
+            Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
                 CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorMessage, MsgBoxImage.Error);
         }
     }
@@ -235,13 +246,13 @@ public partial class AddEditAccountWindow
             var json = newCurrency.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
+            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
                 CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorTitle,
+            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorTitle,
                 CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorMessage, MsgBoxImage.Error);
         }
     }
@@ -254,9 +265,9 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
+        var response = Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
             string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Account.Name),
-            MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+            System.Windows.MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
@@ -265,7 +276,7 @@ public partial class AddEditAccountWindow
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountSuccessTitle,
+            Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountSuccessTitle,
                 AddEditAccountResources.MessageBoxDeleteAccountSuccessMessage, MsgBoxImage.Check);
 
             DeleteAccount = true;
@@ -275,7 +286,7 @@ public partial class AddEditAccountWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountErrorTitle,
+        Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountErrorTitle,
             AddEditAccountResources.MessageBoxDeleteAccountErrorMessage, MsgBoxImage.Error);
     }
 
@@ -327,7 +338,7 @@ public partial class AddEditAccountWindow
 
             if (string.IsNullOrEmpty(History.Description))
             {
-                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
+                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
                     MsgBoxImage.Warning);
                 return true;
             }
@@ -348,7 +359,7 @@ public partial class AddEditAccountWindow
             ? propertyError.ErrorMessage!
             : AddEditAccountResources.ResourceManager.GetString(messageErrorKey)!;
 
-        MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Warning);
+        Dialogs.MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Warning);
 
         return true;
     }
