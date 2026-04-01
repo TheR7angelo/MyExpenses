@@ -98,35 +98,60 @@ public partial class AddEditAccountWindow
     private async void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         var dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
-        var defaultText = AccountViewModel.AccountType?.Name ?? string.Empty;
-        var placeHolder = string.IsNullOrWhiteSpace(defaultText)
-            ? AccountTypeManagementResources.TextBoxAddNewAccountTypeName
-            : AccountTypeManagementResources.TextBoxEditAccountTypeName;
+
+        var editMode = AccountViewModel.AccountType != null;
+
+        var defaultText = string.Empty;
+        var placeHolder = AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
+        if (editMode)
+        {
+            defaultText = AccountViewModel.AccountType!.Name ?? string.Empty;
+            placeHolder = AccountTypeManagementResources.TextBoxEditAccountTypeName;
+        }
 
         var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
             out var messageBoxResult, out var input,
             AccountTypeDomain.MaxNameLength,
             placeHolder);
 
-        if (result is not true) return;
-        if (messageBoxResult is Presentation.Enums.MessageBoxResult.None or Presentation.Enums.MessageBoxResult.Cancel) return;
+        if (result is not true || string.IsNullOrWhiteSpace(input)) return;
 
-        AccountViewModel.AccountType ??= new AccountTypeViewModel();
-        AccountViewModel.AccountType.Name = input;
-
-        switch (messageBoxResult)
+        switch (messageBoxResult, editMode)
         {
-            case Presentation.Enums.MessageBoxResult.Delete:
-                throw new NotImplementedException();
+            case (Presentation.Enums.MessageBoxResult.Delete, _):
+                Console.WriteLine(@"Need todo delete");
                 break;
-            case Presentation.Enums.MessageBoxResult.Valid:
-                AccountViewModel.AccountType ??= new AccountTypeViewModel();
-                AccountViewModel.AccountType.Name = input;
-                var valid = await _accountPresentationValidationService.IsAccountTypeValid(AccountViewModel.AccountType);
+
+            case (Presentation.Enums.MessageBoxResult.Valid, false):
+                // var success = _accountPresentationValidationService.Validate(input);
                 break;
+
+            case (Presentation.Enums.MessageBoxResult.Valid, true):
+                Console.WriteLine(@"Need todo valid");
+                break;
+
+            case (Presentation.Enums.MessageBoxResult.None, _):
+            case (Presentation.Enums.MessageBoxResult.Cancel, _):
             default:
-                throw new ArgumentOutOfRangeException(nameof(messageBoxResult), messageBoxResult, null);
+                return;
         }
+
+        // AccountViewModel.AccountType ??= new AccountTypeViewModel();
+        // AccountViewModel.AccountType.Name = input;
+        //
+        // switch (messageBoxResult)
+        // {
+        //     case Presentation.Enums.MessageBoxResult.Delete:
+        //         throw new NotImplementedException();
+        //         break;
+        //     case Presentation.Enums.MessageBoxResult.Valid:
+        //         AccountViewModel.AccountType ??= new AccountTypeViewModel();
+        //         AccountViewModel.AccountType.Name = input;
+        //         var valid = await _accountPresentationValidationService.IsAccountTypeValid(AccountViewModel.AccountType);
+        //         break;
+        //     default:
+        //         throw new ArgumentOutOfRangeException(nameof(messageBoxResult), messageBoxResult, null);
+        // }
 
         // TODO injector DTO MODEL VIEW
         // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
