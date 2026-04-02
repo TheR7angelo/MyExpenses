@@ -303,60 +303,148 @@ def export_graph(schema):
 
 
 def export_html(schema):
-    html = ["""<html><head><style>
-        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
-        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #333; } h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-        th, td { border: 1px solid #eee; padding: 10px; text-align: left; }
-        th { background-color: #f8f9fa; }
-        .nullable { color: #d9534f; font-weight: bold; }
-        .notnull { color: #5cb85c; font-weight: bold; }
-        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
-    </style></head><body><h1>Audit Schéma Global</h1>"""]
+    html = ["""<html><head>
+        <meta charset="UTF-8">
+        <style>
+            :root {
+                --bg-color: #f4f7f6;
+                --card-bg: #ffffff;
+                --text-main: #333333;
+                --text-secondary: #7f8c8d;
+                --text-title: #2c3e50;
+                --border-color: #eeeeee;
+                --table-header: #f8f9fa;
+                --code-bg: #f0f0f0;
+                --shadow: rgba(0,0,0,0.1);
+            }
+
+            /* On définit les couleurs sombres dans une classe à part */
+            body.dark-mode {
+                --bg-color: #1a1a1a;
+                --card-bg: #2d2d2d;
+                --text-main: #e0e0e0;
+                --text-secondary: #b0b0b0;
+                --text-title: #ffffff;
+                --border-color: #404040;
+                --table-header: #383838;
+                --code-bg: #444444;
+                --shadow: rgba(0,0,0,0.3);
+            }
+
+            body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: background 0.3s, color 0.3s; }
+            .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); border: none; }
+            h1 { color: var(--text-title); text-align: center; margin-bottom: 30px; } 
+
+            .theme-toggle {
+                position: fixed; top: 20px; right: 20px;
+                padding: 10px 15px; border-radius: 20px;
+                border: 1px solid var(--border-color);
+                background: var(--card-bg); color: var(--text-main);
+                cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 2px 5px var(--shadow);
+            }
+
+            .group-header { cursor: pointer; list-style: none; outline: none; padding: 5px 0; }
+            .group-header::-webkit-details-marker { display: none; }
+            .title-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+            .group-header h2 { margin: 0; color: var(--text-title); }
+
+            .group-header h2::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.7em; transition: transform 0.2s; }
+            details[open] > .group-header h2::before { content: "▼"; }
+
+            details.source-block { margin-top: 15px; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; }
+            summary.source-title { font-weight: bold; cursor: pointer; list-style: none; outline: none; font-size: 1.1em; color: var(--text-title); }
+            summary.source-title::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.8em; }
+            details[open] > summary.source-title::before { content: "▼"; }
+
+            table { 
+                border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 15px; 
+                background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; 
+            }
+            th, td { border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 12px; text-align: left; }
+            th { background-color: var(--table-header); color: var(--text-secondary); font-size: 0.9em; text-transform: uppercase; border-bottom: 2px solid var(--border-color); }
+
+            th:last-child, td:last-child { border-right: none; }
+            tr:last-child td { border-bottom: none; }
+
+            .nullable { color: #d9534f; font-weight: bold; }
+            .notnull { color: #5cb85c; font-weight: bold; }
+            code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+            .count-badge { background: #34495e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; }
+        </style>
+        <script>
+            // Fonction pour mettre à jour le texte du bouton
+            function updateBtnText() {
+                const isDark = document.body.classList.contains('dark-mode');
+                document.getElementById('theme-btn').innerText = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+            }
+
+            // Bascule manuelle
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                updateBtnText();
+            }
+
+            // Détection automatique au chargement
+            window.onload = function() {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                }
+                updateBtnText();
+            };
+        </script>
+    </head><body>
+        <button id="theme-btn" class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+        <h1>Global Schema Audit</h1>"""]
 
     def create_block(title, collection, is_table=False):
-        html.append(f"<div class='card'><h2>{title} ({len(collection)})</h2>")
+        html.append(f"""
+            <details open class='card'>
+                <summary class='group-header'>
+                    <div class='title-wrapper'>
+                        <h2>{title}</h2>
+                        <span class='count-badge'>{len(collection)}</span>
+                    </div>
+                </summary>""")
+
         if not collection:
-            html.append("<p>Aucune donnée trouvée.</p></div>")
+            html.append("<p style='color: var(--text-secondary); padding-left: 20px;'>No data found.</p></details>")
             return
 
         for source in sorted(collection.keys()):
             cols = collection[source]
+            html.append(f"<details open class='source-block'><summary class='source-title'>{source}</summary>")
 
-            # On définit les headers dynamiquement
-            headers = ["Colonne", "Status", "Raison"]
+            headers = ["Column", "Status", "Reason"]
             if is_table:
                 headers.append("Default")
 
             header_html = "".join([f"<th>{h}</th>" for h in headers])
-            html.append(f"<h3>{source}</h3><table><tr>{header_html}</tr>")
+            html.append(f"<table><thead><tr>{header_html}</tr></thead><tbody>")
 
             for c, info in cols.items():
                 status_class = "nullable" if info.nullable else "notnull"
                 status_text = "NULLABLE" if info.nullable else "NOT_NULL"
 
-                # Ligne de base
-                row = f"<tr><td>{c}</td><td class='{status_class}'>{status_text}</td><td>{info.reason}</td>"
+                row = f"<tr><td><strong>{c}</strong></td><td class='{status_class}'>{status_text}</td><td>{info.reason}</td>"
 
-                # On ajoute la cellule Default seulement si c'est une table
                 if is_table:
-                    default_val = info.default if info.default is not None else ""
-                    row += f"<td><code>{default_val}</code></td>"
+                    if info.default is not None:
+                        row += f"<td><code>{info.default}</code></td>"
+                    else:
+                        row += "<td></td>"
 
                 row += "</tr>"
                 html.append(row)
 
-            html.append("</table>")
-        html.append("</div>")
+            html.append("</tbody></table></details>")
+        html.append("</details>")
 
-    # On passe True pour les tables et False (par défaut) pour les vues
-    create_block("Tables Sources", schema.tables, is_table=True)
-    create_block("Vues Analysées", schema.views, is_table=False)
+    create_block("Source Tables", schema.tables, is_table=True)
+    create_block("Analyzed Views", schema.views, is_table=False)
 
     html.append("</body></html>")
 
-    with open("audit_report.html", "w") as f:
+    with open("audit_report.html", "w", encoding="utf-8") as f:
         f.write("\n".join(html))
 
 
