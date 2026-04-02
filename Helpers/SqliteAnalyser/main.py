@@ -140,10 +140,13 @@ def export_html(schema):
         body.dark-mode { --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); }
         body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: 0.3s; }
         .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); }
-        .search-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 30px; }
-        .search-box { width: 350px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; }
-        .clear-btn { padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8em; font-weight: bold; }
-        .clear-btn:hover { background: #d9534f; color: white; border-color: #d9534f; }
+
+        /* Search Bar Styles */
+        .search-wrapper { position: relative; width: 400px; margin: 0 auto 30px auto; }
+        .search-box { width: 100%; padding: 12px 45px 12px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; box-sizing: border-box; }
+        .clear-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; padding: 0; line-height: 1; }
+        .clear-btn:hover { color: #d9534f; }
+
         summary { list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; }
         summary::-webkit-details-marker { display: none; }
         summary::before { content: "▶"; display: inline-block; width: 1.5em; color: var(--text-secondary); }
@@ -164,20 +167,33 @@ def export_html(schema):
     </style><script>
         function toggleTheme() { document.body.classList.toggle('dark-mode'); updateBtn(); }
         function updateBtn() { document.getElementById('tb').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙'; }
+
         function filterResults() {
-            let input = document.getElementById('search').value.toLowerCase();
+            const input = document.getElementById('search');
+            const clearBtn = document.getElementById('clear-btn');
+            const filter = input.value.toLowerCase();
+
+            clearBtn.style.display = input.value.length > 0 ? "block" : "none";
+
             document.querySelectorAll('.source-block').forEach(b => {
-                b.style.display = b.querySelector('summary').innerText.toLowerCase().includes(input) ? "" : "none";
+                b.style.display = b.querySelector('summary').innerText.toLowerCase().includes(filter) ? "" : "none";
             });
         }
-        function clearSearch() { document.getElementById('search').value = ''; filterResults(); }
+
+        function clearSearch() { 
+            const input = document.getElementById('search');
+            input.value = ''; 
+            filterResults();
+            input.focus();
+        }
+
         window.onload = () => { if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.classList.add('dark-mode'); updateBtn(); };
     </script></head><body>
         <button id="tb" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         <h1 style="text-align:center">Global Schema Audit</h1>
-        <div class="search-container">
+        <div class="search-wrapper">
             <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Search table or view...">
-            <button class="clear-btn" onclick="clearSearch()">Clear Filter</button>
+            <button id="clear-btn" class="clear-btn" onclick="clearSearch()">&times;</button>
         </div>"""]
 
     def create_block(title, collection, is_table=False):
