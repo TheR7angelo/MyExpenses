@@ -7,11 +7,12 @@ from sqlglot import exp
 
 
 class Column:
-    def __init__(self, nullable=True, reason="unknown", sources=None, default=None):
+    def __init__(self, nullable=True, reason="unknown", sources=None, default=None, dtype="UNKNOWN"):
         self.nullable = nullable
         self.reason = reason
         self.sources = sources or []
         self.default = default
+        self.dtype = dtype  # Nouveau champ pour le type
 
 
 class Schema:
@@ -41,7 +42,8 @@ def load_schema(db):
 
         for cid, name, typ, notnull, dflt, pk in cur.fetchall():
             nullable = not (notnull or pk)
-            cols[name] = Column(nullable, "table constraint", default=dflt)
+            # On récupère le type (typ) ici
+            cols[name] = Column(nullable, "table constraint", default=dflt, dtype=typ)
 
         schema.tables[table] = cols
 
@@ -59,39 +61,28 @@ def load_schema(db):
 
 def extract_sources(select):
     sources = {}
-
     for table in select.find_all(exp.Table):
         sources[table.alias_or_name] = table.name
-
     return sources
 
 
 def detect_left_join(select):
     nullable = set()
-
     for join in select.find_all(exp.Join):
-
         if join.args.get("kind") == "left":
             nullable.add(join.this.alias_or_name)
-
     return nullable
 
 
 def resolve_star(schema, sources):
     cols = {}
-
     for alias, table in sources.items():
-
         if table in schema.tables:
-
             for c, info in schema.tables[table].items():
                 cols[c] = info
-
         if table in schema.views:
-
             for c, info in schema.views[table].items():
                 cols[c] = info
-
     return cols
 
 
@@ -105,201 +96,124 @@ def infer_expr(expr, schema, sources, nullable_tables):
                 base = schema.tables[table].get(col)
                 if base:
                     is_nullable = True if table_alias in nullable_tables else base.nullable
-                    return Column(is_nullable, "source column", [f"{table}.{col}"])
+                    return Column(is_nullable, "source column", [f"{table}.{col}"], dtype=base.dtype)
             if table in schema.views:
                 base = schema.views[table].get(col)
                 if base:
                     return base
-        return Column(True, "unknown column")
+        return Column(True, "unknown column", dtype="UNKNOWN")
 
     if isinstance(expr, (exp.Sum, exp.Avg, exp.Min, exp.Max)):
-        return Column(True, "aggregate (nullable if empty)")
+        return Column(True, "aggregate", dtype="NUMERIC")
 
     if isinstance(expr, exp.Coalesce):
+        dtype = "UNKNOWN"
         for arg in expr.expressions:
             info = infer_expr(arg, schema, sources, nullable_tables)
+            dtype = info.dtype  # On prend le type du premier argument connu
             if not info.nullable:
-                return Column(False, "COALESCE (guaranteed by argument)")
-        if isinstance(expr.expressions[-1], exp.Literal):
-            return Column(False, "COALESCE (default value)")
-        return Column(True, "COALESCE (all inputs nullable)")
+                return Column(False, "COALESCE (guaranteed)", dtype=dtype)
+        return Column(True, "COALESCE", dtype=dtype)
 
     if isinstance(expr, exp.Case):
-        is_nullable = False
-        branches = [expr.args.get("default")] + [e.args.get("value") for e in expr.args.get("ifs", [])]
-        for branch in branches:
-            if branch:
-                info = infer_expr(branch, schema, sources, nullable_tables)
-                if info.nullable:
-                    is_nullable = True
-                    break
-        return Column(is_nullable, "CASE expression")
+        # On simplifie : on prend le type de la première branche
+        first_branch = expr.args.get("default") or expr.args.get("ifs")[0].args.get("value")
+        info_branch = infer_expr(first_branch, schema, sources, nullable_tables)
+        return Column(True, "CASE expression", dtype=info_branch.dtype)
 
     if isinstance(expr, (exp.Cast, exp.Round, exp.Paren)):
-        return infer_expr(expr.this, schema, sources, nullable_tables)
-
-    if isinstance(expr, exp.Binary):
-        left = infer_expr(expr.left, schema, sources, nullable_tables)
-        right = infer_expr(expr.right, schema, sources, nullable_tables)
-        return Column(left.nullable or right.nullable, "binary op", left.sources + right.sources)
+        info = infer_expr(expr.this, schema, sources, nullable_tables)
+        if isinstance(expr, exp.Cast):
+            info.dtype = str(expr.args.get("to")).upper()
+        return info
 
     if isinstance(expr, exp.Literal):
-        return Column(False, "literal constant")
+        dtype = "TEXT" if expr.is_string else "NUMBER"
+        return Column(False, "literal constant", dtype=dtype)
 
-    return Column(True, "complex expression")
+    return Column(True, "complex expression", dtype="UNKNOWN")
 
 
 def analyze_select(select, schema):
     sources = extract_sources(select)
     nullable_tables = detect_left_join(select)
-
     cols = {}
-
     for proj in select.expressions:
-
         if isinstance(proj, exp.Star):
             cols.update(resolve_star(schema, sources))
             continue
-
         alias = proj.alias_or_name
         expr = proj.this if isinstance(proj, exp.Alias) else proj
-
         info = infer_expr(expr, schema, sources, nullable_tables)
-
         cols[alias] = info
-
     return cols
 
 
 def analyze_query(node, schema):
     if isinstance(node, exp.Select):
         return analyze_select(node, schema)
-
     if isinstance(node, exp.Union):
-
         left = analyze_query(node.left, schema)
         right = analyze_query(node.right, schema)
-
         merged = {}
-
         for c in left:
-
             if c in right:
-                nullable = left[c].nullable or right[c].nullable
-
-                merged[c] = Column(nullable, "UNION")
-
+                merged[c] = Column(left[c].nullable or right[c].nullable, "UNION", dtype=left[c].dtype)
         return merged
-
     select = node.find(exp.Select)
-
-    if select:
-        return analyze_select(select, schema)
-
-    return {}
+    return analyze_select(select, schema) if select else {}
 
 
 def analyze_view(name, sql, schema):
     parsed = sqlglot.parse_one(sql)
-
     if isinstance(parsed, exp.With):
         parsed = parsed.this
-
     cols = analyze_query(parsed, schema)
-
     schema.views[name] = cols
-
     for t in parsed.find_all(exp.Table):
         schema.dependencies[name].add(t.name)
-
     return cols
 
 
 def resolve_views(schema):
     remaining = dict(schema.views_sql)
-
     while remaining:
-
         progress = False
-
         for name, sql in list(remaining.items()):
-
             try:
-
                 analyze_view(name, sql, schema)
-
                 del remaining[name]
-
                 progress = True
-
-            except Exception:
+            except:
                 pass
-
-        if not progress:
-            break
+        if not progress: break
 
 
 def report(schema):
     problems = []
-
     for view, cols in schema.views.items():
-
         print(f"\nVIEW {view}")
-
         for c, info in cols.items():
-
             status = "NULLABLE" if info.nullable else "NOT_NULL"
-
-            print(f"{view}.{c:<25} {status:<10} {info.reason}")
-
-            if info.nullable:
-                problems.append((view, c))
-
+            print(f"{view}.{c:<25} {status:<10} [{info.dtype}] {info.reason}")
+            if info.nullable: problems.append((view, c))
     return problems
 
 
 def export_json(schema):
     data = {"tables": {}, "views": {}}
-
     for table in sorted(schema.tables.keys()):
         data["tables"][table] = {
-            c: {
-                "nullable": info.nullable,
-                "reason": info.reason,
-                "default": info.default  # Ajout ici
-            } for c, info in schema.tables[table].items()
+            c: {"nullable": i.nullable, "type": i.dtype, "reason": i.reason, "default": i.default}
+            for c, i in schema.tables[table].items()
         }
-
-    # On trie juste les noms de vues
     for view in sorted(schema.views.keys()):
-        data["views"][view] = {c: {"nullable": info.nullable, "reason": info.reason}
-                               for c, info in schema.views[view].items()}
-
+        data["views"][view] = {
+            c: {"nullable": i.nullable, "type": i.dtype, "reason": i.reason}
+            for c, i in schema.views[view].items()
+        }
     with open("audit_report.json", "w") as f:
         json.dump(data, f, indent=2)
-
-
-def export_graph(schema):
-    with open("audit_report.dot", "w") as f:
-        f.write("digraph views {\n")
-        f.write('  rankdir=TB;\n')
-        f.write('  node [shape=box, style=filled];\n')
-
-        # 1. Tables triées
-        for t in sorted(schema.tables.keys()):
-            f.write(f'  "{t}" [fillcolor=lightgrey];\n')
-
-        # 2. Vues triées
-        for v in sorted(schema.views.keys()):
-            f.write(f'  "{v}" [fillcolor=lightblue];\n')
-
-        # 3. Liens triés (source -> cible)
-        for v in sorted(schema.dependencies.keys()):
-            for d in sorted(schema.dependencies[v]):
-                if d in schema.views_sql or d in schema.tables:
-                    f.write(f'  "{d}" -> "{v}";\n')
-
-        f.write("}\n")
 
 
 def export_html(schema):
@@ -307,84 +221,44 @@ def export_html(schema):
         <meta charset="UTF-8">
         <style>
             :root {
-                --bg-color: #f4f7f6;
-                --card-bg: #ffffff;
-                --text-main: #333333;
-                --text-secondary: #7f8c8d;
-                --text-title: #2c3e50;
-                --border-color: #eeeeee;
-                --table-header: #f8f9fa;
-                --code-bg: #f0f0f0;
-                --shadow: rgba(0,0,0,0.1);
+                --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333;
+                --text-secondary: #7f8c8d; --text-title: #2c3e50; --border-color: #eeeeee;
+                --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1);
             }
-
             body.dark-mode {
-                --bg-color: #1a1a1a;
-                --card-bg: #2d2d2d;
-                --text-main: #e0e0e0;
-                --text-secondary: #b0b0b0;
-                --text-title: #ffffff;
-                --border-color: #404040;
-                --table-header: #383838;
-                --code-bg: #444444;
-                --shadow: rgba(0,0,0,0.3);
+                --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0;
+                --text-secondary: #b0b0b0; --text-title: #ffffff; --border-color: #404040;
+                --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3);
             }
+            body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: 0.3s; }
+            .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); }
+            h1 { text-align: center; color: var(--text-title); }
 
-            body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: background 0.3s, color 0.3s; }
-            .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); border: none; }
-            h1 { color: var(--text-title); text-align: center; margin-bottom: 30px; } 
-
-            /* Recherche & Filtre */
             .search-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 30px; }
-            .search-box { 
-                width: 350px; padding: 12px 20px; border-radius: 25px; 
-                border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; 
-            }
-            .clear-btn { 
-                padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border-color); 
-                background: var(--card-bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8em; font-weight: bold;
-            }
-            .clear-btn:hover { background: #d9534f; color: white; border-color: #d9534f; }
+            .search-box { width: 350px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; }
+            .clear-btn { padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8em; font-weight: bold; }
+            .clear-btn:hover { background: #d9534f; color: white; }
 
-            .theme-toggle {
-                position: fixed; top: 20px; right: 20px;
-                padding: 10px 15px; border-radius: 20px;
-                border: 1px solid var(--border-color);
-                background: var(--card-bg); color: var(--text-main);
-                cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 2px 5px var(--shadow);
-            }
-
-            /* --- FIX DOUBLE FLECHE --- */
             summary { list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; }
             summary::-webkit-details-marker { display: none; }
-            summary * { display: inline; } /* Empêche les h2 de forcer un bloc */
-
-            .group-header { padding: 5px 0; }
-            .title-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; pointer-events: none; }
-            .group-header h2 { margin: 0; color: var(--text-title); font-size: 1.5em; }
-
-            /* Flèches personnalisées */
-            summary::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.8em; transition: transform 0.2s; color: var(--text-secondary); }
+            summary * { display: inline; }
+            summary::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.8em; color: var(--text-secondary); transition: 0.2s; }
             details[open] > summary::before { content: "▼"; }
 
-            /* Ajustement pour les blocs sources */
-            details.source-block { margin-top: 15px; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; }
+            .source-block { margin-top: 15px; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; }
             .source-title { font-weight: bold; font-size: 1.1em; color: var(--text-title); }
 
-            table { 
-                border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 15px; 
-                background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; 
-            }
-            th, td { border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 12px; text-align: left; }
-            th { background-color: var(--table-header); color: var(--text-secondary); font-size: 0.9em; text-transform: uppercase; border-bottom: 2px solid var(--border-color); }
-
+            table { border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 10px; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+            th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+            th { background: var(--table-header); color: var(--text-secondary); font-size: 0.8em; text-transform: uppercase; }
             th:last-child, td:last-child { border-right: none; }
-            tr:last-child td { border-bottom: none; }
 
             .nullable { color: #d9534f; font-weight: bold; }
             .notnull { color: #5cb85c; font-weight: bold; }
-            code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-            .count-badge { background: #34495e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.6em; margin-left: 10px; vertical-align: middle; }
+            .type-label { font-family: monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: var(--text-secondary); }
+            .count-badge { background: #34495e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.6em; margin-left: 10px; }
+
+            .theme-toggle { position: fixed; top: 20px; right: 20px; padding: 10px 15px; border-radius: 20px; background: var(--card-bg); color: var(--text-main); cursor: pointer; border: 1px solid var(--border-color); font-weight: bold; z-index: 1000; }
         </style>
         <script>
             function updateBtnText() {
@@ -402,10 +276,9 @@ def export_html(schema):
                     block.style.display = name.includes(input) ? "" : "none";
                 });
             }
-            function clearSearch() {
-                document.getElementById('search').value = '';
-                filterResults();
-            }
+            function clearSearch() { document.getElementById('search').value = ''; filterResults(); }
+
+            // Détection auto et init
             window.onload = function() {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.body.classList.add('dark-mode');
@@ -422,13 +295,9 @@ def export_html(schema):
         </div>"""]
 
     def create_block(title, collection, is_table=False):
-        html.append(f"""
-            <details open class='card'>
-                <summary class='group-header'>
-                    <div class='title-wrapper'>
-                        <h2>{title} <span class='count-badge'>{len(collection)}</span></h2>
-                    </div>
-                </summary>""")
+        # "open" ajouté ici pour que les sections Tables/Vues soient dépliées
+        html.append(
+            f"<details open class='card'><summary><h2>{title} <span class='count-badge'>{len(collection)}</span></h2></summary>")
 
         if not collection:
             html.append("<p style='color: var(--text-secondary); padding-left: 20px;'>No data found.</p></details>")
@@ -436,36 +305,25 @@ def export_html(schema):
 
         for source in sorted(collection.keys()):
             cols = collection[source]
-            html.append(f"<details open class='source-block'><summary class='source-title'>{source}</summary>")
+            # "open" ajouté ici aussi pour chaque table/vue individuelle
+            html.append(f"<details open class='source-block'><summary class='source-title'>{source}</summary><table>")
+            html.append("<thead><tr><th>Column</th><th>Type</th><th>Status</th><th>Reason</th>")
+            if is_table: html.append("<th>Default</th>")
+            html.append("</tr></thead><tbody>")
 
-            headers = ["Column", "Status", "Reason"]
-            if is_table:
-                headers.append("Default")
-
-            header_html = "".join([f"<th>{h}</th>" for h in headers])
-            html.append(f"<table><thead><tr>{header_html}</tr></thead><tbody>")
-
-            for c, info in cols.items():
-                status_class = "nullable" if info.nullable else "notnull"
-                status_text = "NULLABLE" if info.nullable else "NOT_NULL"
-
-                row = f"<tr><td><strong>{c}</strong></td><td class='{status_class}'>{status_text}</td><td>{info.reason}</td>"
-
+            for c, i in cols.items():
+                status_class = "nullable" if i.nullable else "notnull"
+                status_text = "NULLABLE" if i.nullable else "NOT_NULL"
+                row = f"<tr><td><strong>{c}</strong></td><td><span class='type-label'>{i.dtype}</span></td>"
+                row += f"<td class='{status_class}'>{status_text}</td><td>{i.reason}</td>"
                 if is_table:
-                    if info.default is not None:
-                        row += f"<td><code>{info.default}</code></td>"
-                    else:
-                        row += "<td></td>"
-
-                row += "</tr>"
-                html.append(row)
-
+                    row += f"<td><code>{i.default if i.default is not None else ''}</code></td>"
+                html.append(row + "</tr>")
             html.append("</tbody></table></details>")
         html.append("</details>")
 
     create_block("Source Tables", schema.tables, is_table=True)
     create_block("Analyzed Views", schema.views, is_table=False)
-
     html.append("</body></html>")
 
     with open("audit_report.html", "w", encoding="utf-8") as f:
@@ -473,36 +331,18 @@ def export_html(schema):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Analyseur de schéma SQLite : audit de nullabilité et génération de rapports.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-
-    parser.add_argument("db", help="Chemin vers le fichier database.db/.sqlite")
-    parser.add_argument("--json", action="store_true", help="Génère audit_report.json")
-    parser.add_argument("--html", action="store_true", help="Génère audit_report.html")
-    parser.add_argument("--graph", action="store_true", help="Génère audit_report.dot (Graphviz)")
-    parser.add_argument("--fail-on-nullable", action="store_true", help="Retourne code 1 si une colonne est NULLABLE")
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("db")
+    parser.add_argument("--json", action="store_true")
+    parser.add_argument("--html", action="store_true")
     args = parser.parse_args()
 
     schema = load_schema(args.db)
-
     resolve_views(schema)
+    report(schema)
 
-    problems = report(schema)
-
-    if args.json:
-        export_json(schema)
-
-    if args.html:
-        export_html(schema)
-
-    if args.graph:
-        export_graph(schema)
-
-    if args.fail_on_nullable and problems:
-        exit(1)
+    if args.json: export_json(schema)
+    if args.html: export_html(schema)
 
 
 if __name__ == "__main__":
