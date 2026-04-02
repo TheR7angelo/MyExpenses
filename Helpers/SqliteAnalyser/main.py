@@ -71,65 +71,6 @@ def load_schema(db):
     return schema
 
 
-def extract_sources(select):
-    sources = {}
-    for table in select.find_all(exp.Table): sources[table.alias_or_name] = table.name
-    return sources
-
-
-def detect_left_join(select):
-    nullable = set()
-    for join in select.find_all(exp.Join):
-        if join.args.get("kind") == "left": nullable.add(join.this.alias_or_name)
-    return nullable
-
-
-def resolve_star(schema, sources):
-    cols = {}
-    for alias, table in sources.items():
-        data = schema.tables.get(table) or schema.views.get(table)
-        if data: cols.update(data)
-    return cols
-
-
-def infer_expr(expr, schema, sources, nullable_tables):
-    if isinstance(expr, exp.Column):
-        table_alias, col = expr.table, expr.name
-        if table_alias in sources:
-            table = sources[table_alias]
-            base_cols = schema.tables.get(table) or schema.views.get(table)
-            if base_cols and col in base_cols:
-                base = base_cols[col]
-                is_nullable = True if table_alias in nullable_tables else base.nullable
-                return Column(is_nullable, "source column", dtype=base.dtype)
-    return Column(True, "expression", dtype="UNKNOWN")
-
-
-def analyze_select(select, schema):
-    sources = extract_sources(select)
-    nullable_tables = detect_left_join(select)
-    cols = {}
-    for proj in select.expressions:
-        if isinstance(proj, exp.Star): cols.update(resolve_star(schema, sources)); continue
-        alias = proj.alias_or_name
-        expr = proj.this if isinstance(proj, exp.Alias) else proj
-        cols[alias] = infer_expr(expr, schema, sources, nullable_tables)
-    return cols, sources
-
-
-def analyze_query(node, schema):
-    if isinstance(node, exp.Select): return analyze_select(node, schema)
-    if isinstance(node, exp.Union):
-        l_cols, l_src = analyze_query(node.left, schema)
-        r_cols, r_src = analyze_query(node.right, schema)
-        combined_src = {**l_src, **r_src}
-        res_cols = {c: Column(l_cols[c].nullable or r_cols[c].nullable, "UNION", dtype=l_cols[c].dtype)
-                    for c in l_cols if c in r_cols}
-        return res_cols, combined_src
-    select = node.find(exp.Select)
-    return analyze_select(select, schema) if select else ({}, {})
-
-
 def resolve_views(schema):
     remaining = dict(schema.views_sql)
     for _ in range(10):
@@ -137,7 +78,13 @@ def resolve_views(schema):
         for name, sql in list(remaining.items()):
             try:
                 parsed = sqlglot.parse_one(sql)
-                cols, sources = analyze_query(parsed, schema)
+                select = parsed.find(exp.Select)
+                if not select: continue
+                sources = {t.alias_or_name: t.name for t in select.find_all(exp.Table)}
+                cols = {}
+                for proj in select.expressions:
+                    alias = proj.alias_or_name
+                    cols[alias] = Column(True, "view projection")
                 schema.views[name] = cols
                 for s_name in sources.values():
                     schema.dependencies[name].add(s_name)
@@ -149,55 +96,64 @@ def resolve_views(schema):
 
 def export_html(schema):
     html = ["""<html><head><meta charset="UTF-8"><style>
-        :root { --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; }
+        :root { --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; --danger: #d9534f; --success: #5cb85c; }
         body.dark-mode { --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); --type-bg: #3d3d3d; }
-        body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: 0.3s; scroll-behavior: smooth; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); }
-        .search-wrapper { position: relative; width: 400px; margin: 0 auto 30px auto; }
-        .search-box { width: 100%; padding: 12px 45px 12px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; box-sizing: border-box; }
-        .clear-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; }
-        summary { list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; font-weight: bold; }
-        summary::before { content: "▶"; display: inline-block; width: 1.5em; color: var(--text-secondary); transition: 0.2s; }
-        details[open] > summary::before { content: "▼"; }
-        .source-block { margin-top: 15px; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; scroll-margin-top: 80px; transition: border-color 0.5s; }
+        body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; padding-bottom: 120px; transition: 0.3s; scroll-behavior: smooth; }
 
-        /* Highlight animation when clicking an anchor */
+        /* Dark Mode Toggle - Top Right */
+        .theme-toggle { position: fixed; top: 20px; right: 20px; padding: 10px 15px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; z-index: 2000; box-shadow: 0 2px 5px var(--shadow); }
+
+        /* Bottom Navigation Bar Centered */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); padding: 15px 30px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 40px; z-index: 1001; box-shadow: 0 -2px 10px var(--shadow); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--accent); font-weight: bold; font-size: 0.9em; }
+
+        /* Search centered in bottom nav */
+        .search-wrapper { position: relative; width: 350px; }
+        .search-box { width: 100%; padding: 10px 40px 10px 20px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-main); outline: none; }
+        .clear-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; }
+
+        .counter-badge { background: var(--accent); color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.6em; vertical-align: middle; margin-left: 10px; }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px var(--shadow); scroll-margin-top: 20px; }
+        .source-block { margin-top: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; scroll-margin-top: 20px; transition: border-color 0.4s; }
         .source-block:target { border-color: var(--accent); border-width: 2px; animation: flash 1.5s ease-out; }
-        @keyframes flash { 0% { background-color: rgba(52, 152, 219, 0.2); } 100% { background-color: transparent; } }
+        @keyframes flash { 0% { background-color: rgba(52, 152, 219, 0.15); } 100% { background-color: transparent; } }
 
         table { border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 10px; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
-        th { background: var(--table-header); color: var(--text-secondary); font-size: 0.8em; text-transform: uppercase; }
-        .nullable { color: #d9534f; font-weight: bold; }
-        .notnull { color: #5cb85c; font-weight: bold; }
-        .badge { padding: 3px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold; margin-left: 5px; display: inline-block; text-decoration: none; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+        th { background: var(--table-header); color: var(--text-secondary); font-size: 0.75em; text-transform: uppercase; }
+
+        .nullable { color: var(--danger); font-weight: bold; font-size: 0.8em; }
+        .notnull { color: var(--success); font-weight: bold; font-size: 0.8em; }
+
+        .badge { padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; margin-left: 5px; display: inline-block; text-decoration: none; }
         .badge-pk { background: #f1c40f; color: #000; }
         .badge-fk { background: #3498db; color: #fff; }
-        .dep-tag { display: inline-block; padding: 2px 10px; background: var(--type-bg); border-radius: 15px; font-size: 0.75em; margin: 2px; color: var(--text-secondary); text-decoration: none; border: 1px solid transparent; transition: 0.2s; }
+
+        .dep-tag { display: inline-block; padding: 3px 12px; background: var(--type-bg); border-radius: 15px; font-size: 0.75em; margin: 2px; color: var(--text-secondary); text-decoration: none; border: 1px solid transparent; transition: 0.2s; }
         .dep-tag:hover { background: var(--accent); color: white; }
-        .default-val { background: #e8f4fd; color: #2980b9; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85em; border: 1px solid #d1e9f9; }
-        body.dark-mode .default-val { background: #1b3a4b; color: #a5d8ff; border-color: #244b5f; }
-        .type-label { font-family: monospace; background: var(--type-bg); padding: 2px 5px; border-radius: 4px; color: var(--text-secondary); }
-        .theme-toggle { position: fixed; top: 20px; right: 20px; padding: 10px 15px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; z-index: 1000; }
+
         pre { background: var(--code-bg); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; border: 1px solid var(--border-color); color: var(--text-main); }
+        summary { list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; font-weight: bold; font-size: 1.2em; }
+        summary::before { content: "▶"; display: inline-block; width: 1.5em; color: var(--text-secondary); font-size: 0.8em; }
+        details[open] > summary::before { content: "▼"; }
+        .type-label { font-family: monospace; background: var(--type-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-secondary); font-size: 0.85em; }
     </style><script>
-        function updateBtn() {
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('tb').innerText = isDark ? '☀️' : '🌙';
-        }
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
-            updateBtn();
+            document.getElementById('tb').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         }
         function filterResults() {
             const val = document.getElementById('search').value.toLowerCase();
             document.getElementById('clear-btn').style.display = val ? "block" : "none";
             document.querySelectorAll('.source-block').forEach(b => {
-                const name = b.getAttribute('id').toLowerCase();
-                b.style.display = name.includes(val) ? "" : "none";
+                b.style.display = b.getAttribute('id').toLowerCase().includes(val) ? "" : "none";
             });
         }
-
+        function clearFilter() {
+            document.getElementById('search').value = '';
+            filterResults();
+        }
         window.addEventListener('hashchange', function() {
             const id = location.hash.substring(1);
             const target = document.getElementById(id);
@@ -209,35 +165,43 @@ def export_html(schema):
                 }
             }
         });
-
         window.onload = () => {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.body.classList.add('dark-mode');
-            }
-            updateBtn();
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.classList.add('dark-mode');
+            document.getElementById('tb').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         };
     </script></head><body>
         <button id="tb" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-        <h1 style="text-align:center">Global Schema Audit</h1>
-        <div class="search-wrapper">
-            <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Search tables, views or triggers...">
-            <button id="clear-btn" class="clear-btn" onclick="document.getElementById('search').value='';filterResults()">&times;</button>
+
+        <h1 style="text-align:center; margin-top: 40px; margin-bottom: 40px;">Database Schema Audit</h1>
+
+        <div class="bottom-nav">
+            <div class="nav-links">
+                <a href="#sec-tables">📂 Tables</a>
+                <a href="#sec-views">📊 Views</a>
+                <a href="#sec-triggers">⚡ Triggers</a>
+            </div>
+
+            <div class="search-wrapper">
+                <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Quick filter...">
+                <button id="clear-btn" class="clear-btn" onclick="clearFilter()">&times;</button>
+            </div>
         </div>"""]
 
-    def create_block(title, collection, is_table=False):
-        html.append(f"<details open class='card'><summary><h2>{title} ({len(collection)})</h2></summary>")
+    def create_block(title, collection, section_id, is_table=False):
+        html.append(
+            f"<details open class='card' id='{section_id}'><summary>{title} <span class='counter-badge'>{len(collection)}</span></summary>")
         for name in sorted(collection.keys()):
             cols = collection[name]
             html.append(f"<div class='source-block' id='{name}'><h3>{name}</h3>")
 
             if name in schema.dependencies or name in schema.usage_map:
-                html.append("<div style='margin-bottom:10px;'>")
+                html.append("<div style='margin-bottom:12px;'>")
                 if schema.dependencies[name]:
-                    html.append("<small style='color:var(--text-secondary)'>Uses: </small>")
+                    html.append("<small style='color:var(--text-secondary); font-weight:bold;'>Uses: </small>")
                     for d in sorted(schema.dependencies[name]):
                         html.append(f"<a href='#{d}' class='dep-tag'>{d}</a>")
                 if schema.usage_map[name]:
-                    html.append("<br><small style='color:var(--text-secondary)'>Used by: </small>")
+                    html.append("<br><small style='color:var(--text-secondary); font-weight:bold;'>Used by: </small>")
                     for u in sorted(schema.usage_map[name]):
                         html.append(f"<a href='#{u}' class='dep-tag'>{u}</a>")
                 html.append("</div>")
@@ -246,26 +210,27 @@ def export_html(schema):
             if is_table: html.append("<th>Relationship</th><th>Default Value</th>")
             html.append("</tr></thead><tbody>")
             for c, i in cols.items():
-                st = "nullable" if i.nullable else "notnull"
+                st_class = "nullable" if i.nullable else "notnull"
+                st_label = "NULLABLE" if i.nullable else "NOT NULL"
                 row = f"<tr><td><strong>{c}</strong></td><td><span class='type-label'>{i.dtype}</span></td>"
-                row += f"<td class='{st}'>{'NULLABLE' if i.nullable else 'NOT_NULL'}</td>"
+                row += f"<td><span class='{st_class}'>{st_label}</span></td>"
                 if is_table:
-                    pk_b = "<span class='badge badge-pk'>PRIMARY KEY</span>" if i.pk else ""
-                    fk_b = f"<a href='#{i.fk.split('(')[0]}' class='badge badge-fk'>FOREIGN KEY → {i.fk}</a>" if i.fk else ""
-                    d_val = f"<span class='default-val'>{i.default or ''}</span>" if i.default is not None else ""
-                    row += f"<td>{pk_b}{fk_b}</td><td>{d_val}</td>"
+                    pk_b = "<span class='badge badge-pk'>PK</span>" if i.pk else ""
+                    fk_b = f"<a href='#{i.fk.split('(')[0]}' class='badge badge-fk'>FK → {i.fk}</a>" if i.fk else ""
+                    row += f"<td>{pk_b}{fk_b}</td><td><span class='default-val' style='font-family:monospace; font-size:0.85em;'>{i.default or ''}</span></td>"
                 html.append(row + "</tr>")
             html.append("</tbody></table></div>")
         html.append("</details>")
 
-    create_block("Source Tables", schema.tables, is_table=True)
-    create_block("Analyzed Views", schema.views, is_table=False)
+    create_block("Source Tables", schema.tables, "sec-tables", is_table=True)
+    create_block("Analyzed Views", schema.views, "sec-views", is_table=False)
 
     if schema.triggers:
-        html.append(f"<details open class='card'><summary><h2>Triggers ({len(schema.triggers)})</h2></summary>")
+        html.append(
+            f"<details open class='card' id='sec-triggers'><summary>Triggers <span class='counter-badge'>{len(schema.triggers)}</span></summary>")
         for t in sorted(schema.triggers, key=lambda x: x['name']):
             html.append(
-                f"<div class='source-block' id='{t['name']}'><h3>Trigger: {t['name']} <small>(on {t['table']})</small></h3>")
+                f"<div class='source-block' id='{t['name']}'><h3>⚡ {t['name']} <small style='color:var(--text-secondary);'>(on {t['table']})</small></h3>")
             html.append(f"<pre><code>{t['sql']}</code></pre></div>")
         html.append("</details>")
 
@@ -285,4 +250,4 @@ if __name__ == "__main__":
 
     if args.html:
         export_html(schema_data)
-        print("Audit report successfully generated: audit_report.html")
+        print("Audit report generated: audit_report.html")
