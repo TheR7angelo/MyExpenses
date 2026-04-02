@@ -122,6 +122,8 @@ public partial class AddEditAccountWindow
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
 
+        Presentation.Enums.MessageBoxResult response;
+        bool available;
         switch (messageBoxResult, editMode)
         {
             case (MessageBoxInputResult.Delete, _):
@@ -129,15 +131,28 @@ public partial class AddEditAccountWindow
                 break;
 
             case (MessageBoxInputResult.Valid, false):
-                // ici création
-                // var success = _accountPresentationValidationService.Validate(input);
+                response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to create '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+                available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input);
+                if (available)
+                {
+                    var accountType = new AccountTypeViewModel {Name = input};
+                    AccountTypes.Add(accountType);
+                    AccountViewModel.AccountType = accountType;
+                    break;
+                }
+                _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this creation", MsgBoxImage.Error);
                 break;
 
             case (MessageBoxInputResult.Valid, true):
-                var response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
                 if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
-                var available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
-                if (available) return;
+                available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
+                if (available)
+                {
+                    AccountViewModel.AccountType.Name = input;
+                    break;
+                }
                 _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this changement", MsgBoxImage.Error);
 
                 break;
