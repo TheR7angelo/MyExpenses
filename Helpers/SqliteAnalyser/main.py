@@ -111,37 +111,53 @@ def resolve_views(schema):
 def generate_mermaid(schema):
     lines = ["erDiagram", "    direction LR"]
 
-    def clean_type(t):
-        if not t:
-            return "TEXT"
-        return t.split("(")[0].upper()
+    def clean(text):
+        if not text: return "TEXT"
+        # Nettoyage pour éviter les erreurs de syntaxe Mermaid
+        return re.sub(r'[^a-zA-Z0-9]', '_', text.split('(')[0]).upper()
 
-    # Tables
+    # 1. Définition des Tables
     for table, cols in schema.tables.items():
         lines.append(f'    "{table}" {{')
         for name, col in cols.items():
-            dtype = clean_type(col.dtype)
-            pk = "PK" if col.pk else ""
-            lines.append(f"        {dtype} {name} {pk}")
+            dtype = clean(col.dtype)
+            badges = []
+            if col.pk: badges.append("PK")
+            if col.fk: badges.append("FK")
+            badge_str = " ".join(badges)
+            lines.append(f"        {dtype} {name} {badge_str}")
         lines.append("    }")
 
-    # Views (optionnel mais propre)
+    # 2. Définition des Vues
     for view_name, cols in schema.views.items():
         lines.append(f'    "{view_name}" {{')
         for name in cols.keys():
-            lines.append(f"        TEXT {name}")
+            lines.append(f"        VIEW_COL {name}")
         lines.append("    }")
 
-    # Relations FK (ONLY valid ER syntax)
-    seen = set()
+    # 3. Génération des Relations avec noms de colonnes
+    seen_rels = set()
     for table, cols in schema.tables.items():
-        for col in cols.values():
-            if col.fk:
-                ref_table = col.fk.split("(")[0]
-                rel = f'"{ref_table}" ||--o{{ "{table}" : FK'
-                if rel not in seen:
-                    lines.append(f"    {rel}")
-                    seen.add(rel)
+        for col_name, col_info in cols.items():
+            if col_info.fk:
+                # col_info.fk est au format "ref_table(ref_col)"
+                try:
+                    ref_table = col_info.fk.split("(")[0]
+                    ref_col = col_info.fk.split("(")[1].replace(")", "")
+
+                    # On crée un label explicite : "col_source -> col_dest"
+                    label = f"{col_name}_to_{ref_col}"
+
+                    # Relation Mermaid : "TableSource" ||--o{ "TableDest" : "label"
+                    # Note : Dans un ERD, la flèche part souvent de la PK vers la FK
+                    rel = f'"{ref_table}" ||--o{{ "{table}" : "{label}"'
+
+                    if rel not in seen_rels:
+                        lines.append(f"    {rel}")
+                        seen_rels.add(rel)
+                except:
+                    # Sécurité si le format du FK est mal formé
+                    pass
 
     return "\n".join(lines)
 
