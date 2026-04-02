@@ -8,1266 +8,1377 @@ public class Migration_1_1_0_To_1_2_0 : IDatabaseMigration
     public bool ForeignKeyOff => true;
 
     // language=sqlite
-    public string Command => @"DROP TRIGGER after_update_on_t_recursive_expense;
-                             DROP TRIGGER after_update_on_t_bank_transfer;
-
-                             DROP VIEW v_total_by_account;
-                             DROP VIEW v_detail_total_category;
-                             DROP VIEW analysis_v_account_monthly_cumulative_sum;
-                             DROP VIEW analysis_v_account_category_monthly_sum;
-                             DROP VIEW analysis_v_account_category_monthly_sum_positive_negative;
-                             DROP VIEW analysis_v_account_mode_payment_category_monthly_sum;
-                             DROP VIEW analysis_v_budget_monthly;
-                             DROP VIEW analysis_v_budget_period_annual;
-                             DROP VIEW v_bank_transfer_summary;
-                             DROP VIEW export_v_history;
-                             DROP VIEW v_history;
-                             DROP VIEW analysis_v_budget_monthly_global;
-                             DROP VIEW analysis_v_budget_period_annual_global;
-                             DROP VIEW analysis_v_budget_total_annual_global;
-                             DROP VIEW analysis_v_budget_total_annual;
-                             DROP VIEW v_recursive_expense;
-                             DROP VIEW export_v_account;
-                             DROP VIEW export_v_bank_transfer;
-                             DROP VIEW export_v_recursive_expense;
-                             DROP VIEW export_v_currency;
-                             DROP VIEW export_v_account_type;
-
-                             CREATE TABLE t_currency_dg_tmp
-                             (
-                                 id         INTEGER
-                                     CONSTRAINT t_account_pk
-                                         PRIMARY KEY AUTOINCREMENT ,
-                                 symbol     TEXT(55)                           NOT NULL,
-                                 date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
-                             );
-
-                             INSERT INTO t_currency_dg_tmp(id, symbol, date_added)
-                             SELECT id, COALESCE(symbol, ''), COALESCE(date_added, DATETIME('now', 'localtime'))
-                             FROM t_currency;
-
-                             DROP TABLE t_currency;
-
-                             ALTER TABLE t_currency_dg_tmp
-                                 RENAME TO t_currency;
-
-                             CREATE TABLE t_account_type_dg_tmp
-                             (
-                                 id         INTEGER
-                                     CONSTRAINT t_account_type_pk
-                                         PRIMARY KEY AUTOINCREMENT ,
-                                 name       TEXT(100)                          NOT NULL,
-                                 date_added DATETIME default CURRENT_TIMESTAMP NOT NULL
-                             );
-
-                             INSERT INTO t_account_type_dg_tmp(id, name, date_added)
-                             SELECT id, COALESCE(name, ''), COALESCE(date_added, DATETIME('now', 'localtime'))
-                             FROM t_account_type;
-
-                             DROP TABLE t_account_type;
-
-                             ALTER TABLE t_account_type_dg_tmp
-                                 RENAME TO t_account_type;
-
-                             CREATE TABLE t_account_dg_tmp
-                             (
-                                 id              INTEGER
-                                     CONSTRAINT t_account_pk
-                                         PRIMARY KEY AUTOINCREMENT,
-                                 name            TEXT(55)                           NOT NULL,
-                                 account_type_fk INTEGER                            NOT NULL
-                                     CONSTRAINT t_account_t_account_type_id_fk
-                                         REFERENCES t_account_type
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 currency_fk     INTEGER                            NOT NULL
-                                     CONSTRAINT t_account_t_currency_id_fk
-                                         REFERENCES t_currency
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 active          BOOLEAN  DEFAULT TRUE              NOT NULL,
-                                 date_added      DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
-                             );
-
-                             INSERT INTO t_account_dg_tmp(id, name, account_type_fk, currency_fk, active, date_added)
-                             SELECT id, COALESCE(name, ''), COALESCE(account_type_fk, 1), COALESCE(currency_fk, 1),
-                                    COALESCE(active, 1), COALESCE(date_added, DATETIME('now', 'localtime'))
-                             FROM t_account;
-
-                             DROP TABLE t_account;
-
-                             ALTER TABLE t_account_dg_tmp
-                                 RENAME TO t_account;
-
-                             CREATE TABLE t_history_dg_tmp
-                             (
-                                 id                   INTEGER
-                                     CONSTRAINT t_history_pk
-                                         PRIMARY KEY AUTOINCREMENT ,
-                                 account_fk           INTEGER                            NOT NULL
-                                     CONSTRAINT t_history_t_account_id_fk
-                                         REFERENCES t_account
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 description          TEXT(255)                          NOT NULL,
-                                 category_type_fk     INTEGER                            NOT NULL
-                                     CONSTRAINT t_history_t_category_type_id_fk
-                                         REFERENCES t_category_type
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 mode_payment_fk      INTEGER                            NOT NULL
-                                     CONSTRAINT t_history_t_mode_payment_id_fk
-                                         REFERENCES t_mode_payment
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 value                REAL                               NOT NULL,
-                                 date                 DATETIME                           NOT NULL,
-                                 place_fk             INTEGER                            NOT NULL
-                                     CONSTRAINT t_history_t_place_id_fk
-                                         REFERENCES t_place
-                                                    ON DELETE CASCADE ON UPDATE CASCADE,
-                                 is_pointed           BOOLEAN  default FALSE             NOT NULL,
-                                 bank_transfer_fk     INTEGER
-                                     CONSTRAINT t_history_t_bank_transfer_id_fk
-                                         REFERENCES t_bank_transfer,
-                                 recursive_expense_fk INTEGER
-                                     CONSTRAINT t_history_t_recursive_expense_id_fk
-                                         REFERENCES t_recursive_expense
-                                                 ON DELETE CASCADE ON UPDATE CASCADE,
-                                 date_added           DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                                 date_pointed         DATETIME
-                             );
-
-                             INSERT INTO t_history_dg_tmp(id, account_fk, description, category_type_fk, mode_payment_fk, value, date, place_fk,
-                                                          is_pointed, bank_transfer_fk, recursive_expense_fk, date_added, date_pointed)
-                             SELECT id,
-                                    COALESCE(account_fk, 1),
-                                    COALESCE(description, ''),
-                                    COALESCE(category_type_fk, 1),
-                                    COALESCE(mode_payment_fk, 1),
-                                    COALESCE(value, 0),
-                                    COALESCE(date, DATETIME('now', 'localtime')),
-                                    COALESCE(place_fk, 1),
-                                    is_pointed,
-                                    bank_transfer_fk,
-                                    recursive_expense_fk,
-                                    date_added,
-                                    date_pointed
-                             FROM t_history;
-
-                             DROP TABLE t_history;
-
-                             ALTER TABLE t_history_dg_tmp
-                                 RENAME TO t_history;
-
-                             CREATE TRIGGER after_insert_on_t_history
-                                 AFTER INSERT
-                                 ON t_history
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_history
-                                 SET date         = CASE
-                                                        WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                                                        ELSE NEW.date
-                                     END,
-                                     date_added   = CASE
-                                                        WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                        ELSE NEW.date_added
-                                         END,
-                                     date_pointed = CASE
-                                                        WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
-                                                            THEN datetime(NEW.date / 1000, 'unixepoch')
-                                                        WHEN NEW.is_pointed = 0 THEN NULL
-                                                        ELSE date_pointed
-                                         END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_update_on_t_history
-                                 AFTER UPDATE
-                                 ON t_history
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_history
-                                 SET date         = CASE
-                                                        WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                                                        ELSE NEW.date
-                                     END,
-                                     date_added   = CASE
-                                                        WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                        ELSE NEW.date_added
-                                         END,
-                                     date_pointed = CASE
-                                                        WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
-                                                            THEN datetime(NEW.date / 1000, 'unixepoch')
-                                                        WHEN NEW.is_pointed = 0 THEN NULL
-                                                        ELSE date_pointed
-                                         END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_update_on_t_recursive_expense
-                                 AFTER UPDATE
-                                 ON t_recursive_expense
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_recursive_expense
-                                 SET start_date    = CASE
-                                                         WHEN typeof(NEW.start_date) = 'integer' THEN date(NEW.start_date / 1000, 'unixepoch')
-                                                         ELSE NEW.start_date
-                                     END,
-                                     next_due_date = CASE
-                                                         WHEN typeof(NEW.next_due_date) = 'integer'
-                                                             THEN date(NEW.next_due_date / 1000, 'unixepoch')
-                                                         ELSE NEW.next_due_date
-                                         END,
-                                     date_added    = CASE
-                                                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                         ELSE NEW.date_added
-                                         END,
-                                     last_updated  = CASE
-                                                         WHEN typeof(NEW.last_updated) = 'integer'
-                                                             THEN datetime(NEW.last_updated / 1000, 'unixepoch')
-                                                         ELSE NEW.last_updated
-                                         END
-                                 WHERE id = NEW.id;
-
-                                 UPDATE t_history
-                                 SET description = NEW.description
-                                 WHERE t_history.recursive_expense_fk = NEW.id
-                                   AND t_history.description != NEW.description;
-
-                             END;
-
-                             CREATE TRIGGER after_update_on_t_bank_transfer
-                                 AFTER UPDATE
-                                 ON t_bank_transfer
-                                 FOR EACH ROW
-                             BEGIN
-
-                                 UPDATE t_bank_transfer
-                                 SET date       = CASE
-                                                      WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                                                      ELSE NEW.date
-                                     END,
-                                     date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                         END
-                                 WHERE id = NEW.id;
-
-                                 UPDATE t_history
-                                 SET description = NEW.main_reason,
-                                     value = CASE
-                                                 WHEN t_history.account_fk = NEW.from_account_fk THEN - ABS(NEW.value)
-                                                 WHEN t_history.account_fk = NEW.to_account_fk THEN ABS(NEW.value)
-                                     END
-                                 WHERE t_history.bank_transfer_fk = NEW.id
-                                   AND t_history.account_fk IN (NEW.from_account_fk, NEW.to_account_fk);
-
-                             END;
-
-                             CREATE TRIGGER after_insert_on_t_color
-                                 AFTER INSERT
-                                 ON t_currency
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_currency
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_update_on_t_currency
-                                 AFTER UPDATE
-                                 ON t_currency
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_currency
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_insert_on_after_insert_on_t_account_type
-                                 AFTER INSERT
-                                 ON t_account_type
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_account_type
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_insert_on_t_account_type
-                                 AFTER INSERT
-                                 ON t_account_type
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_account_type
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_insert_on_t_account
-                                 AFTER INSERT
-                                 ON t_account
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_account
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE TRIGGER after_update_on_t_account
-                                 AFTER UPDATE
-                                 ON t_account
-                                 FOR EACH ROW
-                             BEGIN
-                                 UPDATE t_account
-                                 SET date_added = CASE
-                                                      WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                                                      ELSE NEW.date_added
-                                     END
-                                 WHERE id = NEW.id;
-                             END;
-
-                             CREATE VIEW export_v_currency AS
-                             SELECT tc.id,
-                                    tc.symbol,
-                                    tc.date_added
-                             FROM t_currency tc;
-
-                             CREATE VIEW export_v_recursive_expense AS
-                             SELECT tre.id,
-                                    ta.name       AS account_name,
-                                    tre.description,
-                                    tre.note,
-                                    tct.name      AS category_type,
-                                    tmp.name      AS mode_payment,
-                                    tre.value,
-                                    tp.name       AS place_name,
-                                    tre.start_date,
-                                    tre.recursive_total,
-                                    tre.recursive_count,
-                                    trf.frequency AS frequency,
-                                    tre.next_due_date,
-                                    tre.is_active,
-                                    tre.force_deactivate,
-                                    tre.date_added,
-                                    tre.last_updated
-                             FROM t_recursive_expense tre
-                                      INNER JOIN t_account ta
-                                                 ON tre.account_fk = ta.id
-                                      INNER JOIN t_category_type tct
-                                                 ON tre.category_type_fk = tct.id
-                                      INNER JOIN t_mode_payment tmp
-                                                 ON tre.mode_payment_fk = tmp.id
-                                      INNER JOIN t_place tp
-                                                 ON tre.place_fk = tp.id
-                                      INNER JOIN t_recursive_frequency trf
-                                                 ON tre.frequency_fk = trf.id;
-
-                             CREATE VIEW export_v_bank_transfer AS
-                             SELECT tbt.id,
-                                    tbt.value,
-                                    ta_fr.name AS from_account_name,
-                                    ta_to.name AS to_account_name,
-                                    tbt.main_reason,
-                                    tbt.additional_reason,
-                                    tbt.date,
-                                    tbt.date_added
-                             FROM t_bank_transfer tbt
-                                      INNER JOIN t_account ta_fr
-                                                 ON ta_fr.id = tbt.from_account_fk
-                                      INNER JOIN t_account ta_to
-                                                 ON ta_to.id = tbt.to_account_fk;
-
-                             CREATE VIEW export_v_account AS
-                             SELECT ta.id,
-                                    ta.name,
-                                    tat.name  AS account_type,
-                                    tc.symbol AS currency,
-                                    ta.active,
-                                    ta.date_added
-                             FROM t_account ta
-                                      INNER JOIN t_account_type tat
-                                                 ON ta.account_type_fk = tat.id
-                                      INNER JOIN t_currency tc
-                                                 ON ta.currency_fk = tc.id;
-
-                             CREATE VIEW v_recursive_expense AS
-                             SELECT tre.id,
-                                    tre.account_fk,
-                                    ta.name  AS account,
-                                    tre.description,
-                                    tre.note,
-                                    tre.category_type_fk,
-                                    tct.name AS category,
-                                    tco.hexadecimal_color_code,
-                                    tre.mode_payment_fk,
-                                    tmp.name AS mode_payment,
-                                    tre.value,
-                                    tcr.symbol,
-                                    tre.place_fk,
-                                    tp.name  AS place,
-                                    tre.start_date,
-                                    tre.recursive_total,
-                                    tre.recursive_count,
-                                    tre.frequency_fk,
-                                    trf.frequency,
-                                    tre.next_due_date,
-                                    tre.is_active,
-                                    tre.force_deactivate,
-                                    tre.date_added,
-                                    tre.last_updated
-                             FROM t_recursive_expense tre
-                                      INNER JOIN t_account ta
-                                                 ON tre.account_fk = ta.id
-                                      INNER JOIN t_currency tcr
-                                                 ON ta.currency_fk = tcr.id
-                                      INNER JOIN t_category_type tct
-                                                 ON tre.category_type_fk = tct.id
-                                      INNER JOIN t_color tco
-                                                 ON tct.color_fk = tco.id
-                                      INNER JOIN t_mode_payment tmp
-                                                 ON tre.mode_payment_fk = tmp.id
-                                      INNER JOIN t_place tp
-                                                 ON tre.place_fk = tp.id
-                                      INNER JOIN t_recursive_frequency trf
-                                                 ON tre.frequency_fk = trf.id;
-
-                             CREATE VIEW v_total_by_account AS
-                             SELECT ta.id,
-                                    ta.name,
-                                    ROUND(SUM(th.value), 2)                                                 AS total,
-                                    ROUND(SUM(CASE WHEN th.is_pointed = TRUE THEN th.value ELSE 0 END), 2)  AS total_pointed,
-                                    ROUND(SUM(CASE WHEN th.is_pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
-                                    tc.symbol
-                             FROM t_account ta
-                                      INNER JOIN t_history th
-                                                 ON ta.id = th.account_fk
-                                      INNER JOIN t_currency tc
-                                                 ON ta.currency_fk = tc.id
-                             GROUP BY ta.id, ta.name, tc.symbol
-                             ORDER BY ta.id;
-
-                             CREATE VIEW v_detail_total_category AS
-                             SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
-                                    CAST(STRFTIME('%W', h.date) AS INT) AS week,
-                                    CAST(STRFTIME('%m', h.date) AS INT) AS month,
-                                    CAST(STRFTIME('%d', h.date) AS INT) AS day,
-                                    ta.name                             AS account,
-                                    tct.name                            AS category,
-                                    h.value,
-                                    tcu.symbol,
-                                    tco.hexadecimal_color_code
-
-                             FROM t_category_type tct
-                                      INNER JOIN t_history h
-                                                ON h.category_type_fk = tct.id
-                                      INNER JOIN t_account ta
-                                                 ON h.account_fk = ta.id
-                                      INNER JOIN t_currency tcu
-                                                ON ta.currency_fk = tcu.id
-                                      INNER JOIN t_color tco
-                                                ON tct.color_fk = tco.id
-                             ORDER BY year, week;
-
-                             CREATE VIEW analysis_v_account_monthly_cumulative_sum AS
-                             WITH all_periods AS (SELECT a.id                     AS account_fk,
-                                                         a.name                   AS account,
-                                                         tc.id                    AS currency_fk,
-                                                         tc.symbol                AS currency,
-                                                         y.year || '-' || m.month AS period
-                                                  FROM t_account a
-                                                           INNER JOIN t_currency tc on a.currency_fk = tc.id
-                                                           CROSS JOIN (
-                                                             SELECT DISTINCT year
-                                                                       FROM (
-                                                                           SELECT strftime('%Y', h.date) AS year
-                                                                           FROM t_history h
-                                                                           UNION
-                                                                           SELECT STRftime('%Y', CURRENT_DATE)
-                                                                            )) AS y
-                                                           CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                                                                       FROM (SELECT '01' AS x
-                                                                             UNION
-                                                                             SELECT '02'
-                                                                             UNION
-                                                                             SELECT '03'
-                                                                             UNION
-                                                                             SELECT '04'
-                                                                             UNION
-                                                                             SELECT '05'
-                                                                             UNION
-                                                                             SELECT '06'
-                                                                             UNION
-                                                                             SELECT '07'
-                                                                             UNION
-                                                                             SELECT '08'
-                                                                             UNION
-                                                                             SELECT '09'
-                                                                             UNION
-                                                                             SELECT '10'
-                                                                             UNION
-                                                                             SELECT '11'
-                                                                             UNION
-                                                                             SELECT '12')) m
-                                                  WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
-                                  monthly AS (SELECT ap.account_fk,
-                                                     ap.account,
-                                                     ap.currency_fk,
-                                                     ap.currency,
-                                                     ap.period,
-                                                     COALESCE(SUM(h.value), 0) as monthly_value
-                                              FROM all_periods ap
-                                                       INNER JOIN t_history h
-                                                                 ON h.account_fk = ap.account_fk AND ap.period = strftime('%Y-%m', h.date)
-                                              GROUP BY ap.account_fk, ap.period),
-                                  ranked AS (SELECT *,
-                                                    ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
-                                             FROM monthly),
-                                  cumulative AS (SELECT r1.rn,
-                                                        r1.period,
-                                                        r1.account_fk,
-                                                        r1.account,
-                                                        r1.currency_fk,
-                                                        r1.currency,
-                                                        (SELECT SUM(r2.monthly_value)
-                                                         FROM ranked r2
-                                                         WHERE r2.rn <= r1.rn
-                                                           AND r2.account_fk = r1.account_fk) as cumulative_sum
-                                                 FROM ranked r1)
-                             SELECT account_fk,
-                                    account,
-                                    period,
-                                    ROUND(cumulative_sum, 2) as cumulative_sum,
-                                    currency_fk,
-                                    currency
-                             FROM cumulative
-                             ORDER BY account_fk, rn;
-
-                             CREATE VIEW analysis_v_account_category_monthly_sum_positive_negative AS
-                             WITH all_periods AS (SELECT a.id                      AS account_fk,
-                                                         a.name                    AS account,
-                                                         a.currency_fk             AS currency_fk,
-                                                         tca.symbol                AS currency,
-                                                         tct.id                    AS category_type_fk,
-                                                         tct.name                  AS category_type,
-                                                         tc.hexadecimal_color_code AS color_code,
-                                                         y.year || '-' || m.month  AS period
-                                                  FROM t_account a
-                                                           INNER JOIN t_currency tca ON a.currency_fk = tca.id
-                                                           CROSS JOIN t_category_type tct
-                                                           INNER JOIN t_color tc ON tct.color_fk = tc.id
-                                                           CROSS JOIN (
-                                                             SELECT DISTINCT year
-                                                                       FROM (
-                                                                           SELECT strftime('%Y', h.date) AS year
-                                                                           FROM t_history h
-                                                                           UNION
-                                                                           SELECT STRftime('%Y', CURRENT_DATE)
-                                                                            )) AS y
-                                                           CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                                                                       FROM (SELECT '01' AS x
-                                                                             UNION
-                                                                             SELECT '02'
-                                                                             UNION
-                                                                             SELECT '03'
-                                                                             UNION
-                                                                             SELECT '04'
-                                                                             UNION
-                                                                             SELECT '05'
-                                                                             UNION
-                                                                             SELECT '06'
-                                                                             UNION
-                                                                             SELECT '07'
-                                                                             UNION
-                                                                             SELECT '08'
-                                                                             UNION
-                                                                             SELECT '09'
-                                                                             UNION
-                                                                             SELECT '10'
-                                                                             UNION
-                                                                             SELECT '11'
-                                                                             UNION
-                                                                             SELECT '12')) m
-                                                  WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
-                                  monthly AS (SELECT ap.account_fk,
-                                                     ap.account,
-                                                     ap.currency_fk,
-                                                     ap.currency,
-                                                     ap.category_type_fk,
-                                                     ap.category_type,
-                                                     ap.color_code,
-                                                     ap.period,
-                                                     COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0)  AS monthly_negative_value,
-                                                     COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
-                                              FROM all_periods ap
-                                                       INNER JOIN t_history h
-                                                                 ON h.account_fk = ap.account_fk
-                                                                     AND h.category_type_fk = ap.category_type_fk
-                                                                     AND ap.period = strftime('%Y-%m', h.date)
-                                              GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
-                             SELECT account_fk,
-                                    account,
-                                    category_type,
-                                    color_code,
-                                    period,
-                                    ROUND(monthly_negative_value, 2) AS monthly_negative_sum,
-                                    ROUND(monthly_positive_value, 2) AS monthly_positive_sum,
-                                    currency_fk,
-                                    currency
-                             FROM monthly
-                             ORDER BY account_fk, period, category_type;
-
-                             CREATE VIEW analysis_v_account_category_monthly_sum AS
-                             SELECT account_fk,
-                                    account,
-                                    category_type,
-                                    color_code,
-                                    period,
-                                    ROUND(monthly_negative_sum + monthly_positive_sum, 2) AS monthly_sum,
-                                    currency_fk,
-                                    currency
-                             FROM analysis_v_account_category_monthly_sum_positive_negative
-                             ORDER BY account_fk, period, category_type;
-
-                             CREATE VIEW analysis_v_account_mode_payment_category_monthly_sum AS
-                             WITH all_periods AS (SELECT a.id                     AS account_fk,
-                                                         a.name                   AS account,
-                                                         tcu.id                   AS currency_fk,
-                                                         tcu.symbol               AS currency,
-                                                         tmp.id                   AS mode_payment_fk,
-                                                         tmp.name                 AS mode_payment,
-                                                         y.year || '-' || m.month AS period,
-                                                         ct.id                    AS category_fk,
-                                                         ct.name                  AS category,
-                                                         tc.hexadecimal_color_code
-                                                  FROM t_account a
-                                                           CROSS JOIN t_mode_payment tmp
-                                                           CROSS JOIN t_category_type ct
-                                                           INNER JOIN t_color tc ON ct.color_fk = tc.id
-                                                           INNER JOIN t_currency tcu on a.currency_fk = tcu.id
-                                                           CROSS JOIN (
-                                                             SELECT DISTINCT year
-                                                                       FROM (
-                                                                           SELECT strftime('%Y', h.date) AS year
-                                                                           FROM t_history h
-                                                                           UNION
-                                                                           SELECT STRftime('%Y', CURRENT_DATE)
-                                                                            )) AS y
-                                                           CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                                                                       FROM (SELECT '01' AS x
-                                                                             UNION
-                                                                             SELECT '02'
-                                                                             UNION
-                                                                             SELECT '03'
-                                                                             UNION
-                                                                             SELECT '04'
-                                                                             UNION
-                                                                             SELECT '05'
-                                                                             UNION
-                                                                             SELECT '06'
-                                                                             UNION
-                                                                             SELECT '07'
-                                                                             UNION
-                                                                             SELECT '08'
-                                                                             UNION
-                                                                             SELECT '09'
-                                                                             UNION
-                                                                             SELECT '10'
-                                                                             UNION
-                                                                             SELECT '11'
-                                                                             UNION
-                                                                             SELECT '12')) m
-                                                  WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
-                                  monthly AS (SELECT ap.account_fk,
-                                                     ap.account,
-                                                     ap.currency_fk,
-                                                     ap.currency,
-                                                     ap.mode_payment_fk,
-                                                     ap.mode_payment,
-                                                     ap.period,
-                                                     ap.category_fk,
-                                                     ap.category,
-                                                     ap.hexadecimal_color_code,
-                                                     COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
-                                                     COALESCE(SUM(h.value), 0)                                       AS monthly_value
-                                              FROM all_periods ap
-                                                       INNER JOIN t_history h
-                                                                 ON h.account_fk = ap.account_fk
-                                                                     AND h.mode_payment_fk = ap.mode_payment_fk
-                                                                     AND h.category_type_fk = ap.category_fk
-                                                                     AND ap.period = strftime('%Y-%m', h.date)
-                                              GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period, ap.category_fk)
-                             SELECT account_fk,
-                                    account,
-                                    mode_payment,
-                                    period,
-                                    category,
-                                    hexadecimal_color_code,
-                                    ROUND(monthly_value, 2) AS monthly_sum,
-                                    currency_fk,
-                                    currency,
-                                    monthly_mode_payment
-                             FROM monthly
-                             ORDER BY account_fk, period, mode_payment, category;
-
-                             CREATE VIEW analysis_v_budget_monthly AS
-                             WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
-                                                  FROM t_history h),
-
-                                  months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
-                                             UNION ALL
-                                             SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
-                                             FROM months
-                                             WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
-
-                                  filtered_accounts AS (SELECT DISTINCT a.id AS account_fk, a.name AS account_name, tc.id AS symbol_fk, tc.symbol
-                                                        FROM t_account a
-                                                                 INNER JOIN t_history h ON h.account_fk = a.id
-                                                                 INNER JOIN t_currency tc ON a.currency_fk = tc.id),
-
-                                  monthly_values AS (SELECT a.id                      AS account_fk,
-                                                            a.name                    AS account_name,
-                                                            tc.id                     AS symbol_fk,
-                                                            tc.symbol                 AS symbol,
-                                                            STRFTIME('%Y-%m', h.date) AS period,
-                                                            SUM(h.value)              AS total_value
-                                                     FROM t_history h
-                                                              INNER JOIN t_account a ON h.account_fk = a.id
-                                                              INNER JOIN t_currency tc ON a.currency_fk = tc.id
-                                                     GROUP BY a.id, period),
-
-                                  account_months AS (SELECT a.account_fk, a.account_name, a.symbol_fk, a.symbol, m.period
-                                                     FROM filtered_accounts a
-                                                              CROSS JOIN months m),
-
-                                  cumulative_values AS (SELECT am.account_fk,
-                                                               am.account_name,
-                                                               am.symbol_fk,
-                                                               am.symbol,
-                                                               am.period,
-                                                               COALESCE(
-                                                                       (SELECT SUM(mv2.total_value)
-                                                                        FROM monthly_values mv2
-                                                                        WHERE mv2.account_fk = am.account_fk
-                                                                          AND mv2.period <= am.period),
-                                                                       0
-                                                               ) AS cumulative_total_value
-                                                        FROM account_months am
-                                                                 INNER JOIN monthly_values mv
-                                                                           ON am.account_fk = mv.account_fk AND am.period = mv.period)
-
-                             SELECT cv.account_fk,
-                                    cv.account_name,
-                                    cv.symbol_fk,
-                                    cv.symbol,
-                                    cv.period,
-                                    ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
-                                    STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
-                                    ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                        WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
-                                        ELSE 'Stable'
-                                        END                                                                            AS status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
-                                                ELSE 100 * CASE
-                                                               WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                                   CASE
-                                                                       WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
-                                                                           THEN 1
-                                                                       ELSE -1
-                                                                       END
-                                                               ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
-                                                                   / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                                    END
-                                                END, 2
-                                    )                                                                                  AS percentage,
-                                    ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
-                             FROM cumulative_values cv
-                                      INNER JOIN cumulative_values pre_cv
-                                                ON cv.account_fk = pre_cv.account_fk
-                                                    AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
-                             ORDER BY cv.account_fk, cv.period;
-
-                             CREATE VIEW analysis_v_budget_period_annual AS
-                             WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
-                                                  FROM t_history h),
-
-                                  months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
-                                             UNION ALL
-                                             SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
-                                             FROM months
-                                             WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
-
-                                  filtered_accounts AS (SELECT DISTINCT a.id   AS account_fk,
-                                                                        a.name AS account_name,
-                                                                        tc.id  AS symbol_fk,
-                                                                        tc.symbol
-                                                        FROM t_account a
-                                                                 INNER JOIN t_history h
-                                                                            ON h.account_fk = a.id
-                                                                 INNER JOIN t_currency tc
-                                                                            ON a.currency_fk = tc.id),
-
-                                  account_months AS (SELECT a.account_fk,
-                                                            a.account_name,
-                                                            a.symbol_fk,
-                                                            a.symbol,
-                                                            m.period
-                                                     FROM filtered_accounts a
-                                                              CROSS JOIN months m),
-
-                                  monthly_values AS (SELECT a.id                      AS account_fk,
-                                                            a.name                    AS account_name,
-                                                            tc.id                     AS symbol_fk,
-                                                            tc.symbol                 AS symbol,
-                                                            STRFTIME('%Y-%m', h.date) AS period,
-                                                            SUM(h.value)              AS total_value
-                                                     FROM t_history h
-                                                              INNER JOIN t_account a
-                                                                         ON h.account_fk = a.id
-                                                              INNER JOIN t_currency tc
-                                                                         ON a.currency_fk = tc.id
-                                                     GROUP BY a.id, period),
-
-                                  cumulative_values AS (SELECT am.account_fk,
-                                                               am.account_name,
-                                                               am.symbol_fk,
-                                                               am.symbol,
-                                                               am.period,
-                                                               STRFTIME('%m', am.period)                   AS month_of_year,
-                                                               STRFTIME('%Y', am.period)                   AS year,
-                                                               COALESCE(
-                                                                       (SELECT SUM(mv2.total_value)
-                                                                        FROM monthly_values mv2
-                                                                        WHERE mv2.account_fk = am.account_fk
-                                                                          AND mv2.period <= am.period), 0) AS cumulative_total_value
-                                                        FROM account_months am
-                                                                 INNER JOIN monthly_values mv
-                                                                           ON am.account_fk = mv.account_fk AND am.period = mv.period)
-
-                             SELECT cv.account_fk,
-                                    cv.account_name,
-                                    cv.symbol_fk,
-                                    cv.symbol,
-                                    cv.period,
-                                    ROUND(cv.cumulative_total_value, 2)                              AS period_value,
-                                    COALESCE(
-                                            STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')),
-                                            CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) AS previous_period,
-                                    COALESCE(
-                                            (SELECT ROUND(pre_cv.cumulative_total_value, 2)
-                                             FROM cumulative_values pre_cv
-                                             WHERE pre_cv.account_fk = cv.account_fk
-                                               AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
-                                            0)                                                       AS previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value > COALESCE(
-                                                (SELECT pre_cv.cumulative_total_value
-                                                 FROM cumulative_values pre_cv
-                                                 WHERE pre_cv.account_fk = cv.account_fk
-                                                   AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
-                                                0) THEN 'Gain'
-                                        WHEN cv.cumulative_total_value < COALESCE(
-                                                (SELECT pre_cv.cumulative_total_value
-                                                 FROM cumulative_values pre_cv
-                                                 WHERE pre_cv.account_fk = cv.account_fk
-                                                   AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
-                                                0) THEN 'Deficit'
-                                        ELSE 'Stable'
-                                        END                                                          AS status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(
-                                                        (SELECT pre_cv.cumulative_total_value
-                                                         FROM cumulative_values pre_cv
-                                                         WHERE pre_cv.account_fk = cv.account_fk
-                                                           AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                               pre_cv.period), 0) THEN 0
-                                                ELSE 100 * CASE
-                                                               WHEN COALESCE(
-                                                                            (SELECT pre_cv.cumulative_total_value
-                                                                             FROM cumulative_values pre_cv
-                                                                             WHERE pre_cv.account_fk = cv.account_fk
-                                                                               AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                                                   pre_cv.period), 0) = 0 THEN
-                                                                   CASE
-                                                                       WHEN cv.cumulative_total_value > COALESCE(
-                                                                               (SELECT pre_cv.cumulative_total_value
-                                                                                FROM cumulative_values pre_cv
-                                                                                WHERE pre_cv.account_fk = cv.account_fk
-                                                                                  AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                                                      pre_cv.period), 0) THEN 1
-                                                                       ELSE -1
-                                                                       END
-                                                               ELSE (cv.cumulative_total_value - COALESCE(
-                                                                       (SELECT pre_cv.cumulative_total_value
-                                                                        FROM cumulative_values pre_cv
-                                                                        WHERE pre_cv.account_fk = cv.account_fk
-                                                                          AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                                              pre_cv.period), 0)) / ABS(
-                                                                            COALESCE(
-                                                                                    (SELECT pre_cv.cumulative_total_value
-                                                                                     FROM cumulative_values pre_cv
-                                                                                     WHERE pre_cv.account_fk = cv.account_fk
-                                                                                       AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                                                           pre_cv.period), 1))
-                                                    END
-                                                END, 2)                                              AS percentage,
-                                    ROUND(
-                                            (cv.cumulative_total_value - COALESCE(
-                                                    (SELECT pre_cv.cumulative_total_value
-                                                     FROM cumulative_values pre_cv
-                                                     WHERE pre_cv.account_fk = cv.account_fk
-                                                       AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
-                                                           pre_cv.period), 0)), 2)                   AS difference_value
-                             FROM cumulative_values cv
-                             ORDER BY account_fk, period;
-
-                             CREATE VIEW v_bank_transfer_summary AS
-                             WITH from_account_balance_before AS (SELECT bt.id,
-                                                                         SUM(th.value) AS balance
-                                                                  FROM t_bank_transfer bt
-                                                                           INNER JOIN t_history th
-                                                                                     ON th.account_fk = bt.from_account_fk AND th.date < bt.date
-                                                                  GROUP BY bt.id),
-                                  to_account_balance_before AS (SELECT bt.id,
-                                                                       SUM(th.value) AS balance
-                                                                FROM t_bank_transfer bt
-                                                                         INNER JOIN t_history th
-                                                                                   ON th.account_fk = bt.to_account_fk AND th.date < bt.date
-                                                                GROUP BY bt.id)
-                             SELECT bt.id,
-                                    a1.name                          AS from_account_name,
-                                    c1.symbol                        AS from_account_symbol,
-                                    a2.name                          AS to_account_name,
-                                    c2.symbol                        AS to_account_symbol,
-                                    bt.main_reason,
-                                    bt.additional_reason,
-                                    tct.name                         AS category_name,
-                                    c.hexadecimal_color_code         AS category_color,
-                                    tmp.name                         AS mode_payment,
-                                    bt.date,
-                                    ROUND(fab.balance, 2)            AS from_account_balance_before,
-                                    ROUND(fab.balance - bt.value, 2) AS from_account_balance_after,
-                                    ROUND(bt.value, 2)               AS value,
-                                    ROUND(tab.balance, 2)            AS to_account_balance_before,
-                                    ROUND(tab.balance + bt.value, 2) AS to_account_balance_after,
-                                    bt.date_added
-                             FROM t_bank_transfer bt
-                                      INNER JOIN t_account a1
-                                                 ON bt.from_account_fk = a1.id
-                                      INNER JOIN t_account a2
-                                                 ON bt.to_account_fk = a2.id
-                                      INNER JOIN t_currency c1
-                                                 ON a1.currency_fk = c1.id
-                                      INNER JOIN t_currency c2
-                                                 ON a2.currency_fk = c2.id
-                                      INNER JOIN from_account_balance_before fab
-                                                 ON fab.id = bt.id
-                                      INNER JOIN to_account_balance_before tab
-                                                 ON tab.id = bt.id
-                                      INNER JOIN t_history h1
-                                                 ON a1.id = h1.account_fk AND bt.id = h1.bank_transfer_fk
-                                      INNER JOIN t_category_type tct
-                                                 ON h1.category_type_fk = tct.id
-                                      INNER JOIN t_color c
-                                                 ON tct.color_fk = c.id
-                                      INNER JOIN t_mode_payment tmp
-                                                 ON h1.mode_payment_fk = tmp.id;
-
-                             CREATE VIEW export_v_history AS
-                             SELECT th.id,
-                                    ta.name AS account_name,
-                                    th.description,
-                                    tct.name AS category_type,
-                                    tmp.name AS mode_payment,
-                                    th.value,
-                                    th.date,
-                                    tp.name AS place,
-                                    th.is_pointed,
-                             --        th.bank_transfer_fk,
-                             --        th.recursive_expense_fk,
-                                    th.date_added,
-                                    th.date_pointed
-                             FROM t_history th
-                                 INNER JOIN t_account ta
-                                     ON th.account_fk = ta.id
-                                 INNER JOIN t_category_type tct
-                                     ON th.category_type_fk = tct.id
-                                 INNER JOIN t_mode_payment tmp
-                                     ON th.mode_payment_fk = tmp.id
-                                 INNER JOIN t_place tp
-                                     ON th.place_fk = tp.id;
-
-                             CREATE VIEW v_history AS
-                             SELECT h.id,
-                                    ta.name  AS account,
-                                    h.description,
-                                    tct.name AS category,
-                                    tco.hexadecimal_color_code,
-                                    tmp.name AS mode_payment,
-                                    h.value,
-                                    tcu.symbol,
-                                    h.date,
-                                    tp.name  AS place,
-                                    h.is_pointed,
-                                    h.date_added
-
-                             FROM t_history h
-                                      INNER JOIN t_account ta
-                                                ON h.account_fk = ta.id
-                                      INNER JOIN t_category_type tct
-                                                ON h.category_type_fk = tct.id
-                                      INNER JOIN t_color tco
-                                                ON tct.color_fk = tco.id
-                                      INNER JOIN t_mode_payment tmp
-                                                ON h.mode_payment_fk = tmp.id
-                                      INNER JOIN t_currency tcu
-                                                ON ta.currency_fk = tcu.id
-                                      INNER JOIN t_place tp
-                                                ON h.place_fk = tp.id;
-
-                             CREATE VIEW analysis_v_budget_monthly_global AS
-                             WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
-                                                  FROM t_history h),
-                                  months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
-                                             UNION ALL
-                                             SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
-                                             FROM months
-                                             WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
-                                  monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
-                                                            SUM(h.value)              AS total_value
-                                                     FROM t_history h
-                                                     GROUP BY period),
-                                  cumulative_values AS (SELECT m.period,
-                                                               COALESCE(
-                                                                       (SELECT SUM(mv2.total_value)
-                                                                        FROM monthly_values mv2
-                                                                        WHERE mv2.period <= m.period),
-                                                                       0
-                                                               ) AS cumulative_total_value
-                                                        FROM months m)
-                             SELECT cv.period,
-                                    ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
-                                    STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
-                                    ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                        WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
-                                        ELSE 'Stable'
-                                        END                                                                            AS status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
-                                                ELSE 100 * CASE
-                                                               WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                                   CASE
-                                                                       WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
-                                                                           THEN 1
-                                                                       ELSE -1
-                                                                       END
-                                                               ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
-                                                                   / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                                    END
-                                                END, 2
-                                    )                                                                                  AS percentage,
-                                    ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
-                             FROM cumulative_values cv
-                                      INNER JOIN cumulative_values pre_cv
-                                                ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
-                             ORDER BY cv.period;
-
-                             CREATE VIEW analysis_v_budget_period_annual_global AS
-                             WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
-                                                  FROM t_history h),
-                                  months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
-                                             UNION ALL
-                                             SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
-                                             FROM months
-                                             WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
-                                  monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
-                                                            SUM(h.value)              AS total_value
-                                                     FROM t_history h
-                                                     GROUP BY period),
-                                  complete_monthly_values AS (SELECT m.period,
-                                                                     COALESCE(mv.total_value, 0) AS total_value
-                                                              FROM months m
-                                                                       INNER JOIN monthly_values mv ON m.period = mv.period),
-                                  cumulative_values AS (SELECT cmv.period,
-                                                               STRFTIME('%m', cmv.period)        AS month_of_year,
-                                                               STRFTIME('%Y', cmv.period)        AS year,
-                                                               (SELECT SUM(cmv2.total_value)
-                                                                FROM complete_monthly_values cmv2
-                                                                WHERE cmv2.period <= cmv.period) AS cumulative_total_value
-                                                        FROM complete_monthly_values cmv)
-                             SELECT cv.period,
-                                    ROUND(cv.cumulative_total_value, 2)                                                as period_value,
-                                    STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year'))                             as previous_period,
-                                    COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                        ELSE 'Deficit'
-                                        END                                                                            as status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
-                                                ELSE 100 * CASE
-                                                               WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                                   CASE
-                                                                       WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
-                                                                           THEN 1
-                                                                       ELSE -1
-                                                                       END
-                                                               ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
-                                                                   / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                                    END
-                                                END, 2
-                                    )                                                                                  AS percentage,
-                                    ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
-                             FROM cumulative_values cv
-                                      INNER JOIN cumulative_values pre_cv
-                                                ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
-                             ORDER BY cv.period;
-
-                             CREATE VIEW analysis_v_budget_total_annual_global AS
-                             WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
-                                                         CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
-                                                  FROM t_history h),
-                                  years AS (SELECT (SELECT min_year FROM date_bounds) AS year
-                                            UNION ALL
-                                            SELECT year + 1
-                                            FROM years,
-                                                 date_bounds
-                                            WHERE year + 1 <= (SELECT max_year FROM date_bounds)),
-                                  annual_values AS (SELECT yc.year,
-                                                           COALESCE(SUM(h.value), 0) AS total_value
-                                                    FROM years yc
-                                                             INNER JOIN t_history h
-                                                                       ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
-                                                    GROUP BY yc.year),
-                                  cumulative_values AS (SELECT av.year,
-                                                               (SELECT SUM(av2.total_value)
-                                                                FROM annual_values av2
-                                                                WHERE av2.year <= av.year) as cumulative_total_value
-                                                        FROM annual_values av)
-                             SELECT cv.year                                                                            AS period,
-                                    ROUND(cv.cumulative_total_value, 2)                                                as period_value,
-                                    cv.year - 1                                                                        as previous_period,
-                                    COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                        WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
-                                        ELSE 'Stable'
-                                        END                                                                            as status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
-                                                ELSE 100 * CASE
-                                                               WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                                   CASE
-                                                                       WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
-                                                                           THEN 1
-                                                                       ELSE -1
-                                                                       END
-                                                               ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
-                                                                   / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                                    END
-                                                END, 2
-                                    )                                                                                  AS percentage,
-                                    ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
-                             FROM cumulative_values cv
-                                      INNER JOIN cumulative_values pre_cv
-                                                ON cv.year - 1 = pre_cv.year;
-
-                             CREATE VIEW analysis_v_budget_total_annual AS
-                             WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
-                                                         CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
-                                                  FROM t_history h),
-                                  years AS (SELECT (SELECT min_year FROM date_bounds) AS year
-                                            UNION ALL
-                                            SELECT CAST(year AS INTEGER) + 1
-                                            FROM years,
-                                                 date_bounds
-                                            WHERE CAST(year AS INTEGER) + 1 <= (SELECT max_year FROM date_bounds)),
-                                  account_years AS (SELECT a.id   as account_fk,
-                                                           a.name as account_name,
-                                                           yc.year
-                                                    FROM t_account a
-                                                             CROSS JOIN years yc),
-                                  annual_values AS (SELECT ay.account_fk,
-                                                           ay.account_name,
-                                                           tc.id                     AS symbol_fk,
-                                                           tc.symbol                 AS symbol,
-                                                           ay.year,
-                                                           COALESCE(SUM(h.value), 0) AS total_value
-                                                    FROM account_years ay
-                                                             INNER JOIN t_history h
-                                                                       ON ay.account_fk = h.account_fk AND STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
-                                                             INNER JOIN t_account a
-                                                                        ON ay.account_fk = a.id
-                                                             INNER JOIN t_currency tc
-                                                                        ON tc.id = a.currency_fk
-                                                    GROUP BY ay.account_fk, ay.year
-                                                    ORDER BY ay.account_fk, ay.year),
-                                  cumulative_values AS (SELECT av.account_fk,
-                                                               av.account_name,
-                                                               av.symbol_fk,
-                                                               av.symbol,
-                                                               av.year,
-                                                               (SELECT SUM(av2.total_value)
-                                                                FROM annual_values av2
-                                                                WHERE av2.account_fk = av.account_fk
-                                                                  AND av2.year <= av.year) AS cumulative_total_value
-                                                        FROM annual_values av)
-                             SELECT cv.account_fk,
-                                    cv.account_name,
-                                    cv.symbol_fk,
-                                    cv.symbol,
-                                    CAST(cv.year AS INTEGER)                                                           AS period,
-                                    ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
-                                    CAST(cv.year AS INTEGER) - 1                                                       AS previous_period,
-                                    COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               AS previous_period_value,
-                                    CASE
-                                        WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                        WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
-                                        ELSE 'Stable'
-                                        END                                                                            AS status,
-                                    ROUND(
-                                            CASE
-                                                WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
-                                                WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                    CASE
-                                                        WHEN cv.cumulative_total_value > 0 THEN 100
-                                                        ELSE -100
-                                                        END
-                                                ELSE 100 * (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)) /
-                                                     ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                                END, 2)                                                                AS percentage,
-                                    ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
-                             FROM cumulative_values cv
-                                      INNER JOIN cumulative_values pre_cv
-                                                ON cv.account_fk = pre_cv.account_fk
-                                                    AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
-
-                             CREATE VIEW export_v_account_type AS
-                             SELECT tat.id,
-                                    tat.name,
-                                    tat.date_added
-                             FROM t_account_type tat;";
+    public string Command => @"
+DROP TRIGGER after_update_on_t_recursive_expense;
+DROP TRIGGER after_update_on_t_bank_transfer;
+
+DROP VIEW v_total_by_account;
+DROP VIEW v_detail_total_category;
+DROP VIEW analysis_v_account_monthly_cumulative_sum;
+DROP VIEW analysis_v_account_category_monthly_sum;
+DROP VIEW analysis_v_account_category_monthly_sum_positive_negative;
+DROP VIEW analysis_v_account_mode_payment_category_monthly_sum;
+DROP VIEW analysis_v_budget_monthly;
+DROP VIEW analysis_v_budget_period_annual;
+DROP VIEW v_bank_transfer_summary;
+DROP VIEW export_v_history;
+DROP VIEW v_history;
+DROP VIEW analysis_v_budget_monthly_global;
+DROP VIEW analysis_v_budget_period_annual_global;
+DROP VIEW analysis_v_budget_total_annual_global;
+DROP VIEW analysis_v_budget_total_annual;
+DROP VIEW v_recursive_expense;
+DROP VIEW export_v_account;
+DROP VIEW export_v_bank_transfer;
+DROP VIEW export_v_recursive_expense;
+DROP VIEW export_v_currency;
+
+CREATE TABLE t_recursive_expense_dg_tmp
+(
+    id               INTEGER
+        CONSTRAINT t_recursive_expense_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    account_fk       INTEGER                            NOT NULL
+        CONSTRAINT t_recursive_expense_t_account_id_fk
+            REFERENCES t_account
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    description      TEXT(255)                          NOT NULL,
+    note             TEXT(255),
+    category_type_fk INTEGER                            NOT NULL
+        CONSTRAINT t_recursive_expense_t_category_type_id_fk
+            REFERENCES t_category_type
+                    ON DELETE CASCADE ON UPDATE CASCADE,
+    mode_payment_fk  INTEGER                            NOT NULL
+        CONSTRAINT t_recursive_expense_t_mode_payment_id_fk
+            REFERENCES t_mode_payment
+                    ON DELETE CASCADE ON UPDATE CASCADE,
+    value            REAL DEFAULT 0                   NOT NULL,
+    place_fk         INTEGER  default 1                 NOT NULL
+        CONSTRAINT t_recursive_expense_t_place_id_fk
+            REFERENCES t_place
+                    ON DELETE CASCADE ON UPDATE CASCADE,
+    start_date       DATE                               NOT NULL,
+    recursive_total  INTEGER  default 0                 NOT NULL,
+    recursive_count  INTEGER  default 0                 NOT NULL,
+    frequency_fk     INTEGER                            NOT NULL
+        CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
+            REFERENCES t_recursive_frequency
+                    ON DELETE CASCADE ON UPDATE CASCADE,
+    next_due_date    DATE                               NOT NULL,
+    is_active        BOOLEAN  default TRUE              NOT NULL,
+    force_deactivate BOOLEAN  default FALSE             NOT NULL,
+    date_added       DATETIME default CURRENT_TIMESTAMP NOT NULL,
+    last_updated     DATETIME default CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_recursive_expense_dg_tmp(id, account_fk, description, note, category_type_fk, mode_payment_fk, value,
+                                       place_fk, start_date, recursive_total, recursive_count, frequency_fk,
+                                       next_due_date, is_active, force_deactivate, date_added, last_updated)
+SELECT id,
+       COALESCE(account_fk, 1),
+       COALESCE(description, ''),
+       note,
+       COALESCE(category_type_fk, 1),
+       COALESCE(mode_payment_fk, 1),
+       COALESCE(value, 0),
+       COALESCE(place_fk, 1),
+       COALESCE(start_date, DATETIME( 'now', 'localtime')),
+       COALESCE(recursive_total, 0),
+       COALESCE(recursive_count, 0),
+       COALESCE(frequency_fk, 1),
+       COALESCE(next_due_date, DATETIME( 'now', 'localtime')),
+       COALESCE(is_active, 1),
+       COALESCE(force_deactivate, 0),
+       COALESCE(date_added, DATETIME( 'now', 'localtime')),
+       COALESCE(last_updated, DATETIME( 'now', 'localtime'))
+FROM t_recursive_expense;
+
+DROP TABLE t_recursive_expense;
+
+ALTER TABLE t_recursive_expense_dg_tmp
+    RENAME TO t_recursive_expense;
+
+CREATE TABLE t_currency_dg_tmp
+(
+    id         INTEGER
+        CONSTRAINT t_account_pk
+            PRIMARY KEY AUTOINCREMENT,
+    symbol     TEXT(55)                           NOT NULL,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_currency_dg_tmp(id, symbol, date_added)
+SELECT id,
+       COALESCE(symbol, ''),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_currency;
+
+DROP TABLE t_currency;
+
+ALTER TABLE t_currency_dg_tmp
+    RENAME TO t_currency;
+
+CREATE TABLE t_account_dg_tmp
+(
+    id              INTEGER
+        CONSTRAINT t_account_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name            TEXT(55)                           NOT NULL,
+    account_type_fk INTEGER                            NOT NULL
+        CONSTRAINT t_account_t_account_type_id_fk
+            REFERENCES t_account_type
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    currency_fk     INTEGER                            NOT NULL
+        CONSTRAINT t_account_t_currency_id_fk
+            REFERENCES t_currency
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    active          BOOLEAN  DEFAULT TRUE              NOT NULL,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_account_dg_tmp(id, name, account_type_fk, currency_fk, active, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       COALESCE(account_type_fk, 1),
+       COALESCE(currency_fk, 1),
+       COALESCE(active, 1),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_account;
+
+DROP TABLE t_account;
+
+ALTER TABLE t_account_dg_tmp
+    RENAME TO t_account;
+
+CREATE TABLE t_bank_transfer_dg_tmp
+(
+    id                INTEGER
+        CONSTRAINT t_bank_transfer_pk
+            PRIMARY KEY AUTOINCREMENT,
+    value             REAL      NOT NULL,
+    from_account_fk   INTEGER   NOT NULL
+        CONSTRAINT t_bank_transfer_t_account_id_fk
+            REFERENCES t_account
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    to_account_fk     INTEGER   NOT NULL
+        CONSTRAINT t_bank_transfer_t_account_id_fk_2
+            REFERENCES t_account
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    main_reason       TEXT(100) NOT NULL,
+    additional_reason TEXT(255),
+    date              DATETIME  NOT NULL,
+    date_added        DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_bank_transfer_dg_tmp(id, value, from_account_fk, to_account_fk, main_reason, additional_reason, date,
+                                   date_added)
+SELECT id,
+       COALESCE(value, 0),
+       COALESCE(from_account_fk, 1),
+       COALESCE(to_account_fk, 1),
+       COALESCE(main_reason, ''),
+       additional_reason,
+       COALESCE(date, DATETIME( 'now', 'localtime')),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_bank_transfer;
+
+DROP TABLE t_bank_transfer;
+
+ALTER TABLE t_bank_transfer_dg_tmp
+    RENAME TO t_bank_transfer;
+
+CREATE TABLE t_history_dg_tmp
+(
+    id                   INTEGER
+        CONSTRAINT t_history_pk
+            PRIMARY KEY AUTOINCREMENT,
+    account_fk           INTEGER                            NOT NULL
+        CONSTRAINT t_history_t_account_id_fk
+            REFERENCES t_account
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    description          TEXT(255)                          NOT NULL,
+    category_type_fk     INTEGER                            NOT NULL
+        CONSTRAINT t_history_t_category_type_id_fk
+            REFERENCES t_category_type
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    mode_payment_fk      INTEGER                            NOT NULL
+        CONSTRAINT t_history_t_mode_payment_id_fk
+            REFERENCES t_mode_payment
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    value                REAL                               NOT NULL,
+    date                 DATETIME                           NOT NULL,
+    place_fk             INTEGER                            NOT NULL
+        CONSTRAINT t_history_t_place_id_fk
+            REFERENCES t_place
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    is_pointed           BOOLEAN  default FALSE             NOT NULL,
+    bank_transfer_fk     INTEGER
+        CONSTRAINT t_history_t_bank_transfer_id_fk
+            REFERENCES t_bank_transfer
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    recursive_expense_fk INTEGER
+        CONSTRAINT t_history_t_recursive_expense_id_fk
+            REFERENCES t_recursive_expense
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    date_added           DATETIME default CURRENT_TIMESTAMP NOT NULL,
+    date_pointed         DATETIME
+);
+
+INSERT INTO t_history_dg_tmp(id, account_fk, description, category_type_fk, mode_payment_fk, value, date, place_fk,
+                             is_pointed, bank_transfer_fk, recursive_expense_fk, date_added, date_pointed)
+SELECT id,
+       COALESCE(account_fk, 1),
+       COALESCE(description, ''),
+       COALESCE(category_type_fk, 1),
+       COALESCE(mode_payment_fk, 1),
+       COALESCE(value, 0),
+       COALESCE(date, DATETIME( 'now', 'localtime')),
+       COALESCE(place_fk, 1),
+       is_pointed,
+       bank_transfer_fk,
+       recursive_expense_fk,
+       date_added,
+       date_pointed
+FROM t_history;
+
+DROP TABLE t_history;
+
+ALTER TABLE t_history_dg_tmp
+    RENAME TO t_history;
+
+CREATE TRIGGER after_insert_on_t_recursive_expense
+    AFTER INSERT
+    ON t_recursive_expense
+    FOR EACH ROW
+BEGIN
+    UPDATE t_recursive_expense
+    SET start_date    = CASE
+                            WHEN typeof(NEW.start_date) = 'integer' THEN date(NEW.start_date / 1000, 'unixepoch')
+                            ELSE NEW.start_date
+        END,
+        next_due_date = CASE
+                            WHEN typeof(NEW.next_due_date) = 'integer'
+                                THEN date(NEW.next_due_date / 1000, 'unixepoch')
+                            ELSE NEW.next_due_date
+            END,
+        date_added    = CASE
+                            WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                            ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_recursive_expense
+    AFTER UPDATE
+    ON t_recursive_expense
+    FOR EACH ROW
+BEGIN
+    UPDATE t_recursive_expense
+    SET start_date    = CASE
+                            WHEN typeof(NEW.start_date) = 'integer' THEN date(NEW.start_date / 1000, 'unixepoch')
+                            ELSE NEW.start_date
+        END,
+        next_due_date = CASE
+                            WHEN typeof(NEW.next_due_date) = 'integer'
+                                THEN date(NEW.next_due_date / 1000, 'unixepoch')
+                            ELSE NEW.next_due_date
+            END,
+        date_added    = CASE
+                            WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                            ELSE NEW.date_added
+            END,
+        last_updated  = CASE
+                            WHEN typeof(NEW.last_updated) = 'integer'
+                                THEN datetime(NEW.last_updated / 1000, 'unixepoch')
+                            ELSE NEW.last_updated
+            END
+    WHERE id = NEW.id;
+
+    UPDATE t_history
+    SET description = NEW.description
+    WHERE t_history.recursive_expense_fk = NEW.id
+      AND t_history.description != NEW.description;
+
+END;
+
+CREATE TRIGGER after_update_on_t_recursive_expense_when_recursive_total_not_null
+    AFTER UPDATE
+    ON t_recursive_expense
+    FOR EACH ROW
+    WHEN NEW.recursive_total IS NOT NULL
+BEGIN
+
+    UPDATE t_recursive_expense
+    SET is_active = CASE
+                        WHEN NEW.recursive_total > NEW.recursive_count THEN TRUE
+                        ELSE FALSE END
+    WHERE id = NEW.id;
+
+END;
+
+CREATE TRIGGER after_insert_on_t_color
+    AFTER INSERT
+    ON t_currency
+    FOR EACH ROW
+BEGIN
+    UPDATE t_currency
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_currency
+    AFTER UPDATE
+    ON t_currency
+    FOR EACH ROW
+BEGIN
+    UPDATE t_currency
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_insert_on_t_history
+    AFTER INSERT
+    ON t_history
+    FOR EACH ROW
+BEGIN
+    UPDATE t_history
+    SET date         = CASE
+                           WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           ELSE NEW.date
+        END,
+        date_added   = CASE
+                           WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                           ELSE NEW.date_added
+            END,
+        date_pointed = CASE
+                           WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
+                               THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.is_pointed = 0 THEN NULL
+                           ELSE date_pointed
+            END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_history
+    AFTER UPDATE
+    ON t_history
+    FOR EACH ROW
+BEGIN
+    UPDATE t_history
+    SET date         = CASE
+                           WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           ELSE NEW.date
+        END,
+        date_added   = CASE
+                           WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                           ELSE NEW.date_added
+            END,
+        date_pointed = CASE
+                           WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
+                               THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.is_pointed = 0 THEN NULL
+                           ELSE date_pointed
+            END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_bank_transfer
+    AFTER UPDATE
+    ON t_bank_transfer
+    FOR EACH ROW
+BEGIN
+
+    UPDATE t_bank_transfer
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+
+    UPDATE t_history
+    SET description = NEW.main_reason,
+        value       = CASE
+                          WHEN t_history.account_fk = NEW.from_account_fk THEN - ABS(NEW.value)
+                          WHEN t_history.account_fk = NEW.to_account_fk THEN ABS(NEW.value)
+            END
+    WHERE t_history.bank_transfer_fk = NEW.id
+      AND t_history.account_fk IN (NEW.from_account_fk, NEW.to_account_fk);
+
+END;
+
+CREATE TRIGGER after_insert_on_t_account
+    AFTER INSERT
+    ON t_account
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_account
+    AFTER UPDATE
+    ON t_account
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_insert_on_t_bank_transfer
+    AFTER INSERT
+    ON t_bank_transfer
+    FOR EACH ROW
+BEGIN
+    UPDATE t_bank_transfer
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
+CREATE VIEW export_v_currency AS
+SELECT tc.id,
+       tc.symbol,
+       tc.date_added
+FROM t_currency tc;
+
+CREATE VIEW export_v_recursive_expense AS
+SELECT tre.id,
+       ta.name       AS account_name,
+       tre.description,
+       tre.note,
+       tct.name      AS category_type,
+       tmp.name      AS mode_payment,
+       tre.value,
+       tp.name       AS place_name,
+       tre.start_date,
+       tre.recursive_total,
+       tre.recursive_count,
+       trf.frequency AS frequency,
+       tre.next_due_date,
+       tre.is_active,
+       tre.force_deactivate,
+       tre.date_added,
+       tre.last_updated
+FROM t_recursive_expense tre
+         INNER JOIN t_account ta
+                    ON tre.account_fk = ta.id
+         INNER JOIN t_category_type tct
+                    ON tre.category_type_fk = tct.id
+         INNER JOIN t_mode_payment tmp
+                    ON tre.mode_payment_fk = tmp.id
+         INNER JOIN t_place tp
+                    ON tre.place_fk = tp.id
+         INNER JOIN t_recursive_frequency trf
+                    ON tre.frequency_fk = trf.id;
+
+CREATE VIEW export_v_bank_transfer AS
+SELECT tbt.id,
+       tbt.value,
+       ta_fr.name AS from_account_name,
+       ta_to.name AS to_account_name,
+       tbt.main_reason,
+       tbt.additional_reason,
+       tbt.date,
+       tbt.date_added
+FROM t_bank_transfer tbt
+         INNER JOIN t_account ta_fr
+                    ON ta_fr.id = tbt.from_account_fk
+         INNER JOIN t_account ta_to
+                    ON ta_to.id = tbt.to_account_fk;
+
+CREATE VIEW export_v_account AS
+SELECT ta.id,
+       ta.name,
+       tat.name  AS account_type,
+       tc.symbol AS currency,
+       ta.active,
+       ta.date_added
+FROM t_account ta
+         INNER JOIN t_account_type tat
+                    ON ta.account_type_fk = tat.id
+         INNER JOIN t_currency tc
+                    ON ta.currency_fk = tc.id;
+
+CREATE VIEW v_recursive_expense AS
+SELECT tre.id,
+       tre.account_fk,
+       ta.name  AS account,
+       tre.description,
+       tre.note,
+       tre.category_type_fk,
+       tct.name AS category,
+       tco.hexadecimal_color_code,
+       tre.mode_payment_fk,
+       tmp.name AS mode_payment,
+       tre.value,
+       tcr.symbol,
+       tre.place_fk,
+       tp.name  AS place,
+       tre.start_date,
+       tre.recursive_total,
+       tre.recursive_count,
+       tre.frequency_fk,
+       trf.frequency,
+       tre.next_due_date,
+       tre.is_active,
+       tre.force_deactivate,
+       tre.date_added,
+       tre.last_updated
+FROM t_recursive_expense tre
+         INNER JOIN t_account ta
+                    ON tre.account_fk = ta.id
+         INNER JOIN t_currency tcr
+                    ON ta.currency_fk = tcr.id
+         INNER JOIN t_category_type tct
+                    ON tre.category_type_fk = tct.id
+         INNER JOIN t_color tco
+                    ON tct.color_fk = tco.id
+         INNER JOIN t_mode_payment tmp
+                    ON tre.mode_payment_fk = tmp.id
+         INNER JOIN t_place tp
+                    ON tre.place_fk = tp.id
+         INNER JOIN t_recursive_frequency trf
+                    ON tre.frequency_fk = trf.id;
+
+CREATE VIEW v_total_by_account AS
+SELECT ta.id,
+       ta.name,
+       CAST(COALESCE(ROUND(SUM(th.value), 2), 0) AS REAL) AS total,
+       CAST(COALESCE(ROUND(SUM(CASE WHEN th.is_pointed = TRUE THEN th.value ELSE 0 END), 2),
+                     0) AS REAL)                          AS total_pointed,
+       CAST(COALESCE(ROUND(SUM(CASE WHEN th.is_pointed = FALSE THEN th.value ELSE 0 END), 2),
+                     0) AS REAL)                          AS total_not_pointed,
+       tc.symbol
+FROM t_account ta
+         INNER JOIN t_history th
+                    ON ta.id = th.account_fk
+         INNER JOIN t_currency tc
+                    ON ta.currency_fk = tc.id
+GROUP BY ta.id, ta.name, tc.symbol
+ORDER BY ta.id;
+
+CREATE VIEW v_detail_total_category AS
+SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
+       CAST(STRFTIME('%W', h.date) AS INT) AS week,
+       CAST(STRFTIME('%m', h.date) AS INT) AS month,
+       CAST(STRFTIME('%d', h.date) AS INT) AS day,
+       ta.name                             AS account,
+       tct.name                            AS category,
+       h.value,
+       tcu.symbol,
+       tco.hexadecimal_color_code
+
+FROM t_category_type tct
+         INNER JOIN t_history h
+                    ON h.category_type_fk = tct.id
+         INNER JOIN t_account ta
+                    ON h.account_fk = ta.id
+         INNER JOIN t_currency tcu
+                    ON ta.currency_fk = tcu.id
+         INNER JOIN t_color tco
+                    ON tct.color_fk = tco.id
+ORDER BY year, week;
+
+CREATE VIEW analysis_v_account_monthly_cumulative_sum AS
+WITH all_periods AS (SELECT a.id                     AS account_fk,
+                            a.name                   AS account,
+                            tc.id                    AS currency_fk,
+                            tc.symbol                AS currency,
+                            y.year || '-' || m.month AS period
+                     FROM t_account a
+                              INNER JOIN t_currency tc on a.currency_fk = tc.id
+                              CROSS JOIN (SELECT DISTINCT year
+                                          FROM (SELECT strftime('%Y', h.date) AS year
+                                                FROM t_history h
+                                                UNION
+                                                SELECT STRftime('%Y', CURRENT_DATE))) AS y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.currency_fk,
+                        ap.currency,
+                        ap.period,
+                        COALESCE(SUM(h.value), 0) as monthly_value
+                 FROM all_periods ap
+                          INNER JOIN t_history h
+                                     ON h.account_fk = ap.account_fk AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.period),
+     ranked AS (SELECT *,
+                       ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
+                FROM monthly),
+     cumulative AS (SELECT r1.rn,
+                           r1.period,
+                           r1.account_fk,
+                           r1.account,
+                           r1.currency_fk,
+                           r1.currency,
+                           (SELECT SUM(r2.monthly_value)
+                            FROM ranked r2
+                            WHERE r2.rn <= r1.rn
+                              AND r2.account_fk = r1.account_fk) as cumulative_sum
+                    FROM ranked r1)
+SELECT account_fk,
+       account,
+       period,
+       ROUND(cumulative_sum, 2) as cumulative_sum,
+       currency_fk,
+       currency
+FROM cumulative
+ORDER BY account_fk, rn;
+
+CREATE VIEW analysis_v_account_category_monthly_sum_positive_negative AS
+WITH all_periods AS (SELECT a.id                      AS account_fk,
+                            a.name                    AS account,
+                            a.currency_fk             AS currency_fk,
+                            tca.symbol                AS currency,
+                            tct.id                    AS category_type_fk,
+                            tct.name                  AS category_type,
+                            tc.hexadecimal_color_code AS color_code,
+                            y.year || '-' || m.month  AS period
+                     FROM t_account a
+                              INNER JOIN t_currency tca ON a.currency_fk = tca.id
+                              CROSS JOIN t_category_type tct
+                              INNER JOIN t_color tc ON tct.color_fk = tc.id
+                              CROSS JOIN (SELECT DISTINCT year
+                                          FROM (SELECT strftime('%Y', h.date) AS year
+                                                FROM t_history h
+                                                UNION
+                                                SELECT STRftime('%Y', CURRENT_DATE))) AS y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.currency_fk,
+                        ap.currency,
+                        ap.category_type_fk,
+                        ap.category_type,
+                        ap.color_code,
+                        ap.period,
+                        COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0)  AS monthly_negative_value,
+                        COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
+                 FROM all_periods ap
+                          INNER JOIN t_history h
+                                     ON h.account_fk = ap.account_fk
+                                         AND h.category_type_fk = ap.category_type_fk
+                                         AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
+SELECT account_fk,
+       account,
+       category_type,
+       color_code,
+       period,
+       ROUND(monthly_negative_value, 2) AS monthly_negative_sum,
+       ROUND(monthly_positive_value, 2) AS monthly_positive_sum,
+       currency_fk,
+       currency
+FROM monthly
+ORDER BY account_fk, period, category_type;
+
+CREATE VIEW analysis_v_account_category_monthly_sum AS
+SELECT account_fk,
+       account,
+       category_type,
+       color_code,
+       period,
+       ROUND(monthly_negative_sum + monthly_positive_sum, 2) AS monthly_sum,
+       currency_fk,
+       currency
+FROM analysis_v_account_category_monthly_sum_positive_negative
+ORDER BY account_fk, period, category_type;
+
+CREATE VIEW analysis_v_account_mode_payment_category_monthly_sum AS
+WITH all_periods AS (SELECT a.id                     AS account_fk,
+                            a.name                   AS account,
+                            tcu.id                   AS currency_fk,
+                            tcu.symbol               AS currency,
+                            tmp.id                   AS mode_payment_fk,
+                            tmp.name                 AS mode_payment,
+                            y.year || '-' || m.month AS period,
+                            ct.id                    AS category_fk,
+                            ct.name                  AS category,
+                            tc.hexadecimal_color_code
+                     FROM t_account a
+                              CROSS JOIN t_mode_payment tmp
+                              CROSS JOIN t_category_type ct
+                              INNER JOIN t_color tc ON ct.color_fk = tc.id
+                              INNER JOIN t_currency tcu on a.currency_fk = tcu.id
+                              CROSS JOIN (SELECT DISTINCT year
+                                          FROM (SELECT strftime('%Y', h.date) AS year
+                                                FROM t_history h
+                                                UNION
+                                                SELECT STRftime('%Y', CURRENT_DATE))) AS y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.currency_fk,
+                        ap.currency,
+                        ap.mode_payment_fk,
+                        ap.mode_payment,
+                        ap.period,
+                        ap.category_fk,
+                        ap.category,
+                        ap.hexadecimal_color_code,
+                        COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
+                        COALESCE(SUM(h.value), 0)                                       AS monthly_value
+                 FROM all_periods ap
+                          INNER JOIN t_history h
+                                     ON h.account_fk = ap.account_fk
+                                         AND h.mode_payment_fk = ap.mode_payment_fk
+                                         AND h.category_type_fk = ap.category_fk
+                                         AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period, ap.category_fk)
+SELECT account_fk,
+       account,
+       mode_payment,
+       period,
+       category,
+       hexadecimal_color_code,
+       ROUND(monthly_value, 2) AS monthly_sum,
+       currency_fk,
+       currency,
+       monthly_mode_payment
+FROM monthly
+ORDER BY account_fk, period, mode_payment, category;
+
+CREATE VIEW analysis_v_budget_monthly AS
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+
+     filtered_accounts AS (SELECT DISTINCT a.id AS account_fk, a.name AS account_name, tc.id AS symbol_fk, tc.symbol
+                           FROM t_account a
+                                    INNER JOIN t_history h ON h.account_fk = a.id
+                                    INNER JOIN t_currency tc ON a.currency_fk = tc.id),
+
+     monthly_values AS (SELECT a.id                      AS account_fk,
+                               a.name                    AS account_name,
+                               tc.id                     AS symbol_fk,
+                               tc.symbol                 AS symbol,
+                               STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
+                        FROM t_history h
+                                 INNER JOIN t_account a ON h.account_fk = a.id
+                                 INNER JOIN t_currency tc ON a.currency_fk = tc.id
+                        GROUP BY a.id, period),
+
+     account_months AS (SELECT a.account_fk, a.account_name, a.symbol_fk, a.symbol, m.period
+                        FROM filtered_accounts a
+                                 CROSS JOIN months m),
+
+     cumulative_values AS (SELECT am.account_fk,
+                                  am.account_name,
+                                  am.symbol_fk,
+                                  am.symbol,
+                                  am.period,
+                                  COALESCE(
+                                          (SELECT SUM(mv2.total_value)
+                                           FROM monthly_values mv2
+                                           WHERE mv2.account_fk = am.account_fk
+                                             AND mv2.period <= am.period),
+                                          0
+                                  ) AS cumulative_total_value
+                           FROM account_months am
+                                    INNER JOIN monthly_values mv
+                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
+
+SELECT cv.account_fk,
+       cv.account_name,
+       cv.symbol_fk,
+       cv.symbol,
+       cv.period,
+       ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
+       STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
+       ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
+           ELSE 'Stable'
+           END                                                                            AS status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
+                                              THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
+                                      / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
+                       END
+                   END, 2
+       )                                                                                  AS percentage,
+       ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
+FROM cumulative_values cv
+         INNER JOIN cumulative_values pre_cv
+                    ON cv.account_fk = pre_cv.account_fk
+                        AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
+ORDER BY cv.account_fk, cv.period;
+
+CREATE VIEW analysis_v_budget_period_annual AS
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+
+     filtered_accounts AS (SELECT DISTINCT a.id   AS account_fk,
+                                           a.name AS account_name,
+                                           tc.id  AS symbol_fk,
+                                           tc.symbol
+                           FROM t_account a
+                                    INNER JOIN t_history h
+                                               ON h.account_fk = a.id
+                                    INNER JOIN t_currency tc
+                                               ON a.currency_fk = tc.id),
+
+     account_months AS (SELECT a.account_fk,
+                               a.account_name,
+                               a.symbol_fk,
+                               a.symbol,
+                               m.period
+                        FROM filtered_accounts a
+                                 CROSS JOIN months m),
+
+     monthly_values AS (SELECT a.id                      AS account_fk,
+                               a.name                    AS account_name,
+                               tc.id                     AS symbol_fk,
+                               tc.symbol                 AS symbol,
+                               STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
+                        FROM t_history h
+                                 INNER JOIN t_account a
+                                            ON h.account_fk = a.id
+                                 INNER JOIN t_currency tc
+                                            ON a.currency_fk = tc.id
+                        GROUP BY a.id, period),
+
+     cumulative_values AS (SELECT am.account_fk,
+                                  am.account_name,
+                                  am.symbol_fk,
+                                  am.symbol,
+                                  am.period,
+                                  STRFTIME('%m', am.period)                   AS month_of_year,
+                                  STRFTIME('%Y', am.period)                   AS year,
+                                  COALESCE(
+                                          (SELECT SUM(mv2.total_value)
+                                           FROM monthly_values mv2
+                                           WHERE mv2.account_fk = am.account_fk
+                                             AND mv2.period <= am.period), 0) AS cumulative_total_value
+                           FROM account_months am
+                                    INNER JOIN monthly_values mv
+                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
+
+SELECT cv.account_fk,
+       cv.account_name,
+       cv.symbol_fk,
+       cv.symbol,
+       cv.period,
+       ROUND(cv.cumulative_total_value, 2)                              AS period_value,
+       COALESCE(
+               STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')),
+               CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) AS previous_period,
+       COALESCE(
+               (SELECT ROUND(pre_cv.cumulative_total_value, 2)
+                FROM cumulative_values pre_cv
+                WHERE pre_cv.account_fk = cv.account_fk
+                  AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+               0)                                                       AS previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(
+                   (SELECT pre_cv.cumulative_total_value
+                    FROM cumulative_values pre_cv
+                    WHERE pre_cv.account_fk = cv.account_fk
+                      AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+                   0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(
+                   (SELECT pre_cv.cumulative_total_value
+                    FROM cumulative_values pre_cv
+                    WHERE pre_cv.account_fk = cv.account_fk
+                      AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+                   0) THEN 'Deficit'
+           ELSE 'Stable'
+           END                                                          AS status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(
+                           (SELECT pre_cv.cumulative_total_value
+                            FROM cumulative_values pre_cv
+                            WHERE pre_cv.account_fk = cv.account_fk
+                              AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                  pre_cv.period), 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(
+                                               (SELECT pre_cv.cumulative_total_value
+                                                FROM cumulative_values pre_cv
+                                                WHERE pre_cv.account_fk = cv.account_fk
+                                                  AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                      pre_cv.period), 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(
+                                                  (SELECT pre_cv.cumulative_total_value
+                                                   FROM cumulative_values pre_cv
+                                                   WHERE pre_cv.account_fk = cv.account_fk
+                                                     AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                         pre_cv.period), 0) THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(
+                                          (SELECT pre_cv.cumulative_total_value
+                                           FROM cumulative_values pre_cv
+                                           WHERE pre_cv.account_fk = cv.account_fk
+                                             AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                 pre_cv.period), 0)) / ABS(
+                                               COALESCE(
+                                                       (SELECT pre_cv.cumulative_total_value
+                                                        FROM cumulative_values pre_cv
+                                                        WHERE pre_cv.account_fk = cv.account_fk
+                                                          AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                              pre_cv.period), 1))
+                       END
+                   END, 2)                                              AS percentage,
+       ROUND(
+               (cv.cumulative_total_value - COALESCE(
+                       (SELECT pre_cv.cumulative_total_value
+                        FROM cumulative_values pre_cv
+                        WHERE pre_cv.account_fk = cv.account_fk
+                          AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                              pre_cv.period), 0)), 2)                   AS difference_value
+FROM cumulative_values cv
+ORDER BY account_fk, period;
+
+CREATE VIEW v_bank_transfer_summary AS
+WITH from_account_balance_before AS (SELECT bt.id,
+                                            SUM(th.value) AS balance
+                                     FROM t_bank_transfer bt
+                                              INNER JOIN t_history th
+                                                         ON th.account_fk = bt.from_account_fk AND th.date < bt.date
+                                     GROUP BY bt.id),
+     to_account_balance_before AS (SELECT bt.id,
+                                          SUM(th.value) AS balance
+                                   FROM t_bank_transfer bt
+                                            INNER JOIN t_history th
+                                                       ON th.account_fk = bt.to_account_fk AND th.date < bt.date
+                                   GROUP BY bt.id)
+SELECT bt.id,
+       a1.name                          AS from_account_name,
+       c1.symbol                        AS from_account_symbol,
+       a2.name                          AS to_account_name,
+       c2.symbol                        AS to_account_symbol,
+       bt.main_reason,
+       bt.additional_reason,
+       tct.name                         AS category_name,
+       c.hexadecimal_color_code         AS category_color,
+       tmp.name                         AS mode_payment,
+       bt.date,
+       ROUND(fab.balance, 2)            AS from_account_balance_before,
+       ROUND(fab.balance - bt.value, 2) AS from_account_balance_after,
+       ROUND(bt.value, 2)               AS value,
+       ROUND(tab.balance, 2)            AS to_account_balance_before,
+       ROUND(tab.balance + bt.value, 2) AS to_account_balance_after,
+       bt.date_added
+FROM t_bank_transfer bt
+         INNER JOIN t_account a1
+                    ON bt.from_account_fk = a1.id
+         INNER JOIN t_account a2
+                    ON bt.to_account_fk = a2.id
+         INNER JOIN t_currency c1
+                    ON a1.currency_fk = c1.id
+         INNER JOIN t_currency c2
+                    ON a2.currency_fk = c2.id
+         INNER JOIN from_account_balance_before fab
+                    ON fab.id = bt.id
+         INNER JOIN to_account_balance_before tab
+                    ON tab.id = bt.id
+         INNER JOIN t_history h1
+                    ON a1.id = h1.account_fk AND bt.id = h1.bank_transfer_fk
+         INNER JOIN t_category_type tct
+                    ON h1.category_type_fk = tct.id
+         INNER JOIN t_color c
+                    ON tct.color_fk = c.id
+         INNER JOIN t_mode_payment tmp
+                    ON h1.mode_payment_fk = tmp.id;
+
+CREATE VIEW export_v_history AS
+SELECT th.id,
+       ta.name  AS account_name,
+       th.description,
+       tct.name AS category_type,
+       tmp.name AS mode_payment,
+       th.value,
+       th.date,
+       tp.name  AS place,
+       th.is_pointed,
+--        th.bank_transfer_fk,
+--        th.recursive_expense_fk,
+       th.date_added,
+       th.date_pointed
+FROM t_history th
+         INNER JOIN t_account ta
+                    ON th.account_fk = ta.id
+         INNER JOIN t_category_type tct
+                    ON th.category_type_fk = tct.id
+         INNER JOIN t_mode_payment tmp
+                    ON th.mode_payment_fk = tmp.id
+         INNER JOIN t_place tp
+                    ON th.place_fk = tp.id;
+
+CREATE VIEW v_history AS
+SELECT h.id,
+       ta.name  AS account,
+       h.description,
+       tct.name AS category,
+       tco.hexadecimal_color_code,
+       tmp.name AS mode_payment,
+       h.value,
+       tcu.symbol,
+       h.date,
+       tp.name  AS place,
+       h.is_pointed,
+       bt.main_reason,
+       h.date_added
+
+FROM t_history h
+         INNER JOIN t_account ta
+                    ON h.account_fk = ta.id
+         INNER JOIN t_category_type tct
+                    ON h.category_type_fk = tct.id
+         INNER JOIN t_color tco
+                    ON tct.color_fk = tco.id
+         INNER JOIN t_mode_payment tmp
+                    ON h.mode_payment_fk = tmp.id
+         INNER JOIN t_currency tcu
+                    ON ta.currency_fk = tcu.id
+         INNER JOIN t_place tp
+                    ON h.place_fk = tp.id
+         LEFT JOIN t_bank_transfer bt
+                    ON h.bank_transfer_fk = bt.id;
+
+CREATE VIEW analysis_v_budget_monthly_global AS
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+     monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
+                        FROM t_history h
+                        GROUP BY period),
+     cumulative_values AS (SELECT m.period,
+                                  COALESCE(
+                                          (SELECT SUM(mv2.total_value)
+                                           FROM monthly_values mv2
+                                           WHERE mv2.period <= m.period),
+                                          0
+                                  ) AS cumulative_total_value
+                           FROM months m)
+SELECT cv.period,
+       ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
+       STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
+       ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
+           ELSE 'Stable'
+           END                                                                            AS status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
+                                              THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
+                                      / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
+                       END
+                   END, 2
+       )                                                                                  AS percentage,
+       ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
+FROM cumulative_values cv
+         INNER JOIN cumulative_values pre_cv
+                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
+ORDER BY cv.period;
+
+CREATE VIEW analysis_v_budget_period_annual_global AS
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+     monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
+                        FROM t_history h
+                        GROUP BY period),
+     complete_monthly_values AS (SELECT m.period,
+                                        COALESCE(mv.total_value, 0) AS total_value
+                                 FROM months m
+                                          INNER JOIN monthly_values mv ON m.period = mv.period),
+     cumulative_values AS (SELECT cmv.period,
+                                  STRFTIME('%m', cmv.period)        AS month_of_year,
+                                  STRFTIME('%Y', cmv.period)        AS year,
+                                  (SELECT SUM(cmv2.total_value)
+                                   FROM complete_monthly_values cmv2
+                                   WHERE cmv2.period <= cmv.period) AS cumulative_total_value
+                           FROM complete_monthly_values cmv)
+SELECT cv.period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
+       STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year'))                             as previous_period,
+       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
+           END                                                                            as status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
+                                              THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
+                                      / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
+                       END
+                   END, 2
+       )                                                                                  AS percentage,
+       ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
+FROM cumulative_values cv
+         INNER JOIN cumulative_values pre_cv
+                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
+ORDER BY cv.period;
+
+CREATE VIEW analysis_v_budget_total_annual_global AS
+WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
+                            CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
+                     FROM t_history h),
+     years AS (SELECT (SELECT min_year FROM date_bounds) AS year
+               UNION ALL
+               SELECT year + 1
+               FROM years,
+                    date_bounds
+               WHERE year + 1 <= (SELECT max_year FROM date_bounds)),
+     annual_values AS (SELECT yc.year,
+                              COALESCE(SUM(h.value), 0) AS total_value
+                       FROM years yc
+                                INNER JOIN t_history h
+                                           ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
+                       GROUP BY yc.year),
+     cumulative_values AS (SELECT av.year,
+                                  (SELECT SUM(av2.total_value)
+                                   FROM annual_values av2
+                                   WHERE av2.year <= av.year) as cumulative_total_value
+                           FROM annual_values av)
+SELECT cv.year                                                                            AS period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
+       cv.year - 1                                                                        as previous_period,
+       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
+           ELSE 'Stable'
+           END                                                                            as status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0)
+                                              THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0))
+                                      / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
+                       END
+                   END, 2
+       )                                                                                  AS percentage,
+       ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
+FROM cumulative_values cv
+         INNER JOIN cumulative_values pre_cv
+                    ON cv.year - 1 = pre_cv.year;
+
+CREATE VIEW analysis_v_budget_total_annual AS
+WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
+                            CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
+                     FROM t_history h),
+     years AS (SELECT (SELECT min_year FROM date_bounds) AS year
+               UNION ALL
+               SELECT CAST(year AS INTEGER) + 1
+               FROM years,
+                    date_bounds
+               WHERE CAST(year AS INTEGER) + 1 <= (SELECT max_year FROM date_bounds)),
+     account_years AS (SELECT a.id   as account_fk,
+                              a.name as account_name,
+                              yc.year
+                       FROM t_account a
+                                CROSS JOIN years yc),
+     annual_values AS (SELECT ay.account_fk,
+                              ay.account_name,
+                              tc.id                     AS symbol_fk,
+                              tc.symbol                 AS symbol,
+                              ay.year,
+                              COALESCE(SUM(h.value), 0) AS total_value
+                       FROM account_years ay
+                                INNER JOIN t_history h
+                                           ON ay.account_fk = h.account_fk AND
+                                              STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
+                                INNER JOIN t_account a
+                                           ON ay.account_fk = a.id
+                                INNER JOIN t_currency tc
+                                           ON tc.id = a.currency_fk
+                       GROUP BY ay.account_fk, ay.year
+                       ORDER BY ay.account_fk, ay.year),
+     cumulative_values AS (SELECT av.account_fk,
+                                  av.account_name,
+                                  av.symbol_fk,
+                                  av.symbol,
+                                  av.year,
+                                  (SELECT SUM(av2.total_value)
+                                   FROM annual_values av2
+                                   WHERE av2.account_fk = av.account_fk
+                                     AND av2.year <= av.year) AS cumulative_total_value
+                           FROM annual_values av)
+SELECT cv.account_fk,
+       cv.account_name,
+       cv.symbol_fk,
+       cv.symbol,
+       CAST(cv.year AS INTEGER)                                                           AS period,
+       ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
+       CAST(cv.year AS INTEGER) - 1                                                       AS previous_period,
+       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               AS previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
+           ELSE 'Stable'
+           END                                                                            AS status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0) THEN 0
+                   WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
+                       CASE
+                           WHEN cv.cumulative_total_value > 0 THEN 100
+                           ELSE -100
+                           END
+                   ELSE 100 * (cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)) /
+                        ABS(COALESCE(pre_cv.cumulative_total_value, 1))
+                   END, 2)                                                                AS percentage,
+       ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
+FROM cumulative_values cv
+         INNER JOIN cumulative_values pre_cv
+                    ON cv.account_fk = pre_cv.account_fk
+                        AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+    ";
 }
