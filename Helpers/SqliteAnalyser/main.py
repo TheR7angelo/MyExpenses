@@ -318,7 +318,6 @@ def export_html(schema):
                 --shadow: rgba(0,0,0,0.1);
             }
 
-            /* On définit les couleurs sombres dans une classe à part */
             body.dark-mode {
                 --bg-color: #1a1a1a;
                 --card-bg: #2d2d2d;
@@ -335,6 +334,18 @@ def export_html(schema):
             .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); border: none; }
             h1 { color: var(--text-title); text-align: center; margin-bottom: 30px; } 
 
+            /* Recherche & Filtre */
+            .search-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 30px; }
+            .search-box { 
+                width: 350px; padding: 12px 20px; border-radius: 25px; 
+                border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; 
+            }
+            .clear-btn { 
+                padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border-color); 
+                background: var(--card-bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8em; font-weight: bold;
+            }
+            .clear-btn:hover { background: #d9534f; color: white; border-color: #d9534f; }
+
             .theme-toggle {
                 position: fixed; top: 20px; right: 20px;
                 padding: 10px 15px; border-radius: 20px;
@@ -343,18 +354,22 @@ def export_html(schema):
                 cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 2px 5px var(--shadow);
             }
 
-            .group-header { cursor: pointer; list-style: none; outline: none; padding: 5px 0; }
-            .group-header::-webkit-details-marker { display: none; }
-            .title-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-            .group-header h2 { margin: 0; color: var(--text-title); }
+            /* --- FIX DOUBLE FLECHE --- */
+            summary { list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; }
+            summary::-webkit-details-marker { display: none; }
+            summary * { display: inline; } /* Empêche les h2 de forcer un bloc */
 
-            .group-header h2::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.7em; transition: transform 0.2s; }
-            details[open] > .group-header h2::before { content: "▼"; }
+            .group-header { padding: 5px 0; }
+            .title-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; pointer-events: none; }
+            .group-header h2 { margin: 0; color: var(--text-title); font-size: 1.5em; }
 
+            /* Flèches personnalisées */
+            summary::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.8em; transition: transform 0.2s; color: var(--text-secondary); }
+            details[open] > summary::before { content: "▼"; }
+
+            /* Ajustement pour les blocs sources */
             details.source-block { margin-top: 15px; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; }
-            summary.source-title { font-weight: bold; cursor: pointer; list-style: none; outline: none; font-size: 1.1em; color: var(--text-title); }
-            summary.source-title::before { content: "▶"; display: inline-block; width: 1.5em; font-size: 0.8em; }
-            details[open] > summary.source-title::before { content: "▼"; }
+            .source-title { font-weight: bold; font-size: 1.1em; color: var(--text-title); }
 
             table { 
                 border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 15px; 
@@ -369,22 +384,28 @@ def export_html(schema):
             .nullable { color: #d9534f; font-weight: bold; }
             .notnull { color: #5cb85c; font-weight: bold; }
             code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-            .count-badge { background: #34495e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; }
+            .count-badge { background: #34495e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.6em; margin-left: 10px; vertical-align: middle; }
         </style>
         <script>
-            // Fonction pour mettre à jour le texte du bouton
             function updateBtnText() {
                 const isDark = document.body.classList.contains('dark-mode');
-                document.getElementById('theme-btn').innerText = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+                document.getElementById('theme-btn').innerText = isDark ? '☀️ Light' : '🌙 Dark';
             }
-
-            // Bascule manuelle
             function toggleTheme() {
                 document.body.classList.toggle('dark-mode');
                 updateBtnText();
             }
-
-            // Détection automatique au chargement
+            function filterResults() {
+                let input = document.getElementById('search').value.toLowerCase();
+                document.querySelectorAll('.source-block').forEach(block => {
+                    let name = block.querySelector('.source-title').innerText.toLowerCase();
+                    block.style.display = name.includes(input) ? "" : "none";
+                });
+            }
+            function clearSearch() {
+                document.getElementById('search').value = '';
+                filterResults();
+            }
             window.onload = function() {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.body.classList.add('dark-mode');
@@ -393,16 +414,19 @@ def export_html(schema):
             };
         </script>
     </head><body>
-        <button id="theme-btn" class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
-        <h1>Global Schema Audit</h1>"""]
+        <button id="theme-btn" class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+        <h1>Global Schema Audit</h1>
+        <div class="search-container">
+            <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Search table or view...">
+            <button class="clear-btn" onclick="clearSearch()">Clear Filter</button>
+        </div>"""]
 
     def create_block(title, collection, is_table=False):
         html.append(f"""
             <details open class='card'>
                 <summary class='group-header'>
                     <div class='title-wrapper'>
-                        <h2>{title}</h2>
-                        <span class='count-badge'>{len(collection)}</span>
+                        <h2>{title} <span class='count-badge'>{len(collection)}</span></h2>
                     </div>
                 </summary>""")
 
