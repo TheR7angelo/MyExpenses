@@ -22,6 +22,7 @@ class Schema:
         self.tables = {}
         self.views_sql = {}
         self.views = {}
+        self.triggers = []  # Nouvelle liste pour stocker les triggers
         self.dependencies = defaultdict(set)
 
 
@@ -36,6 +37,8 @@ def load_schema(db):
     conn = sqlite3.connect(db)
     cur = conn.cursor()
     schema = Schema()
+
+    # Tables
     cur.execute("SELECT name FROM sqlite_schema WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")
     tables = [r[0] for r in cur.fetchall()]
     for table in tables:
@@ -45,6 +48,8 @@ def load_schema(db):
             cols[name] = Column(nullable=not (notnull or pk > 0), reason="table constraint", default=dflt, dtype=typ,
                                 pk=(pk > 0))
         schema.tables[table] = cols
+
+    # Foreign Keys
     for table in tables:
         cur.execute(f"PRAGMA foreign_key_list({table})")
         for row in cur.fetchall():
@@ -52,10 +57,25 @@ def load_schema(db):
             if not ref_col: ref_col = get_primary_key_name(cur, ref_table)
             if local_col in schema.tables[table]:
                 schema.tables[table][local_col].fk = f"{ref_table}({ref_col})"
+
+    # Views
     cur.execute("SELECT name, sql FROM sqlite_schema WHERE type ='view'")
-    for name, sql in cur.fetchall(): schema.views_sql[name] = sql
+    for name, sql in cur.fetchall():
+        schema.views_sql[name] = sql
+
+    # Triggers (Nouvelle section)
+    cur.execute("SELECT name, tbl_name, sql FROM sqlite_schema WHERE type = 'trigger'")
+    for name, table, sql in cur.fetchall():
+        schema.triggers.append({
+            "name": name,
+            "table": table,
+            "sql": sql
+        })
+
     return schema
 
+
+# --- [Fonctions d'analyse SQL identiques au précédent] ---
 
 def extract_sources(select):
     sources = {}
@@ -128,8 +148,8 @@ def resolve_views(schema):
         progress = False
         for name, sql in list(remaining.items()):
             try:
-                analyze_view(name, sql, schema);
-                del remaining[name];
+                analyze_view(name, sql, schema)
+                del remaining[name]
                 progress = True
             except:
                 pass
@@ -143,7 +163,6 @@ def export_html(schema):
         body { font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; transition: 0.3s; }
         .card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px var(--shadow); }
 
-        /* Search Bar Styles */
         .search-wrapper { position: relative; width: 400px; margin: 0 auto 30px auto; }
         .search-box { width: 100%; padding: 12px 45px 12px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; box-sizing: border-box; }
         .clear-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; padding: 0; line-height: 1; }
@@ -166,6 +185,7 @@ def export_html(schema):
         body.dark-mode .default-val { background: #1b3a4b; color: #a5d8ff; border-color: #244b5f; }
         .type-label { font-family: monospace; background: var(--code-bg); padding: 2px 5px; border-radius: 4px; color: var(--text-secondary); }
         .theme-toggle { position: fixed; top: 20px; right: 20px; padding: 10px 15px; border-radius: 20px; background: var(--card-bg); color: var(--text-main); cursor: pointer; border: 1px solid var(--border-color); z-index: 1000; }
+        pre { background: var(--code-bg); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; border: 1px solid var(--border-color); color: var(--text-main); }
     </style><script>
         function toggleTheme() { document.body.classList.toggle('dark-mode'); updateBtn(); }
         function updateBtn() { document.getElementById('tb').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙'; }
@@ -174,11 +194,11 @@ def export_html(schema):
             const input = document.getElementById('search');
             const clearBtn = document.getElementById('clear-btn');
             const filter = input.value.toLowerCase();
-
             clearBtn.style.display = input.value.length > 0 ? "block" : "none";
 
             document.querySelectorAll('.source-block').forEach(b => {
-                b.style.display = b.querySelector('summary').innerText.toLowerCase().includes(filter) ? "" : "none";
+                const title = b.querySelector('summary').innerText.toLowerCase();
+                b.style.display = title.includes(filter) ? "" : "none";
             });
         }
 
@@ -194,7 +214,7 @@ def export_html(schema):
         <button id="tb" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         <h1 style="text-align:center">Global Schema Audit</h1>
         <div class="search-wrapper">
-            <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Search table or view...">
+            <input type="text" id="search" class="search-box" onkeyup="filterResults()" placeholder="Search table, view or trigger...">
             <button id="clear-btn" class="clear-btn" onclick="clearSearch()">&times;</button>
         </div>"""]
 
@@ -220,8 +240,21 @@ def export_html(schema):
             html.append("</tbody></table></details>")
         html.append("</details>")
 
+    # Section Tables & Views
     create_block("Source Tables", schema.tables, is_table=True)
     create_block("Analyzed Views", schema.views, is_table=False)
+
+    # Section Triggers (Nouvelle méthode d'affichage)
+    if schema.triggers:
+        html.append(
+            f"<details open class='card'><summary><h2>Database Triggers ({len(schema.triggers)})</h2></summary>")
+        for trig in sorted(schema.triggers, key=lambda x: x['name']):
+            html.append(
+                f"<details open class='source-block'><summary><strong>{trig['name']}</strong> (on {trig['table']})</summary>")
+            html.append(f"<pre><code>{trig['sql']}</code></pre>")
+            html.append("</details>")
+        html.append("</details>")
+
     html.append("</body></html>")
     with open("audit_report.html", "w", encoding="utf-8") as f:
         f.write("\n".join(html))
@@ -232,6 +265,10 @@ if __name__ == "__main__":
     parser.add_argument("db")
     parser.add_argument("--html", action="store_true")
     args = parser.parse_args()
-    schema = load_schema(args.db)
-    resolve_views(schema)
-    if args.html: export_html(schema)
+
+    schema_data = load_schema(args.db)
+    resolve_views(schema_data)
+
+    if args.html:
+        export_html(schema_data)
+        print("Audit report generated: audit_report.html")
