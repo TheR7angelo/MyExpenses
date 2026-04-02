@@ -1,5 +1,5 @@
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Interfaces;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;
@@ -31,6 +31,12 @@ public class AccountService(IAccountRepository accountRepository, IAccountDtoDom
     {
         var currencies = await accountRepository.GetAllCurrencyAsync(cancellationToken);
         return currencies.Select(mapper.MapToDto);
+    }
+
+    public async Task<Result> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken)
+    {
+        var accountType = mapper.MapToDomain(accountTypeDto);
+        return await accountRepository.DeleteAccountTypeAsync(accountType, cancellationToken);
     }
 
     // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)

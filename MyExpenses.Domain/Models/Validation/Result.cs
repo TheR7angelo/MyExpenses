@@ -13,8 +13,8 @@ public class Result
         InternalMessage = internalMessage;
     }
 
-    public static Result Success()
-        => new(true, ErrorCode.None, null);
+    public static Result Success(string? internalMessage = null)
+        => new(true, ErrorCode.None, internalMessage);
 
     public static Result Failure(ErrorCode errorCode, string internalMessage) =>
         new(false, errorCode, internalMessage);

@@ -127,7 +127,19 @@ public partial class AddEditAccountWindow
         switch (messageBoxResult, editMode)
         {
             case (MessageBoxInputResult.Delete, _):
-                Console.WriteLine(@"Need todo delete");
+                response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+
+                // TODO check before delete if accountType is used in any account
+                var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
+                if (success.IsSuccess)
+                {
+                    AccountTypes.Remove(AccountViewModel.AccountType);
+                    AccountViewModel.AccountType = null;
+                    AccountViewModel.AcceptAccountTypeChanges();
+                    // TODO send message to the app and delete all related visual
+                }
+
                 break;
 
             case (MessageBoxInputResult.Valid, false):

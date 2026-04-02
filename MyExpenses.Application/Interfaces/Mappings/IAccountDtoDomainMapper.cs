@@ -39,4 +39,11 @@ public interface IAccountDtoDomainMapper
     /// <param name="src">The source AccountTypeDomain object to map.</param>
     /// <returns>An AccountTypeDto object that is mapped from the source object.</returns>
     public AccountTypeDto MapToDto(AccountTypeDomain src);
+
+    /// <summary>
+    /// Maps the AccountTypeDto object to an AccountTypeDomain object.
+    /// </summary>
+    /// <param name="src">The source AccountTypeDto object to map.</param>
+    /// <returns>An AccountTypeDomain object that is mapped from the source object.</returns>
+    public AccountTypeDomain MapToDomain(AccountTypeDto src);
 }

@@ -1,16 +1,50 @@
 using Domain.Models.Accounts;
+using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
 
 public interface IAccountRepository
 {
+    /// <summary>
+    /// Retrieves the total amounts for all accounts asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of <see cref="TotalByAccountDomain"/> objects containing account totals and related information.</returns>
     public Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Retrieves the names of all accounts asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of strings representing the names of the available accounts.</returns>
     public Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Retrieves all accounts asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of <see cref="AccountDomain"/> objects representing the available accounts.</returns>
     public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Retrieves all account types asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of <see cref="AccountTypeDomain"/> objects representing the available account types.</returns>
     public Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Retrieves all available currencies asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of <see cref="CurrencyDomain"/> objects representing the available currencies.</returns>
     public Task<IEnumerable<CurrencyDomain>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified account type asynchronously.
+    /// </summary>
+    /// <param name="accountType">The account type domain object to delete.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the task to complete.</param>
+    /// <returns>A result object indicating whether the operation was successful, with an error code and internal message if applicable.</returns>
+    public Task<Result> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
 }

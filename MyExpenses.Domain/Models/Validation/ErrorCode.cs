@@ -7,5 +7,8 @@ public enum ErrorCode
     NameRequired,
     NameAlreadyExists,
     InvalidCharacters,
-    UnknownError
+    UnknownError,
+
+    DatabaseError = 100,
+    AccountTypeNotFound
 }

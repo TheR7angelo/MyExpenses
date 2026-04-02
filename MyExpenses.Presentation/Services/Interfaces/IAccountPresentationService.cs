@@ -1,3 +1,4 @@
+using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -32,6 +33,15 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a collection of <see cref="CurrencyViewModel"/>.</return>
     public Task<IEnumerable<CurrencyViewModel>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes an account type asynchronously.
+    /// </summary>
+    /// <param name="accountViewModel">The view model representing the account type to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the operation's success or failure.</return>
+    public Task<Result> DeleteAccountTypeAsync(AccountTypeViewModel accountViewModel,
+        CancellationToken cancellationToken = default);
 
     // public Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

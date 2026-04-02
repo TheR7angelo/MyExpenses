@@ -1,3 +1,4 @@
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 
 namespace MyExpenses.Application.Interfaces.IServices;
@@ -33,4 +34,12 @@ public interface IAccountService
     public Task<IEnumerable<CurrencyDto>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
 
     // public Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes an existing account type from the system.
+    /// </summary>
+    /// <param name="accountTypeDto">The account type to be deleted, represented as a <see cref="AccountTypeDto"/> object.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
+    public Task<Result> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken);
 }
