@@ -163,6 +163,17 @@ def export_html(schema):
             }},
             er: {{ useMaxWidth: false }}
         }});
+        window.addEventListener('hashchange', () => {{
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {{
+            let parent = targetElement.parentElement;
+            while (parent) {{
+                if (parent.tagName === 'DETAILS') parent.open = true;
+                parent = parent.parentElement;
+            }}
+        }}
+    }});
     </script>
     <style>
         :root {{ --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; --danger: #d9534f; --success: #5cb85c; }}
@@ -201,8 +212,27 @@ def export_html(schema):
         details[open] > summary::before {{ content: "▼"; }}
         .type-label {{ font-family: monospace; background: var(--type-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-secondary); font-size: 0.85em; }}
 
-        .graph-container {{ background: white; border-radius: 12px; padding: 20px; overflow: auto; height: 700px; border: 1px solid var(--border-color); cursor: grab; }}
-        .mermaid {{ min-width: 3000px; }}
+.graph-container {{
+    background: white; 
+    border-radius: 12px; 
+    padding: 0; 
+    overflow: auto; /* Permet le scroll dans les deux sens */
+    height: 700px; 
+    border: 1px solid var(--border-color); 
+    cursor: grab;
+    position: relative;
+    width: 100%;
+}}
+
+.mermaid {{ 
+    margin: 0;
+    display: inline-block; /* Très important pour que le conteneur s'adapte à la largeur du SVG */
+    padding: 20px;
+}}
+
+.graph-container:active {{
+    cursor: grabbing;
+}}
     </style>
     <script>
         function toggleTheme() {{
