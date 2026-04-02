@@ -128,7 +128,9 @@ def resolve_views(schema):
         progress = False
         for name, sql in list(remaining.items()):
             try:
-                analyze_view(name, sql, schema); del remaining[name]; progress = True
+                analyze_view(name, sql, schema);
+                del remaining[name];
+                progress = True
             except:
                 pass
         if not progress: break
@@ -225,7 +227,7 @@ def export_html(schema):
         f.write("\n".join(html))
 
 
-def main():
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("db")
     parser.add_argument("--html", action="store_true")
@@ -233,6 +235,3 @@ def main():
     schema = load_schema(args.db)
     resolve_views(schema)
     if args.html: export_html(schema)
-
-
-if __name__ == "__main__": main()
