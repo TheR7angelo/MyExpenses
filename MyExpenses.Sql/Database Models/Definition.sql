@@ -44,8 +44,8 @@ CREATE TABLE t_account_type
     id         INTEGER
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT(100),
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT(100) NOT NULL,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 DROP TABLE IF EXISTS t_currency;
@@ -54,8 +54,8 @@ CREATE TABLE t_currency
     id         INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    symbol     TEXT(55),
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    symbol     TEXT(55)                           NOT NULL,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 DROP TABLE IF EXISTS t_account;
@@ -64,15 +64,17 @@ CREATE TABLE t_account
     id              INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    name            TEXT(55),
-    account_type_fk INTEGER
+    name            TEXT(55)                           NOT NULL,
+    account_type_fk INTEGER                            NOT NULL
         CONSTRAINT t_account_t_account_type_id_fk
-            REFERENCES t_account_type,
-    currency_fk     INTEGER
-        constraint t_account_t_currency_id_fk
-            references t_currency,
-    active          BOOLEAN  DEFAULT TRUE,
-    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
+            REFERENCES t_account_type
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    currency_fk     INTEGER                            NOT NULL
+        CONSTRAINT t_account_t_currency_id_fk
+            REFERENCES t_currency
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    active          BOOLEAN  DEFAULT TRUE              NOT NULL,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 DROP TABLE IF EXISTS t_color;
@@ -197,29 +199,35 @@ CREATE TABLE t_history
     id                   INTEGER
         CONSTRAINT t_history_pk
             PRIMARY KEY AUTOINCREMENT,
-    account_fk           INTEGER NOT NULL
+    account_fk           INTEGER                            NOT NULL
         CONSTRAINT t_history_t_account_id_fk
-            REFERENCES t_account,
-    description          TEXT(255) NOT NULL,
-    category_type_fk     INTEGER NOT NULL
+            REFERENCES t_account
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    description          TEXT(255)                          NOT NULL,
+    category_type_fk     INTEGER                            NOT NULL
         CONSTRAINT t_history_t_category_type_id_fk
-            REFERENCES t_category_type,
-    mode_payment_fk      INTEGER NOT NULL
+            REFERENCES t_category_type
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    mode_payment_fk      INTEGER                            NOT NULL
         CONSTRAINT t_history_t_mode_payment_id_fk
-            REFERENCES t_mode_payment,
-    value                REAL NOT NULL,
-    date                 DATETIME NOT NULL,
-    place_fk             INTEGER NOT NULL
-        constraint t_history_t_place_id_fk
-            references t_place,
-    is_pointed              BOOLEAN NOT NULL DEFAULT FALSE,
+            REFERENCES t_mode_payment
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    value                REAL                               NOT NULL,
+    date                 DATETIME                           NOT NULL,
+    place_fk             INTEGER                            NOT NULL
+        CONSTRAINT t_history_t_place_id_fk
+            REFERENCES t_place
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    is_pointed           BOOLEAN  default FALSE             NOT NULL,
     bank_transfer_fk     INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
-            REFERENCES t_bank_transfer,
+            REFERENCES t_bank_transfer
+            ON DELETE CASCADE ON UPDATE CASCADE,
     recursive_expense_fk INTEGER
         CONSTRAINT t_history_t_recursive_expense_id_fk
-            REFERENCES t_recursive_expense,
-    date_added           DATETIME DEFAULT CURRENT_TIMESTAMP,
+            REFERENCES t_recursive_expense
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    date_added           DATETIME default CURRENT_TIMESTAMP NOT NULL,
     date_pointed         DATETIME
 );
 

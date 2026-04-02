@@ -77,10 +77,12 @@ public class Migration_1_1_0_To_1_2_0 : IDatabaseMigration
                                  name            TEXT(55)                           NOT NULL,
                                  account_type_fk INTEGER                            NOT NULL
                                      CONSTRAINT t_account_t_account_type_id_fk
-                                         REFERENCES t_account_type,
+                                         REFERENCES t_account_type
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  currency_fk     INTEGER                            NOT NULL
                                      CONSTRAINT t_account_t_currency_id_fk
-                                         REFERENCES t_currency,
+                                         REFERENCES t_currency
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  active          BOOLEAN  DEFAULT TRUE              NOT NULL,
                                  date_added      DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
                              );
@@ -102,26 +104,31 @@ public class Migration_1_1_0_To_1_2_0 : IDatabaseMigration
                                          PRIMARY KEY AUTOINCREMENT ,
                                  account_fk           INTEGER                            NOT NULL
                                      CONSTRAINT t_history_t_account_id_fk
-                                         REFERENCES t_account,
+                                         REFERENCES t_account
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  description          TEXT(255)                          NOT NULL,
                                  category_type_fk     INTEGER                            NOT NULL
                                      CONSTRAINT t_history_t_category_type_id_fk
-                                         REFERENCES t_category_type,
+                                         REFERENCES t_category_type
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  mode_payment_fk      INTEGER                            NOT NULL
                                      CONSTRAINT t_history_t_mode_payment_id_fk
-                                         REFERENCES t_mode_payment,
+                                         REFERENCES t_mode_payment
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  value                REAL                               NOT NULL,
                                  date                 DATETIME                           NOT NULL,
                                  place_fk             INTEGER                            NOT NULL
                                      CONSTRAINT t_history_t_place_id_fk
-                                         REFERENCES t_place,
+                                         REFERENCES t_place
+                                                    ON DELETE CASCADE ON UPDATE CASCADE,
                                  is_pointed           BOOLEAN  default FALSE             NOT NULL,
                                  bank_transfer_fk     INTEGER
                                      CONSTRAINT t_history_t_bank_transfer_id_fk
                                          REFERENCES t_bank_transfer,
                                  recursive_expense_fk INTEGER
                                      CONSTRAINT t_history_t_recursive_expense_id_fk
-                                         REFERENCES t_recursive_expense,
+                                         REFERENCES t_recursive_expense
+                                                 ON DELETE CASCADE ON UPDATE CASCADE,
                                  date_added           DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
                                  date_pointed         DATETIME
                              );
