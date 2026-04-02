@@ -182,8 +182,11 @@ def export_mermaid(schema):
 
 def export_html(schema):
     mermaid_content = generate_mermaid(schema)
+
     html = [f"""<html><head><meta charset="UTF-8">
     <title>Database Schema Audit</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗄️</text></svg>">
+
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({{ 
@@ -196,22 +199,36 @@ def export_html(schema):
             }},
             er: {{ useMaxWidth: false }}
         }});
+        // Script pour ouvrir automatiquement les menus accordéons lors du clic sur un lien
         window.addEventListener('hashchange', () => {{
-        const targetId = window.location.hash.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {{
-            let parent = targetElement.parentElement;
-            while (parent) {{
-                if (parent.tagName === 'DETAILS') parent.open = true;
-                parent = parent.parentElement;
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {{
+                let parent = targetElement.parentElement;
+                while (parent) {{
+                    if (parent.tagName === 'DETAILS') parent.open = true;
+                    parent = parent.parentElement;
+                }}
             }}
-        }}
-    }});
+        }});
     </script>
     <style>
         :root {{ --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; --danger: #d9534f; --success: #5cb85c; }}
         body.dark-mode {{ --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); --type-bg: #3d3d3d; }}
+
         body {{ font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; padding-bottom: 120px; transition: 0.3s; scroll-behavior: smooth; }}
+
+        /* --- EFFET DE CLIGNOTEMENT LORS DU CLIC --- */
+        .source-block:target {{
+            animation: highlight 2s ease-out;
+            border: 2px solid var(--accent) !important;
+        }}
+        @keyframes highlight {{
+            0% {{ background-color: rgba(52, 152, 219, 0.3); }}
+            100% {{ background-color: transparent; }}
+        }}
+        /* ------------------------------------------ */
+
         .theme-toggle {{ position: fixed; top: 20px; right: 20px; padding: 10px 15px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; z-index: 2000; box-shadow: 0 2px 5px var(--shadow); }}
         .bottom-nav {{ position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); padding: 15px 30px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 40px; z-index: 1001; box-shadow: 0 -2px 10px var(--shadow); }}
         .nav-links {{ display: flex; gap: 20px; }}
@@ -221,7 +238,7 @@ def export_html(schema):
         .clear-btn {{ position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; }}
         .counter-badge {{ background: var(--accent); color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.6em; vertical-align: middle; margin-left: 10px; }}
         .card {{ background: var(--card-bg); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px var(--shadow); scroll-margin-top: 20px; }}
-        .source-block {{ margin-top: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; scroll-margin-top: 20px; }}
+        .source-block {{ margin-top: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; scroll-margin-top: 20px; transition: 0.3s; }}
         table {{ border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 10px; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }}
         th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }}
         th {{ background: var(--table-header); color: var(--text-secondary); font-size: 0.75em; text-transform: uppercase; }}
@@ -269,6 +286,7 @@ def export_html(schema):
     </script></head><body>
         <button id="tb" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         <h1 style="text-align:center; margin-top: 40px; margin-bottom: 40px;">Database Schema Audit</h1>
+
         <div class="bottom-nav">
             <div class="nav-links">
                 <a href="#sec-tables">📂 Tables</a>
@@ -283,7 +301,8 @@ def export_html(schema):
         </div>"""]
 
     def create_block(title, collection, section_id, is_table=False):
-        html.append(f"<details open class='card' id='{section_id}'><summary>{title} <span class='counter-badge'>{len(collection)}</span></summary>")
+        html.append(
+            f"<details open class='card' id='{section_id}'><summary>{title} <span class='counter-badge'>{len(collection)}</span></summary>")
         for name in sorted(collection.keys()):
             cols = collection[name]
             html.append(f"<div class='source-block' id='{name}'><h3>{name}</h3>")
@@ -291,11 +310,14 @@ def export_html(schema):
                 html.append("<div style='margin-bottom:12px;'>")
                 if schema.dependencies[name]:
                     html.append("<small style='color:var(--text-secondary); font-weight:bold;'>Uses: </small>")
-                    for d in sorted(schema.dependencies[name]): html.append(f"<a href='#{d}' class='dep-tag'>{d}</a>")
+                    for d in sorted(schema.dependencies[name]):
+                        html.append(f"<a href='#{d}' class='dep-tag'>{d}</a>")
                 if schema.usage_map[name]:
                     html.append("<br><small style='color:var(--text-secondary); font-weight:bold;'>Used by: </small>")
-                    for u in sorted(schema.usage_map[name]): html.append(f"<a href='#{u}' class='dep-tag'>{u}</a>")
+                    for u in sorted(schema.usage_map[name]):
+                        html.append(f"<a href='#{u}' class='dep-tag'>{u}</a>")
                 html.append("</div>")
+
             html.append("<table><thead><tr><th>Column</th><th>Type</th><th>Status</th>")
             if is_table: html.append("<th>Relationship</th><th>Default Value</th>")
             html.append("</tr></thead><tbody>")
@@ -313,13 +335,22 @@ def export_html(schema):
 
     create_block("Source Tables", schema.tables, "sec-tables", is_table=True)
     create_block("Analyzed Views", schema.views, "sec-views", is_table=False)
+
     if schema.triggers:
-        html.append(f"<details open class='card' id='sec-triggers'><summary>Triggers <span class='counter-badge'>{len(schema.triggers)}</span></summary>")
+        html.append(
+            f"<details open class='card' id='sec-triggers'><summary>Triggers <span class='counter-badge'>{len(schema.triggers)}</span></summary>")
         for t in sorted(schema.triggers, key=lambda x: x['name']):
-            html.append(f"<div class='source-block' id='{t['name']}'><h3>⚡ {t['name']} <small style='color:var(--text-secondary);'>(on {t['table']})</small></h3><pre><code>{t['sql']}</code></pre></div>")
+            html.append(
+                f"<div class='source-block' id='{t['name']}'><h3>⚡ {t['name']} <small style='color:var(--text-secondary);'>(on {t['table']})</small></h3><pre><code>{t['sql']}</code></pre></div>")
         html.append("</details>")
 
-    html.append(f"""<div class='card' id='sec-graph'><summary>🗺️ Interactive ER Diagram</summary><div class="graph-container" id="vp"><pre class="mermaid">{mermaid_content}</pre></div></div></body></html>""")
+    html.append(f"""<div class='card' id='sec-graph'>
+        <summary>🗺️ Interactive ER Diagram</summary>
+        <div class="graph-container" id="vp">
+            <pre class="mermaid">{mermaid_content}</pre>
+        </div>
+    </div></body></html>""")
+
     with open("audit_report.html", "w", encoding="utf-8") as f:
         f.write("\n".join(html))
     print("Audit report generated: audit_report.html")
