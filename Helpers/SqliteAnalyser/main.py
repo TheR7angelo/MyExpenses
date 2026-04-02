@@ -2,6 +2,7 @@
 import argparse
 import os
 import re
+import json
 from collections import defaultdict
 import sqlglot
 from sqlglot import exp
@@ -16,6 +17,15 @@ class Column:
         self.dtype = dtype
         self.pk = pk
         self.fk = fk
+
+    def to_dict(self):
+        return {
+            "nullable": self.nullable,
+            "dtype": self.dtype,
+            "default": self.default,
+            "pk": self.pk,
+            "fk": self.fk
+        }
 
 
 class Schema:
@@ -160,6 +170,25 @@ def generate_mermaid(schema):
                     pass
 
     return "\n".join(lines)
+
+
+def export_json(schema):
+    # Transformation du schéma en dictionnaire sérialisable
+    output = {
+        "tables": {
+            table: {col_name: col_obj.to_dict() for col_name, col_obj in cols.items()}
+            for table, cols in schema.tables.items()
+        },
+        "views": {
+            view: {col_name: col_obj.to_dict() for col_name, col_obj in cols.items()}
+            for view, cols in schema.views.items()
+        },
+        "triggers": schema.triggers
+    }
+
+    with open("audit_report.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=4, ensure_ascii=False)
+    print("Audit report generated: audit_report.json")
 
 
 def export_html(schema):
@@ -357,10 +386,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("db")
     parser.add_argument("--html", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
 
     schema_data = load_schema(args.db)
     resolve_views(schema_data)
+
+    if args.json:
+        export_json(schema_data)
 
     if args.html:
         export_html(schema_data)
