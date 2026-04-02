@@ -38,4 +38,20 @@ public interface IAccountValidationRepository
     /// </returns>
     public Task<bool> IsAccountTypeNameAlreadyExistAsync(string accountTypeName, int id,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if an account type name already exists in the system.
+    /// </summary>
+    /// <param name="accountTypeName">
+    /// The name of the account type to validate for uniqueness.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The token to signal cancellation of the asynchronous operation.
+    /// </param>
+    /// <returns>
+    /// A task representing the asynchronous operation. The task result contains a boolean indicating
+    /// whether the account type name already exists (true) or not (false).
+    /// </returns>
+    public Task<bool> IsAccountTypeNameAlreadyExistAsync(string accountTypeName,
+        CancellationToken cancellationToken = default);
 }
