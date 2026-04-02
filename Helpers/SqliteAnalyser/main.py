@@ -7,10 +7,11 @@ from sqlglot import exp
 
 
 class Column:
-    def __init__(self, nullable=True, reason="unknown", sources=None):
+    def __init__(self, nullable=True, reason="unknown", sources=None, default=None):
         self.nullable = nullable
         self.reason = reason
         self.sources = sources or []
+        self.default = default
 
 
 class Schema:
@@ -35,15 +36,12 @@ def load_schema(db):
                 """)
 
     for (table,) in cur.fetchall():
-
         cur.execute(f"PRAGMA table_info({table})")
-
         cols = {}
 
         for cid, name, typ, notnull, dflt, pk in cur.fetchall():
             nullable = not (notnull or pk)
-
-            cols[name] = Column(nullable, "table constraint")
+            cols[name] = Column(nullable, "table constraint", default=dflt)
 
         schema.tables[table] = cols
 
@@ -263,11 +261,14 @@ def report(schema):
 def export_json(schema):
     data = {"tables": {}, "views": {}}
 
-    # On trie juste les noms de tables
     for table in sorted(schema.tables.keys()):
-        # On itère directement sur les colonnes, l'ordre d'origine est préservé
-        data["tables"][table] = {c: {"nullable": info.nullable, "reason": info.reason}
-                                 for c, info in schema.tables[table].items()}
+        data["tables"][table] = {
+            c: {
+                "nullable": info.nullable,
+                "reason": info.reason,
+                "default": info.default  # Ajout ici
+            } for c, info in schema.tables[table].items()
+        }
 
     # On trie juste les noms de vues
     for view in sorted(schema.views.keys()):
@@ -302,7 +303,6 @@ def export_graph(schema):
 
 
 def export_html(schema):
-    # La liste est créée ICI, à l'intérieur de la fonction
     html = ["""<html><head><style>
         body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
         .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -312,37 +312,50 @@ def export_html(schema):
         th { background-color: #f8f9fa; }
         .nullable { color: #d9534f; font-weight: bold; }
         .notnull { color: #5cb85c; font-weight: bold; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
     </style></head><body><h1>Audit Schéma Global</h1>"""]
 
-    # Générateur de bloc pour une collection (Tables ou Vues)
-    def create_block(title, collection):
+    def create_block(title, collection, is_table=False):
         html.append(f"<div class='card'><h2>{title} ({len(collection)})</h2>")
         if not collection:
             html.append("<p>Aucune donnée trouvée.</p></div>")
             return
 
-        # On trie uniquement les noms des tables/vues
         for source in sorted(collection.keys()):
             cols = collection[source]
-            html.append(f"<h3>{source}</h3><table><tr><th>Colonne</th><th>Status</th><th>Raison</th></tr>")
 
-            # ICI : Pas de sorted(), on garde l'ordre original
+            # On définit les headers dynamiquement
+            headers = ["Colonne", "Status", "Raison"]
+            if is_table:
+                headers.append("Default")
+
+            header_html = "".join([f"<th>{h}</th>" for h in headers])
+            html.append(f"<h3>{source}</h3><table><tr>{header_html}</tr>")
+
             for c, info in cols.items():
                 status_class = "nullable" if info.nullable else "notnull"
                 status_text = "NULLABLE" if info.nullable else "NOT_NULL"
-                html.append(
-                    f"<tr><td>{c}</td><td class='{status_class}'>{status_text}</td><td>{info.reason}</td></tr>"
-                )
+
+                # Ligne de base
+                row = f"<tr><td>{c}</td><td class='{status_class}'>{status_text}</td><td>{info.reason}</td>"
+
+                # On ajoute la cellule Default seulement si c'est une table
+                if is_table:
+                    default_val = info.default if info.default is not None else ""
+                    row += f"<td><code>{default_val}</code></td>"
+
+                row += "</tr>"
+                html.append(row)
+
             html.append("</table>")
         html.append("</div>")
 
-    # Appel des blocs
-    create_block("Tables Sources", schema.tables)
-    create_block("Vues Analysées", schema.views)
+    # On passe True pour les tables et False (par défaut) pour les vues
+    create_block("Tables Sources", schema.tables, is_table=True)
+    create_block("Vues Analysées", schema.views, is_table=False)
 
     html.append("</body></html>")
 
-    # Écriture finale
     with open("audit_report.html", "w") as f:
         f.write("\n".join(html))
 
