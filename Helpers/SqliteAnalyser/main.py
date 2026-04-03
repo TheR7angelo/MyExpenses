@@ -20,6 +20,7 @@ class Column:
         self.fk = fk
 
         # INDEX STATE CLEAN
+        self.is_auto = False
         self.indexed = False
         self.unique_index = False
 
@@ -135,6 +136,9 @@ def load_schema(db):
     cur.execute("SELECT name FROM sqlite_schema WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")
     tables = [r[0] for r in cur.fetchall()]
     for table in tables:
+        cur.execute(f"SELECT sql FROM sqlite_schema WHERE type='table' AND name='{table}';")
+        table_sql = cur.fetchone()[0] or ""
+
         cur.execute(f'PRAGMA table_info("{table}")')
         cols = {}
         has_pk = False
@@ -155,6 +159,12 @@ def load_schema(db):
             if is_pk:
                 col.indexed = False
                 col.unique_index = False
+
+            regex_auto = rf'\b{name}\b[^,]*PRIMARY\s+KEY[^,]*AUTOINCREMENT'
+            if is_pk and re.search(regex_auto, table_sql, re.I):
+                col.is_auto = True
+            else:
+                col.is_auto = False
 
             cols[name] = col
 
@@ -287,6 +297,10 @@ def export_html(schema):
         :root {{ --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; --danger: #d9534f; --success: #5cb85c; --warn-bg: #fff5f5; }}
         body.dark-mode {{ --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); --type-bg: #3d3d3d; --warn-bg: #3d2a2a; }}
         body {{ font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; padding-bottom: 120px; transition: 0.3s; scroll-behavior: smooth; }}
+
+        .default-label {{ font-family: monospace; background: var(--type-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-secondary); font-size: 0.85em; font-style: italic; }}
+        
+        .default-label.auto {{ color: #16a085; font-style: italic; }}
 
         .dep-section {{ margin-bottom: 12px; }}
         
@@ -431,8 +445,15 @@ def export_html(schema):
             if is_tab: html.append("<th>Meta</th><th>Default</th>")
             html.append("</tr></thead><tbody>")
             for c, i in cols.items():
-                st_cl, st_lb = ("nullable", "NULLABLE") if i.nullable else ("notnull", "NOT NULL")
-                row = f"<tr><td><strong>{c}</strong></td><td><span class='type-label'>{i.dtype}</span></td><td><span class='{st_cl}'>{st_lb}</span></td>"
+
+                if getattr(i, "is_auto", False):
+                    st_cl, st_lb = ("notnull", "AUTOINCREMENT")
+                    status_html = f"<span class='{st_cl} auto-label'>{st_lb}</span>"
+                else:
+                    st_cl, st_lb = ("nullable", "NULLABLE") if i.nullable else ("notnull", "NOT NULL")
+                    status_html = f"<span class='{st_cl}'>{st_lb}</span>"
+
+                row = f"<tr><td><strong>{c}</strong></td><td><span class='type-label'>{i.dtype}</span></td><td>{status_html}</td>"
                 if is_tab:
                     idx_badge = ""
 
@@ -446,7 +467,15 @@ def export_html(schema):
                             (f"<a href='#{i.fk.split('(')[0]}' class='badge badge-fk'>FK</a>" if i.fk else "") +
                             idx_badge
                     )
-                    row += f"<td>{meta}</td><td><small>{i.default or ''}</small></td>"
+
+                    if getattr(i, "is_auto", False):
+                        default_html = "<span class='default-label auto'>⚙ AUTO+</span>"
+                    elif i.default:
+                        default_html = f"<span class='default-label'>{i.default}</span>"
+                    else:
+                        default_html = ""
+
+                    row += f"<td>{meta}</td><td>{default_html}</td>"
                 html.append(row + "</tr>")
             html.append("</tbody></table>")
 
