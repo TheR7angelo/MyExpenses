@@ -9,7 +9,8 @@ from sqlglot import exp
 
 
 class Column:
-    def __init__(self, nullable=True, reason="unknown", sources=None, default=None, dtype="UNKNOWN", pk=False, fk=None):
+    def __init__(self, nullable=True, reason="unknown", sources=None,
+                 default=None, dtype="UNKNOWN", pk=False, fk=None):
         self.nullable = nullable
         self.reason = reason
         self.sources = sources or []
@@ -18,9 +19,22 @@ class Column:
         self.pk = pk
         self.fk = fk
 
-    def to_dict(self):
-        return {"nullable": self.nullable, "dtype": self.dtype, "default": self.default, "pk": self.pk, "fk": self.fk}
+        # INDEX STATE CLEAN
+        self.indexed = False
+        self.unique_index = False
 
+    def to_dict(self):
+        return {
+            "nullable": self.nullable,
+            "dtype": self.dtype,
+            "default": self.default,
+            "pk": self.pk,
+            "fk": self.fk,
+            "reason": self.reason,
+            "sources": self.sources,
+            "indexed": self.indexed,
+            "unique_index": self.unique_index
+        }
 
 class Schema:
     def __init__(self):
@@ -59,21 +73,47 @@ def load_schema(db):
         cur.execute(f'PRAGMA table_info("{table}")')
         cols = {}
         has_pk = False
+
         for cid, name, typ, notnull, dflt, pk in cur.fetchall():
             is_pk = (pk > 0)
-            if is_pk: has_pk = True
-            cols[name] = Column(nullable=not (notnull or is_pk), default=dflt, dtype=typ, pk=is_pk)
+            if is_pk:
+                has_pk = True
+
+            col = Column(
+                nullable=not (notnull or is_pk),
+                default=dflt,
+                dtype=typ,
+                pk=is_pk
+            )
+
+            # PK = toujours indexé + unique
+            if is_pk:
+                col.indexed = False
+                col.unique_index = False
+
+            cols[name] = col
+
         schema.tables[table] = cols
         if not has_pk: schema.warnings.append(f"Table <strong>{table}</strong> : pas de PK.")
 
         cur.execute(f'PRAGMA index_list("{table}")')
-        for idx in cur.fetchall():
-            idx_name, is_unique = idx[1], idx[2]
+
+        for _, idx_name, is_unique, *_ in cur.fetchall():
             cur.execute(f'PRAGMA index_info("{idx_name}")')
             idx_cols = [r[2] for r in cur.fetchall()]
-            schema.table_indexes[table].append({"name": idx_name, "unique": bool(is_unique), "cols": idx_cols})
+
+            schema.table_indexes[table].append({
+                "name": idx_name,
+                "unique": bool(is_unique),
+                "cols": idx_cols
+            })
+
             for cn in idx_cols:
-                if cn in schema.tables[table]: schema.tables[table][cn].reason = "INDEXED"
+                if cn in schema.tables[table]:
+                    col = schema.tables[table][cn]
+                    col.indexed = True
+                    if is_unique:
+                        col.unique_index = True
 
     for table in tables:
         cur.execute(f'PRAGMA foreign_key_list("{table}")')
@@ -84,7 +124,9 @@ def load_schema(db):
                 schema.tables[table][l_col].fk = f"{r_tab}({r_col})"
                 schema.dependencies[table].add(r_tab)
                 schema.usage_map[r_tab].add(table)
-                if schema.tables[table][l_col].reason != "INDEXED":
+                col = schema.tables[table][l_col]
+
+                if not col.pk and not col.indexed and not col.unique_index:
                     schema.warnings.append(f"Performance : FK <strong>{table}.{l_col}</strong> not indexed.")
 
     cur.execute("SELECT name, sql FROM sqlite_schema WHERE type ='view'")
@@ -302,9 +344,18 @@ def export_html(schema):
                 st_cl, st_lb = ("nullable", "NULLABLE") if i.nullable else ("notnull", "NOT NULL")
                 row = f"<tr><td><strong>{c}</strong></td><td><span class='type-label'>{i.dtype}</span></td><td><span class='{st_cl}'>{st_lb}</span></td>"
                 if is_tab:
-                    meta = ("<span class='badge badge-pk'>PK</span>" if i.pk else "") + (
-                        f"<a href='#{i.fk.split('(')[0]}' class='badge badge-fk'>FK</a>" if i.fk else "") + (
-                               "<span class='badge badge-idx'>IDX</span>" if i.reason == "INDEXED" else "")
+                    idx_badge = ""
+
+                    if getattr(i, "unique_index", False):
+                        idx_badge = "<span class='badge badge-idx'>🔐 UQ</span>"
+
+                    elif getattr(i, "indexed", False):
+                        idx_badge = "<span class='badge badge-idx'>🔍 IDX</span>"
+                    meta = (
+                            ("<span class='badge badge-pk'>🔑 PK</span>" if i.pk else "") +
+                            (f"<a href='#{i.fk.split('(')[0]}' class='badge badge-fk'>FK</a>" if i.fk else "") +
+                            idx_badge
+                    )
                     row += f"<td>{meta}</td><td><small>{i.default or ''}</small></td>"
                 html.append(row + "</tr>")
             html.append("</tbody></table>")
