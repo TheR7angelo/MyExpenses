@@ -176,6 +176,18 @@ def export_html(schema):
         body.dark-mode {{ --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); --type-bg: #3d3d3d; --warn-bg: #3d2a2a; }}
         body {{ font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; padding-bottom: 120px; transition: 0.3s; scroll-behavior: smooth; }}
 
+        .dep-section {{ margin-bottom: 12px; }}
+        
+        .dep-title {{ font-size: 0.75em; font-weight: bold; color: var(--text-secondary); margin-bottom: 5px; display: block; }}
+        
+        .dep-list {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+        
+        .dep-tag {{ padding: 5px 10px; background: var(--type-bg); border-radius: 12px; font-size: 0.75em; color: var(--text-secondary); text-decoration: none; border: 1px solid transparent; transition: 0.2s; }}
+        
+        .dep-tag:hover {{ background: var(--accent); color: white; transform: translateY(-1px); }}
+
+        .dep-title .counter-badge {{ font-size: 0.8em; padding: 4px 12px; border-radius: 14px; }}
+        
         .source-block:target {{ animation: highlight 2s ease-out; border: 2px solid var(--accent) !important; }}
         @keyframes highlight {{ 0% {{ background-color: rgba(52, 152, 219, 0.3); }} 100% {{ background-color: transparent; }} }}
 
@@ -257,10 +269,29 @@ def export_html(schema):
                 f"<div class='source-block' id='{name}'><details open><summary><h3 class='table-title'>{name}</h3></summary><div style='margin-top:15px;'>")
 
             # Dépendances
-            if name in schema.dependencies or name in schema.usage_map:
-                html.append("<div style='margin-bottom:12px;'>")
-                for d in sorted(schema.dependencies[name]): html.append(f"<a href='#{d}' class='dep-tag'>Uses: {d}</a>")
-                for u in sorted(schema.usage_map[name]): html.append(f"<a href='#{u}' class='dep-tag'>Used by: {u}</a>")
+            if schema.dependencies[name] or schema.usage_map[name]:
+                html.append("<div style='margin-bottom:15px;'>")
+
+                # USES
+                if schema.dependencies[name]:
+                    count = len(schema.dependencies[name])
+                    html.append("<div class='dep-section'>")
+                    html.append(f"<span class='dep-title'>Uses: <span class='counter-badge'>{count}</span></span>")
+                    html.append("<div class='dep-list'>")
+                    for d in sorted(schema.dependencies[name]):
+                        html.append(f"<a href='#{d}' class='dep-tag'>{d}</a>")
+                    html.append("</div></div>")
+
+                # USED BY
+                if schema.usage_map[name]:
+                    count = len(schema.usage_map[name])
+                    html.append("<div class='dep-section'>")
+                    html.append(f"<span class='dep-title'>Used by: <span class='counter-badge'>{count}</span></span>")
+                    html.append("<div class='dep-list'>")
+                    for u in sorted(schema.usage_map[name]):
+                        html.append(f"<a href='#{u}' class='dep-tag'>{u}</a>")
+                    html.append("</div></div>")
+
                 html.append("</div>")
 
             # Tableau des colonnes
@@ -307,13 +338,13 @@ def export_html(schema):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser();
-    parser.add_argument("db");
-    parser.add_argument("--html", action="store_true");
-    parser.add_argument("--json", action="store_true");
+    parser = argparse.ArgumentParser()
+    parser.add_argument("db")
+    parser.add_argument("--html", action="store_true")
+    parser.add_argument("--json", action="store_true")
     parser.add_argument("--mermaid", action="store_true")
-    args = parser.parse_args();
-    s = load_schema(args.db);
+    args = parser.parse_args()
+    s = load_schema(args.db)
     resolve_views(s)
     if args.json:
         out = {"tables": {t: {c: o.to_dict() for c, o in cs.items()} for t, cs in s.tables.items()},
