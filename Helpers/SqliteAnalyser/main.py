@@ -47,7 +47,47 @@ class Schema:
         self.usage_map = defaultdict(set)
         self.relations = []
         self.warnings = []
+        self.scores = {}
 
+def compute_table_score(table_name, cols, schema):
+    score = 0
+
+    has_pk = any(c.pk for c in cols.values())
+
+    if has_pk:
+        score += 25
+    else:
+        score -= 30
+
+    for c in cols.values():
+
+        # NOT NULL = qualité data
+        if not c.nullable:
+            score += 8
+
+        # DEFAULT = robustesse
+        if c.default is not None:
+            score += 4
+
+        # INDEX = perf
+        if c.indexed:
+            score += 6
+
+        # UNIQUE INDEX = forte qualité
+        if c.unique_index:
+            score += 10
+
+        # PK colonne bonus (mais léger)
+        if c.pk:
+            score += 12
+
+        # FK sans index = mauvaise pratique
+        if c.fk:
+            if not c.indexed and not c.unique_index:
+                score -= 15
+
+    # clamp final
+    return max(0, min(100, score))
 
 def get_primary_key_name(cur, table_name):
     try:
@@ -94,6 +134,7 @@ def load_schema(db):
             cols[name] = col
 
         schema.tables[table] = cols
+        schema.scores[table] = compute_table_score(table, cols, schema)
         if not has_pk: schema.warnings.append(f"Table <strong>{table}</strong> : pas de PK.")
 
         cur.execute(f'PRAGMA index_list("{table}")')
@@ -302,13 +343,23 @@ def export_html(schema):
     for w in schema.warnings: html.append(f"<li>{w}</li>")
     html.append("</ul></details>")
 
+    def score_color(s):
+        if s >= 80:
+            return "#2ecc71"
+        if s >= 50:
+            return "#f1c40f"
+        return "#e74c3c"
+
     def create_block(title, col_dict, sid, is_tab=False):
         html.append(
             f"<details open class='card' id='{sid}'><summary><span class='table-title' style='font-size:1.4em;'>{title}</span> <span class='counter-badge'>{len(col_dict)}</span></summary>")
         for name in sorted(col_dict.keys()):
             cols = col_dict[name]
+            s = schema.scores.get(name, 0)
+            color = score_color(s)
+            score_html = f"<span class='counter-badge' style='background:{color}'>Score {s}</span>"
             html.append(
-                f"<div class='source-block' id='{name}'><details open><summary><h3 class='table-title'>{name}</h3></summary><div style='margin-top:15px;'>")
+                f"<div class='source-block' id='{name}'><details open><summary><h3 class='table-title'>{name}</h3> {score_html} </summary><div style='margin-top:15px;'>")
 
             # Dépendances
             if schema.dependencies[name] or schema.usage_map[name]:
