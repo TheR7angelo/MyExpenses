@@ -170,18 +170,12 @@ def export_html(schema):
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({{ startOnLoad: true, theme: 'base', themeVariables: {{ primaryColor: '#ffffff', edgeLabelBackground: '#ffffff', lineColor: '#3498db' }}, er: {{ useMaxWidth: false }} }});
-        window.addEventListener('hashchange', () => {{
-            const tid = window.location.hash.substring(1);
-            const el = document.getElementById(tid);
-            if (el) {{ let p = el.parentElement; while (p) {{ if (p.tagName === 'DETAILS') p.open = true; p = p.parentElement; }} }}
-        }});
     </script>
     <style>
         :root {{ --bg-color: #f4f7f6; --card-bg: #ffffff; --text-main: #333333; --text-secondary: #7f8c8d; --border-color: #eeeeee; --table-header: #f8f9fa; --code-bg: #f0f0f0; --shadow: rgba(0,0,0,0.1); --type-bg: #f0f0f0; --accent: #3498db; --danger: #d9534f; --success: #5cb85c; --warn-bg: #fff5f5; }}
         body.dark-mode {{ --bg-color: #1a1a1a; --card-bg: #2d2d2d; --text-main: #e0e0e0; --text-secondary: #b0b0b0; --border-color: #404040; --table-header: #383838; --code-bg: #444444; --shadow: rgba(0,0,0,0.3); --type-bg: #3d3d3d; --warn-bg: #3d2a2a; }}
         body {{ font-family: sans-serif; background: var(--bg-color); color: var(--text-main); padding: 20px; padding-bottom: 120px; transition: 0.3s; scroll-behavior: smooth; }}
 
-        /* Animation de clignotement lors du clic sur un lien */
         .source-block:target {{ animation: highlight 2s ease-out; border: 2px solid var(--accent) !important; }}
         @keyframes highlight {{ 0% {{ background-color: rgba(52, 152, 219, 0.3); }} 100% {{ background-color: transparent; }} }}
 
@@ -192,30 +186,37 @@ def export_html(schema):
         .search-wrapper {{ position: relative; width: 350px; }}
         .search-box {{ width: 100%; padding: 10px 40px 10px 20px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-main); outline: none; }}
         .clear-btn {{ position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2em; display: none; }}
+
         .counter-badge {{ background: var(--accent); color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.6em; vertical-align: middle; margin-left: 10px; }}
         .card {{ background: var(--card-bg); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px var(--shadow); scroll-margin-top: 20px; }}
         .warning-card {{ border-left: 5px solid var(--danger); background: var(--warn-bg); }}
+
+        /* STYLE DES BLOCS SOURCE (TABLES/VUES) */
         .source-block {{ margin-top: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; scroll-margin-top: 20px; transition: 0.3s; }}
-        table {{ border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 10px; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }}
+
+        /* COLLAPSE ARROWS UNIFORMES */
+        summary {{ list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; user-select: none; }}
+        summary::-webkit-details-marker {{ display: none; }}
+        summary::before {{ content: "▶"; display: inline-block; width: 1.2em; color: var(--text-secondary); font-size: 0.8em; transition: transform 0.2s; }}
+        details[open] > summary::before {{ content: "▼"; }}
+
+        .table-title {{ font-size: 1.2em; font-weight: bold; margin: 0; display: inline-block; }}
+
+        table {{ border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 15px; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }}
         th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }}
         th {{ background: var(--table-header); color: var(--text-secondary); font-size: 0.75em; text-transform: uppercase; }}
+
         .nullable {{ color: var(--danger); font-weight: bold; font-size: 0.8em; }}
         .notnull {{ color: var(--success); font-weight: bold; font-size: 0.8em; }}
         .badge {{ padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; margin-left: 5px; display: inline-block; text-decoration: none; color: white; transition: 0.2s; }}
-        .badge:hover {{ transform: scale(1.1); filter: brightness(1.1); }}
         .badge-pk {{ background: #f1c40f; color: #000; }} .badge-fk {{ background: #3498db; }} .badge-idx {{ background: #9b59b6; }}
 
-        /* STYLE DES DÉPENDANCES AVEC SURVOL */
-        .dep-tag {{ display: inline-block; padding: 3px 12px; background: var(--type-bg); border-radius: 15px; font-size: 0.75em; margin: 2px; color: var(--text-secondary); text-decoration: none; transition: all 0.2s ease-in-out; border: 1px solid transparent; }}
-        .dep-tag:hover {{ background: var(--accent); color: white; transform: scale(1.05); box-shadow: 0 2px 5px var(--shadow); border-color: rgba(255,255,255,0.2); }}
+        .dep-tag {{ display: inline-block; padding: 3px 12px; background: var(--type-bg); border-radius: 15px; font-size: 0.75em; margin: 2px; color: var(--text-secondary); text-decoration: none; transition: 0.2s; border: 1px solid transparent; }}
+        .dep-tag:hover {{ background: var(--accent); color: white; border-color: rgba(255,255,255,0.2); }}
 
-        pre {{ background: var(--code-bg); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; border: 1px solid var(--border-color); color: var(--text-main); }}
-        summary {{ list-style: none; display: flex; align-items: center; cursor: pointer; outline: none; font-weight: bold; font-size: 1.2em; }}
-        summary::before {{ content: "▶"; display: inline-block; width: 1.5em; color: var(--text-secondary); font-size: 0.8em; }}
-        details[open] > summary::before {{ content: "▼"; }}
+        pre {{ background: var(--code-bg); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; border: 1px solid var(--border-color); color: var(--text-main); margin-top: 10px; }}
         .type-label {{ font-family: monospace; background: var(--type-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-secondary); font-size: 0.85em; }}
-        .graph-container {{ background: white; border-radius: 12px; padding: 0; overflow: auto; height: 700px; border: 1px solid var(--border-color); cursor: grab; position: relative; width: 100%; }}
-        .mermaid {{ margin: 0; display: inline-block; padding: 20px; }}
+        .graph-container {{ background: white; border-radius: 12px; overflow: auto; height: 700px; border: 1px solid var(--border-color); cursor: grab; width: 100%; }}
     </style>
     <script>
         function toggleTheme() {{ document.body.classList.toggle('dark-mode'); document.getElementById('tb').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙'; }}
@@ -243,21 +244,26 @@ def export_html(schema):
 
     # Warnings
     html.append(
-        f"<details open class='card warning-card' id='sec-warnings'><summary>Warnings <span class='counter-badge'>{len(schema.warnings)}</span></summary><ul>")
+        f"<details open class='card warning-card' id='sec-warnings'><summary><span class='table-title'>Warnings</span> <span class='counter-badge'>{len(schema.warnings)}</span></summary><ul style='margin-top:15px;'>")
     for w in schema.warnings: html.append(f"<li>{w}</li>")
     html.append("</ul></details>")
 
     def create_block(title, col_dict, sid, is_tab=False):
         html.append(
-            f"<details open class='card' id='{sid}'><summary>{title} <span class='counter-badge'>{len(col_dict)}</span></summary>")
+            f"<details open class='card' id='{sid}'><summary><span class='table-title' style='font-size:1.4em;'>{title}</span> <span class='counter-badge'>{len(col_dict)}</span></summary>")
         for name in sorted(col_dict.keys()):
             cols = col_dict[name]
-            html.append(f"<div class='source-block' id='{name}'><h3>{name}</h3>")
+            html.append(
+                f"<div class='source-block' id='{name}'><details open><summary><h3 class='table-title'>{name}</h3></summary><div style='margin-top:15px;'>")
+
+            # Dépendances
             if name in schema.dependencies or name in schema.usage_map:
                 html.append("<div style='margin-bottom:12px;'>")
                 for d in sorted(schema.dependencies[name]): html.append(f"<a href='#{d}' class='dep-tag'>Uses: {d}</a>")
                 for u in sorted(schema.usage_map[name]): html.append(f"<a href='#{u}' class='dep-tag'>Used by: {u}</a>")
                 html.append("</div>")
+
+            # Tableau des colonnes
             html.append("<table><thead><tr><th>Column</th><th>Type</th><th>Status</th>")
             if is_tab: html.append("<th>Meta</th><th>Default</th>")
             html.append("</tr></thead><tbody>")
@@ -271,25 +277,30 @@ def export_html(schema):
                     row += f"<td>{meta}</td><td><small>{i.default or ''}</small></td>"
                 html.append(row + "</tr>")
             html.append("</tbody></table>")
+
             if is_tab and name in schema.table_indexes:
                 idx_s = " | ".join(
                     [f"<code>{x['name']}</code>({','.join(x['cols'])})" for x in schema.table_indexes[name]])
                 html.append(
                     f"<div style='margin-top:10px; font-size:0.8em; color:var(--text-secondary);'>Indexes: {idx_s}</div>")
-            html.append("</div>")
+
+            html.append("</div></details></div>")  # Fermeture source-block details
         html.append("</details>")
 
     create_block("Tables", schema.tables, "sec-tables", True)
     create_block("Views", schema.views, "sec-views", False)
+
     if schema.triggers:
         html.append(
-            f"<details open class='card' id='sec-triggers'><summary>Triggers <span class='counter-badge'>{len(schema.triggers)}</span></summary>")
+            f"<details open class='card' id='sec-triggers'><summary><span class='table-title' style='font-size:1.4em;'>Triggers</span> <span class='counter-badge'>{len(schema.triggers)}</span></summary>")
         for t in sorted(schema.triggers, key=lambda x: x['name']):
             html.append(
-                f"<div class='source-block' id='{t['name']}'><h3>⚡ {t['name']} <small>({t['table']})</small></h3><pre><code>{t['sql']}</code></pre></div>")
+                f"<div class='source-block' id='{t['name']}'><details open><summary><h3 class='table-title'>⚡ {t['name']} <small>({t['table']})</small></h3></summary><pre><code>{t['sql']}</code></pre></details></div>")
         html.append("</details>")
+
     html.append(
         f"<div class='card' id='sec-graph'><h2>ER Diagram</h2><div class='graph-container' id='vp'><pre class='mermaid'>{mmd}</pre></div></div></body></html>")
+
     with open("audit_report.html", "w", encoding="utf-8") as f:
         f.write("\n".join(html))
     print("Audit report generated: audit_report.html")
