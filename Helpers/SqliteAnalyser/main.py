@@ -50,44 +50,69 @@ class Schema:
         self.scores = {}
 
 def compute_table_score(table_name, cols, schema):
-    score = 0
+    score = 100
 
+    total_cols = len(cols)
+    if total_cols == 0:
+        return 0, ["Empty table"]
+
+    details = []
+
+    # --- PK (structure)
     has_pk = any(c.pk for c in cols.values())
-
     if has_pk:
-        score += 25
+        details.append("+ structure: PK present")
     else:
-        score -= 30
+        score -= 40
+        details.append("- structure: no PK (-40)")
 
-    for c in cols.values():
+    # --- nullable (ratio, pas count brut)
+    nullable_cols = [c for c in cols.values() if c.nullable]
+    nullable_ratio = len(nullable_cols) / total_cols
 
-        # NOT NULL = qualité data
-        if not c.nullable:
-            score += 8
+    if nullable_ratio > 0.8:
+        score -= 10
+        details.append(f"- too many nullable ({len(nullable_cols)}/{total_cols})")
 
-        # DEFAULT = robustesse
-        if c.default is not None:
-            score += 4
+    elif nullable_ratio > 0.5:
+        score -= 5
+        details.append(f"- moderate nullable ({len(nullable_cols)}/{total_cols})")
 
-        # INDEX = perf
-        if c.indexed:
-            score += 6
+    else:
+        details.append(f"+ good nullability ratio ({len(nullable_cols)}/{total_cols})")
 
-        # UNIQUE INDEX = forte qualité
-        if c.unique_index:
-            score += 10
+    # --- INDEX QUALITY
+    indexed = sum(1 for c in cols.values() if c.indexed)
+    unique = sum(1 for c in cols.values() if c.unique_index)
 
-        # PK colonne bonus (mais léger)
-        if c.pk:
-            score += 12
+    if indexed:
+        score += min(15, indexed * 3)
+        details.append(f"+ indexes ({indexed})")
 
-        # FK sans index = mauvaise pratique
-        if c.fk:
-            if not c.indexed and not c.unique_index:
-                score -= 15
+    if unique:
+        score += min(15, unique * 5)
+        details.append(f"+ unique indexes ({unique})")
 
-    # clamp final
-    return max(0, min(100, score))
+    # --- DEFAULTS (stability)
+    defaults = sum(1 for c in cols.values() if c.default is not None)
+    if defaults:
+        score += min(10, defaults * 3)
+        details.append(f"+ defaults ({defaults})")
+
+    # --- FK penalties (important perf signal)
+    fk_unindexed = sum(
+        1 for c in cols.values()
+        if c.fk and not c.indexed and not c.unique_index
+    )
+
+    if fk_unindexed:
+        score -= fk_unindexed * 10
+        details.append(f"- FK not indexed ({fk_unindexed})")
+
+    # clamp
+    score = max(0, min(100, score))
+
+    return score, details
 
 def get_primary_key_name(cur, table_name):
     try:
@@ -134,7 +159,11 @@ def load_schema(db):
             cols[name] = col
 
         schema.tables[table] = cols
-        schema.scores[table] = compute_table_score(table, cols, schema)
+        score, details = compute_table_score(table, cols, schema)
+        schema.scores[table] = score
+        schema.score_details = getattr(schema, "score_details", {})
+        schema.score_details[table] = details
+
         if not has_pk: schema.warnings.append(f"Table <strong>{table}</strong> : pas de PK.")
 
         cur.execute(f'PRAGMA index_list("{table}")')
@@ -355,9 +384,19 @@ def export_html(schema):
             f"<details open class='card' id='{sid}'><summary><span class='table-title' style='font-size:1.4em;'>{title}</span> <span class='counter-badge'>{len(col_dict)}</span></summary>")
         for name in sorted(col_dict.keys()):
             cols = col_dict[name]
-            s = schema.scores.get(name, 0)
-            color = score_color(s)
-            score_html = f"<span class='counter-badge' style='background:{color}'>Score {s}</span>"
+            score = schema.scores.get(name, 0)
+            details = schema.score_details.get(name, [])
+            color = score_color(score)
+            score_html = f"""
+                <div style="display:flex; flex-direction:column; gap:5px;">
+                    <span class='counter-badge' style='background:{color}'>
+                        Score {score}
+                    </span>
+                    <div style="font-size:0.75em; color:var(--text-secondary); margin-top:5px;">
+                        {"<br>".join(details)}
+                    </div>
+                </div>
+                """
             html.append(
                 f"<div class='source-block' id='{name}'><details open><summary><h3 class='table-title'>{name}</h3> {score_html} </summary><div style='margin-top:15px;'>")
 
