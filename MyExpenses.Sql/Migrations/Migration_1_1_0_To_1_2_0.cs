@@ -32,6 +32,7 @@ DROP VIEW export_v_account;
 DROP VIEW export_v_bank_transfer;
 DROP VIEW export_v_recursive_expense;
 DROP VIEW export_v_currency;
+DROP VIEW export_v_account_type;
 
 CREATE TABLE t_recursive_expense_dg_tmp
 (
@@ -117,6 +118,26 @@ DROP TABLE t_currency;
 
 ALTER TABLE t_currency_dg_tmp
     RENAME TO t_currency;
+
+CREATE TABLE t_account_type_dg_tmp
+(
+    id         INTEGER
+        CONSTRAINT t_account_type_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name       TEXT(100)                          NOT NULL,
+    date_added DATETIME default CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_account_type_dg_tmp(id, name, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_account_type;
+
+DROP TABLE t_account_type;
+
+ALTER TABLE t_account_type_dg_tmp
+    RENAME TO t_account_type;
 
 CREATE TABLE t_account_dg_tmp
 (
@@ -456,6 +477,32 @@ BEGIN
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
             END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_insert_on_after_insert_on_t_account_type
+    AFTER INSERT
+    ON t_account_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_insert_on_t_account_type
+    AFTER INSERT
+    ON t_account_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
     WHERE id = NEW.id;
 END;
 
@@ -1380,5 +1427,11 @@ FROM cumulative_values cv
          INNER JOIN cumulative_values pre_cv
                     ON cv.account_fk = pre_cv.account_fk
                         AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+
+CREATE VIEW export_v_account_type AS
+SELECT tat.id,
+       tat.name,
+       tat.date_added
+FROM t_account_type tat;
     ";
 }
