@@ -21,8 +21,8 @@ using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.Dialogs;
 using Serilog;
-using Console = System.Console;
 using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
@@ -127,18 +127,23 @@ public partial class AddEditAccountWindow
         switch (messageBoxResult, editMode)
         {
             case (MessageBoxInputResult.Delete, _):
-                response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
 
-                // TODO check before delete if accountType is used in any account
-                var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
-                if (success.IsSuccess)
-                {
-                    AccountTypes.Remove(AccountViewModel.AccountType);
-                    AccountViewModel.AccountType = null;
-                    AccountViewModel.AcceptAccountTypeChanges();
-                    // TODO send message to the app and delete all related visual
-                }
+                var ui = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
+                ui.DeletingName = "Account Type";
+                ui.ShowDialog();
+
+                // response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                // if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+                //
+                // // TODO check before delete if accountType is used in any account
+                // var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
+                // if (success.IsSuccess)
+                // {
+                //     AccountTypes.Remove(AccountViewModel.AccountType);
+                //     AccountViewModel.AccountType = null;
+                //     AccountViewModel.AcceptAccountTypeChanges();
+                //     // TODO send message to the app and delete all related visual
+                // }
 
                 break;
 

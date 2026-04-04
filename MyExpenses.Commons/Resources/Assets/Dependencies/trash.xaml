@@ -1,0 +1,53 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="Trash">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="2" RadiusY="2" Rect="26,8,12,4" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF4D35E">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="3" RadiusY="3" Rect="14,12,36,6" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M18,18L46,18 43,52 21,52z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF000000">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="26,26" EndPoint="28,48" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF000000">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="38,26" EndPoint="36,48" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.Transform>
+          <ScaleTransform ScaleX="0.375" ScaleY="0.375" />
+        </DrawingGroup.Transform>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>
