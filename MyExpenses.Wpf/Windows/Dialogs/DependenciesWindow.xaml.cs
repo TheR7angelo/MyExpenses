@@ -1,4 +1,7 @@
+using System.Collections.ObjectModel;
 using System.Windows;
+using Domain.Models.Dependencies;
+using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Wpf.Windows.Dialogs;
 
@@ -13,8 +16,16 @@ public partial class DependenciesWindow
         set => SetValue(DeletingNameProperty, value);
     }
 
+    public ObservableCollection<DeletionDependency> Dependencies { get; } = [];
+
     public DependenciesWindow()
     {
         InitializeComponent();
+    }
+
+    public void SetDependencies(IEnumerable<DeletionDependency> deletionDependencies)
+    {
+        Dependencies.Clear();
+        Dependencies.AddRange(deletionDependencies);
     }
 }

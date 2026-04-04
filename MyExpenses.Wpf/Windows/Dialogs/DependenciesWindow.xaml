@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows.Dialogs"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:dependencies="clr-namespace:Domain.Models.Dependencies;assembly=MyExpenses.Domain"
                  mc:Ignorable="d"
 
                  Title="DependenciesWindow"
@@ -56,7 +57,41 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
 
-            <ItemsControl></ItemsControl>
+            <ItemsControl ItemsSource="{Binding Dependencies}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dependencies:DeletionDependency}">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="Icon" />
+
+                            <TextBlock Grid.Column="1"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Center">
+
+                                <Run Text="{Binding Count}" BaselineAlignment="Center" />
+                                <Run Text="{Binding Category}" BaselineAlignment="Center" />
+
+                            </TextBlock>
+
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
 
         </ScrollViewer>
 

@@ -128,24 +128,31 @@ public partial class AddEditAccountWindow
         {
             case (MessageBoxInputResult.Delete, _):
 
-                var dependency = await _accountPresentationService.GetAllDependenciesAsync(AccountViewModel.AccountType!);
+                var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(AccountViewModel.AccountType!);
+                var deletionDependenciesArray = deletionDependencies.ToArray();
 
-                var ui = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
-                ui.DeletingName = "Account Type";
-                ui.ShowDialog();
+                if (deletionDependenciesArray.Length is 0)
+                {
+                    response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                    if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
 
-                // response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                // if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
-                //
-                // // TODO check before delete if accountType is used in any account
-                // var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
-                // if (success.IsSuccess)
-                // {
-                //     AccountTypes.Remove(AccountViewModel.AccountType);
-                //     AccountViewModel.AccountType = null;
-                //     AccountViewModel.AcceptAccountTypeChanges();
-                //     // TODO send message to the app and delete all related visual
-                // }
+                    var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
+                    if (success.IsSuccess)
+                    {
+                        AccountTypes.Remove(AccountViewModel.AccountType);
+                        AccountViewModel.AccountType = null;
+                        AccountViewModel.AcceptAccountTypeChanges();
+                        // TODO send message to the app and delete all related visual
+                    }
+                }
+                else
+                {
+                    // TODO continue
+                    var dependenciesWindow = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
+                    dependenciesWindow.DeletingName = "Account Type";
+                    dependenciesWindow.SetDependencies(deletionDependenciesArray);
+                    dependenciesWindow.ShowDialog();
+                }
 
                 break;
 
