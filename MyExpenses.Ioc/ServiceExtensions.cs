@@ -76,16 +76,17 @@ public static class ServiceExtensions
             stateProvider.FilePath.BuildConnectionString(pooling: false,
                 mode: SqliteOpenMode.ReadWrite);
 
-        options.UseSqlite(connectionString);
-
 #if DEBUG
 
-        var loggerFactory =serviceProvider.GetRequiredService<ILoggerFactory>();
+        var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
         options.UseLoggerFactory(loggerFactory)
             .EnableSensitiveDataLogging()
             .EnableDetailedErrors();
-
+#else
+        options.UseLoggerFactory(new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory());
+        options.ConfigureWarnings(w => w.Ignore());
 #endif
+        options.UseSqlite(connectionString);
     }
 
     /// <summary>
