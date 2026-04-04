@@ -128,6 +128,8 @@ public partial class AddEditAccountWindow
         {
             case (MessageBoxInputResult.Delete, _):
 
+                var dependency = await _accountPresentationService.GetAllDependenciesAsync(AccountViewModel.AccountType!);
+
                 var ui = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
                 ui.DeletingName = "Account Type";
                 ui.ShowDialog();

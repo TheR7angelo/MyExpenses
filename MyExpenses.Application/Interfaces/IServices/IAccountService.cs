@@ -1,3 +1,4 @@
+using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 
@@ -41,5 +42,14 @@ public interface IAccountService
     /// <param name="accountTypeDto">The account type to be deleted, represented as a <see cref="AccountTypeDto"/> object.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken);
+    public Task<Result> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a collection of dependencies associated with the specified account type. Each dependency includes details such as label, count, and category.
+    /// </summary>
+    /// <param name="accountTypeDto">The account type data transfer object used to identify dependencies.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="DeletionDependency"/> objects.</returns>
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeDto accountTypeDto,
+        CancellationToken cancellationToken = default);
 }

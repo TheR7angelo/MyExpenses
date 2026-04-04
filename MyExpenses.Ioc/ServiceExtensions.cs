@@ -31,12 +31,14 @@ public static class ServiceExtensions
     private static IServiceCollection AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
-            .AddScoped<ICategoryRepository, CategoryRepository>();
+            .AddScoped<ICategoryRepository, CategoryRepository>()
+            .AddScoped<IExpenseRepository, ExpenseRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>();
 
         services.AddScoped<IAccountService, AccountService>()
-            .AddScoped<ICategoryService, CategoryService>();
+            .AddScoped<ICategoryService, CategoryService>()
+            .AddScoped<IExpenseService, ExpenseService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
@@ -46,7 +48,8 @@ public static class ServiceExtensions
         services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>();
 
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
-            .AddSingleton<ICategoryDtoDomainMapper, CategoryDtoDomainMapper>();
+            .AddSingleton<ICategoryDtoDomainMapper, CategoryDtoDomainMapper>()
+            .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
             .AddSingleton<ICategoryDtoViewModelMapper, CategoryDtoViewModelMapper>();

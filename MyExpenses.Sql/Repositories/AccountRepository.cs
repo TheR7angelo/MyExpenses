@@ -49,6 +49,22 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         return accounts;
     }
 
+    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading all accounts with account type {AccountTypeName}", accountType.Name);
+
+        var accounts = await dataBaseContext.TAccounts
+            .AsNoTracking()
+            .Include(s => s.AccountTypeFkNavigation)
+            .Where(s => s.AccountTypeFk == accountType.Id)
+            .ProjectToDomain()
+            .ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} account", accounts.Length);
+
+        return accounts;
+    }
+
     public async Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -105,5 +121,18 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             logger.LogError(e, "Failed to delete account type with id {AccountTypeId}", accountType.Id);
             return Result.Failure(ErrorCode.DatabaseError, $"Failed to delete account type: {e.Message}");
         }
+    }
+
+    public async Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all expenses for account with id {AccountId}", accountDomain.Id);
+        var expenses = await context.THistories
+            .Where(e => e.AccountFk == accountDomain.Id)
+            .CountAsync(cancellationToken);
+        logger.LogInformation("Loaded {Count} expenses for account with id {AccountId}", expenses, accountDomain.Id);
+
+        return expenses;
     }
 }

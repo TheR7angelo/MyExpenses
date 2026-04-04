@@ -1,4 +1,5 @@
 using Domain.Models.Accounts;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -27,6 +28,15 @@ public interface IAccountRepository
     public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all accounts asynchronously based on the specified account type.
+    /// </summary>
+    /// <param name="accountType">The type of account to filter the retrieval process.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>An <see cref="AccountDomain"/> object containing details of the retrieved accounts.</returns>
+    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves all account types asynchronously.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
@@ -47,4 +57,14 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the task to complete.</param>
     /// <returns>A result object indicating whether the operation was successful, with an error code and internal message if applicable.</returns>
     public Task<Result> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of expenses associated with a specific account asynchronously.
+    /// </summary>
+    /// <param name="accountDomain">The account for which the total expense count is to be retrieved.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>An integer representing the count of expenses associated with the specified account.</returns>
+    public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
+        CancellationToken cancellationToken = default);
+
 }

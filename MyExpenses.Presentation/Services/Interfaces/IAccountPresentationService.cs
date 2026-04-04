@@ -1,3 +1,4 @@
+using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
@@ -37,11 +38,20 @@ public interface IAccountPresentationService
     /// <summary>
     /// Deletes an account type asynchronously.
     /// </summary>
-    /// <param name="accountViewModel">The view model representing the account type to be deleted.</param>
+    /// <param name="accountTypeViewModel">The view model representing the account type to be deleted.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the operation's success or failure.</return>
-    public Task<Result> DeleteAccountTypeAsync(AccountTypeViewModel accountViewModel,
+    public Task<Result> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default);
 
     // public Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all deletion dependencies for the specified account type.
+    /// </summary>
+    /// <param name="accountTypeViewModel">The account type view model for which dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified account type.</return>
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeViewModel accountTypeViewModel,
+        CancellationToken cancellationToken = default);
 }
