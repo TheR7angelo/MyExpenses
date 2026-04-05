@@ -28,4 +28,9 @@ public partial class DependenciesWindow
         Dependencies.Clear();
         Dependencies.AddRange(deletionDependencies);
     }
+
+    private void DefaultBtn_OnClick(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 }

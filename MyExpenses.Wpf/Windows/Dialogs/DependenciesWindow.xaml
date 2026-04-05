@@ -114,9 +114,19 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <Button Content="Cancel" />
-            <Button Content="Delete Everything" />
+                    HorizontalAlignment="Center"
+                    margin:PanelExtensions.MarginForAllChildren="5">
+
+            <Button Content="Cancel"
+                    IsDefault="True"
+                    Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}"
+                    Click="DefaultBtn_OnClick">
+            </Button>
+
+            <Button Content="Delete Everything"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+            </Button>
+
         </StackPanel>
 
     </Grid>
