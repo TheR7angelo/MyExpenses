@@ -9,15 +9,7 @@ public class DependencyToIconConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not DependencyType dependencyType) return null;
-
-        var iconName = dependencyType switch
-        {
-            DependencyType.Account => "Account",
-            DependencyType.BankTransfer => "AccountTransfert",
-            DependencyType.Expense => "Ticket",
-            DependencyType.RecurringExpense => "RecursiveExpense",
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        var iconName = dependencyType.GetRessourceIconName();
 
         return System.Windows.Application.Current.TryFindResource(iconName);
     }

@@ -1,3 +1,4 @@
+using Domain.Models.Dependencies;
 using MyExpenses.Presentation.Enums;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -35,4 +36,13 @@ public interface IDialogService
     /// <param name="icon">The icon to display in the message box, indicating the type or context of the message.</param>
     /// <returns>A <see cref="MessageBoxResult"/> value indicating the button selected by the user.</returns>
     public MessageBoxResult ShowMessageBox(string caption, string messageBoxText, MessageBoxButton button, MsgBoxImage icon);
+
+    /// <summary>
+    /// Asks the user for confirmation to remove a set of dependencies of a specified type.
+    /// </summary>
+    /// <param name="dependencyType">The type of dependency being considered for removal.</param>
+    /// <param name="dependencies">The collection of dependencies associated with the specified type.</param>
+    /// <returns>A <see cref="MessageBoxResult"/> indicating the user's response to the confirmation dialog.</returns>
+    public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType,
+        IEnumerable<DeletionDependency> dependencies);
 }

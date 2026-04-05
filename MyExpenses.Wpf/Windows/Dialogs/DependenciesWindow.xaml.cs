@@ -29,8 +29,15 @@ public partial class DependenciesWindow
         Dependencies.AddRange(deletionDependencies);
     }
 
-    private void DefaultBtn_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonConfirmation_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(true);
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(false);
+
+    private void SetResult(bool result)
     {
+        DialogResult = result;
         Close();
     }
 }

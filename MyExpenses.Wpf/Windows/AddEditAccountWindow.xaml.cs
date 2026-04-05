@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Domain.Models.Accounts;
+using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
@@ -148,10 +149,8 @@ public partial class AddEditAccountWindow
                 else
                 {
                     // TODO continue
-                    var dependenciesWindow = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
-                    dependenciesWindow.DeletingName = "Account Type";
-                    dependenciesWindow.SetDependencies(deletionDependenciesArray);
-                    dependenciesWindow.ShowDialog();
+                    response = _dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.AccountType ,deletionDependenciesArray);
+                    Console.WriteLine(response);
                 }
 
                 break;

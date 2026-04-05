@@ -120,11 +120,12 @@
             <Button Content="Cancel"
                     IsDefault="True"
                     Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}"
-                    Click="DefaultBtn_OnClick">
+                    Click="ButtonCancel_OnClick">
             </Button>
 
             <Button Content="Delete Everything"
-                    Style="{StaticResource MaterialDesignPaperButton}">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonConfirmation_OnClick">
             </Button>
 
         </StackPanel>

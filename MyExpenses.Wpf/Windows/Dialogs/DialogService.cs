@@ -1,3 +1,5 @@
+using Domain.Models.Dependencies;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Wpf.Windows.Dialogs.InputDialog;
@@ -43,6 +45,17 @@ public class DialogService : IDialogService
 
         var result = MsgBox.MsgBox.Show(caption, messageBoxText, b, icon);
         return ReturnResultMessageBox(result);
+    }
+
+    public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType, IEnumerable<DeletionDependency> dependencies)
+    {
+        // TODO trad
+        var dependenciesWindow = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
+        dependenciesWindow.DeletingName = "Account Type";
+        dependenciesWindow.SetDependencies(dependencies);
+        dependenciesWindow.ShowDialog();
+
+        return dependenciesWindow.DialogResult is not true ? MessageBoxResult.Cancel : MessageBoxResult.Yes;
     }
 
     private static System.Windows.MessageBoxButton ConvertButton(MessageBoxButton button)
