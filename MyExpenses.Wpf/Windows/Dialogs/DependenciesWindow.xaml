@@ -6,14 +6,16 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows.Dialogs"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:dependencies="clr-namespace:Domain.Models.Dependencies;assembly=MyExpenses.Domain"
+                 xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  Title="DependenciesWindow"
 
-                 MinHeight="200"
-                 MinWidth="425"
-                 Height="200"
-                 Width="425"
+                 MinHeight="345"
+                 MinWidth="345"
+                 Height="345"
+                 Width="345"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
@@ -30,6 +32,10 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Resources>
+        <converters:DependencyToIconConverter x:Key="DependencyToIconConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid HorizontalAlignment="Center">
 
         <Grid.RowDefinitions>
@@ -40,7 +46,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" Source="{StaticResource TrashWarning}" Height="128" Width="128" />
+        <Image Grid.Row="0"
+               Source="{StaticResource TrashWarning}"
+               Height="96"
+               Width="{Binding Height, RelativeSource={RelativeSource Self}}">
+        </Image>
 
         <Label Grid.Row="1" Content="Confirm deletion"
                HorizontalContentAlignment="Center"
@@ -68,19 +78,27 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dependencies:DeletionDependency}">
 
-                        <Grid>
+                        <Grid VerticalAlignment="Center"
+                              margin:PanelExtensions.MarginForAllChildren="5">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Content="Icon" />
+                            <Image Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Source="{Binding Category, Mode=OneWay, Converter={StaticResource DependencyToIconConverter}}"
+                                   Height="48"
+                                   Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                   Stretch="Uniform">
+                            </Image>
 
                             <TextBlock Grid.Column="1"
                                        TextWrapping="Wrap"
                                        TextAlignment="Center"
-                                       HorizontalAlignment="Center">
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
 
                                 <Run Text="{Binding Count}" BaselineAlignment="Center" />
                                 <Run Text="{Binding Category}" BaselineAlignment="Center" />
@@ -95,7 +113,8 @@
 
         </ScrollViewer>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Orientation="Horizontal"
+                    HorizontalAlignment="Center">
             <Button Content="Cancel" />
             <Button Content="Delete Everything" />
         </StackPanel>

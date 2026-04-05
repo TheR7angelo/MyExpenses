@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.23 53.55">
+<svg id="a" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.98 47.44">
   <g>
-    <path d="M15,1h8c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2h-8c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z" fill="none" stroke="#2f2f2f" stroke-width="2"/>
-    <rect x="1" y="5" width="36" height="7" rx="3" ry="3" fill="#f4d35e" stroke="#2f2f2f" stroke-width="2"/>
-    <path d="M6,12h26l-4,36H10L6,12Z" fill="none" stroke="#2f2f2f" stroke-linejoin="round" stroke-width="2"/>
-    <line x1="15" y1="20" x2="16" y2="40" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
-    <line x1="23" y1="20" x2="22" y2="40" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
+    <path d="M13.34,1h7.05c.97,0,1.76.79,1.76,1.76h0c0,.97-.79,1.76-1.76,1.76h-7.05c-.97,0-1.76-.79-1.76-1.76h0c0-.97.79-1.76,1.76-1.76Z" fill="none" stroke="#000" stroke-width="2"/>
+    <rect x="1" y="4.53" width="31.73" height="6.17" rx="3" ry="3" fill="#f4d35e" stroke="#000" stroke-width="2"/>
+    <path d="M5.41,10.69h22.91l-3.53,31.73h-15.86l-3.53-31.73Z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="13.34" y1="17.74" x2="14.22" y2="35.37" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
+    <line x1="20.39" y1="17.74" x2="19.51" y2="35.37" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
   </g>
   <g>
-    <path d="M31,32.5l-9.88,16.5c-.64,1.12-.26,2.54.85,3.19.35.2.74.31,1.14.31h19.76c1.29,0,2.32-1.07,2.31-2.36,0-.4-.11-.79-.31-1.14l-9.88-16.5c-.67-1.1-2.1-1.45-3.21-.78-.32.19-.59.46-.78.78Z" fill="#f9d85d" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
-    <line x1="33" y1="38.5" x2="33" y2="43.17" fill="none" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
-    <line x1="33" y1="47.83" x2="33.01" y2="47.83" fill="none" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+    <path d="M27.44,28.76l-8.71,14.54c-.56.99-.23,2.24.75,2.81.31.18.65.27,1,.27h17.41c1.14,0,2.04-.94,2.04-2.08,0-.35-.1-.7-.27-1l-8.71-14.54c-.59-.97-1.85-1.28-2.83-.69-.28.17-.52.41-.69.69Z" fill="#f9d85d" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+    <line x1="29.2" y1="34.05" x2="29.2" y2="38.16" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+    <line x1="29.2" y1="42.27" x2="29.21" y2="42.27" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
   </g>
 </svg>

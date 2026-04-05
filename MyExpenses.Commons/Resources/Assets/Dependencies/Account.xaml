@@ -8,7 +8,7 @@
               <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0.5,4.5,48,36" />
+              <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0.5,2.75,26.94,20.21" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <GeometryDrawing Brush="#FF006837">
@@ -16,7 +16,7 @@
               <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <PathGeometry FillRule="Nonzero" Figures="M38.5,0.5L54.5,0.5 54.5,24.5 38.5,24.5 38.5,0.5z" />
+              <PathGeometry FillRule="Nonzero" Figures="M21.83,0.5L30.81,0.5 30.81,13.97 21.83,13.97 21.83,0.5z" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <DrawingGroup Opacity="0.4">
@@ -26,7 +26,7 @@
                   <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
                 </GeometryDrawing.Pen>
                 <GeometryDrawing.Geometry>
-                  <EllipseGeometry RadiusX="3" RadiusY="3" Center="47.5,12.5" />
+                  <EllipseGeometry RadiusX="1.68" RadiusY="1.68" Center="26.88,7.24" />
                 </GeometryDrawing.Geometry>
               </GeometryDrawing>
             </DrawingGroup.Children>
@@ -36,7 +36,7 @@
               <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <PathGeometry FillRule="Nonzero" Figures="M0.5,10.5L40.5,10.5C43.5,10.5,46.5,12.5,46.5,16.5L46.5,28.5C46.5,32.5,43.5,34.5,40.5,34.5L0.5,34.5 0.5,10.5z" />
+              <PathGeometry FillRule="Nonzero" Figures="M0.5,6.11L22.95,6.11C24.63,6.11,26.32,7.23,26.32,9.48L26.32,16.22C26.32,18.47,24.64,19.59,22.95,19.59L0.5,19.59 0.5,6.11z" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <GeometryDrawing Brush="#FFFFFFFF">
@@ -44,12 +44,12 @@
               <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <EllipseGeometry RadiusX="2.5" RadiusY="2.5" Center="38.5,25.5" />
+              <EllipseGeometry RadiusX="1.4" RadiusY="1.4" Center="21.83,14.53" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
         </DrawingGroup.Children>
         <DrawingGroup.ClipGeometry>
-          <RectangleGeometry Rect="0,0,55,41" />
+          <RectangleGeometry Rect="0,0,31.31,23.45" />
         </DrawingGroup.ClipGeometry>
       </DrawingGroup>
     </DrawingImage.Drawing>

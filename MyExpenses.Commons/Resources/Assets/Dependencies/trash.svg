@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.24 17.23">
-  <path d="M5.61.38h3c.41,0,.75.34.75.75h0c0,.41-.34.75-.75.75h-3c-.41,0-.75-.34-.75-.75h0c0-.41.34-.75.75-.75Z" fill="none" stroke="#2f2f2f" stroke-miterlimit="1.5" stroke-width=".75"/>
-  <path d="M1.5,1.88h11.25c.62,0,1.12.5,1.12,1.12h0c0,.62-.5,1.12-1.12,1.12H1.5c-.62,0-1.12-.5-1.12-1.12H.38c0-.62.5-1.12,1.12-1.12Z" fill="#f4d35e" stroke="#2f2f2f" stroke-miterlimit="1.5" stroke-width=".75"/>
-  <path d="M1.88,4.11h10.5l-1.12,12.75H3L1.88,4.11Z" fill="none" stroke="#2f2f2f" stroke-linejoin="round" stroke-width=".75"/>
-  <line x1="4.88" y1="7.11" x2="5.61" y2="15.38" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-miterlimit="1.5" stroke-width=".75"/>
-  <line x1="9.38" y1="7.11" x2="8.6" y2="15.38" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-miterlimit="1.5" stroke-width=".75"/>
+<svg id="a" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.28 47.82">
+  <path d="M15.31.38h8.57c1.17,0,2.14.97,2.14,2.14h0c0,1.17-.97,2.14-2.14,2.14h-8.57c-1.17,0-2.14-.97-2.14-2.14h0c0-1.17.97-2.14,2.14-2.14Z" fill="none" stroke="#2f2f2f" stroke-miterlimit="1.5" stroke-width=".75"/>
+  <path d="M3.57,4.66h32.13c1.77,0,3.2,1.43,3.2,3.2h0c0,1.77-1.43,3.2-3.2,3.2H3.57c-1.77,0-3.2-1.43-3.2-3.2H.38c0-1.77,1.43-3.2,3.2-3.2Z" fill="#f4d35e" stroke="#2f2f2f" stroke-miterlimit="1.5" stroke-width=".75"/>
+  <path d="M4.66,11.03h29.99l-3.2,36.42H7.86L4.66,11.03Z" fill="none" stroke="#2f2f2f" stroke-linejoin="round" stroke-width=".75"/>
+  <line x1="13.23" y1="19.6" x2="15.31" y2="43.22" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-miterlimit="1.5" stroke-width=".75"/>
+  <line x1="26.08" y1="19.6" x2="23.85" y2="43.22" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-miterlimit="1.5" stroke-width=".75"/>
 </svg>

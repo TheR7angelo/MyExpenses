@@ -3,12 +3,12 @@
     <DrawingImage.Drawing>
       <DrawingGroup>
         <DrawingGroup.Children>
-          <GeometryDrawing Brush="{x:Null}">
+          <GeometryDrawing Brush="#FFFFFFFF">
             <GeometryDrawing.Pen>
-              <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <PathGeometry FillRule="Nonzero" Figures="M1,1L33,1 33,45 29,41 25,45 21,41 17,45 13,41 9,45 5,41 1,45 1,1z" />
+              <PathGeometry FillRule="Nonzero" Figures="M1,1L34.31,1 34.31,46.8 30.150000000000002,42.64 25.990000000000002,46.8 21.830000000000002,42.64 17.67,46.8 13.510000000000002,42.64 9.350000000000001,46.8 5.190000000000001,42.64 1.0300000000000011,46.8 1.0300000000000011,1z" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <GeometryDrawing Brush="{x:Null}">
@@ -16,7 +16,7 @@
               <Pen Brush="#FFF4D35E" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <LineGeometry StartPoint="9,11" EndPoint="25,11" />
+              <LineGeometry StartPoint="9.33,11.41" EndPoint="25.98,11.41" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <GeometryDrawing Brush="{x:Null}">
@@ -28,7 +28,7 @@
               </Pen>
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <LineGeometry StartPoint="9,23" EndPoint="17,23" />
+              <LineGeometry StartPoint="9.33,23.9" EndPoint="17.66,23.9" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
           <GeometryDrawing Brush="{x:Null}">
@@ -36,12 +36,12 @@
               <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
             </GeometryDrawing.Pen>
             <GeometryDrawing.Geometry>
-              <LineGeometry StartPoint="21,23" EndPoint="25,23" />
+              <LineGeometry StartPoint="21.82,23.9" EndPoint="25.98,23.9" />
             </GeometryDrawing.Geometry>
           </GeometryDrawing>
         </DrawingGroup.Children>
         <DrawingGroup.ClipGeometry>
-          <RectangleGeometry Rect="0,0,34,46" />
+          <RectangleGeometry Rect="0,0,35.31,47.8" />
         </DrawingGroup.ClipGeometry>
       </DrawingGroup>
     </DrawingImage.Drawing>

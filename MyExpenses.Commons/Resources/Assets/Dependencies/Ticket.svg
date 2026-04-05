@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 46">
-  <path d="M1,1h32v44l-4-4-4,4-4-4-4,4-4-4-4,4-4-4-4,4V1Z" fill="none" stroke="#2f2f2f" stroke-linejoin="round" stroke-width="2"/>
-  <line x1="9" y1="11" x2="25" y2="11" fill="none" stroke="#f4d35e" stroke-linecap="round" stroke-width="2.5"/>
-  <line x1="9" y1="23" x2="17" y2="23" fill="none" stroke="#8c8c8c" stroke-dasharray="1 3" stroke-width="2"/>
-  <line x1="21" y1="23" x2="25" y2="23" fill="none" stroke="#8c8c8c" stroke-width="2"/>
+<svg id="a" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.31 47.8">
+  <path d="M1,1h33.31v45.8l-4.16-4.16-4.16,4.16-4.16-4.16-4.16,4.16-4.16-4.16-4.16,4.16-4.16-4.16-4.16,4.16V1Z" fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2"/>
+  <line x1="9.33" y1="11.41" x2="25.98" y2="11.41" fill="none" stroke="#f4d35e" stroke-linecap="round" stroke-width="2.5"/>
+  <line x1="9.33" y1="23.9" x2="17.66" y2="23.9" fill="none" stroke="#8c8c8c" stroke-dasharray="1 3" stroke-width="2"/>
+  <line x1="21.82" y1="23.9" x2="25.98" y2="23.9" fill="none" stroke="#8c8c8c" stroke-width="2"/>
 </svg>
