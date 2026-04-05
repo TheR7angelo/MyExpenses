@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.4 22.11">
+  <rect x=".5" y="4.55" width="22.74" height="17.06" rx="3" ry="3" fill="#2f2f2f" stroke="#000"/>
+  <rect x="36.16" y="4.55" width="22.74" height="17.06" rx="3" ry="3" transform="translate(95.06 26.16) rotate(180)" fill="#2f2f2f" stroke="#000"/>
+  <g>
+    <path d="M33.24.5l1.96,7.32-10.98,2.94-1.96-7.32,10.98-2.94Z" fill="#006837" stroke="#000" stroke-linejoin="round"/>
+    <circle cx="28.86" cy="6.09" r="1.42" fill="none" isolation="isolate" opacity=".4" stroke="#000" stroke-width=".8"/>
+  </g>
+  <g>
+    <path d="M.5,7.39h18.95c1.42,0,2.84.95,2.84,2.84v5.69c0,1.9-1.42,2.84-2.84,2.84H.5V7.39Z" fill="#603813" stroke="#000" stroke-linejoin="round"/>
+    <circle cx="18.5" cy="14.5" r="1.18" fill="#fff" stroke="#000" stroke-width=".8"/>
+  </g>
+  <g>
+    <path d="M58.9,18.76h-18.95c-1.42,0-2.84-.95-2.84-2.84v-5.69c0-1.9,1.42-2.84,2.84-2.84h18.95v11.37Z" fill="#603813" stroke="#000" stroke-linejoin="round"/>
+    <circle cx="41.14" cy="14.5" r="1.18" fill="#fff" stroke="#000" stroke-width=".8"/>
+  </g>
+  <line x1="21.93" y1="6.37" x2="19.1" y2="7.13" fill="none" stroke="#006837" stroke-linecap="round"/>
+  <line x1="20.31" y1="9.21" x2="17.76" y2="9.89" fill="none" stroke="#006837" stroke-linecap="round"/>
+</svg>

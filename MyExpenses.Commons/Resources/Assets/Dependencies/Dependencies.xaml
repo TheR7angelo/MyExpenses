@@ -1,5 +1,9 @@
 <ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
   <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Account.xaml" />
+    <ResourceDictionary Source="AccountTransfert.xaml" />
+    <ResourceDictionary Source="RecursiveExpense.xaml" />
+    <ResourceDictionary Source="Ticket.xaml" />
     <ResourceDictionary Source="Trash.xaml" />
     <ResourceDictionary Source="TrashWarning.xaml" />
     <ResourceDictionary Source="Warning.xaml" />

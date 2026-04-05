@@ -332,8 +332,20 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Account.xaml">
+        <Link>Resources\Assets\Dependencies\Account.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\AccountTransfert.xaml">
+        <Link>Resources\Assets\Dependencies\AccountTransfert.xaml</Link>
+      </Page>
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Dependencies.xaml">
         <Link>Resources\Assets\Dependencies\Dependencies.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\RecursiveExpense.xaml">
+        <Link>Resources\Assets\Dependencies\RecursiveExpense.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Ticket.xaml">
+        <Link>Resources\Assets\Dependencies\Ticket.xaml</Link>
       </Page>
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Trash.xaml">
         <Link>Resources\Assets\Dependencies\Trash.xaml</Link>
@@ -430,6 +442,18 @@
       <None Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.svg">
         <Link>Resources\Assets\Applications\Icon.svg</Link>
       </None>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Account.svg">
+        <Link>Resources\Assets\Dependencies\Account.svg</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\AccountTransfert.svg">
+        <Link>Resources\Assets\Dependencies\AccountTransfert.svg</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\RecursiveExpense.svg">
+        <Link>Resources\Assets\Dependencies\RecursiveExpense.svg</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Ticket.svg">
+        <Link>Resources\Assets\Dependencies\Ticket.svg</Link>
+      </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Trash.svg">
         <Link>Resources\Assets\Dependencies\Trash.svg</Link>
       </Content>

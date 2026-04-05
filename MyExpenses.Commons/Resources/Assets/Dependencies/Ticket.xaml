@@ -1,0 +1,49 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="Ticket">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M1,1L33,1 33,45 29,41 25,45 21,41 17,45 13,41 9,45 5,41 1,45 1,1z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFF4D35E" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="9,11" EndPoint="25,11" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                <Pen.DashStyle>
+                  <DashStyle Offset="0" Dashes="0.5 1.5" />
+                </Pen.DashStyle>
+              </Pen>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="9,23" EndPoint="17,23" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="21,23" EndPoint="25,23" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,34,46" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

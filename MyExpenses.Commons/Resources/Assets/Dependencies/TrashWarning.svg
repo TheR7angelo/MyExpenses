@@ -1,17 +1,15 @@
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#2F2F2F" stroke-width="2" fill="none">
-        <rect x="26" y="5" width="12" height="4" rx="2"/>
-        <rect x="14" y="9" width="36" height="7" rx="3" fill="#F4D35E"/>
-        <path d="M19 16 H45 L41 52 H23 Z" stroke-linejoin="round"/>
-        <line x1="28" y1="24" x2="29" y2="44" stroke="#8C8C8C" stroke-linecap="round"/>
-        <line x1="36" y1="24" x2="35" y2="44" stroke="#8C8C8C" stroke-linecap="round"/>
-    </g>
-
-    <svg x="32" y="32" width="28" height="28" viewBox="0 0 24 24">
-        <g fill="#F9D85D" stroke="#2F2F2F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13" fill="none"/>
-            <line x1="12" y1="17" x2="12.01" y2="17" fill="none"/>
-        </g>
-    </svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.23 53.55">
+  <g>
+    <path d="M15,1h8c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2h-8c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z" fill="none" stroke="#2f2f2f" stroke-width="2"/>
+    <rect x="1" y="5" width="36" height="7" rx="3" ry="3" fill="#f4d35e" stroke="#2f2f2f" stroke-width="2"/>
+    <path d="M6,12h26l-4,36H10L6,12Z" fill="none" stroke="#2f2f2f" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="15" y1="20" x2="16" y2="40" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
+    <line x1="23" y1="20" x2="22" y2="40" fill="none" stroke="#8c8c8c" stroke-linecap="round" stroke-width="2"/>
+  </g>
+  <g>
+    <path d="M31,32.5l-9.88,16.5c-.64,1.12-.26,2.54.85,3.19.35.2.74.31,1.14.31h19.76c1.29,0,2.32-1.07,2.31-2.36,0-.4-.11-.79-.31-1.14l-9.88-16.5c-.67-1.1-2.1-1.45-3.21-.78-.32.19-.59.46-.78.78Z" fill="#f9d85d" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+    <line x1="33" y1="38.5" x2="33" y2="43.17" fill="none" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+    <line x1="33" y1="47.83" x2="33.01" y2="47.83" fill="none" stroke="#2f2f2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/>
+  </g>
 </svg>

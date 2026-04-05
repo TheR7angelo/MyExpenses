@@ -1,0 +1,89 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="RecursiveExpense">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <DrawingGroup>
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF2F2F2F" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M13.02,7.22C13.02,7.63 12.969999999999999,9.469999999999999 11.51,11.01 9.89,12.719999999999999 7.77,12.719999999999999 7.42,12.719999999999999L7.42,36.97 10.120000000000001,34.269999999999996 12.82,36.97 15.52,34.269999999999996 18.22,36.97 20.919999999999998,34.269999999999996 23.619999999999997,36.97 26.319999999999997,34.269999999999996 29.019999999999996,36.97 29.019999999999996,7.22 13.02,7.22z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FFF4D35E" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <LineGeometry StartPoint="12.84,13.98" EndPoint="23.65,13.98" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                    <Pen.DashStyle>
+                      <DashStyle Offset="0" Dashes="0.5 1.5" />
+                    </Pen.DashStyle>
+                  </Pen>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <LineGeometry StartPoint="12.84,22.09" EndPoint="18.24,22.09" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF8C8C8C" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <LineGeometry StartPoint="20.95,22.09" EndPoint="23.65,22.09" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <DrawingGroup>
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF2F2F2F" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M6.68,1.8C9.69,1.4300000000000002 12.42,3.5700000000000003 12.79,6.58 13.159999999999998,9.59 11.02,12.32 8.009999999999998,12.690000000000001 4.999999999999998,13.06 2.269999999999998,10.920000000000002 1.8999999999999977,7.910000000000001 1.6999999999999977,6.270000000000001 2.249999999999998,4.630000000000001 3.389999999999998,3.450000000000001" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FFF4D35E" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M1.25,3.44L1.25,3.44 3.44,3.44 3.44,1.25" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF2F2F2F" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <LineGeometry StartPoint="6.68,7.28" EndPoint="6.68,4.54" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF2F2F2F" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <LineGeometry StartPoint="6.68,7.28" EndPoint="8.33,8.38" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,30.02,37.97" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

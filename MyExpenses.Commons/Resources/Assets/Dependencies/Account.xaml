@@ -1,0 +1,57 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="Account">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FF2F2F2F">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0.5,4.5,48,36" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF006837">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M38.5,0.5L54.5,0.5 54.5,24.5 38.5,24.5 38.5,0.5z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup Opacity="0.4">
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="{x:Null}">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="3" RadiusY="3" Center="47.5,12.5" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <GeometryDrawing Brush="#FF603813">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M0.5,10.5L40.5,10.5C43.5,10.5,46.5,12.5,46.5,16.5L46.5,28.5C46.5,32.5,43.5,34.5,40.5,34.5L0.5,34.5 0.5,10.5z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="2.5" RadiusY="2.5" Center="38.5,25.5" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,55,41" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

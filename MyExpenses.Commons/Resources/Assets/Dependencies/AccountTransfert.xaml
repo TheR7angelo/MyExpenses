@@ -1,0 +1,113 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="AccountTransfert">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FF2F2F2F">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0.5,4.55,22.74,17.06" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup Transform="-1,0,-0,-1,95.06,26.16">
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="#FF2F2F2F">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <RectangleGeometry RadiusX="3" RadiusY="3" Rect="36.16,4.55,22.74,17.06" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <DrawingGroup>
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="#FF006837">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M33.24,0.5L35.2,7.82 24.220000000000002,10.76 22.26,3.4399999999999995 33.24,0.49999999999999956z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <DrawingGroup Opacity="0.4">
+                <DrawingGroup.Children>
+                  <GeometryDrawing Brush="{x:Null}">
+                    <GeometryDrawing.Pen>
+                      <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                      <EllipseGeometry RadiusX="1.42" RadiusY="1.42" Center="28.86,6.09" />
+                    </GeometryDrawing.Geometry>
+                  </GeometryDrawing>
+                </DrawingGroup.Children>
+              </DrawingGroup>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <DrawingGroup>
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="#FF603813">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M0.5,7.39L19.45,7.39C20.869999999999997,7.39,22.29,8.34,22.29,10.23L22.29,15.920000000000002C22.29,17.82,20.869999999999997,18.76,19.45,18.76L0.5,18.76 0.5,7.39z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFFFFFFF">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="1.18" RadiusY="1.18" Center="18.5,14.5" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <DrawingGroup>
+            <DrawingGroup.Children>
+              <GeometryDrawing Brush="#FF603813">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M58.9,18.76L39.95,18.76C38.53,18.76,37.11,17.810000000000002,37.11,15.920000000000002L37.11,10.23C37.11,8.33,38.53,7.390000000000001,39.95,7.390000000000001L58.900000000000006,7.390000000000001 58.900000000000006,18.759999999999998z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFFFFFFF">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="1.18" RadiusY="1.18" Center="41.14,14.5" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup.Children>
+          </DrawingGroup>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF006837" Thickness="1" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="21.93,6.37" EndPoint="19.1,7.13" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF006837" Thickness="1" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <LineGeometry StartPoint="20.31,9.21" EndPoint="17.76,9.89" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,59.4,22.11" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>
