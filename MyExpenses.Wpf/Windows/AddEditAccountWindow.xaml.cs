@@ -158,7 +158,7 @@ public partial class AddEditAccountWindow
                 }
                 else
                 {
-                    response = _dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.AccountType ,deletionDependenciesArray);
+                    response = _dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType ,deletionDependenciesArray);
                     if (response is not Yes) return;
 
                     deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);

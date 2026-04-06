@@ -47,7 +47,7 @@ public class DialogService : IDialogService
         return ReturnResultMessageBox(result);
     }
 
-    public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType, IEnumerable<DeletionDependency> dependencies)
+    public MessageBoxResult AskConfirmationOfDependenciesRemoval(EntityType entityType, IEnumerable<DeletionDependency> dependencies)
     {
         // TODO trad
         var dependenciesWindow = App.ServiceProvider.GetRequiredService<DependenciesWindow>();

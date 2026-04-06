@@ -57,7 +57,7 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
 
             var accounts = await accountRepository.GetAllAccountAsync(accountType, cancellationToken);
             var enumerable = accounts.ToArray();
-            dependencies.Add(new DeletionDependency { Category = DependencyType.Account, Count = enumerable.Length });
+            dependencies.Add(new DeletionDependency { Category = EntityType.Account, Count = enumerable.Length });
 
             logger.LogInformation("Found {AccountCount} accounts", enumerable.Length);
 
@@ -75,9 +75,9 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
                 var bankTransactionCount = await bankTransactionCountTask;
                 var recursiveExpenseCount = await recursiveExpenseCountTask;
 
-                dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
-                dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
-                dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+                dependencies.Add(new DeletionDependency { Category = EntityType.Expense, Count = expenseCount });
+                dependencies.Add(new DeletionDependency { Category = EntityType.BankTransfer, Count = bankTransactionCount });
+                dependencies.Add(new DeletionDependency { Category = EntityType.RecurringExpense, Count = recursiveExpenseCount });
 
                 logger.LogInformation(
                     "Loaded dependencies for account {AccountName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
