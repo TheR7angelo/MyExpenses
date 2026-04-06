@@ -37,7 +37,7 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
         return currencies.Select(mapperAccount.MapToDto);
     }
 
-    public async Task<Result> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
+    public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
         var accountType = mapperAccount.MapToDomain(accountTypeDto);
         return await accountRepository.DeleteAccountTypeAsync(accountType, cancellationToken);

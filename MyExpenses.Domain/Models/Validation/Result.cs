@@ -1,12 +1,14 @@
+using Domain.Models.Dependencies;
+
 namespace Domain.Models.Validation;
 
 public class Result
 {
-    public bool IsSuccess { get; set; }
-    public string? InternalMessage { get; }
-    public ErrorCode ErrorCode { get; }
+    public bool IsSuccess { get; private set; }
+    public string? InternalMessage { get; private set; }
+    public ErrorCode ErrorCode { get; private set; }
 
-    private Result(bool success, ErrorCode errorCode, string? internalMessage)
+    protected Result(bool success, ErrorCode errorCode, string? internalMessage)
     {
         IsSuccess = success;
         ErrorCode = errorCode;
@@ -17,5 +19,22 @@ public class Result
         => new(true, ErrorCode.None, internalMessage);
 
     public static Result Failure(ErrorCode errorCode, string internalMessage) =>
+        new(false, errorCode, internalMessage);
+}
+
+public class DeletionResult : Result
+{
+    public Dictionary<EntityType, int[]>? DeletedItems { get; private set; }
+
+    private DeletionResult(bool success, ErrorCode errorCode, string? internalMessage, Dictionary<EntityType, int[]>? deletedItems = null)
+        : base(success, errorCode, internalMessage)
+    {
+        DeletedItems = deletedItems;
+    }
+
+    public static DeletionResult Success(string? internalMessage = null, Dictionary<EntityType, int[]>? deletedItems = null) =>
+        new(true, ErrorCode.None, internalMessage, deletedItems);
+
+    public new static DeletionResult Failure(ErrorCode errorCode, string internalMessage) =>
         new(false, errorCode, internalMessage);
 }

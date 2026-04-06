@@ -138,7 +138,7 @@ public partial class AddEditAccountWindow
                 var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(accountType);
                 var deletionDependenciesArray = deletionDependencies.ToArray();
 
-                Result deleteAccountTypeResult;
+                DeletionResult deleteAccountTypeResult;
                 if (deletionDependenciesArray.Length is 0)
                 {
                     response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
@@ -150,9 +150,7 @@ public partial class AddEditAccountWindow
                         AccountTypes.Remove(accountType);
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
-                        // TODO send message to the app and delete all related visual
-
-                        WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Delete, accountType)));
+                        // TODO send message to user
                     }
                     else
                     {
@@ -171,9 +169,14 @@ public partial class AddEditAccountWindow
                         AccountTypes.Remove(accountType);
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
-                        // TODO send message to the app and delete all related visual
 
-                        WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Delete, accountType)));
+                        if (deleteAccountTypeResult.DeletedItems?.TryGetValue(EntityType.Account,
+                                out var accountTypes) ?? false)
+                        {
+                            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.AccountType, DataAction.Delete, accountTypes)));
+                        }
+
+                        // TODO send message to user
                     }
                     else
                     {

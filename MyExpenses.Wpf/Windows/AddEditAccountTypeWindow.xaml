@@ -8,7 +8,6 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
-        xmlns:addEditAccount="clr-namespace:MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;assembly=MyExpenses.SharedUtils"
         xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
         mc:Ignorable="d"
 

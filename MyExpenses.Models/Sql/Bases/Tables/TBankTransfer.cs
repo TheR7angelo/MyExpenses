@@ -19,11 +19,11 @@ public partial class TBankTransfer : ISql
 
     [Required]
     [Column("from_account_fk")]
-    public int? FromAccountFk { get; set => SetProperty(ref field, value); }
+    public int FromAccountFk { get; set => SetProperty(ref field, value); }
 
     [Required]
     [Column("to_account_fk")]
-    public int? ToAccountFk { get; set => SetProperty(ref field, value); }
+    public int ToAccountFk { get; set => SetProperty(ref field, value); }
 
     [Required]
     [Column("main_reason")]

@@ -1,4 +1,5 @@
 using Domain.Models.Accounts;
+using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -93,7 +94,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         return currencies;
     }
 
-    public async Task<Result> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)
+    public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -104,22 +105,41 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         if (accountTypeEntity is null)
         {
             logger.LogWarning("Account type with id {AccountTypeId} was not found", accountType.Id);
-            return Result.Failure(ErrorCode.AccountTypeNotFound, $"The accountType with id {accountType.Id} was not found");
+            return DeletionResult.Failure(ErrorCode.AccountTypeNotFound, $"The accountType with id {accountType.Id} was not found");
         }
 
         try
         {
+            // TODO better
+            var accountIds = await context.TAccounts.Where(s => s.AccountTypeFk == accountType.Id).Select(s => s.Id).ToListAsync(cancellationToken);
+            var expenseIds = await context.THistories.Where(s => accountIds.Contains(s.AccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
+            var bankTransferIds = await context.TBankTransfers.Where(s => accountIds.Contains(s.FromAccountFk) || accountIds.Contains(s.ToAccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
+            var recurringExpenseIds = await context.TRecursiveExpenses.Where(s => accountIds.Contains(s.AccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
+
+            if (accountIds.Count > 0) logger.LogWarning("Account type has associated accounts {@AccountIds}", accountIds);
+            if (expenseIds.Length > 0) logger.LogWarning("Account type has associated expenses {@ExpenseIds}", expenseIds);
+            if (bankTransferIds.Length > 0) logger.LogWarning("Account type has associated bank transfers {@BankTransferIds}", bankTransferIds);
+            if (recurringExpenseIds.Length > 0) logger.LogWarning("Account type has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds);
+
             logger.LogInformation("Deleting account type with id {AccountTypeId}", accountType.Id);
             context.TAccountTypes.Remove(accountTypeEntity);
             await context.SaveChangesAsync(cancellationToken);
 
             logger.LogInformation("Account type with id {AccountTypeId} was successfully deleted", accountType.Id);
-            return Result.Success("Account type was successfully deleted");
+
+            var result = new Dictionary<EntityType, int[]>
+            {
+                { EntityType.Account, accountIds.ToArray() },
+                { EntityType.Expense, expenseIds },
+                { EntityType.BankTransfer, bankTransferIds },
+                { EntityType.RecurringExpense, recurringExpenseIds }
+            };
+            return DeletionResult.Success("Account type was successfully deleted", result);
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to delete account type with id {AccountTypeId}", accountType.Id);
-            return Result.Failure(ErrorCode.DatabaseError, $"Failed to delete account type: {e.Message}");
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete account type: {e.Message}");
         }
     }
 

@@ -36,12 +36,12 @@ public interface IAccountPresentationService
     public Task<IEnumerable<CurrencyViewModel>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Deletes an account type asynchronously.
+    /// Deletes the specified account type asynchronously.
     /// </summary>
-    /// <param name="accountTypeViewModel">The view model representing the account type to be deleted.</param>
+    /// <param name="accountTypeViewModel">The account type view model to be deleted.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the operation's success or failure.</return>
-    public Task<Result> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel,
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the success or failure of the deletion.</return>
+    public Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default);
 
     // public Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default);

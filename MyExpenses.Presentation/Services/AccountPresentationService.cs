@@ -33,7 +33,7 @@ public class AccountPresentationService(IAccountService accountService, IAccount
         return currencies.Select(viewModelMapper.MapToViewModel);
     }
 
-    public async Task<Result> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
+    public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
         return await accountService.DeleteAccountTypeAsync(accountTypeDto, cancellationToken);

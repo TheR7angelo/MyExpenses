@@ -36,15 +36,14 @@ public partial class AccountManagementPage
 
         InitializeComponent();
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountTypeViewModel>>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
         {
-            if (m.Value.EntityType is EntityType.AccountType && m.Value.DataAction is DataAction.Delete)
-            {
+            if (m.Value.EntityType is not EntityType.AccountType || m.Value.DataAction is not DataAction.Delete) return;
 
-                foreach (var item in TotalByAccounts)
-                {
-                    item.IsDeleting = true;
-                }
+            var ids = m.Value.Content;
+            foreach (var item in TotalByAccounts.Where(s => ids.Contains(s.Id)))
+            {
+                item.IsDeleting = true;
             }
         });
     }

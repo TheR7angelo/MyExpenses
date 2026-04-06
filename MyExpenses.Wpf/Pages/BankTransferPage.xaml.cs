@@ -460,7 +460,7 @@ public partial class BankTransferPage
     {
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
-        var fromAccount = BankTransfer.FromAccountFk?.ToISql<TAccount>();
+        var fromAccount = BankTransfer.FromAccountFk.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
@@ -500,7 +500,7 @@ public partial class BankTransferPage
     {
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
-        var fromAccount = BankTransfer.ToAccountFk?.ToISql<TAccount>();
+        var fromAccount = BankTransfer.ToAccountFk.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();

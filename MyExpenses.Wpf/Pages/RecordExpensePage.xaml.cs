@@ -330,7 +330,7 @@ public partial class RecordExpensePage
     {
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
-        var account = History.AccountFk?.ToISql<TAccount>();
+        var account = History.AccountFk.ToISql<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
         addEditAccountWindow.ShowDialog();
@@ -687,7 +687,7 @@ public partial class RecordExpensePage
         => UpdateTileLayer();
 
     private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => ValuePrefixText = History.AccountFk.GetSymbolCurrencyFromAccount();
+        => ValuePrefixText = ((int?)History.AccountFk).GetSymbolCurrencyFromAccount();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {

@@ -53,10 +53,11 @@ public interface IAccountRepository
     /// <summary>
     /// Deletes the specified account type asynchronously.
     /// </summary>
-    /// <param name="accountType">The account type domain object to delete.</param>
-    /// <param name="cancellationToken">The cancellation token to observe while waiting for the task to complete.</param>
-    /// <returns>A result object indicating whether the operation was successful, with an error code and internal message if applicable.</returns>
-    public Task<Result> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
+    /// <param name="accountType">The <see cref="AccountTypeDomain"/> object representing the account type to be deleted.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="DeletionResult"/> object representing the result of the deletion operation, including details about deleted items.</returns>
+    public Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDomain accountType,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the total count of expenses associated with a specific account asynchronously.

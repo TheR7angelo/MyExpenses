@@ -16,7 +16,7 @@ public partial class TRecursiveExpense : ISql
 
     [Required]
     [Column("account_fk")]
-    public int? AccountFk { get; set => SetProperty(ref field, value); }
+    public int AccountFk { get; set => SetProperty(ref field, value); }
 
     [Required]
     [Column("description")]

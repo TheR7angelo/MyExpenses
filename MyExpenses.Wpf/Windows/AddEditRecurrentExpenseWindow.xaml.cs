@@ -394,7 +394,7 @@ public partial class AddEditRecurrentExpenseWindow
     {
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
-        var account = RecursiveExpense.AccountFk?.ToISql<TAccount>();
+        var account = RecursiveExpense.AccountFk.ToISql<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
         addEditAccountWindow.ShowDialog();
@@ -473,7 +473,7 @@ public partial class AddEditRecurrentExpenseWindow
                 // editedCategoryTypeDeepCopy.ColorFkNavigation =
                     // context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
-                CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name!);
+                CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name);
 
                 Log.Information("Category type was successfully edited");
                 var json = editedCategoryTypeDeepCopy.ToJsonString();
@@ -735,7 +735,7 @@ public partial class AddEditRecurrentExpenseWindow
         => UpdateNextDueDate();
 
     private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => ValuePrefixText = RecursiveExpense.AccountFk.GetSymbolCurrencyFromAccount();
+        => ValuePrefixText = ((int?)RecursiveExpense.AccountFk).GetSymbolCurrencyFromAccount();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
