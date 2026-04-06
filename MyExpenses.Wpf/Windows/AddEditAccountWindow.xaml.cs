@@ -3,12 +3,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -149,6 +151,8 @@ public partial class AddEditAccountWindow
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
                         // TODO send message to the app and delete all related visual
+
+                        WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Delete, accountType)));
                     }
                     else
                     {
@@ -168,6 +172,8 @@ public partial class AddEditAccountWindow
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
                         // TODO send message to the app and delete all related visual
+
+                        WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Delete, accountType)));
                     }
                     else
                     {

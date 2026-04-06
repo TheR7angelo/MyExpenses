@@ -3,9 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
 
       Title="AccountManagementPage"
@@ -43,6 +46,30 @@
 
             <ItemsControl ItemsSource="{Binding TotalByAccounts}">
 
+                <!-- <ItemsControl.ItemContainerStyle> -->
+                <!--     <Style TargetType="ContentPresenter"> -->
+                <!--         <Setter Property="LayoutTransform"> -->
+                <!--             <Setter.Value> -->
+                <!--                 <ScaleTransform x:Name="Transform" ScaleX="1" ScaleY="1" /> -->
+                <!--             </Setter.Value> -->
+                <!--         </Setter> -->
+                <!-- -->
+                <!--         <Style.Triggers> -->
+                <!--             <DataTrigger Binding="{Binding IsDeleting}" Value="True"> -->
+                <!--                 <DataTrigger.EnterActions> -->
+                <!--                     <BeginStoryboard> -->
+                <!--                         <Storyboard> -->
+                <!--                             <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:3" /> -->
+                <!--                             <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(ScaleTransform.ScaleX)" To="0" Duration="0:0:3" /> -->
+                <!--                             <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(ScaleTransform.ScaleY)" To="0" Duration="0:0:3" /> -->
+                <!--                         </Storyboard> -->
+                <!--                     </BeginStoryboard> -->
+                <!--                 </DataTrigger.EnterActions> -->
+                <!--             </DataTrigger> -->
+                <!--         </Style.Triggers> -->
+                <!--     </Style> -->
+                <!-- </ItemsControl.ItemContainerStyle> -->
+
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
@@ -54,10 +81,19 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Button
-                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                            Style="{StaticResource MaterialDesignPaperButton}"
-                            Click="ButtonVAccount_OnClick">
+                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Duration=0:0:0.5, Kind=ExpandIn}">
+
+                            <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                Style="{StaticResource MaterialDesignPaperButton}"
+                                Click="ButtonVAccount_OnClick">
+
+                                <b:Interaction.Behaviors>
+                                    <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
+                                                                   Duration="0:0:1"
+                                                                   DeleteCommand="{Binding DeleteSelfCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AccountManagementPage}}}"
+                                                                   DeleteCommandParameter="{Binding .}">
+                                    </utils:DeleteAnimationBehavior>
+                                </b:Interaction.Behaviors>
 
                             <Button.Content>
                                 <StackPanel Orientation="Vertical"
@@ -94,6 +130,8 @@
                             </Button.Content>
 
                         </Button>
+
+                        </materialDesign:TransitioningContent>
 
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -1,10 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
@@ -30,6 +35,26 @@ public partial class AccountManagementPage
         _ = FillTotalByAccounts();
 
         InitializeComponent();
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountTypeViewModel>>(this, (r, m) =>
+        {
+            if (m.Value.EntityType is EntityType.AccountType && m.Value.DataAction is DataAction.Delete)
+            {
+
+                foreach (var item in TotalByAccounts)
+                {
+                    item.IsDeleting = true;
+                }
+            }
+        });
+    }
+
+    [RelayCommand]
+    private void DeleteSelf(object parameter)
+    {
+        if (parameter is not TotalByAccountViewModel item) return;
+
+        TotalByAccounts.Remove(item);
     }
 
     private async Task FillTotalByAccounts()
@@ -132,4 +157,17 @@ public partial class AccountManagementPage
     }
 
     #endregion
+
+    private void Timeline_OnCompleted(object? sender, EventArgs e)
+    {
+        if (sender is not ClockGroup clock) return;
+
+        var timeline = clock.Timeline;
+        var target = Storyboard.GetTarget(timeline) as FrameworkElement;
+
+        if (target?.DataContext is TotalByAccountViewModel item)
+        {
+            TotalByAccounts.Remove(item);
+        }
+    }
 }

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using FilterDataGrid;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -427,13 +428,13 @@ public partial class DashBoardPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage>(this, (r, m) =>
-        {
-            if (m.Value.EntityType is EntityType.Account && m.Value.DataAction is DataAction.Update or DataAction.Delete or DataAction.Add)
-            {
-                System.Windows.Application.Current.Dispatcher.Invoke(RefreshAccountTotal);
-            }
-        });
+        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<>>(this, (r, m) =>
+        // {
+        //     if (m.Value.EntityType is EntityType.Account && m.Value.DataAction is DataAction.Update or DataAction.Delete or DataAction.Add)
+        //     {
+        //         System.Windows.Application.Current.Dispatcher.Invoke(RefreshAccountTotal);
+        //     }
+        // });
     }
 
     #region Action

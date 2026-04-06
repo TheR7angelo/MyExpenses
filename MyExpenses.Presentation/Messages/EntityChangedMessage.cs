@@ -3,6 +3,12 @@ using Domain.Models.Dependencies;
 
 namespace MyExpenses.Presentation.Messages;
 
-public enum DataAction { Add, Update, Delete }
+public enum DataAction
+{
+    Add,
+    Update,
+    Delete
+}
 
-public class EntityChangedMessage((EntityType EntityType, DataAction DataAction) value) : ValueChangedMessage<(EntityType EntityType, DataAction DataAction)>(value);
+public class EntityChangedMessage<T>((EntityType EntityType, DataAction DataAction, T Content) value)
+    : ValueChangedMessage<(EntityType EntityType, DataAction DataAction, T Content)>(value);

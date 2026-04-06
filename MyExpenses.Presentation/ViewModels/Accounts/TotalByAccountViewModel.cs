@@ -5,6 +5,9 @@ namespace MyExpenses.Presentation.ViewModels.Accounts;
 public partial class TotalByAccountViewModel : ObservableObject
 {
     [ObservableProperty]
+    public partial bool IsDeleting { get; set; }
+
+    [ObservableProperty]
     public partial int Id { get; set; }
 
     [ObservableProperty]
