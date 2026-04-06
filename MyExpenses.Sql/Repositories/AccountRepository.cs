@@ -10,6 +10,7 @@ using MyExpenses.Sql.Mappings;
 namespace MyExpenses.Sql.Repositories;
 
 public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactory<DataBaseContext> dbContextFactory,
+    IExpenseRepository expenseRepository,
     ILogger<AccountRepository> logger) : IAccountRepository
 {
     public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default)
@@ -110,13 +111,19 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
 
         try
         {
-            // TODO better
-            var accountIds = await context.TAccounts.Where(s => s.AccountTypeFk == accountType.Id).Select(s => s.Id).ToListAsync(cancellationToken);
-            var expenseIds = await context.THistories.Where(s => accountIds.Contains(s.AccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
-            var bankTransferIds = await context.TBankTransfers.Where(s => accountIds.Contains(s.FromAccountFk) || accountIds.Contains(s.ToAccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
-            var recurringExpenseIds = await context.TRecursiveExpenses.Where(s => accountIds.Contains(s.AccountFk)).Select(s => s.Id).ToArrayAsync(cancellationToken);
+            var accountIds = await GetAllAccountIdAsync(accountType, cancellationToken);
 
-            if (accountIds.Count > 0) logger.LogWarning("Account type has associated accounts {@AccountIds}", accountIds);
+            var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(accountIds, cancellationToken);
+            var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(accountIds, cancellationToken);
+            var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(accountIds, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (accountIds.Length > 0) logger.LogWarning("Account type has associated accounts {@AccountIds}", accountIds);
             if (expenseIds.Length > 0) logger.LogWarning("Account type has associated expenses {@ExpenseIds}", expenseIds);
             if (bankTransferIds.Length > 0) logger.LogWarning("Account type has associated bank transfers {@BankTransferIds}", bankTransferIds);
             if (recurringExpenseIds.Length > 0) logger.LogWarning("Account type has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds);
@@ -129,7 +136,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
 
             var result = new Dictionary<EntityType, int[]>
             {
-                { EntityType.Account, accountIds.ToArray() },
+                { EntityType.Account, accountIds },
                 { EntityType.Expense, expenseIds },
                 { EntityType.BankTransfer, bankTransferIds },
                 { EntityType.RecurringExpense, recurringExpenseIds }
@@ -154,5 +161,19 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         logger.LogInformation("Loaded {Count} expenses for account with id {AccountId}", expenses, accountDomain.Id);
 
         return expenses;
+    }
+
+    private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all accounts with account type {AccountTypeName}", accountType.Name);
+
+        var result = await context.TAccounts.Where(s => s.AccountTypeFk == accountType.Id).Select(s => s.Id).ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} account", result.Length);
+
+        return result;
     }
 }

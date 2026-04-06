@@ -21,4 +21,29 @@ public interface IExpenseRepository
     /// <returns>The total number of recursive expenses associated with the specified account.</returns>
     public Task<int> GetAllRecursiveExpenseCountAsync(AccountDomain account,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the unique identifiers of all expenses associated with the specified account IDs.
+    /// </summary>
+    /// <param name="accountIds">An array of account IDs for which to retrieve the expense IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of integers representing the expense IDs associated with the specified accounts.</returns>
+    public Task<int[]> GetAllExpenseIdAsync(int[] accountIds, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the unique identifiers of all bank transfers associated with the specified account IDs.
+    /// </summary>
+    /// <param name="accountIds">An array of account IDs for which to retrieve the bank transfer IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of integers representing the bank transfer IDs associated with the specified accounts.</returns>
+    public Task<int[]> GetAllBankTransferIdsAsync(int[] accountIds, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the unique identifiers of all recurring transactions associated with the specified account IDs.
+    /// </summary>
+    /// <param name="accountIds">An array of account IDs for which to retrieve the recurring transaction IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of integers representing the recurring transaction IDs associated with the specified accounts.</returns>
+    public Task<int[]> GetAllRecurringTransactionIdsAsync(int[] accountIds,
+        CancellationToken cancellationToken = default);
 }
