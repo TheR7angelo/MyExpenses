@@ -8,6 +8,7 @@
                  xmlns:dependencies="clr-namespace:Domain.Models.Dependencies;assembly=MyExpenses.Domain"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
 
                  Title="DependenciesWindow"
@@ -67,7 +68,9 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
 
-            <ItemsControl ItemsSource="{Binding Dependencies}">
+            <ItemsControl ItemsSource="{Binding Dependencies}"
+                          utils:ItemsControlExtensions.UniformSize="True"
+                          utils:ItemsControlExtensions.IsLiveUpdate="True">
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -78,34 +81,40 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dependencies:DeletionDependency}">
 
-                        <Grid VerticalAlignment="Center"
-                              margin:PanelExtensions.MarginForAllChildren="5">
+                        <Border BorderBrush="{DynamicResource MaterialDesignBody}"
+                                BorderThickness="1.3"
+                                CornerRadius="3">
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                            <Grid VerticalAlignment="Center">
 
-                            <Image Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   Source="{Binding Category, Mode=OneWay, Converter={StaticResource DependencyToIconConverter}}"
-                                   Height="48"
-                                   Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                                   Stretch="Uniform">
-                            </Image>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="1"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">
+                                <Image Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Source="{Binding Category, Mode=OneWay, Converter={StaticResource DependencyToIconConverter}}"
+                                       Height="48"
+                                       Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                       Stretch="Uniform">
+                                </Image>
 
-                                <Run Text="{Binding Count}" BaselineAlignment="Center" />
-                                <Run Text="{Binding Category}" BaselineAlignment="Center" />
+                                <TextBlock Grid.Column="1"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
 
-                            </TextBlock>
+                                    <Run Text="{Binding Count}" BaselineAlignment="Center" />
+                                    <Run Text="{Binding Category}" BaselineAlignment="Center" />
 
-                        </Grid>
+                                </TextBlock>
+
+                            </Grid>
+
+                        </Border>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 

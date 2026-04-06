@@ -26,7 +26,7 @@ public static class DependencyCaptionName
         => dependencyType switch
         {
             DependencyType.Account => "Account",
-            DependencyType.BankTransfer => "Account transfert",
+            DependencyType.BankTransfer => "AccountTransfert",
             DependencyType.Expense => "Ticket",
             DependencyType.RecurringExpense => "RecursiveExpense",
             _ => throw new ArgumentOutOfRangeException(nameof(dependencyType), dependencyType, null)
