@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using Domain.Models.Dependencies;
+using MyExpenses.Presentation.Resources.Resx.DependencyRessources;
 using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Wpf.Windows.Dialogs;

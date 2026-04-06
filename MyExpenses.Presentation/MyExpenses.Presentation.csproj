@@ -24,6 +24,10 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\DependencyRessources\DependencyRessources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>DependencyRessources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +35,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\DependencyRessources\DependencyRessources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DependencyRessources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

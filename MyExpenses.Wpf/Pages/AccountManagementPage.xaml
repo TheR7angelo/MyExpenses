@@ -46,30 +46,6 @@
 
             <ItemsControl ItemsSource="{Binding TotalByAccounts}">
 
-                <!-- <ItemsControl.ItemContainerStyle> -->
-                <!--     <Style TargetType="ContentPresenter"> -->
-                <!--         <Setter Property="LayoutTransform"> -->
-                <!--             <Setter.Value> -->
-                <!--                 <ScaleTransform x:Name="Transform" ScaleX="1" ScaleY="1" /> -->
-                <!--             </Setter.Value> -->
-                <!--         </Setter> -->
-                <!-- -->
-                <!--         <Style.Triggers> -->
-                <!--             <DataTrigger Binding="{Binding IsDeleting}" Value="True"> -->
-                <!--                 <DataTrigger.EnterActions> -->
-                <!--                     <BeginStoryboard> -->
-                <!--                         <Storyboard> -->
-                <!--                             <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:3" /> -->
-                <!--                             <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(ScaleTransform.ScaleX)" To="0" Duration="0:0:3" /> -->
-                <!--                             <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(ScaleTransform.ScaleY)" To="0" Duration="0:0:3" /> -->
-                <!--                         </Storyboard> -->
-                <!--                     </BeginStoryboard> -->
-                <!--                 </DataTrigger.EnterActions> -->
-                <!--             </DataTrigger> -->
-                <!--         </Style.Triggers> -->
-                <!--     </Style> -->
-                <!-- </ItemsControl.ItemContainerStyle> -->
-
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"

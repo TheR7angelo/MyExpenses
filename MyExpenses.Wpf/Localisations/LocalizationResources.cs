@@ -1,4 +1,5 @@
 using System.Resources;
+using MyExpenses.Presentation.Resources.Resx.DependencyRessources;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.Dialogs;
@@ -15,5 +16,6 @@ public static class LocalizationResources
             [nameof(AddEditAccountResources)] = AddEditAccountResources.ResourceManager,
             [nameof(AccountTypeManagementResources)] = AccountTypeManagementResources.ResourceManager,
             [nameof(DialogResources)] = DialogResources.ResourceManager,
+            [nameof(DependencyRessources)] = DependencyRessources.ResourceManager
         };
 }
