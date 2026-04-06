@@ -21,7 +21,7 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AccountResources {
+    public class AccountResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -35,7 +35,7 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Presentation.Resources.Resx.AccountResources.AccountResources", typeof(AccountResources).Assembly);
@@ -50,12 +50,210 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCreateItemErrorAlreadyUsedCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemErrorAlreadyUsedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name &quot;{0}&quot; is already in use, please enter a new one.
+        /// </summary>
+        public static string MessageBoxCreateItemErrorAlreadyUsedContent {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemErrorAlreadyUsedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCreateItemErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create the new &quot;{0}&quot; item. Please try again..
+        /// </summary>
+        public static string MessageBoxCreateItemErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string MessageBoxCreateItemQuestionCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemQuestionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to create &quot;{0}&quot; ?.
+        /// </summary>
+        public static string MessageBoxCreateItemQuestionContent {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemQuestionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxCreateItemSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &quot;{0}&quot; element has been successfully created.
+        /// </summary>
+        public static string MessageBoxCreateItemSuccessContent {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateItemSuccessContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteItemQuestionCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteItemQuestionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete &quot;{0}&quot; ?.
+        /// </summary>
+        public static string MessageBoxDeleteItemQuestionContent {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteItemQuestionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteItemSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteItemSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item &quot;{0}&quot; has been successfully deleted.
+        /// </summary>
+        public static string MessageBoxDeleteItemSuccessContent {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteItemSuccessContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxDeletetemErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletetemErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxDeletetemErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletetemErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxEditItemErrorAlreadyUsedCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemErrorAlreadyUsedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name &quot;{0}&quot; is already in use, please enter a new one.
+        /// </summary>
+        public static string MessageBoxEditItemErrorAlreadyUsedContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemErrorAlreadyUsedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxEditItemErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxEditItemErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string MessageBoxEditItemQuestionCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemQuestionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to rename &quot;{0}&quot; to &quot;{1}&quot; ?.
+        /// </summary>
+        public static string MessageBoxEditItemQuestionContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemQuestionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxEditItemSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item has been successfully modified.
+        /// </summary>
+        public static string MessageBoxEditItemSuccessContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemSuccessContent", resourceCulture);
             }
         }
     }

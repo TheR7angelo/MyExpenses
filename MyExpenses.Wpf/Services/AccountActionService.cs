@@ -3,6 +3,7 @@ using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -45,8 +46,10 @@ public class AccountActionService(
 
     public async Task CreateAccountType(string input, CancellationToken cancellationToken = default)
     {
-        // TODO translate
-        var response = dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to create '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemQuestionCaption,
+            string.Format(AccountResources.MessageBoxCreateItemQuestionContent, input),
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
         if (response is not MessageBoxResult.Yes) return;
 
         var available = await validationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
@@ -58,25 +61,30 @@ public class AccountActionService(
             if (result.IsSuccess)
             {
                 WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Add, newAccountType)));
-                // TODO translate
-                dialogService.ShowMessageBox("Success", $"The account type '{newAccountType.Name}' was successfully created", MsgBoxImage.Check);
+                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
+                    string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
+                    MsgBoxImage.Check);
             }
             else
             {
-                // TODO translate
-                dialogService.ShowMessageBox("Error", $"Failed to create account type '{newAccountType.Name}'. Please try again.", MsgBoxImage.Error);
+                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+                    string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
+                    MsgBoxImage.Error);
             }
             return;
         }
 
-        // TODO translate
-        dialogService.ShowMessageBox("Error", $"The name {input} is already used", MsgBoxImage.Error);
+        dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+            string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
+            MsgBoxImage.Error);
     }
 
     public async Task UpdateAccountType(AccountTypeViewModel accountTypeViewModel, string input, CancellationToken cancellationToken = default)
     {
-        // TODO translate
-        var response = dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{accountTypeViewModel.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemQuestionCaption,
+            string.Format(AccountResources.MessageBoxEditItemQuestionContent, accountTypeViewModel.Name, input),
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
         if (response is not MessageBoxResult.Yes) return;
 
         var available = await validationService.IsAccountTypeNameAvailableAsync(input, accountTypeViewModel, cancellationToken);
@@ -88,18 +96,21 @@ public class AccountActionService(
             {
                 WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Update, accountTypeViewModel)));
 
-                // TODO translate
-                dialogService.ShowMessageBox("Success", $"The account type '{accountTypeViewModel.Name}' was successfully edited", MsgBoxImage.Check);
+                dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
+                    AccountResources.MessageBoxEditItemSuccessContent,
+                    MsgBoxImage.Check);
             }
             else
             {
-                // TODO translate
-                dialogService.ShowMessageBox("Error", "An error occurred please retry", MsgBoxImage.Error);
+                dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
+                    AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
             }
             return;
         }
 
-        dialogService.ShowMessageBox("Error", $"The name {input} is already used", MsgBoxImage.Error);
+        dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorAlreadyUsedCaption,
+            string.Format(AccountResources.MessageBoxEditItemErrorAlreadyUsedContent, accountTypeViewModel.Name),
+            MsgBoxImage.Error);
     }
 
     public async Task DeleteAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
@@ -108,8 +119,9 @@ public class AccountActionService(
         var dependenciesArray = dependencies.ToArray();
 
         var response = dependenciesArray.Length is 0
-            // TODO translate
-            ? dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountTypeViewModel.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question)
+            ? dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemQuestionCaption,
+                string.Format(AccountResources.MessageBoxDeleteItemQuestionContent, accountTypeViewModel.Name),
+                MessageBoxButton.YesNo, MsgBoxImage.Question)
             : dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType, dependenciesArray);
 
         if (response is not MessageBoxResult.Yes) return;
@@ -124,13 +136,15 @@ public class AccountActionService(
             }
             WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>((EntityType.AccountType, DataAction.Delete, accountTypeViewModel.Id)));
 
-            // TODO translate
-            dialogService.ShowMessageBox("Success", $"The account type '{accountTypeViewModel.Name}' was successfully deleted", MsgBoxImage.Check);
+            dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemSuccessCaption,
+                string.Format(AccountResources.MessageBoxDeleteItemSuccessContent, accountTypeViewModel.Name),
+                MsgBoxImage.Check);
         }
         else
         {
-            // TODO translate
-            dialogService.ShowMessageBox("Error", "An error occurred please retry", MsgBoxImage.Error);
+            dialogService.ShowMessageBox(AccountResources.MessageBoxDeletetemErrorCaption,
+                AccountResources.MessageBoxDeletetemErrorContent,
+                MsgBoxImage.Error);
         }
     }
 }

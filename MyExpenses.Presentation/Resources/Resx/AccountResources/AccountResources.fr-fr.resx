@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -18,70 +11,70 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="MessageBoxCreateItemQuestionContent" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir créer "{0}" ?</value>
+    </data>
     <data name="MessageBoxCreateItemQuestionCaption" xml:space="preserve">
         <value>Confirmation</value>
     </data>
-    <data name="MessageBoxCreateItemQuestionContent" xml:space="preserve">
-        <value>Are you sure you want to create "{0}" ?</value>
-    </data>
     <data name="MessageBoxCreateItemSuccessCaption" xml:space="preserve">
-        <value>Success</value>
+        <value>Succès</value>
     </data>
     <data name="MessageBoxCreateItemSuccessContent" xml:space="preserve">
-        <value>The "{0}" element has been successfully created</value>
+        <value>L’élément "{0}" a été créé avec succès</value>
     </data>
     <data name="MessageBoxCreateItemErrorCaption" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
     </data>
     <data name="MessageBoxCreateItemErrorContent" xml:space="preserve">
-        <value>Failed to create the new "{0}" item. Please try again.</value>
+        <value>Échec à créer le nouvelle élément "{0}". Veuillez réessayer.</value>
     </data>
     <data name="MessageBoxCreateItemErrorAlreadyUsedCaption" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
     </data>
     <data name="MessageBoxCreateItemErrorAlreadyUsedContent" xml:space="preserve">
-        <value>The name "{0}" is already in use, please enter a new one</value>
+        <value>Le nom "{0}" est déjà en usage, veuillez en rentrer un nouveau</value>
     </data>
     <data name="MessageBoxEditItemQuestionCaption" xml:space="preserve">
         <value>Confirmation</value>
     </data>
     <data name="MessageBoxEditItemQuestionContent" xml:space="preserve">
-        <value>Are you sure you want to rename "{0}" to "{1}" ?</value>
+        <value>Êtes-vous sûr de vouloir renommer "{0}" en "{1}" ?</value>
     </data>
     <data name="MessageBoxEditItemSuccessCaption" xml:space="preserve">
-        <value>Success</value>
+        <value>Succès</value>
     </data>
     <data name="MessageBoxEditItemSuccessContent" xml:space="preserve">
-        <value>The item has been successfully modified</value>
+        <value>L’objet a été modifié avec succès</value>
     </data>
     <data name="MessageBoxEditItemErrorCaption" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
     </data>
     <data name="MessageBoxEditItemErrorContent" xml:space="preserve">
-        <value>An error occurred please retry</value>
+        <value>Une erreur est survenue, veuillez réessayer</value>
     </data>
     <data name="MessageBoxEditItemErrorAlreadyUsedCaption" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
     </data>
     <data name="MessageBoxEditItemErrorAlreadyUsedContent" xml:space="preserve">
-        <value>The name "{0}" is already in use, please enter a new one</value>
+        <value>Le nom "{0}" est déjà en usage, veuillez en rentrer un nouveau</value>
     </data>
     <data name="MessageBoxDeleteItemQuestionCaption" xml:space="preserve">
         <value>Question</value>
     </data>
     <data name="MessageBoxDeleteItemQuestionContent" xml:space="preserve">
-        <value>Are you sure you want to delete "{0}" ?</value>
-    </data>
-    <data name="MessageBoxDeleteItemSuccessContent" xml:space="preserve">
-        <value>The item "{0}" has been successfully deleted</value>
+        <value>Êtes-vous sûr de vouloir supprimer "{0}" ?</value>
     </data>
     <data name="MessageBoxDeleteItemSuccessCaption" xml:space="preserve">
-        <value>Success</value>
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteItemSuccessContent" xml:space="preserve">
+        <value>L’élément "{0}" a été supprimé avec succès</value>
     </data>
     <data name="MessageBoxDeletetemErrorCaption" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
     </data>
     <data name="MessageBoxDeletetemErrorContent" xml:space="preserve">
-        <value>An error occurred please retry</value>
+        <value>Une erreur est survenue, veuillez réessayer</value>
     </data>
 </root>

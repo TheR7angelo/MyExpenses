@@ -21,7 +21,7 @@
 
     <ItemGroup>
       <EmbeddedResource Update="Resources\Resx\AccountResources\AccountResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>

@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -18,11 +11,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="MessageBoxCreateItemQuestionCaption" xml:space="preserve">
-        <value>Confirmation</value>
-    </data>
     <data name="MessageBoxCreateItemQuestionContent" xml:space="preserve">
         <value>Are you sure you want to create "{0}" ?</value>
+    </data>
+    <data name="MessageBoxCreateItemQuestionCaption" xml:space="preserve">
+        <value>Confirmation</value>
     </data>
     <data name="MessageBoxCreateItemSuccessCaption" xml:space="preserve">
         <value>Success</value>
@@ -72,11 +65,11 @@
     <data name="MessageBoxDeleteItemQuestionContent" xml:space="preserve">
         <value>Are you sure you want to delete "{0}" ?</value>
     </data>
-    <data name="MessageBoxDeleteItemSuccessContent" xml:space="preserve">
-        <value>The item "{0}" has been successfully deleted</value>
-    </data>
     <data name="MessageBoxDeleteItemSuccessCaption" xml:space="preserve">
         <value>Success</value>
+    </data>
+    <data name="MessageBoxDeleteItemSuccessContent" xml:space="preserve">
+        <value>The item "{0}" has been successfully deleted</value>
     </data>
     <data name="MessageBoxDeletetemErrorCaption" xml:space="preserve">
         <value>Error</value>
