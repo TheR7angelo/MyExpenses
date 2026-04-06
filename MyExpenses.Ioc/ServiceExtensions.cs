@@ -28,7 +28,15 @@ namespace MyExpenses.Ioc;
 /// </summary>
 public static class ServiceExtensions
 {
-    private static IServiceCollection AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
+    /// <summary>
+    /// Configures and registers common application services including repositories, services, mappers, database contexts,
+    /// and logging for the application.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
+    /// <param name="logEventLevel">Specifies the minimum level of log events to be captured by the logging system.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/> with the registered services.</returns>
+    public static IServiceCollection AddCommonServices(this IServiceCollection services,
+        LogEventLevel logEventLevel = LogEventLevel.Information)
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
             .AddScoped<ICategoryRepository, CategoryRepository>()
@@ -87,16 +95,6 @@ public static class ServiceExtensions
         options.ConfigureWarnings(w => w.Ignore());
 #endif
         options.UseSqlite(connectionString);
-    }
-
-    /// <summary>
-    /// Configures and registers application services specific to a WPF application platform.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
-    public static IServiceCollection AddWpfServices(this IServiceCollection services)
-    {
-        services.AddCommonServices();
-        return services;
     }
 
     /// <summary>

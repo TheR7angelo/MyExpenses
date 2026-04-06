@@ -5,7 +5,6 @@ using System.Windows.Media;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Ioc;
 using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Resources;
@@ -14,7 +13,6 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
 using MyExpenses.Wpf.DependencyInjections;
 using MyExpenses.Wpf.Utils;
-using Serilog.Events;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
 
@@ -35,9 +33,7 @@ public partial class App
             new RoutedEventHandler(ApplyMetroCornerPreference));
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddWpfServices()
-            .AddAutoRegisteredViews()
-            .AddAutoRegisteredDialogs();
+        serviceCollection.AddWpfServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
