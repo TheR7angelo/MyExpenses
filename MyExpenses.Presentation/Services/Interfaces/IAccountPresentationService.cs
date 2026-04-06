@@ -54,4 +54,13 @@ public interface IAccountPresentationService
     /// <return>A collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified account type.</return>
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new account type asynchronously.
+    /// </summary>
+    /// <param name="newAccountType">The account type to add, represented as an <see cref="AccountTypeViewModel"/>.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
+    public Task<Result> AddAccountType(AccountTypeViewModel newAccountType,
+        CancellationToken cancellationToken = default);
 }

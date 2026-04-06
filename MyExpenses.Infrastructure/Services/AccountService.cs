@@ -93,7 +93,13 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
             return dependencies;
         }
 
-    // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+        public async Task<Result> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
+        {
+            var accountType = mapperAccount.MapToDomain(accountTypeDto);
+            return await accountRepository.AddAccountTypeAsync(accountType, cancellationToken);
+        }
+
+        // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
     // {
     //
     // }

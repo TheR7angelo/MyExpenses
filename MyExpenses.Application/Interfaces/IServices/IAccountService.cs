@@ -53,4 +53,12 @@ public interface IAccountService
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="DeletionDependency"/> objects.</returns>
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeDto accountTypeDto,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new account type to the system using the provided account type details.
+    /// </summary>
+    /// <param name="accountTypeDto">An object containing the details of the account type to be added.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
+    public Task<Result> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
 }

@@ -53,7 +53,19 @@ public class AccountActionService(
         if (available)
         {
             var newAccountType = new AccountTypeViewModel { Name = input };
-            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Add, newAccountType)));
+            var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Add, newAccountType)));
+                // TODO translate
+                dialogService.ShowMessageBox("Success", $"The account type '{newAccountType.Name}' was successfully created", MsgBoxImage.Check);
+            }
+            else
+            {
+                // TODO translate
+                dialogService.ShowMessageBox("Error", $"Failed to create account type '{newAccountType.Name}'. Please try again.", MsgBoxImage.Error);
+            }
             return;
         }
 
@@ -70,6 +82,8 @@ public class AccountActionService(
         if (available)
         {
             accountTypeViewModel.Name = input;
+
+
             return;
         }
 

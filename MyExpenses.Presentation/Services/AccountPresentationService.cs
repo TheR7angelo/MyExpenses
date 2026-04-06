@@ -46,6 +46,12 @@ public class AccountPresentationService(IAccountService accountService, IAccount
         return await accountService.GetAllDependenciesAsync(accountTypeDto, cancellationToken);
     }
 
+    public async Task<Result> AddAccountType(AccountTypeViewModel newAccountType, CancellationToken cancellationToken = default)
+    {
+        var accountTypeDto = viewModelMapper.MapToDto(newAccountType);
+        return await accountService.AddAccountTypeAsync(accountTypeDto, cancellationToken);
+    }
+
     // public async Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default)
     // {
     //     var accountType = viewModelMapper.MapToDto(accountViewModel);

@@ -171,6 +171,29 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         return expenses;
     }
 
+    public async Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
+    {
+        var accountType = accountTypeDomain.MapToEntity();
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Adding account type with name {AccountTypeName}", accountType.Name);
+
+        try
+        {
+            context.TAccountTypes.Add(accountType);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Account type with name {AccountTypeName} was successfully added", accountType.Name);
+            return Result.Success("Account type was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add account type with name {AccountTypeName}", accountType.Name);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to add account type");
+        }
+    }
+
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
         CancellationToken cancellationToken = default)
     {

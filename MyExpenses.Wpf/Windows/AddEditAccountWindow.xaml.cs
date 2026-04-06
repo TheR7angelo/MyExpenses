@@ -4,9 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
-using Domain.Models.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
@@ -18,7 +16,6 @@ using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
-using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
@@ -26,9 +23,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using Serilog;
-using static MyExpenses.Presentation.Enums.MessageBoxResult;
-using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
-using MessageBoxResult = MyExpenses.Presentation.Enums.MessageBoxResult;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
@@ -124,103 +118,6 @@ public partial class AddEditAccountWindow
     {
         var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction(AccountViewModel);
-
-        // var dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
-        //
-        // var editMode = AccountViewModel.AccountType != null;
-        //
-        // var defaultText = string.Empty;
-        // var placeHolder = AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
-        // if (editMode)
-        // {
-        //     defaultText = AccountViewModel.AccountType!.Name ?? string.Empty;
-        //     placeHolder = AccountTypeManagementResources.TextBoxEditAccountTypeName;
-        // }
-        //
-        // var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
-        //     out var messageBoxResult, out var input,
-        //     AccountTypeDomain.MaxNameLength,
-        //     placeHolder);
-        //
-        // if (result is not true || string.IsNullOrWhiteSpace(input)) return;
-        //
-        // MessageBoxResult response;
-        // bool available;
-        // AccountTypeViewModel accountType;
-        // switch (messageBoxResult, editMode)
-        // {
-        //     case (MessageBoxInputResult.Delete, _):
-        //
-        //         accountType = AccountViewModel.AccountType!;
-        //
-        //         var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(accountType);
-        //         var deletionDependenciesArray = deletionDependencies.ToArray();
-        //
-        //         response = deletionDependenciesArray.Length is 0
-        //             // TODO translate
-        //             ? _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question)
-        //             : _dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType ,deletionDependenciesArray);
-        //
-        //         if (response is not Yes) return;
-        //
-        //         var deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
-        //         if (deleteAccountTypeResult.IsSuccess)
-        //         {
-        //             AccountTypes.Remove(accountType);
-        //             AccountViewModel.AccountType = null;
-        //             AccountViewModel.AcceptAccountTypeChanges();
-        //
-        //             if (deleteAccountTypeResult.DeletedItems?.TryGetValue(EntityType.Account,
-        //                     out var accountTypes) ?? false)
-        //             {
-        //                 WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.AccountType, DataAction.Delete, accountTypes)));
-        //             }
-        //
-        //             // TODO translate
-        //             _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
-        //         }
-        //         else
-        //         {
-        //             // TODO translate
-        //             _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
-        //         }
-        //
-        //         break;
-        //
-        //     case (MessageBoxInputResult.Valid, false):
-        //         // TODO translate
-        //         response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to create '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-        //         if (response is not Yes) return;
-        //
-        //         available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input);
-        //         if (available)
-        //         {
-        //             accountType = new AccountTypeViewModel {Name = input};
-        //             AccountTypes.Add(accountType);
-        //             AccountViewModel.AccountType = accountType;
-        //             break;
-        //         }
-        //         // TODO translate
-        //         _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this creation", MsgBoxImage.Error);
-        //         break;
-        //
-        //     case (MessageBoxInputResult.Valid, true):
-        //         // TODO translate
-        //         response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-        //         if (response is not Yes) return;
-        //         available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
-        //         if (available)
-        //         {
-        //             AccountViewModel.AccountType.Name = input;
-        //             break;
-        //         }
-        //         _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this changement", MsgBoxImage.Error);
-        //
-        //         break;
-        //
-        //     default:
-        //         return;
-        // }
     }
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)

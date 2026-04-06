@@ -1,5 +1,4 @@
 using Domain.Models.Accounts;
-using Domain.Models.Expenses;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -68,4 +67,12 @@ public interface IAccountRepository
     public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Adds a new account type asynchronously.
+    /// </summary>
+    /// <param name="accountTypeDomain">The account type to be added.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result"/> indicating the success or failure of the operation.</returns>
+    public Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain,
+        CancellationToken cancellationToken = default);
 }
