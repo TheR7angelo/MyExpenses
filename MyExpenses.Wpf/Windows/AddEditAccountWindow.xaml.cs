@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
+using Domain.Models.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
@@ -22,10 +23,10 @@ using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
-using MyExpenses.Wpf.Windows.Dialogs;
 using Serilog;
+using static MyExpenses.Presentation.Enums.MessageBoxResult;
 using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
-using MessageBoxResult = System.Windows.MessageBoxResult;
+using MessageBoxResult = MyExpenses.Presentation.Enums.MessageBoxResult;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
@@ -123,45 +124,68 @@ public partial class AddEditAccountWindow
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
 
-        Presentation.Enums.MessageBoxResult response;
+        MessageBoxResult response;
         bool available;
+        AccountTypeViewModel accountType;
         switch (messageBoxResult, editMode)
         {
             case (MessageBoxInputResult.Delete, _):
 
-                var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(AccountViewModel.AccountType!);
+                accountType = AccountViewModel.AccountType!;
+
+                var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(accountType);
                 var deletionDependenciesArray = deletionDependencies.ToArray();
 
+                Result deleteAccountTypeResult;
                 if (deletionDependenciesArray.Length is 0)
                 {
-                    response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{AccountViewModel.AccountType!.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                    if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+                    response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
+                    if (response is not Yes) return;
 
-                    var success = await _accountPresentationService.DeleteAccountTypeAsync(AccountViewModel.AccountType!);
-                    if (success.IsSuccess)
+                    deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
+                    if (deleteAccountTypeResult.IsSuccess)
                     {
-                        AccountTypes.Remove(AccountViewModel.AccountType);
+                        AccountTypes.Remove(accountType);
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
                         // TODO send message to the app and delete all related visual
                     }
+                    else
+                    {
+                        _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
+                        return;
+                    }
                 }
                 else
                 {
-                    // TODO continue
                     response = _dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.AccountType ,deletionDependenciesArray);
-                    Console.WriteLine(response);
+                    if (response is not Yes) return;
+
+                    deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
+                    if (deleteAccountTypeResult.IsSuccess)
+                    {
+                        AccountTypes.Remove(accountType);
+                        AccountViewModel.AccountType = null;
+                        AccountViewModel.AcceptAccountTypeChanges();
+                        // TODO send message to the app and delete all related visual
+                    }
+                    else
+                    {
+                        _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
+                        return;
+                    }
                 }
 
                 break;
 
             case (MessageBoxInputResult.Valid, false):
                 response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to create '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+                if (response is not Yes) return;
+
                 available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input);
                 if (available)
                 {
-                    var accountType = new AccountTypeViewModel {Name = input};
+                    accountType = new AccountTypeViewModel {Name = input};
                     AccountTypes.Add(accountType);
                     AccountViewModel.AccountType = accountType;
                     break;
@@ -171,7 +195,7 @@ public partial class AddEditAccountWindow
 
             case (MessageBoxInputResult.Valid, true):
                 response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                if (response is not MyExpenses.Presentation.Enums.MessageBoxResult.Yes) return;
+                if (response is not Yes) return;
                 available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
                 if (available)
                 {
@@ -262,7 +286,7 @@ public partial class AddEditAccountWindow
         var response = Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
             string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Account.Name),
             System.Windows.MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
-        if (response is not MessageBoxResult.Yes) return;
+        if (response is not System.Windows.MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
         var (success, exception) = Account.Delete(true);
