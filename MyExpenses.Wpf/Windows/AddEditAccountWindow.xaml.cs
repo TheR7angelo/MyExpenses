@@ -138,55 +138,33 @@ public partial class AddEditAccountWindow
                 var deletionDependencies = await _accountPresentationService.GetAllDependenciesAsync(accountType);
                 var deletionDependenciesArray = deletionDependencies.ToArray();
 
-                DeletionResult deleteAccountTypeResult;
-                if (deletionDependenciesArray.Length is 0)
-                {
+                response = deletionDependenciesArray.Length is 0
                     // TODO translate
-                    response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
-                    if (response is not Yes) return;
+                    ? _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question)
+                    : _dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType ,deletionDependenciesArray);
 
-                    deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
-                    if (deleteAccountTypeResult.IsSuccess)
-                    {
-                        AccountTypes.Remove(accountType);
-                        AccountViewModel.AccountType = null;
-                        AccountViewModel.AcceptAccountTypeChanges();
+                if (response is not Yes) return;
 
-                        // TODO translate
-                        _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
-                    }
-                    else
+                var deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
+                if (deleteAccountTypeResult.IsSuccess)
+                {
+                    AccountTypes.Remove(accountType);
+                    AccountViewModel.AccountType = null;
+                    AccountViewModel.AcceptAccountTypeChanges();
+
+                    if (deleteAccountTypeResult.DeletedItems?.TryGetValue(EntityType.Account,
+                            out var accountTypes) ?? false)
                     {
-                        // TODO translate
-                        _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
+                        WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.AccountType, DataAction.Delete, accountTypes)));
                     }
+
+                    // TODO translate
+                    _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
                 }
                 else
                 {
-                    response = _dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType ,deletionDependenciesArray);
-                    if (response is not Yes) return;
-
-                    deleteAccountTypeResult = await _accountPresentationService.DeleteAccountTypeAsync(accountType);
-                    if (deleteAccountTypeResult.IsSuccess)
-                    {
-                        AccountTypes.Remove(accountType);
-                        AccountViewModel.AccountType = null;
-                        AccountViewModel.AcceptAccountTypeChanges();
-
-                        if (deleteAccountTypeResult.DeletedItems?.TryGetValue(EntityType.Account,
-                                out var accountTypes) ?? false)
-                        {
-                            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.AccountType, DataAction.Delete, accountTypes)));
-                        }
-
-                        // TODO translate
-                        _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
-                    }
-                    else
-                    {
-                        // TODO translate
-                        _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
-                    }
+                    // TODO translate
+                    _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
                 }
 
                 break;
