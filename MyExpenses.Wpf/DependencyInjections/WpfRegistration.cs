@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Wpf.Services;
 using MyExpenses.Wpf.Windows.Dialogs;
 
 namespace MyExpenses.Wpf.DependencyInjections;
@@ -54,6 +55,8 @@ public static class WpfRegistration
 
         private IServiceCollection AddWpfSelfServices()
         {
+            services.AddTransient<IAccountActionService, AccountActionService>();
+
             return services;
         }
     }

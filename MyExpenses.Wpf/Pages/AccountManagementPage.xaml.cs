@@ -38,7 +38,7 @@ public partial class AccountManagementPage
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
         {
-            if (m.Value.EntityType is not EntityType.AccountType || m.Value.DataAction is not DataAction.Delete) return;
+            if (m.Value.EntityType is not EntityType.Account || m.Value.DataAction is not DataAction.Delete) return;
 
             var ids = m.Value.Content;
             foreach (var item in TotalByAccounts.Where(s => ids.Contains(s.Id)))

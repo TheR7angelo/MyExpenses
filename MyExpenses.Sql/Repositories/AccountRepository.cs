@@ -100,11 +100,19 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         logger.LogInformation("Deleting account type with name {AccountTypeName} and id {AccountTypeId}", accountType.Name, accountType.Id);
+
         var accountTypeEntity = await
             context.TAccountTypes.FirstOrDefaultAsync(s => s.Id == accountType.Id,
                 cancellationToken: cancellationToken);
-        if (accountTypeEntity is null)
+
+        if (accountTypeEntity is null && accountType.Id is 0)
         {
+            logger.LogWarning("Account type with id {AccountTypeId} was not found", accountType.Id);
+
+            return DeletionResult.Success("Account type was not persisted, so nothing had to be deleted");
+        }
+
+        if (accountTypeEntity is null) {
             logger.LogWarning("Account type with id {AccountTypeId} was not found", accountType.Id);
             return DeletionResult.Failure(ErrorCode.AccountTypeNotFound, $"The accountType with id {accountType.Id} was not found");
         }

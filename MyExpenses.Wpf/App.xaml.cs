@@ -13,6 +13,7 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
 using MyExpenses.Wpf.DependencyInjections;
 using MyExpenses.Wpf.Utils;
+using Serilog.Events;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
 
