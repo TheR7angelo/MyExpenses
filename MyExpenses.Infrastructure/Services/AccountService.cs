@@ -99,6 +99,12 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
             return await accountRepository.AddAccountTypeAsync(accountType, cancellationToken);
         }
 
+        public async Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
+        {
+            var accountType = mapperAccount.MapToDomain(accountTypeDto);
+            return await accountRepository.UpdateAccountTypeName(accountType, cancellationToken);
+        }
+
         // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
     // {
     //

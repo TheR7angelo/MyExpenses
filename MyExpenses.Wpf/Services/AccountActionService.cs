@@ -75,6 +75,7 @@ public class AccountActionService(
 
     public async Task UpdateAccountType(AccountTypeViewModel accountTypeViewModel, string input, CancellationToken cancellationToken = default)
     {
+        // TODO translate
         var response = dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{accountTypeViewModel.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -82,8 +83,19 @@ public class AccountActionService(
         if (available)
         {
             accountTypeViewModel.Name = input;
+            var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
+            if (result.IsSuccess)
+            {
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Update, accountTypeViewModel)));
 
-
+                // TODO translate
+                dialogService.ShowMessageBox("Success", $"The account type '{accountTypeViewModel.Name}' was successfully edited", MsgBoxImage.Check);
+            }
+            else
+            {
+                // TODO translate
+                dialogService.ShowMessageBox("Error", "An error occurred please retry", MsgBoxImage.Error);
+            }
             return;
         }
 

@@ -58,9 +58,17 @@ public interface IAccountPresentationService
     /// <summary>
     /// Adds a new account type asynchronously.
     /// </summary>
-    /// <param name="newAccountType">The account type to add, represented as an <see cref="AccountTypeViewModel"/>.</param>
+    /// <param name="accountTypeViewModel">The account type to add, represented as an <see cref="AccountTypeViewModel"/>.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
-    public Task<Result> AddAccountType(AccountTypeViewModel newAccountType,
+    public Task<Result> AddAccountType(AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the name of an account type.
+    /// </summary>
+    /// <param name="accountTypeViewModel">The account type model containing the updated name.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the update operation.</return>
+    public Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 }

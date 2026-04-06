@@ -53,12 +53,14 @@
                Width="{Binding Height, RelativeSource={RelativeSource Self}}">
         </Image>
 
+        <!-- TODO translate -->
         <Label Grid.Row="1" Content="Confirm deletion"
                HorizontalContentAlignment="Center"
                FontSize="15"
                FontWeight="Bold">
         </Label>
 
+        <!-- TODO translate -->
         <TextBlock Grid.Row="2"
                    Text="{Binding DeletingName, Mode=OneWay, StringFormat=Deleting this {0} will also remove these linked items}"
                    TextWrapping="Wrap">
@@ -107,6 +109,7 @@
                                            VerticalAlignment="Center">
 
                                     <Run Text="{Binding Count}" BaselineAlignment="Center" />
+                                    <!-- TODO translate -->
                                     <Run Text="{Binding Category}" BaselineAlignment="Center" />
 
                                 </TextBlock>
@@ -126,12 +129,14 @@
                     HorizontalAlignment="Center"
                     margin:PanelExtensions.MarginForAllChildren="5">
 
+            <!-- TODO translate -->
             <Button Content="Cancel"
                     IsDefault="True"
                     Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
 
+            <!-- TODO translate -->
             <Button Content="Delete Everything"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonConfirmation_OnClick">

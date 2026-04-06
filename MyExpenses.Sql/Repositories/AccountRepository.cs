@@ -194,6 +194,33 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
+    public async Task<Result> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Updating account type (ID={AccountTypeId}) with name {AccountTypeName}", accountTypeDomain.Id, accountTypeDomain.Name);
+
+        try
+        {
+            var updatedAccountType = await context.TAccountTypes.FirstOrDefaultAsync(s => s.Id == accountTypeDomain.Id, cancellationToken);
+            if (updatedAccountType is null)
+            {
+                return Result.Failure(ErrorCode.NotFound, "Account type not found");
+            }
+
+            updatedAccountType.Name = accountTypeDomain.Name;
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Account type (ID={AccountTypeId}) with name {AccountTypeName} was successfully updated", accountTypeDomain.Id, accountTypeDomain.Name);
+            return Result.Success("Account type was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update account type (ID={AccountTypeId}) with name {AccountTypeName}", accountTypeDomain.Id, accountTypeDomain.Name);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to update account type");
+        }
+    }
+
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
         CancellationToken cancellationToken = default)
     {

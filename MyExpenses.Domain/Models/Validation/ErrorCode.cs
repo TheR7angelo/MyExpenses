@@ -10,5 +10,6 @@ public enum ErrorCode
     UnknownError,
 
     DatabaseError = 100,
-    AccountTypeNotFound
+    AccountTypeNotFound,
+    NotFound
 }

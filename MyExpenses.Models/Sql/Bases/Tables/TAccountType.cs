@@ -17,7 +17,7 @@ public partial class TAccountType : ISql
     public string Name { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime DateAdded { get; init; } = DateTime.Now;
+    public DateTime DateAdded { get; set; } = DateTime.Now;
 
     // ICollection property is initialized to prevent null references
     // and to ensure the collection are ready for use, even if no data is loaded from the database.

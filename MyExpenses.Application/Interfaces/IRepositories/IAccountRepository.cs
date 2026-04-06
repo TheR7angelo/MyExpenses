@@ -75,4 +75,12 @@ public interface IAccountRepository
     /// <returns>A <see cref="Result"/> indicating the success or failure of the operation.</returns>
     public Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the name of an existing account type asynchronously.
+    /// </summary>
+    /// <param name="accountTypeDomain">The account type to update, including its new name and existing identifier.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result"/> indicating the success or failure of the update operation.</returns>
+    public Task<Result> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default);
 }
