@@ -141,6 +141,7 @@ public partial class AddEditAccountWindow
                 DeletionResult deleteAccountTypeResult;
                 if (deletionDependenciesArray.Length is 0)
                 {
+                    // TODO translate
                     response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to delete '{accountType.Name}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
                     if (response is not Yes) return;
 
@@ -150,12 +151,14 @@ public partial class AddEditAccountWindow
                         AccountTypes.Remove(accountType);
                         AccountViewModel.AccountType = null;
                         AccountViewModel.AcceptAccountTypeChanges();
-                        // TODO send message to user
+
+                        // TODO translate
+                        _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
                     }
                     else
                     {
+                        // TODO translate
                         _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
-                        return;
                     }
                 }
                 else
@@ -176,18 +179,20 @@ public partial class AddEditAccountWindow
                             WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.AccountType, DataAction.Delete, accountTypes)));
                         }
 
-                        // TODO send message to user
+                        // TODO translate
+                        _dialogService.ShowMessageBox("Success", $"The account type '{accountType.Name}' was successfully deleted", MsgBoxImage.Check);
                     }
                     else
                     {
+                        // TODO translate
                         _ = _dialogService.ShowMessageBox("Error", $"An error occurred please retry", MsgBoxImage.Error);
-                        return;
                     }
                 }
 
                 break;
 
             case (MessageBoxInputResult.Valid, false):
+                // TODO translate
                 response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to create '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
                 if (response is not Yes) return;
 
@@ -199,10 +204,12 @@ public partial class AddEditAccountWindow
                     AccountViewModel.AccountType = accountType;
                     break;
                 }
+                // TODO translate
                 _ = _dialogService.ShowMessageBox("Error", $"The name {input} is already used, please change it or cancel this creation", MsgBoxImage.Error);
                 break;
 
             case (MessageBoxInputResult.Valid, true):
+                // TODO translate
                 response = _dialogService.ShowMessageBox("Confirmation", $"Are you sure you want to rename '{AccountViewModel.AccountType!.Name}' to '{input}' ?", MessageBoxButton.YesNo, MsgBoxImage.Question);
                 if (response is not Yes) return;
                 available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
