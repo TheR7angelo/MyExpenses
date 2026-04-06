@@ -428,13 +428,21 @@ public partial class DashBoardPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
 
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<>>(this, (r, m) =>
-        // {
-        //     if (m.Value.EntityType is EntityType.Account && m.Value.DataAction is DataAction.Update or DataAction.Delete or DataAction.Add)
-        //     {
-        //         System.Windows.Application.Current.Dispatcher.Invoke(RefreshAccountTotal);
-        //     }
-        // });
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
+        {
+            if (m.Value.EntityType is not EntityType.AccountType || m.Value.DataAction is not DataAction.Delete) return;
+
+            var ids = m.Value.Content;
+            if (!VTotalByAccounts.Any(s => ids.Contains(s.Id))) return;
+
+            foreach (var id in ids)
+            {
+                var toRemove = VTotalByAccounts.First(s => s.Id.Equals(id));
+                VTotalByAccounts.Remove(toRemove);
+            }
+
+            RefreshRadioButtonSelected();
+        });
     }
 
     #region Action
