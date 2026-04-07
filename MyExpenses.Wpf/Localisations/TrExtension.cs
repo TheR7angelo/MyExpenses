@@ -1,67 +1,133 @@
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace MyExpenses.Wpf.Localisations
+namespace MyExpenses.Wpf.Localisations;
+
+/// <summary>
+/// Represents a markup extension that provides localized content to the WPF UI
+/// by binding a string resource key to localization managers.
+/// </summary>
+/// <remarks>
+/// This extension is used in XAML to translate UI text based on a specified resource key.
+/// It supports binding arguments for formatting the localized text.
+/// </remarks>
+/// <example>
+/// Use this extension in XAML with a localization resource key, for example:
+/// {loc:Tr SomeResourceKey}.
+/// </example>
+[MarkupExtensionReturnType(typeof(object))]
+public class TrExtension : MarkupExtension
 {
-    /// <summary>
-    /// A markup extension that provides localized translated values for UI elements.
-    /// This extension supports binding to resources in the format 'ResourceManagerName:Key'
-    /// where 'ResourceManagerName' specifies the resource manager and 'Key' specifies
-    /// the resource key to retrieve a localized string.
-    /// </summary>
-    public class TrExtension : MarkupExtension
+    public string? Value { get; set; }
+
+    public System.Collections.ObjectModel.Collection<BindingBase>? Args { get; } = [];
+
+    public TrExtension() { }
+
+    public TrExtension(string value)
     {
-        public string ResourceManagerName { get; }
-        public string Key { get; }
+        Value = value;
+    }
 
-        public TrExtension(string resourceAndKey)
+    public TrExtension(object? value)
+    {
+        Value = value?.ToString();
+    }
+
+    public override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        if (string.IsNullOrWhiteSpace(Value)) return "!INVALID_TR!";
+
+        var parts = Value.Split(':', 2);
+        if (parts.Length != 2) return $"!{Value}!";
+
+        var managerName = parts[0];
+        var key = parts[1];
+
+        var provider = new DummyProvider(managerName, key);
+
+        if (Args is null || Args.Count is 0)
         {
-            if (string.IsNullOrWhiteSpace(resourceAndKey))
-                throw new ArgumentNullException(nameof(resourceAndKey));
-
-            var parts = resourceAndKey.Split(':', 2);
-            if (parts.Length != 2) throw new ArgumentException("TrExtension must be used in the format 'ResourceManagerName:Key'");
-
-            ResourceManagerName = parts[0];
-            Key = parts[1];
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            var binding = new Binding(nameof(DummyProvider.Text))
+            return new Binding(nameof(DummyProvider.Text))
             {
-                Source = new DummyProvider(ResourceManagerName, Key),
+                Source = provider,
                 Mode = BindingMode.OneWay
-            };
-            return binding.ProvideValue(serviceProvider);
+            }.ProvideValue(serviceProvider);
         }
 
-        private class DummyProvider : INotifyPropertyChanged
+        var multiBinding = new MultiBinding
         {
-            private readonly string _resourceManagerName;
-            private readonly string _key;
+            Converter = new FormatConverter(),
+            Mode = BindingMode.OneWay
+        };
 
-            public DummyProvider(string resourceManagerName, string key)
-            {
-                _resourceManagerName = resourceManagerName;
-                _key = key;
-                LocalizationService.Instance.LanguageChanged += (_, _) =>
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
-            }
+        multiBinding.Bindings.Add(new Binding(nameof(DummyProvider.Text))
+        {
+            Source = provider
+        });
 
-            public string Text
-            {
-                get
-                {
-                    if (LocalizationResources.Managers.TryGetValue(_resourceManagerName, out var manager))
-                        return manager.GetString(_key, LocalizationService.Instance.CurrentCulture)
-                               ?? $"!{_resourceManagerName}:{_key}!";
-                    return $"!{_resourceManagerName}:{_key}!";
-                }
-            }
-
-            public event PropertyChangedEventHandler? PropertyChanged;
+        foreach (var arg in Args)
+        {
+            multiBinding.Bindings.Add(arg);
         }
+
+        return multiBinding.ProvideValue(serviceProvider);
+    }
+
+    private class DummyProvider : INotifyPropertyChanged
+    {
+        private readonly string _resourceManagerName;
+        private readonly string _key;
+
+        public DummyProvider(string resourceManagerName, string key)
+        {
+            _resourceManagerName = resourceManagerName;
+            _key = key;
+
+            LocalizationService.Instance.LanguageChanged += (_, _) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+        }
+
+        public string Text
+        {
+            get
+            {
+                if (LocalizationResources.Managers.TryGetValue(_resourceManagerName, out var manager))
+                {
+                    var value = manager.GetString(_key, LocalizationService.Instance.CurrentCulture);
+                    return value ?? $"!{_resourceManagerName}:{_key}!";
+                }
+
+                return $"!{_resourceManagerName}:{_key}!";
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+    }
+
+    private class FormatConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length is 0) return "";
+
+            var format = values[0]?.ToString();
+            if (string.IsNullOrEmpty(format)) return "";
+
+            var args = values.Skip(1).ToArray();
+
+            try
+            {
+                return string.Format(format, args);
+            }
+            catch
+            {
+                return format;
+            }
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+            => throw new NotSupportedException();
     }
 }

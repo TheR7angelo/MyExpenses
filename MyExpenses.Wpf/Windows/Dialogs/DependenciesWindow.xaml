@@ -62,10 +62,15 @@
                FontWeight="Bold">
         </Label>
 
-        <!-- TODO translate -->
         <TextBlock Grid.Row="2"
-                   Text="{Binding DeletingName, Mode=OneWay, StringFormat={loc:Tr {x:Static resx:DependencyResourceManager.DeleteQuestion}}}"
                    TextWrapping="Wrap">
+            <TextBlock.Text>
+                <loc:Tr Value="{x:Static resx:DependencyResourceManager.DeleteQuestion}">
+                    <loc:Tr.Args>
+                        <Binding Path="DeletingName"/>
+                    </loc:Tr.Args>
+                </loc:Tr>
+            </TextBlock.Text>
         </TextBlock>
 
         <ScrollViewer Grid.Row="3"
