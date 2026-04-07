@@ -83,7 +83,7 @@
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" />
+                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -92,7 +92,8 @@
 
                         <Border BorderBrush="{DynamicResource MaterialDesignBody}"
                                 BorderThickness="1.3"
-                                CornerRadius="3">
+                                CornerRadius="3"
+                                Margin="1.5">
 
                             <Grid VerticalAlignment="Center">
 
