@@ -47,11 +47,10 @@ public class DialogService : IDialogService
         return ReturnResultMessageBox(result);
     }
 
-    public MessageBoxResult AskConfirmationOfDependenciesRemoval(EntityType entityType, IEnumerable<DeletionDependency> dependencies)
+    public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType, IEnumerable<DeletionDependency> dependencies)
     {
-        // TODO trad
         var dependenciesWindow = App.ServiceProvider.GetRequiredService<DependenciesWindow>();
-        dependenciesWindow.DeletingName = "Account Type";
+        dependenciesWindow.DeletingName = Presentation.Converters.DependencyTypeConverter.Convert(dependencyType, false)?.ToLower() ?? string.Empty;
         dependenciesWindow.SetDependencies(dependencies);
         dependenciesWindow.ShowDialog();
 

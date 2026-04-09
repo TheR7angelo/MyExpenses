@@ -98,14 +98,14 @@ public partial class AddEditAccountWindow
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountTypeViewModel>>(this, (_, m) =>
         {
-            if (m.Value is not { EntityType: EntityType.AccountType, DataAction: DataAction.Add, Content: var accountType }) return;
+            if (m.Value is not { EntityType: DependencyType.AccountType, DataAction: DataAction.Add, Content: var accountType }) return;
             AccountTypes.AddAndSort(accountType, s => s.Name!);
             AccountViewModel.AccountType = accountType;
         });
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, (_, m) =>
         {
-            if (m.Value is not { EntityType: EntityType.AccountType, DataAction: DataAction.Delete, Content: var accountTypeId }) return;
+            if (m.Value is not { EntityType: DependencyType.AccountType, DataAction: DataAction.Delete, Content: var accountTypeId }) return;
             AccountTypes.Remove(AccountTypes.First(x => x.Id == accountTypeId));
             AccountViewModel.AccountType = null;
             AccountViewModel.AcceptAccountTypeChanges();

@@ -60,7 +60,7 @@ public class AccountActionService(
 
             if (result.IsSuccess)
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Add, newAccountType)));
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
                 dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
                     string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
                     MsgBoxImage.Check);
@@ -94,7 +94,7 @@ public class AccountActionService(
             var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
             if (result.IsSuccess)
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((EntityType.AccountType, DataAction.Update, accountTypeViewModel)));
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Update, accountTypeViewModel)));
 
                 dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
                     AccountResources.MessageBoxEditItemSuccessContent,
@@ -122,7 +122,7 @@ public class AccountActionService(
             ? dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemQuestionCaption,
                 string.Format(AccountResources.MessageBoxDeleteItemQuestionContent, accountTypeViewModel.Name),
                 MessageBoxButton.YesNo, MsgBoxImage.Question)
-            : dialogService.AskConfirmationOfDependenciesRemoval(EntityType.AccountType, dependenciesArray);
+            : dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.AccountType, dependenciesArray);
 
         if (response is not MessageBoxResult.Yes) return;
 
@@ -130,11 +130,11 @@ public class AccountActionService(
 
         if (deleteResult.IsSuccess)
         {
-            if (deleteResult.DeletedItems?.TryGetValue(EntityType.Account, out var accountIds) is true)
+            if (deleteResult.DeletedItems?.TryGetValue(DependencyType.Account, out var accountIds) is true)
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((EntityType.Account, DataAction.Delete, accountIds)));
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((DependencyType.Account, DataAction.Delete, accountIds)));
             }
-            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>((EntityType.AccountType, DataAction.Delete, accountTypeViewModel.Id)));
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>((DependencyType.AccountType, DataAction.Delete, accountTypeViewModel.Id)));
 
             dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemSuccessCaption,
                 string.Format(AccountResources.MessageBoxDeleteItemSuccessContent, accountTypeViewModel.Name),

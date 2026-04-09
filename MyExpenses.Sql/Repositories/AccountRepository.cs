@@ -142,12 +142,12 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
 
             logger.LogInformation("Account type with id {AccountTypeId} was successfully deleted", accountType.Id);
 
-            var result = new Dictionary<EntityType, int[]>
+            var result = new Dictionary<DependencyType, int[]>
             {
-                { EntityType.Account, accountIds },
-                { EntityType.Expense, expenseIds },
-                { EntityType.BankTransfer, bankTransferIds },
-                { EntityType.RecurringExpense, recurringExpenseIds }
+                { DependencyType.Account, accountIds },
+                { DependencyType.Expense, expenseIds },
+                { DependencyType.BankTransfer, bankTransferIds },
+                { DependencyType.RecurringExpense, recurringExpenseIds }
             };
             return DeletionResult.Success("Account type was successfully deleted", result);
         }

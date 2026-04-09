@@ -8,7 +8,7 @@ public class DependencyToIconConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not EntityType dependencyType) return null;
+        if (value is not DependencyType dependencyType) return null;
         var iconName = dependencyType.GetRessourceIconName();
 
         return System.Windows.Application.Current.TryFindResource(iconName);

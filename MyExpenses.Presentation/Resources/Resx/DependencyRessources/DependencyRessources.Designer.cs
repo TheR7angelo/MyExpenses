@@ -103,5 +103,95 @@ namespace MyExpenses.Presentation.Resources.Resx.DependencyRessources {
                 return ResourceManager.GetString("DependenciesWindowTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string DependencyTypeAccount {
+            get {
+                return ResourceManager.GetString("DependencyTypeAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accounts.
+        /// </summary>
+        public static string DependencyTypeAccounts {
+            get {
+                return ResourceManager.GetString("DependencyTypeAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type.
+        /// </summary>
+        public static string DependencyTypeAccountType {
+            get {
+                return ResourceManager.GetString("DependencyTypeAccountType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account types.
+        /// </summary>
+        public static string DependencyTypeAccountTypes {
+            get {
+                return ResourceManager.GetString("DependencyTypeAccountTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank transfer.
+        /// </summary>
+        public static string DependencyTypeBankTransfer {
+            get {
+                return ResourceManager.GetString("DependencyTypeBankTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank transfers.
+        /// </summary>
+        public static string DependencyTypeBankTransfers {
+            get {
+                return ResourceManager.GetString("DependencyTypeBankTransfers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense.
+        /// </summary>
+        public static string DependencyTypeExpense {
+            get {
+                return ResourceManager.GetString("DependencyTypeExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expenses.
+        /// </summary>
+        public static string DependencyTypeExpenses {
+            get {
+                return ResourceManager.GetString("DependencyTypeExpenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurring expense.
+        /// </summary>
+        public static string DependencyTypeRecurringExpense {
+            get {
+                return ResourceManager.GetString("DependencyTypeRecurringExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurring expenses.
+        /// </summary>
+        public static string DependencyTypeRecurringExpenses {
+            get {
+                return ResourceManager.GetString("DependencyTypeRecurringExpenses", resourceCulture);
+            }
+        }
     }
 }

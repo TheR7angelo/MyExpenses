@@ -24,15 +24,15 @@ public class Result
 
 public class DeletionResult : Result
 {
-    public Dictionary<EntityType, int[]>? DeletedItems { get; private set; }
+    public Dictionary<DependencyType, int[]>? DeletedItems { get; private set; }
 
-    private DeletionResult(bool success, ErrorCode errorCode, string? internalMessage, Dictionary<EntityType, int[]>? deletedItems = null)
+    private DeletionResult(bool success, ErrorCode errorCode, string? internalMessage, Dictionary<DependencyType, int[]>? deletedItems = null)
         : base(success, errorCode, internalMessage)
     {
         DeletedItems = deletedItems;
     }
 
-    public static DeletionResult Success(string? internalMessage = null, Dictionary<EntityType, int[]>? deletedItems = null) =>
+    public static DeletionResult Success(string? internalMessage = null, Dictionary<DependencyType, int[]>? deletedItems = null) =>
         new(true, ErrorCode.None, internalMessage, deletedItems);
 
     public new static DeletionResult Failure(ErrorCode errorCode, string internalMessage) =>

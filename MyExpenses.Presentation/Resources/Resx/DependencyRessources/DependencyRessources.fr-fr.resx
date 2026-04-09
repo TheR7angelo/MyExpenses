@@ -26,4 +26,34 @@
     <data name="DeleteQuestion" xml:space="preserve">
         <value>Supprimer ce {0} supprimera également ces éléments liés</value>
     </data>
+    <data name="DependencyTypeAccount" xml:space="preserve">
+        <value>Compte</value>
+    </data>
+    <data name="DependencyTypeAccountType" xml:space="preserve">
+        <value>Type de compte</value>
+    </data>
+    <data name="DependencyTypeBankTransfer" xml:space="preserve">
+        <value>Virement bancaire</value>
+    </data>
+    <data name="DependencyTypeExpense" xml:space="preserve">
+        <value>Dépense</value>
+    </data>
+    <data name="DependencyTypeRecurringExpense" xml:space="preserve">
+        <value>Dépense récurrente</value>
+    </data>
+    <data name="DependencyTypeAccounts" xml:space="preserve">
+        <value>Comptes</value>
+    </data>
+    <data name="DependencyTypeAccountTypes" xml:space="preserve">
+        <value>Types de comptes</value>
+    </data>
+    <data name="DependencyTypeBankTransfers" xml:space="preserve">
+        <value>Virements bancaires</value>
+    </data>
+    <data name="DependencyTypeExpenses" xml:space="preserve">
+        <value>Dépenses</value>
+    </data>
+    <data name="DependencyTypeRecurringExpenses" xml:space="preserve">
+        <value>Dépenses récurrente</value>
+    </data>
 </root>

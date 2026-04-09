@@ -37,6 +37,7 @@
 
     <mah:MetroWindow.Resources>
         <converters:DependencyToIconConverter x:Key="DependencyToIconConverter" />
+        <converters:DependencyTypeConverter x:Key="DependencyTypeConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid HorizontalAlignment="Center">
@@ -67,7 +68,7 @@
             <TextBlock.Text>
                 <loc:Tr Value="{x:Static resx:DependencyResourceManager.DeleteQuestion}">
                     <loc:Tr.Args>
-                        <Binding Path="DeletingName"/>
+                        <Binding Path="DeletingName" />
                     </loc:Tr.Args>
                 </loc:Tr>
             </TextBlock.Text>
@@ -117,8 +118,7 @@
                                            VerticalAlignment="Center">
 
                                     <Run Text="{Binding Count}" BaselineAlignment="Center" />
-                                    <!-- TODO translate -->
-                                    <Run Text="{Binding Category}" BaselineAlignment="Center" />
+                                    <Run Text="{Binding Category, Converter={StaticResource DependencyTypeConverter}, ConverterParameter=true}" BaselineAlignment="Center" />
 
                                 </TextBlock>
 

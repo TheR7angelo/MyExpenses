@@ -40,9 +40,9 @@ public interface IDialogService
     /// <summary>
     /// Asks the user for confirmation to remove a set of dependencies of a specified type.
     /// </summary>
-    /// <param name="entityType">The type of dependency being considered for removal.</param>
+    /// <param name="dependencyType">The type of dependency being considered for removal.</param>
     /// <param name="dependencies">The collection of dependencies associated with the specified type.</param>
     /// <returns>A <see cref="MessageBoxResult"/> indicating the user's response to the confirmation dialog.</returns>
-    public MessageBoxResult AskConfirmationOfDependenciesRemoval(EntityType entityType,
+    public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType,
         IEnumerable<DeletionDependency> dependencies);
 }
