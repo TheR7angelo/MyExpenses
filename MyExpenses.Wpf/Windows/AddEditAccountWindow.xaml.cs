@@ -122,6 +122,8 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        // TODO continue here
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
