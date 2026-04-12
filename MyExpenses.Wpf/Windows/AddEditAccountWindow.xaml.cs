@@ -116,8 +116,17 @@ public partial class AddEditAccountWindow
 
     private async void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
-        await accountActionService.ManageAccountTypeAction(AccountViewModel);
+        try
+        {
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
+            await accountActionService.ManageAccountTypeAction(AccountViewModel);
+        }
+        catch (Exception exception)
+        {
+            // TODO trad
+            Log.Error(exception, "An error occurred while managing account type action");
+            _dialogService.ShowMessageBox("Error", "An error occurred while managing account type action", MsgBoxImage.Error);
+        }
     }
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
@@ -316,48 +325,3 @@ public partial class AddEditAccountWindow
 
     #endregion
 }
-
-
-        // AccountViewModel.AccountType ??= new AccountTypeViewModel();
-        // AccountViewModel.AccountType.Name = input;
-        //
-        // switch (messageBoxResult)
-        // {
-        //     case Presentation.Enums.MessageBoxResult.Delete:
-        //         throw new NotImplementedException();
-        //         break;
-        //     case Presentation.Enums.MessageBoxResult.Valid:
-        //         AccountViewModel.AccountType ??= new AccountTypeViewModel();
-        //         AccountViewModel.AccountType.Name = input;
-        //         var valid = await _accountPresentationValidationService.IsAccountTypeValid(AccountViewModel.AccountType);
-        //         break;
-        //     default:
-        //         throw new ArgumentOutOfRangeException(nameof(messageBoxResult), messageBoxResult, null);
-        // }
-
-        // TODO injector DTO MODEL VIEW
-        // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
-
-        // var newAccountType = addEditAccountType.AccountType;
-        //
-        // Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
-        // var (success, exception) = newAccountType.AddOrEdit();
-        // if (success)
-        // {
-        //     // TODO correct
-        //     // AccountTypes.AddAndSort(newAccountType, s => s.Name);
-        //     // Account.AccountTypeFk = newAccountType.Id;
-        //
-        //     Log.Information("Account type was successfully added");
-        //     var json = newAccountType.ToJsonString();
-        //     Log.Information("{Json}", json);
-        //
-        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
-        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
-        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
-        // }

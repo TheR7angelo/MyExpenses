@@ -4,6 +4,7 @@ using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
+using MyExpenses.SharedUtils;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Mappings;
 
@@ -166,6 +167,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         var expenses = await context.THistories
             .Where(e => e.AccountFk == accountDomain.Id)
             .CountAsync(cancellationToken);
+
         logger.LogInformation("Loaded {Count} expenses for account with id {AccountId}", expenses, accountDomain.Id);
 
         return expenses;
@@ -178,6 +180,9 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         logger.LogInformation("Adding account type with name {AccountTypeName}", accountType.Name);
+
+        var json = accountType.ToJson();
+        logger.LogInformation("Account type json: {Json}", json);
 
         try
         {
@@ -199,6 +204,9 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         logger.LogInformation("Updating account type (ID={AccountTypeId}) with name {AccountTypeName}", accountTypeDomain.Id, accountTypeDomain.Name);
+
+        var json = accountTypeDomain.ToJson();
+        logger.LogInformation("Account type json: {Json}", json);
 
         try
         {
