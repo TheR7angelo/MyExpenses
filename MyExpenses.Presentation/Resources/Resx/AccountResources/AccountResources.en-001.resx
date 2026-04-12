@@ -77,4 +77,10 @@
     <data name="MessageBoxDeletetemErrorContent" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxAddEditAccountTypeErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxAddEditAccountTypeErrorContent" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

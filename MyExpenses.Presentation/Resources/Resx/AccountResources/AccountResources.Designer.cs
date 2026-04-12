@@ -62,6 +62,24 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
+        public static string MessageBoxAddEditAccountTypeErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxAddEditAccountTypeErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxAddEditAccountTypeErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxAddEditAccountTypeErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
         public static string MessageBoxCreateItemErrorAlreadyUsedCaption {
             get {
                 return ResourceManager.GetString("MessageBoxCreateItemErrorAlreadyUsedCaption", resourceCulture);

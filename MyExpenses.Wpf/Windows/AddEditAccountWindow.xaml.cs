@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -123,9 +124,9 @@ public partial class AddEditAccountWindow
         }
         catch (Exception exception)
         {
-            // TODO trad
             Log.Error(exception, "An error occurred while managing account type action");
-            _dialogService.ShowMessageBox("Error", "An error occurred while managing account type action", MsgBoxImage.Error);
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
     }
 
