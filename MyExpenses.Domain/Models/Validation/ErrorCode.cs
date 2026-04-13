@@ -9,6 +9,8 @@ public enum ErrorCode
     ColorRequired,
     CurrencyRequired,
 
+    HexadecimalColorCodeTooLong,
+    HexadecimalColorCodeRequired,
     NameTooLong,
     NameRequired,
     NameAlreadyExists,
