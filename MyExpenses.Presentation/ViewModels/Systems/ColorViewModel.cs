@@ -26,4 +26,7 @@ public partial class ColorViewModel : ObservableValidator
     public partial string? HexadecimalColorCode { get; set; }
 
     public DateTime? DateAdded { get; init; }
+
+    public IEnumerable<DomainValidationResult> GetErrorCodes()
+        => GetErrors().OfType<DomainValidationResult>();
 }
