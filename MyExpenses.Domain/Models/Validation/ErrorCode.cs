@@ -6,6 +6,7 @@ public enum ErrorCode
 
     AccountTypeRequired,
     ActiveStatusRequired,
+    ColorRequired,
     CurrencyRequired,
 
     NameTooLong,
