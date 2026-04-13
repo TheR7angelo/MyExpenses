@@ -1,6 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models.Accounts;
+using Domain.Models.Validation;
+using MyExpenses.Presentation.Validations.Attributes;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Accounts;
@@ -15,23 +16,30 @@ public partial class AccountViewModel : ObservableValidator
 
     [DirtyTrackedProperty]
     [ObservableProperty]
-    [property: Required(ErrorMessage = "Account name is required")]
-    [property: MaxLength(AccountDomain.MaxNameLength, ErrorMessage = "Account name cannot exceed 55 characters")]
+    [NotifyDataErrorInfo]
+    [RequiredWithCode(ErrorCode.NameRequired, ErrorMessage = "Account name is required")]
+    [MaxLengthWithCodeAttribute(AccountDomain.MaxNameLength, ErrorCode.NameTooLong, ErrorMessage = "Account name cannot exceed 55 characters")]
     public partial string? Name { get; set; }
 
     [DirtyTrackedProperty]
     [ObservableProperty]
-    [property: Required(ErrorMessage = "Account type is required")]
+    [NotifyDataErrorInfo]
+    [RequiredWithCode(ErrorCode.AccountTypeRequired, ErrorMessage = "Account type is required")]
     public partial AccountTypeViewModel? AccountType { get; set; }
 
     [ObservableProperty]
-    [property: Required(ErrorMessage = "Currency is required")]
+    [NotifyDataErrorInfo]
+    [RequiredWithCode(ErrorCode.CurrencyRequired, ErrorMessage = "Currency is required")]
     public partial CurrencyViewModel? Currency { get; set; }
 
     [DirtyTrackedProperty]
     [ObservableProperty]
-    [property: Required(ErrorMessage = "Active status is required")]
+    [NotifyDataErrorInfo]
+    [RequiredWithCode(ErrorCode.ActiveStatusRequired, ErrorMessage = "Active status is required")]
     public partial bool Active { get; set; }
 
     public DateTime? DateAdded { get; set; }
+
+    public IEnumerable<DomainValidationResult> GetErrorCodes()
+        => GetErrors().OfType<DomainValidationResult>();
 }
