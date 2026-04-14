@@ -33,6 +33,71 @@ DROP VIEW export_v_bank_transfer;
 DROP VIEW export_v_recursive_expense;
 DROP VIEW export_v_currency;
 DROP VIEW export_v_account_type;
+DROP VIEW export_v_category_type;
+DROP VIEW v_category;
+DROP VIEW export_v_mode_payment;
+DROP VIEW export_v_place;
+
+CREATE TABLE t_place_dg_tmp
+(
+    id             INTEGER
+        CONSTRAINT t_place_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name           TEXT(155)                          NOT NULL,
+    number         TEXT(20),
+    street         TEXT(155)                          NOT NULL,
+    postal         TEXT(10)                           NOT NULL,
+    city           TEXT(100)                          NOT NULL,
+    country        TEXT(55)                           NOT NULL,
+    latitude       REAL                               NOT NULL,
+    longitude      REAL                               NOT NULL,
+    is_open        BOOLEAN  DEFAULT TRUE              NOT NULL,
+    can_be_deleted BOOLEAN  DEFAULT TRUE              NOT NULL,
+    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_place_dg_tmp(id, name, number, street, postal, city, country, latitude, longitude, is_open,
+                           can_be_deleted, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       number,
+       COALESCE(street, ''),
+       COALESCE(postal, ''),
+       COALESCE(city, ''),
+       COALESCE(country, ''),
+       COALESCE(latitude, 0),
+       COALESCE(longitude, 0),
+       COALESCE(is_open, 1),
+       COALESCE(can_be_deleted, 1),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_place;
+
+DROP TABLE t_place;
+
+ALTER TABLE t_place_dg_tmp
+    RENAME TO t_place;
+
+CREATE TABLE t_mode_payment_dg_tmp
+(
+    id             INTEGER
+        CONSTRAINT t_mode_payment_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name           TEXT(55)                           NOT NULL,
+    can_be_deleted BOOLEAN  default 1                 NOT NULL,
+    date_added     DATETIME default CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_mode_payment_dg_tmp(id, name, can_be_deleted, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       COALESCE(can_be_deleted, 1),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_mode_payment;
+
+DROP TABLE t_mode_payment;
+
+ALTER TABLE t_mode_payment_dg_tmp
+    RENAME TO t_mode_payment;
 
 CREATE TABLE t_recursive_expense_dg_tmp
 (
@@ -171,6 +236,30 @@ DROP TABLE t_account;
 ALTER TABLE t_account_dg_tmp
     RENAME TO t_account;
 
+CREATE TABLE t_category_type_dg_tmp
+(
+    id         INTEGER
+        CONSTRAINT t_category_type_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name       TEXT(55)                           NOT NULL,
+    color_fk   INTEGER                            NOT NULL
+        CONSTRAINT t_account_type_t_color_id_fk
+            REFERENCES t_color,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_category_type_dg_tmp(id, name, color_fk, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       COALESCE(color_fk, 1),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_category_type;
+
+DROP TABLE t_category_type;
+
+ALTER TABLE t_category_type_dg_tmp
+    RENAME TO t_category_type;
+
 CREATE TABLE t_bank_transfer_dg_tmp
 (
     id                INTEGER
@@ -266,6 +355,58 @@ DROP TABLE t_history;
 
 ALTER TABLE t_history_dg_tmp
     RENAME TO t_history;
+
+CREATE TRIGGER after_insert_on_t_place
+    AFTER INSERT
+    ON t_place
+    FOR EACH ROW
+BEGIN
+    UPDATE t_place
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_place
+    AFTER UPDATE
+    ON t_place
+    FOR EACH ROW
+BEGIN
+    UPDATE t_place
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_insert_on_after_insert_on_t_mode_payment
+    AFTER INSERT
+    ON t_mode_payment
+    FOR EACH ROW
+BEGIN
+    UPDATE t_mode_payment
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_mode_payment
+    AFTER UPDATE
+    ON t_mode_payment
+    FOR EACH ROW
+BEGIN
+    UPDATE t_mode_payment
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
 
 CREATE TRIGGER after_insert_on_t_recursive_expense
     AFTER INSERT
@@ -463,6 +604,32 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+CREATE TRIGGER after_insert_on_t_category_type
+    AFTER INSERT
+    ON t_category_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_category_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_account_type
+    AFTER UPDATE
+    ON t_category_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_category_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 CREATE TRIGGER after_insert_on_t_bank_transfer
     AFTER INSERT
     ON t_bank_transfer
@@ -505,6 +672,27 @@ BEGIN
         END
     WHERE id = NEW.id;
 END;
+
+CREATE VIEW export_v_place AS
+SELECT tp.id,
+       tp.name,
+       tp.number,
+       tp.street,
+       tp.postal,
+       tp.city,
+       tp.country,
+       tp.latitude,
+       tp.longitude,
+       tp.is_open,
+       tp.can_be_deleted,
+       tp.date_added
+FROM t_place tp;
+
+CREATE VIEW export_v_mode_payment AS
+SELECT tmp.id,
+       tmp.name,
+       tmp.date_added
+FROM t_mode_payment tmp;
 
 CREATE VIEW export_v_currency AS
 SELECT tc.id,
@@ -1433,5 +1621,26 @@ SELECT tat.id,
        tat.name,
        tat.date_added
 FROM t_account_type tat;
+
+CREATE VIEW export_v_category_type AS
+SELECT tct.id,
+       tct.name,
+       tc.name AS color_name,
+       tct.date_added
+FROM t_category_type tct
+    INNER JOIN t_color tc
+        ON tct.color_fk = tc.id;
+
+CREATE VIEW v_category AS
+SELECT tct.id,
+       tct.name AS category_name,
+       tct.color_fk,
+       tct.date_added AS date_category_added,
+       tc.name AS color_name,
+       tc.hexadecimal_color_code,
+       tc.date_added AS date_color_added
+FROM main.t_category_type tct
+         INNER JOIN t_color tc
+                    ON tct.color_fk = tc.id;
     ";
 }
