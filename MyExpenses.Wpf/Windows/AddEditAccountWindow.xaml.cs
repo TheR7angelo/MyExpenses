@@ -14,6 +14,7 @@ using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Categories;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
@@ -70,6 +71,7 @@ public partial class AddEditAccountWindow
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new() { IsPointed = true };
 
+    public HistoryViewModel HistoryViewModel { get; } = new() { IsPointed = true };
     public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
 
     public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
