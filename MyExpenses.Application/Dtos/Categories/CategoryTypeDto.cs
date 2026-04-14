@@ -10,5 +10,5 @@ public class CategoryTypeDto
 
     public required ColorDto Color { get; set; }
 
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 }

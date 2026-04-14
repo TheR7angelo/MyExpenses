@@ -1,4 +1,5 @@
 using Domain.Models.Accounts;
+using Domain.Models.Categories;
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using MyExpenses.Sql.Mappings;
 namespace MyExpenses.Sql.Repositories;
 
 public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactory<DataBaseContext> dbContextFactory,
-    IExpenseRepository expenseRepository,
+    IExpenseRepository expenseRepository, ISystemRepository systemRepository,
     ILogger<AccountRepository> logger) : IAccountRepository
 {
     public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default)
@@ -157,20 +158,6 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             logger.LogError(e, "Failed to delete account type with id {AccountTypeId}", accountType.Id);
             return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete account type: {e.Message}");
         }
-    }
-
-    public async Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
-    {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-
-        logger.LogInformation("Loading all expenses for account with id {AccountId}", accountDomain.Id);
-        var expenses = await context.THistories
-            .Where(e => e.AccountFk == accountDomain.Id)
-            .CountAsync(cancellationToken);
-
-        logger.LogInformation("Loaded {Count} expenses for account with id {AccountId}", expenses, accountDomain.Id);
-
-        return expenses;
     }
 
     public async Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)

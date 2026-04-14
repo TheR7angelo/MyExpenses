@@ -5,8 +5,10 @@ using Riok.Mapperly.Abstractions;
 namespace MyExpenses.Sql.Mappings;
 
 [Mapper]
-public partial class SystemMapper
+public static partial class SystemMapper
 {
+    public static partial IQueryable<ColorDomain> ProjectToDomain(this IQueryable<TColor> src);
+
     [MapperIgnoreSource(nameof(TColor.TCategoryTypes))]
-    public partial ColorDomain MapToDomain(TColor src);
+    public static partial ColorDomain MapToDomain(TColor src);
 }

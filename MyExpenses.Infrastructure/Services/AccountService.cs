@@ -2,13 +2,14 @@ using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Categories;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;
 
 namespace MyExpenses.Infrastructure.Services;
 
-public class AccountService(IAccountRepository accountRepository, IExpenseRepository expenseRepository,
+public class AccountService(IAccountRepository accountRepository, IExpenseRepository expenseRepository, ICategoryRepository categoryRepository,
     IAccountDtoDomainMapper mapperAccount,
     ILogger<AccountService> logger)
     : IAccountService
@@ -65,7 +66,7 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
             {
                 logger.LogInformation("Loading dependencies for account {AccountName}", account.Name);
 
-                var expenseCountTask = accountRepository.GetAllExpenseCountAsync(account, cancellationToken);
+                var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(account, cancellationToken);
                 var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(account, cancellationToken);
                 var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(account, cancellationToken);
 
@@ -103,6 +104,12 @@ public class AccountService(IAccountRepository accountRepository, IExpenseReposi
         {
             var accountType = mapperAccount.MapToDomain(accountTypeDto);
             return await accountRepository.UpdateAccountTypeName(accountType, cancellationToken);
+        }
+
+        public async Task<Result> AddCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)
+        {
+            var accountType = mapperAccount.MapToDomain(categoryTypeDto);
+            return await categoryRepository.AddCategoryTypeAsync(accountType, cancellationToken);
         }
 
         // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)

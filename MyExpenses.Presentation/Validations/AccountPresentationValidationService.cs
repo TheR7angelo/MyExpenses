@@ -123,4 +123,36 @@ public class AccountPresentationValidationService(IAccountDtoViewModelMapper map
             throw;
         }
     }
+
+    public async Task<bool> IsCategoryTypeNameAvailableAsync(string input, CancellationToken cancellationToken = default)
+    {
+        using var scope = logger.BeginScope("Checking category type name availability. Input={Input}", input);
+
+        logger.LogInformation("Starting validation for category type name availability");
+
+        try
+        {
+            var alreadyExists = await accountValidationRepository.IsCategoryTypeNameAlreadyExistAsync(
+                input, cancellationToken);
+
+            if (alreadyExists)
+            {
+                logger.LogInformation("Category type name is already used");
+                return false;
+            }
+
+            logger.LogInformation("Category type name is available");
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogWarning("Validation was canceled");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while checking category type name availability");
+            throw;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using Domain.Models.Accounts;
+using Domain.Models.Categories;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -56,15 +57,6 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="DeletionResult"/> object representing the result of the deletion operation, including details about deleted items.</returns>
     public Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDomain accountType,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves the total count of expenses associated with a specific account asynchronously.
-    /// </summary>
-    /// <param name="accountDomain">The account for which the total expense count is to be retrieved.</param>
-    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>An integer representing the count of expenses associated with the specified account.</returns>
-    public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
         CancellationToken cancellationToken = default);
 
     /// <summary>

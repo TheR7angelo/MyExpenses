@@ -9,6 +9,20 @@ namespace MyExpenses.Sql.Repositories;
 public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFactory,
     ILogger<ExpenseRepository> logger) : IExpenseRepository
 {
+    public async Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all expenses for account with id {AccountId}", accountDomain.Id);
+        var expenses = await context.THistories
+            .Where(e => e.AccountFk == accountDomain.Id)
+            .CountAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} expenses for account with id {AccountId}", expenses, accountDomain.Id);
+
+        return expenses;
+    }
+
     public async Task<int> GetAllBankTransactionCountAsync(AccountDomain account, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

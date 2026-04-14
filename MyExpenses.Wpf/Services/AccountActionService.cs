@@ -7,6 +7,9 @@ using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Categories;
+using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 
 namespace MyExpenses.Wpf.Services;
@@ -16,6 +19,78 @@ public class AccountActionService(
     IAccountPresentationService accountPresentationService,
     IAccountPresentationValidationService validationService) : IAccountActionService
 {
+    public async Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        var editMode = historyViewModel.CategoryTypeViewModel != null;
+        var defaultText = editMode ? historyViewModel.CategoryTypeViewModel!.Name ?? string.Empty : string.Empty;
+
+        // TODO change
+        var placeholder = editMode ? AccountTypeManagementResources.TextBoxEditAccountTypeName
+            : AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
+
+        // TODO change
+        var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
+            out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeholder);
+
+        if (result is not true || string.IsNullOrWhiteSpace(input)) return;
+
+        switch (messageBoxResult, editMode)
+        {
+            // case (MessageBoxInputResult.Delete, _):
+                // await DeleteAccountType(accountViewModel.AccountType!, cancellationToken);
+                // break;
+
+            case (MessageBoxInputResult.Valid, false):
+                await CreateCategoryType(input, cancellationToken);
+                break;
+
+            // case (MessageBoxInputResult.Valid, true):
+                // await UpdateAccountType(accountViewModel.AccountType!, input, cancellationToken);
+                // break;
+        }
+    }
+
+    public async Task CreateCategoryType(string input, CancellationToken cancellationToken = default)
+    {
+        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemQuestionCaption,
+            string.Format(AccountResources.MessageBoxCreateItemQuestionContent, input),
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        var available = await validationService.IsCategoryTypeNameAvailableAsync(input, cancellationToken);
+        if (available)
+        {
+            var randomColor = await accountPresentationService.GetRandomColorViewModel(cancellationToken);
+
+            var newCategoryType = new CategoryTypeViewModel { Name = input, Color = randomColor };
+            var result = await accountPresentationService.AddCategoryType(newCategoryType, cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+                    string.Format(AccountResources.MessageBoxCreateItemErrorContent, newCategoryType.Name),
+                    MsgBoxImage.Error);
+            }
+            return;
+        }
+
+        dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+            string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
+            MsgBoxImage.Error);
+    }
+
+    public Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input,
+        CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
         var editMode = accountViewModel.AccountType != null;

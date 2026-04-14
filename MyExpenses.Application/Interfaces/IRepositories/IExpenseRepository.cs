@@ -46,4 +46,13 @@ public interface IExpenseRepository
     /// <returns>An array of integers representing the recurring transaction IDs associated with the specified accounts.</returns>
     public Task<int[]> GetAllRecurringTransactionIdsAsync(int[] accountIds,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of expenses associated with a specific account asynchronously.
+    /// </summary>
+    /// <param name="accountDomain">The account for which the total expense count is to be retrieved.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>An integer representing the count of expenses associated with the specified account.</returns>
+    public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
+        CancellationToken cancellationToken = default);
 }

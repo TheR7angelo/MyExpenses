@@ -1,5 +1,7 @@
 using Domain.Models.Accounts;
+using Domain.Models.Categories;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Categories;
 
 namespace MyExpenses.Application.Interfaces.Mappings;
 
@@ -46,4 +48,11 @@ public interface IAccountDtoDomainMapper
     /// <param name="src">The source AccountTypeDto object to map.</param>
     /// <returns>An AccountTypeDomain object that is mapped from the source object.</returns>
     public AccountTypeDomain MapToDomain(AccountTypeDto src);
+
+    /// <summary>
+    /// Maps the CategoryTypeDto object to a CategoryTypeDomain object.
+    /// </summary>
+    /// <param name="src">The source CategoryTypeDto object to map.</param>
+    /// <returns>A CategoryTypeDomain object that is mapped from the source object.</returns>
+    public CategoryTypeDomain MapToDomain(CategoryTypeDto src);
 }

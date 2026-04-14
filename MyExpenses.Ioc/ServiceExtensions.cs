@@ -40,7 +40,8 @@ public static class ServiceExtensions
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
             .AddScoped<ICategoryRepository, CategoryRepository>()
-            .AddScoped<IExpenseRepository, ExpenseRepository>();
+            .AddScoped<IExpenseRepository, ExpenseRepository>()
+            .AddScoped<ISystemRepository, SystemRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>();
 

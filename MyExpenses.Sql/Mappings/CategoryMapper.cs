@@ -16,5 +16,5 @@ public static partial class CategoryMapper
     [MapProperty(nameof(TCategoryType.ColorFkNavigation), nameof(CategoryTypeDomain.Color))]
     public static partial CategoryTypeDomain MapToDomain(TCategoryType src);
 
-    private static ColorDomain MapColor(TColor src) => new SystemMapper().MapToDomain(src);
+    private static ColorDomain MapColor(TColor src) => SystemMapper.MapToDomain(src);
 }

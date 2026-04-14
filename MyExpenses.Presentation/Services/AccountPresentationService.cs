@@ -1,13 +1,18 @@
 using Domain.Models.Dependencies;
+using Domain.Models.Systems;
 using Domain.Models.Validation;
+using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Categories;
+using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services;
 
-public class AccountPresentationService(IAccountService accountService, IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
+public class AccountPresentationService(IAccountService accountService, ISystemRepository systemRepository,
+    IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
 {
     public async Task<IEnumerable<AccountViewModel>> GetAllAccountViewModelAsync(CancellationToken cancellationToken = default)
     {
@@ -56,6 +61,21 @@ public class AccountPresentationService(IAccountService accountService, IAccount
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
         return await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
+    }
+
+    public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
+    {
+        var categoryTypeDto = viewModelMapper.MapToDto(newCategoryType);
+        return accountService.AddCategoryTypeAsync(categoryTypeDto, cancellationToken);
+    }
+
+    public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
+    {
+        var randomColor = await systemRepository.GetRandomColor(cancellationToken);
+        var colorDto = viewModelMapper.MapToDto(randomColor);
+        var colorModel = viewModelMapper.MapToViewModel(colorDto);
+
+        return colorModel;
     }
 
     // public async Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default)

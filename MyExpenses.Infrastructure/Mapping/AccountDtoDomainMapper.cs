@@ -1,5 +1,7 @@
 using Domain.Models.Accounts;
+using Domain.Models.Categories;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Categories;
 using MyExpenses.Application.Interfaces.Mappings;
 using Riok.Mapperly.Abstractions;
 
@@ -19,4 +21,6 @@ public partial class AccountDtoDomainMapper : IAccountDtoDomainMapper
     public partial AccountTypeDto MapToDto(AccountTypeDomain src);
 
     public partial AccountTypeDomain MapToDomain(AccountTypeDto src);
+
+    public partial CategoryTypeDomain MapToDomain(CategoryTypeDto src);
 }
