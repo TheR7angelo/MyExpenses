@@ -6,9 +6,9 @@ public class CategoryTypeDto
 {
     public int Id { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public ColorDto Color { get; set; }
+    public required ColorDto Color { get; set; }
 
     public DateTime? DateAdded { get; set; }
 }

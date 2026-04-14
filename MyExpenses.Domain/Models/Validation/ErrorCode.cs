@@ -12,8 +12,13 @@ public enum ErrorCode
     CurrencyRequired,
     DateRequired,
     DescriptionRequired,
+    FrequencyRequired,
     ModePaymentRequired,
+    NextDueDateRequired,
     PlaceRequired,
+    StartDateRequired,
+    RecursiveCountRequired,
+    RecursiveTotalRequired,
     ValueRequired,
 
     CityTooLong,

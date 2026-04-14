@@ -12,5 +12,5 @@ public class CategoryTypeDomain
 
     public DateTime DateAdded { get; init; } = DateTime.Now;
 
-    public ColorDomain Color { get; set; }
+    public required ColorDomain Color { get; set; }
 }

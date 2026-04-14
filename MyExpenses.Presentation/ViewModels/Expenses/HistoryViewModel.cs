@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models.Expenses;
 using Domain.Models.Validation;
@@ -53,8 +51,6 @@ public partial class HistoryViewModel : ObservableValidator
     [RequiredWithCode(ErrorCode.DateRequired, ErrorMessage = "Date is required")]
     public partial DateTime? Date { get; set; }
 
-    [Required]
-    [Column("place_fk")]
     [DirtyTrackedProperty]
     [ObservableProperty]
     [NotifyDataErrorInfo]
@@ -65,20 +61,17 @@ public partial class HistoryViewModel : ObservableValidator
     [ObservableProperty]
     public partial bool IsPointed { get; set; }
 
-    // TODO continue here
-    [Column("bank_transfer_fk")]
-    public int? BankTransferFk { get; init => SetProperty(ref field, value); }
+    [DirtyTrackedProperty]
+    [ObservableProperty]
+    public partial BankTransferViewModel? BankTransferFk { get; set; }
 
-    // TODO continue here
-    [Column("recursive_expense_fk")]
-    public int? RecursiveExpenseFk { get; init => SetProperty(ref field, value); }
+    [DirtyTrackedProperty]
+    [ObservableProperty]
+    public partial RecursiveExpenseViewModel? RecursiveExpenseViewModel { get; set; }
 
-    // TODO continue here
-    [IgnoreReset]
-    [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set => SetProperty(ref field, value); }
 
-    // TODO continue here
-    [Column("date_pointed", TypeName = "DATETIME")]
-    public DateTime? DatePointed { get; set => SetProperty(ref field, value); }
+    [DirtyTrackedProperty]
+    [ObservableProperty]
+    public partial DateTime? DatePointed { get; set; }
 }
