@@ -37,6 +37,47 @@ DROP VIEW export_v_category_type;
 DROP VIEW v_category;
 DROP VIEW export_v_mode_payment;
 DROP VIEW export_v_place;
+DROP VIEW export_v_recursive_frequency;
+DROP VIEW export_v_color;
+
+CREATE TABLE t_version_dg_tmp
+(
+    id      INTEGER
+        CONSTRAINT t_version_pk
+            PRIMARY KEY AUTOINCREMENT,
+    version TEXT(25) NOT NULL
+);
+
+INSERT INTO t_version_dg_tmp(id, version)
+SELECT id, version
+FROM t_version;
+
+DROP TABLE t_version;
+
+ALTER TABLE t_version_dg_tmp
+    RENAME TO t_version;
+
+create table t_color_dg_tmp
+(
+    id                     INTEGER
+        CONSTRAINT t_account_type_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name                   TEXT(55)                           NOT NULL,
+    hexadecimal_color_code TEXT(9)                            NOT NULL,
+    date_added             DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+INSERT INTO t_color_dg_tmp(id, name, hexadecimal_color_code, date_added)
+SELECT id,
+       COALESCE(name, ''),
+       COALESCE(hexadecimal_color_code, ''),
+       COALESCE(date_added, DATETIME( 'now', 'localtime'))
+FROM t_color;
+
+DROP TABLE t_color;
+
+ALTER TABLE t_color_dg_tmp
+    RENAME TO t_color;
 
 CREATE TABLE t_place_dg_tmp
 (
@@ -98,6 +139,24 @@ DROP TABLE t_mode_payment;
 
 ALTER TABLE t_mode_payment_dg_tmp
     RENAME TO t_mode_payment;
+
+CREATE TABLE t_recursive_frequency_dg_tmp
+(
+    id          INTEGER
+        CONSTRAINT t_recursive_frequency_pk
+            PRIMARY KEY AUTOINCREMENT,
+    frequency   TEXT(55)  NOT NULL,
+    description TEXT(100) NOT NULL
+);
+
+INSERT INTO t_recursive_frequency_dg_tmp(id, frequency, description)
+SELECT id, frequency, description
+FROM t_recursive_frequency;
+
+DROP TABLE t_recursive_frequency;
+
+ALTER TABLE t_recursive_frequency_dg_tmp
+    RENAME TO t_recursive_frequency;
 
 CREATE TABLE t_recursive_expense_dg_tmp
 (
@@ -356,6 +415,32 @@ DROP TABLE t_history;
 ALTER TABLE t_history_dg_tmp
     RENAME TO t_history;
 
+CREATE TRIGGER after_insert_on_t_color
+    AFTER INSERT
+    ON t_color
+    FOR EACH ROW
+BEGIN
+    UPDATE t_color
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_color
+    AFTER UPDATE
+    ON t_color
+    FOR EACH ROW
+BEGIN
+    UPDATE t_color
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 CREATE TRIGGER after_insert_on_t_place
     AFTER INSERT
     ON t_place
@@ -476,19 +561,6 @@ BEGIN
                         ELSE FALSE END
     WHERE id = NEW.id;
 
-END;
-
-CREATE TRIGGER after_insert_on_t_color
-    AFTER INSERT
-    ON t_currency
-    FOR EACH ROW
-BEGIN
-    UPDATE t_currency
-    SET date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
-        END
-    WHERE id = NEW.id;
 END;
 
 CREATE TRIGGER after_update_on_t_currency
@@ -1642,5 +1714,18 @@ SELECT tct.id,
 FROM main.t_category_type tct
          INNER JOIN t_color tc
                     ON tct.color_fk = tc.id;
+
+CREATE VIEW export_v_recursive_frequency AS
+SELECT trf.id,
+       trf.frequency,
+       trf.description
+FROM t_recursive_frequency trf;
+
+CREATE VIEW export_v_color AS
+SELECT tc.id,
+       tc.name,
+       tc.hexadecimal_color_code,
+       tc.date_added
+FROM t_color tc;
     ";
 }
