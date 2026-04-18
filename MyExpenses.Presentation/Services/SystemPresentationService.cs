@@ -5,14 +5,14 @@ using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services;
 
-public class SystemPresentationService(ISystemDtoViewModel viewModelMapper,
+public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper,
     ISystemRepository systemRepository) : ISystemPresentationService
 {
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
     {
         var randomColor = await systemRepository.GetRandomColor(cancellationToken);
-        var colorDto = viewModelMapper.MapToDto(randomColor);
-        var colorModel = viewModelMapper.MapToViewModel(colorDto);
+        var colorDto = viewModelMapperMapper.MapToDto(randomColor);
+        var colorModel = viewModelMapperMapper.MapToViewModel(colorDto);
 
         return colorModel;
     }

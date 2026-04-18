@@ -95,7 +95,7 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding Currencies}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  SelectedItem="{Binding AccountViewModel.Currency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  SelectedItem="{Binding AccountViewModel.CurrencyViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Symbol}" />

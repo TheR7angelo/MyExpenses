@@ -6,9 +6,9 @@ public class AccountDto
 
     public string Name { get; set; } = string.Empty;
 
-    public required AccountTypeDto AccountType { get; set; }
+    public required AccountTypeDto AccountTypeDto { get; set; }
 
-    public required CurrencyDto Currency { get; set; }
+    public required CurrencyDto CurrencyDto { get; set; }
 
     public bool Active { get; set; }
 

@@ -1,6 +1,5 @@
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Dtos.Categories;
 
 namespace MyExpenses.Application.Interfaces.IServices;
 
@@ -60,12 +59,4 @@ public interface IAccountService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating success or failure.</returns>
     public Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Adds a new category type to the system.
-    /// </summary>
-    /// <param name="categoryTypeDto">The data transfer object representing the category type to be added, including its name, color, and other relevant details.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> AddCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default);
 }

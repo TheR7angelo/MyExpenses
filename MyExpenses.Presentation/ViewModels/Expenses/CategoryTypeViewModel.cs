@@ -5,7 +5,7 @@ using MyExpenses.Presentation.Validations.Attributes;
 using MyExpenses.Presentation.ViewModels.Systems;
 using TheR7angelo.DirtyTracking.Abstractions;
 
-namespace MyExpenses.Presentation.ViewModels.Categories;
+namespace MyExpenses.Presentation.ViewModels.Expenses;
 
 [DirtyTracking]
 public partial class CategoryTypeViewModel : ObservableValidator

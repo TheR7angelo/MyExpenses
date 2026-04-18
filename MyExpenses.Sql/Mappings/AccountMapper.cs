@@ -19,8 +19,8 @@ public static partial class AccountMapper
 
     public static partial TotalByAccountDomain MapToDomain(this VTotalByAccount src);
 
-    [MapProperty(nameof(TAccount.CurrencyFkNavigation), nameof(AccountDomain.Currency))]
-    [MapProperty(nameof(TAccount.AccountTypeFkNavigation), nameof(AccountDomain.AccountType))]
+    [MapProperty(nameof(TAccount.CurrencyFkNavigation), nameof(AccountDomain.CurrencyDomain))]
+    [MapProperty(nameof(TAccount.AccountTypeFkNavigation), nameof(AccountDomain.AccountTypeDomain))]
     [MapperIgnoreSource(nameof(TAccount.AccountTypeFk))]
     [MapperIgnoreSource(nameof(TAccount.CurrencyFk))]
     [MapperIgnoreSource(nameof(TAccount.TBankTransferFromAccountFkNavigations))]

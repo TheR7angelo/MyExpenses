@@ -61,8 +61,8 @@ public static class ServiceExtensions
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
-            .AddSingleton<ICategoryDtoViewModelMapper, CategoryDtoViewModelMapper>()
-            .AddSingleton<ISystemDtoViewModel, SystemDtoViewModel>();
+            .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
+            .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>();
 
         services.AddServiceLogging(logEventLevel);
 

@@ -4,7 +4,6 @@ using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
-using MyExpenses.Presentation.ViewModels.Categories;
 
 namespace MyExpenses.Presentation.Services;
 
@@ -58,12 +57,6 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
         return await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
-    }
-
-    public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
-    {
-        var categoryTypeDto = viewModelMapper.MapToDto(newCategoryType);
-        return accountService.AddCategoryTypeAsync(categoryTypeDto, cancellationToken);
     }
 
     // public async Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default)

@@ -7,9 +7,12 @@ using Riok.Mapperly.Abstractions;
 namespace MyExpenses.Presentation.Mappings;
 
 [Mapper]
-public partial class SystemDtoViewModel : ISystemDtoViewModel
+public partial class SystemDtoViewModelMapper : ISystemDtoViewModelMapper
 {
     public partial ColorDto MapToDto(ColorDomain src);
 
     public partial ColorViewModel MapToViewModel(ColorDto src);
+
+    [MapperIgnoreSource(nameof(ColorViewModel.HasErrors))]
+    public partial ColorDto MapToDto(ColorViewModel src);
 }

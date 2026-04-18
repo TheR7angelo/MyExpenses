@@ -3,7 +3,6 @@ using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 using MyExpenses.Presentation.ViewModels.Accounts;
-using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Systems;
 using TheR7angelo.DirtyTracking.Abstractions;
 

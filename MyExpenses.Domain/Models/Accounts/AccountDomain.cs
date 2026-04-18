@@ -8,9 +8,9 @@ public class AccountDomain
 
     public string? Name { get; set; }
 
-    public AccountTypeDomain? AccountType { get; set; }
+    public AccountTypeDomain? AccountTypeDomain { get; set; }
 
-    public CurrencyDomain? Currency { get; set; }
+    public CurrencyDomain? CurrencyDomain { get; set; }
 
     public bool? Active { get; set; }
 

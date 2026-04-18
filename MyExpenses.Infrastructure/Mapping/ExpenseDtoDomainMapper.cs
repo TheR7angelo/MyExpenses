@@ -9,4 +9,6 @@ namespace MyExpenses.Infrastructure.Mapping;
 public partial class ExpenseDtoDomainMapper : IExpenseDtoDomainMapper
 {
     public partial CategoryTypeDto MapToDto(CategoryTypeDomain src);
+
+    public partial CategoryTypeDomain MapToDomain(CategoryTypeDto src);
 }

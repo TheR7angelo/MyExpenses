@@ -12,8 +12,12 @@ public partial class AccountDtoDomainMapper : IAccountDtoDomainMapper
 {
     public partial TotalByAccountDto MapToDto(TotalByAccountDomain src);
 
+    [MapProperty(nameof(AccountDomain.AccountTypeDomain), nameof(AccountDto.AccountTypeDto))]
+    [MapProperty(nameof(AccountDomain.CurrencyDomain), nameof(AccountDto.CurrencyDto))]
     public partial AccountDto MapToDto(AccountDomain src);
 
+    [MapProperty(nameof(AccountDto.AccountTypeDto), nameof(AccountDomain.AccountTypeDomain))]
+    [MapProperty(nameof(AccountDto.CurrencyDto), nameof(AccountDomain.CurrencyDomain))]
     public partial AccountDomain MapToDomain(AccountDto src);
 
     public partial CurrencyDto MapToDto(CurrencyDomain src);

@@ -30,7 +30,7 @@ public partial class AccountViewModel : ObservableValidator
     [ObservableProperty]
     [NotifyDataErrorInfo]
     [RequiredWithCode(ErrorCode.CurrencyRequired, ErrorMessage = "Currency is required")]
-    public partial CurrencyViewModel? Currency { get; set; }
+    public partial CurrencyViewModel? CurrencyViewModel { get; set; }
 
     [DirtyTrackedProperty]
     [ObservableProperty]
