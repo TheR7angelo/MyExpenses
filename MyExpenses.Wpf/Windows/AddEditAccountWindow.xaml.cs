@@ -19,11 +19,9 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
-using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using Serilog;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 

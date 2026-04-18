@@ -90,4 +90,10 @@
     <data name="MessageBoxAddEditAccountTypeErrorContent" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="TextBoxAddNewAccountTypeName" xml:space="preserve">
+        <value>Add a new account type name :</value>
+    </data>
+    <data name="TextBoxEditAccountTypeName" xml:space="preserve">
+        <value>Edit account type name :</value>
+    </data>
 </root>

@@ -457,24 +457,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a new account type name :.
-        /// </summary>
-        public static string TextBoxAddNewAccountTypeName {
-            get {
-                return ResourceManager.GetString("TextBoxAddNewAccountTypeName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit account type name :.
-        /// </summary>
-        public static string TextBoxEditAccountTypeName {
-            get {
-                return ResourceManager.GetString("TextBoxEditAccountTypeName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add or Change account type.
         /// </summary>
         public static string TitleWindow {

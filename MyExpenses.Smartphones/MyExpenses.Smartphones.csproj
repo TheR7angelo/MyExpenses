@@ -81,6 +81,7 @@
       <ProjectReference Include="..\MyExpenses.IO\MyExpenses.IO.csproj" />
       <ProjectReference Include="..\MyExpenses.Maui.Utils\MyExpenses.Maui.Utils.csproj" />
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
+      <ProjectReference Include="..\MyExpenses.Presentation\MyExpenses.Presentation.csproj" />
       <ProjectReference Include="..\MyExpenses.Share.Core\MyExpenses.Share.Core.csproj" />
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />

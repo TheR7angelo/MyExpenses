@@ -96,9 +96,6 @@
     <data name="MessageBoxValidateAccountTypeErrorEmptyTitle" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="TextBoxAddNewAccountTypeName" xml:space="preserve">
-        <value>Add a new account type name :</value>
-    </data>
     <data name="ActivityIndicatorDeleteAccountType" xml:space="preserve">
         <value>Deleting the account type and all linked accounts</value>
     </data>
@@ -155,8 +152,5 @@
     </data>
     <data name="TitleWindow" xml:space="preserve">
         <value>Add or Change account type</value>
-    </data>
-    <data name="TextBoxEditAccountTypeName" xml:space="preserve">
-        <value>Edit account type name :</value>
     </data>
 </root>

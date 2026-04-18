@@ -9,7 +9,6 @@ using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
-using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 
 namespace MyExpenses.Wpf.Services;
@@ -25,8 +24,8 @@ public class AccountActionService(
         var defaultText = editMode ? historyViewModel.CategoryTypeViewModel!.Name ?? string.Empty : string.Empty;
 
         // TODO change
-        var placeholder = editMode ? AccountTypeManagementResources.TextBoxEditAccountTypeName
-            : AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
+        var placeholder = editMode ? AccountResources.TextBoxEditAccountTypeName
+            : AccountResources.TextBoxAddNewAccountTypeName;;
 
         // TODO change
         var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
@@ -95,8 +94,8 @@ public class AccountActionService(
     {
         var editMode = accountViewModel.AccountType != null;
         var defaultText = editMode ? accountViewModel.AccountType!.Name ?? string.Empty : string.Empty;
-        var placeholder = editMode ? AccountTypeManagementResources.TextBoxEditAccountTypeName
-                                   : AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
+        var placeholder = editMode ? AccountResources.TextBoxEditAccountTypeName
+                                   : AccountResources.TextBoxAddNewAccountTypeName;;
 
         var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
             out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeholder);

@@ -83,4 +83,10 @@
     <data name="MessageBoxAddEditAccountTypeErrorContent" xml:space="preserve">
         <value>Une erreur est survenue, veuillez réessayer</value>
     </data>
+    <data name="TextBoxAddNewAccountTypeName" xml:space="preserve">
+        <value>Ajouter un nouveau nom de type de compte :</value>
+    </data>
+    <data name="TextBoxEditAccountTypeName" xml:space="preserve">
+        <value>Modifier le nom du type de compte :</value>
+    </data>
 </root>
