@@ -73,7 +73,7 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding AccountTypes}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  SelectedItem="{Binding AccountViewModel.AccountType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  SelectedItem="{Binding AccountViewModel.AccountTypeViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" />
