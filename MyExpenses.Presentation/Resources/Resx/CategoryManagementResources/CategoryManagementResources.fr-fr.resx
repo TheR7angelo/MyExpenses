@@ -17,4 +17,10 @@
     <data name="TextBoxAddNewCategoryTypeName" xml:space="preserve">
         <value>Ajouter un nouveau nom de type de category :</value>
     </data>
+    <data name="TitleWindowEditCategoryTypeName" xml:space="preserve">
+        <value>Modifier le type de catégorie</value>
+    </data>
+    <data name="TitleWindowAddCategoryTypeName" xml:space="preserve">
+        <value>Ajouter un nouveau type de catégorie</value>
+    </data>
 </root>

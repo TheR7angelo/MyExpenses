@@ -77,5 +77,23 @@ namespace MyExpenses.Presentation.Resources.Resx.CategoryManagementResources {
                 return ResourceManager.GetString("TextBoxEditCategoryTypeName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new category type.
+        /// </summary>
+        public static string TitleWindowAddCategoryTypeName {
+            get {
+                return ResourceManager.GetString("TitleWindowAddCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit category type.
+        /// </summary>
+        public static string TitleWindowEditCategoryTypeName {
+            get {
+                return ResourceManager.GetString("TitleWindowEditCategoryTypeName", resourceCulture);
+            }
+        }
     }
 }

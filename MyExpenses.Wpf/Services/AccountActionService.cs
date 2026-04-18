@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Accounts;
+using Domain.Models.Categories;
 using Domain.Models.Dependencies;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
@@ -10,7 +11,6 @@ using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
-using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 
 namespace MyExpenses.Wpf.Services;
 
@@ -27,9 +27,12 @@ public class AccountActionService(
         var placeholder = editMode ? CategoryManagementResources.TextBoxEditCategoryTypeName
             : CategoryManagementResources.TextBoxAddNewCategoryTypeName;
 
-        // TODO change
-        var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
-            out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeholder);
+        var titleWindow = editMode
+            ? CategoryManagementResources.TitleWindowEditCategoryTypeName
+            : CategoryManagementResources.TitleWindowAddCategoryTypeName;
+
+        var result = dialogService.ShowInputDialog(titleWindow, defaultText,
+            out var messageBoxResult, out var input, CategoryTypeDomain.MaxNameLength, placeholder);
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
 
@@ -97,7 +100,7 @@ public class AccountActionService(
 
         var placeHolder = editMode
             ? AccountResources.TextBoxEditAccountTypeName
-            : AccountResources.TextBoxAddNewAccountTypeName;;
+            : AccountResources.TextBoxAddNewAccountTypeName;
 
         var titleWindow = editMode
             ? AccountResources.TitleWindowEditAccountTypeName
