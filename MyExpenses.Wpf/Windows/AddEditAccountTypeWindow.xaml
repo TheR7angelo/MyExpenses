@@ -9,6 +9,7 @@
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
         xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
+        xmlns:resx2="clr-namespace:MyExpenses.Presentation.Resources.Resx.AccountResources;assembly=MyExpenses.Presentation"
         mc:Ignorable="d"
 
         Title="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAccountTypeTitleWindow}}"
@@ -51,7 +52,7 @@
         <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
                  Text="{Binding AccountType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{Binding AccountType, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
-                 materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAccountTypeTextBoxAccountTypeName}}"
+                 materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx2:AccountResourceManager.RessourceAccountTextBoxAddNewAccountTypeName}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
         </TextBox>
