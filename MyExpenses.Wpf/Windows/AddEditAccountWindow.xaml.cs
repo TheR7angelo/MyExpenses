@@ -11,6 +11,7 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -26,7 +27,7 @@ using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditAccountWindow
+public partial class AddEditAccountWindow : IMessengerEntity
 {
     #region DependecyProperty
 

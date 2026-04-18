@@ -7,6 +7,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -32,6 +33,11 @@ public partial class App
             typeof(MetroWindow),
             FrameworkElement.LoadedEvent,
             new RoutedEventHandler(ApplyMetroCornerPreference));
+
+        EventManager.RegisterClassHandler(
+            typeof(FrameworkElement),
+            FrameworkElement.UnloadedEvent,
+            new RoutedEventHandler(CleanUpMessengerEntity));
 
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfServices();
@@ -88,6 +94,19 @@ public partial class App
         {
             Log.Fatal(exception, "An unexpected error occurred");
             throw;
+        }
+    }
+
+    private static void CleanUpMessengerEntity(object sender, RoutedEventArgs e)
+    {
+        switch (sender)
+        {
+            case IMessengerEntity messengerEntity:
+                messengerEntity.UnRegister();
+                break;
+            case FrameworkElement { DataContext: IMessengerEntity vm }:
+                vm.UnRegister();
+                break;
         }
     }
 

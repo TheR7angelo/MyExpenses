@@ -13,6 +13,7 @@ using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
@@ -31,7 +32,7 @@ using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Pages;
 
-public partial class DashBoardPage
+public partial class DashBoardPage : IMessengerEntity
 {
     public ObservableCollection<VHistory> VHistories { get; } = [];
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];

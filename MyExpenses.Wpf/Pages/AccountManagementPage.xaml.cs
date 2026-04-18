@@ -11,6 +11,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
@@ -22,7 +23,7 @@ using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
-public partial class AccountManagementPage
+public partial class AccountManagementPage : IMessengerEntity
 {
     public ObservableCollection<TotalByAccountViewModel> TotalByAccounts { get; } = [];
     // internal DashBoardPage? DashBoardPage { get; init; }
