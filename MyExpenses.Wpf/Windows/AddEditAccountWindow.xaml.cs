@@ -79,15 +79,15 @@ public partial class AddEditAccountWindow : IMessengerEntity
     #endregion
 
     private readonly IAccountPresentationService _accountPresentationService;
-    private readonly ICategoryPresentationService _categoryPresentationService;
+    private readonly IExpensePresentationService _expensePresentationService;
     private readonly IDialogService _dialogService;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
-        ICategoryPresentationService categoryPresentationService,
+        IExpensePresentationService expensePresentationService,
         IDialogService dialogService)
     {
         _accountPresentationService = accountPresentationService;
-        _categoryPresentationService = categoryPresentationService;
+        _expensePresentationService = expensePresentationService;
         _dialogService = dialogService;
 
         _ = FillCollection();
@@ -333,7 +333,7 @@ public partial class AddEditAccountWindow : IMessengerEntity
     private async Task FillCollection()
     {
         await Task.WhenAll(
-            _categoryPresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
+            _expensePresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
             _accountPresentationService.GetAllCurrencyViewModelAsync().LoadAndSortAsync(Currencies, x => x.Symbol!),
             _accountPresentationService.GetAllAccountTypeViewModelAsync().LoadAndSortAsync(AccountTypes, x => x.Name!)
         );

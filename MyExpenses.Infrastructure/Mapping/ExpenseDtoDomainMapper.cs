@@ -1,8 +1,12 @@
+using Domain.Models.Categories;
+using MyExpenses.Application.Dtos.Categories;
 using MyExpenses.Application.Interfaces.Mappings;
+using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Infrastructure.Mapping;
 
-public class ExpenseDtoDomainMapper : IExpenseDtoDomainMapper
+[Mapper]
+public partial class ExpenseDtoDomainMapper : IExpenseDtoDomainMapper
 {
-
+    public partial CategoryTypeDto MapToDto(CategoryTypeDomain src);
 }

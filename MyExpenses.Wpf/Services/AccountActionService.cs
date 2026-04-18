@@ -17,7 +17,7 @@ namespace MyExpenses.Wpf.Services;
 public class AccountActionService(
     IDialogService dialogService,
     IAccountPresentationService accountPresentationService, ISystemPresentationService systemPresentationService,
-    IAccountPresentationValidationService validationService) : IAccountActionService
+    IAccountPresentationValidationService accountPresentationValidationService) : IAccountActionService
 {
     public async Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {

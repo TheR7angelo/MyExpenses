@@ -39,27 +39,25 @@ public static class ServiceExtensions
         LogEventLevel logEventLevel = LogEventLevel.Information)
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
-            .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<IExpenseRepository, ExpenseRepository>()
             .AddScoped<ISystemRepository, SystemRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>();
 
         services.AddScoped<IAccountService, AccountService>()
-            .AddScoped<ICategoryService, CategoryService>()
             .AddScoped<IExpenseService, ExpenseService>()
             .AddScoped<ISystemService, SystemService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
-            .AddScoped<ICategoryPresentationService, CategoryPresentationService>()
+            .AddScoped<IExpensePresentationService, ExpensePresentationService>()
+            .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>()
             .AddScoped<ISystemPresentationService, SystemPresentationService>();
 
         services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>();
 
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
-            .AddSingleton<ICategoryDtoDomainMapper, CategoryDtoDomainMapper>()
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()

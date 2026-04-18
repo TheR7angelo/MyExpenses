@@ -5,7 +5,7 @@ using MyExpenses.Presentation.ViewModels.Categories;
 
 namespace MyExpenses.Presentation.Services;
 
-public class CategoryPresentationService(ICategoryService categoryService, ICategoryDtoViewModelMapper mapper) : ICategoryPresentationService
+public class ExpensePresentationService(IExpenseService categoryService, ICategoryDtoViewModelMapper mapper) : IExpensePresentationService
 {
     public async Task<IEnumerable<CategoryTypeViewModel>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default)
     {

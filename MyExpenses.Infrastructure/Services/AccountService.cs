@@ -1,6 +1,4 @@
-using Domain.Models.Dependencies;
 using Domain.Models.Validation;
-using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Dtos.Categories;
 using MyExpenses.Application.Interfaces.IRepositories;
@@ -9,9 +7,8 @@ using MyExpenses.Application.Interfaces.Mappings;
 
 namespace MyExpenses.Infrastructure.Services;
 
-public class AccountService(IAccountRepository accountRepository, IExpenseRepository expenseRepository, ICategoryRepository categoryRepository,
-    IAccountDtoDomainMapper mapperAccount,
-    ILogger<AccountService> logger)
+public class AccountService(IAccountRepository accountRepository, IExpenseRepository expenseRepository, IExpenseRepository categoryRepository,
+    IAccountDtoDomainMapper mapperAccount)
     : IAccountService
 {
     public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)

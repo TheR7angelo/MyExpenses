@@ -1,8 +1,9 @@
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Systems;
 
-namespace MyExpenses.Presentation.Services.Interfaces;
+namespace MyExpenses.Presentation.Services;
 
 public class SystemPresentationService(ISystemDtoViewModel viewModelMapper,
     ISystemRepository systemRepository) : ISystemPresentationService

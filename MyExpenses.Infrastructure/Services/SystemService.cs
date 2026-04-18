@@ -9,7 +9,7 @@ namespace MyExpenses.Infrastructure.Services;
 
 public class SystemService(IAccountDtoDomainMapper mapperAccount,
     ILogger<SystemService> logger,
-    IAccountRepository accountRepository, IExpenseRepository expenseRepository, ICategoryRepository categoryRepository) : ISystemService
+    IAccountRepository accountRepository, IExpenseRepository expenseRepository, IExpenseRepository categoryRepository) : ISystemService
 {
     public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
