@@ -292,5 +292,23 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
                 return ResourceManager.GetString("TextBoxEditAccountTypeName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new account type.
+        /// </summary>
+        public static string TitleWindowAddAccountTypeName {
+            get {
+                return ResourceManager.GetString("TitleWindowAddAccountTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit account type.
+        /// </summary>
+        public static string TitleWindowEditAccountTypeName {
+            get {
+                return ResourceManager.GetString("TitleWindowEditAccountTypeName", resourceCulture);
+            }
+        }
     }
 }

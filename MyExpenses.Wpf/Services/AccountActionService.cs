@@ -4,6 +4,7 @@ using Domain.Models.Dependencies;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
+using MyExpenses.Presentation.Resources.Resx.CategoryManagementResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -23,9 +24,8 @@ public class AccountActionService(
         var editMode = historyViewModel.CategoryTypeViewModel != null;
         var defaultText = editMode ? historyViewModel.CategoryTypeViewModel!.Name ?? string.Empty : string.Empty;
 
-        // TODO change
-        var placeholder = editMode ? AccountResources.TextBoxEditAccountTypeName
-            : AccountResources.TextBoxAddNewAccountTypeName;;
+        var placeholder = editMode ? CategoryManagementResources.TextBoxEditCategoryTypeName
+            : CategoryManagementResources.TextBoxAddNewCategoryTypeName;
 
         // TODO change
         var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
@@ -94,11 +94,17 @@ public class AccountActionService(
     {
         var editMode = accountViewModel.AccountType != null;
         var defaultText = editMode ? accountViewModel.AccountType!.Name ?? string.Empty : string.Empty;
-        var placeholder = editMode ? AccountResources.TextBoxEditAccountTypeName
-                                   : AccountResources.TextBoxAddNewAccountTypeName;;
 
-        var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
-            out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeholder);
+        var placeHolder = editMode
+            ? AccountResources.TextBoxEditAccountTypeName
+            : AccountResources.TextBoxAddNewAccountTypeName;;
+
+        var titleWindow = editMode
+            ? AccountResources.TitleWindowEditAccountTypeName
+            : AccountResources.TitleWindowAddAccountTypeName;
+
+        var result = dialogService.ShowInputDialog(titleWindow, defaultText,
+            out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeHolder);
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
 

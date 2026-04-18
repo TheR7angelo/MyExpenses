@@ -89,4 +89,10 @@
     <data name="TextBoxEditAccountTypeName" xml:space="preserve">
         <value>Edit account type name :</value>
     </data>
+    <data name="TitleWindowAddAccountTypeName" xml:space="preserve">
+        <value>Add new account type</value>
+    </data>
+    <data name="TitleWindowEditAccountTypeName" xml:space="preserve">
+        <value>Edit account type</value>
+    </data>
 </root>
