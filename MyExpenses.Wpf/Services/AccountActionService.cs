@@ -99,7 +99,8 @@ public class AccountActionService(
         if (response is not MessageBoxResult.Yes) return;
 
         // TODO continue here
-        // var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, categoryTypeViewModel, cancellationToken);
+        var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, categoryTypeViewModel, cancellationToken);
+        Console.WriteLine(available);
         // if (available)
         // {
         //     categoryTypeViewModel.Name = input;

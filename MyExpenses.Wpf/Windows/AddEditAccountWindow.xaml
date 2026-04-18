@@ -165,8 +165,7 @@
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           ItemsSource="{Binding  CategoryTypes}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
-                          SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValuePath="{x:Static local:AddEditAccountWindow.SelectedValuePathCategoryType}">
+                          SelectedItem="{Binding HistoryViewModel.CategoryTypeViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
