@@ -27,7 +27,7 @@ public partial class CategoryTypeViewModel : ObservableValidator
     public partial ColorViewModel? Color { get; set; }
 
     [ObservableProperty]
-    public partial DateTime? DateAdded { get; set; }
+    public partial DateTime DateAdded { get; set; } = DateTime.Now;
 
     public IEnumerable<DomainValidationResult> GetErrorCodes()
         => GetErrors().OfType<DomainValidationResult>();

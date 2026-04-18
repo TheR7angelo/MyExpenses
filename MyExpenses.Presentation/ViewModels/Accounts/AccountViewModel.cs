@@ -25,7 +25,7 @@ public partial class AccountViewModel : ObservableValidator
     [ObservableProperty]
     [NotifyDataErrorInfo]
     [RequiredWithCode(ErrorCode.AccountTypeRequired, ErrorMessage = "Account type is required")]
-    public partial AccountTypeViewModel? AccountType { get; set; }
+    public partial AccountTypeViewModel? AccountTypeViewModel { get; set; }
 
     [ObservableProperty]
     [NotifyDataErrorInfo]

@@ -68,7 +68,14 @@ public class AccountActionService(
             var newCategoryType = new CategoryTypeViewModel { Name = input, Color = randomColor };
             var result = await accountPresentationService.AddCategoryType(newCategoryType, cancellationToken);
 
-            if (!result.IsSuccess)
+            if (result.IsSuccess)
+            {
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>((DependencyType.CategoryType, DataAction.Add, newCategoryType)));
+                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
+                    string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newCategoryType.Name),
+                    MsgBoxImage.Check);
+            }
+            else
             {
                 dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
                     string.Format(AccountResources.MessageBoxCreateItemErrorContent, newCategoryType.Name),
@@ -95,8 +102,8 @@ public class AccountActionService(
 
     public async Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
-        var editMode = accountViewModel.AccountType != null;
-        var defaultText = editMode ? accountViewModel.AccountType!.Name ?? string.Empty : string.Empty;
+        var editMode = accountViewModel.AccountTypeViewModel != null;
+        var defaultText = editMode ? accountViewModel.AccountTypeViewModel!.Name ?? string.Empty : string.Empty;
 
         var placeHolder = editMode
             ? AccountResources.TextBoxEditAccountTypeName
@@ -114,7 +121,7 @@ public class AccountActionService(
         switch (messageBoxResult, editMode)
         {
             case (MessageBoxInputResult.Delete, _):
-                await DeleteAccountType(accountViewModel.AccountType!, cancellationToken);
+                await DeleteAccountType(accountViewModel.AccountTypeViewModel!, cancellationToken);
                 break;
 
             case (MessageBoxInputResult.Valid, false):
@@ -122,7 +129,7 @@ public class AccountActionService(
                 break;
 
             case (MessageBoxInputResult.Valid, true):
-                await UpdateAccountType(accountViewModel.AccountType!, input, cancellationToken);
+                await UpdateAccountType(accountViewModel.AccountTypeViewModel!, input, cancellationToken);
                 break;
         }
     }

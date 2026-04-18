@@ -7,6 +7,7 @@ public enum DependencyType
 {
     Account,
     BankTransfer,
+    CategoryType,
     Expense,
     RecurringExpense,
     AccountType

@@ -11,7 +11,6 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -79,17 +78,14 @@ public partial class AddEditAccountWindow
     #endregion
 
     private readonly IAccountPresentationService _accountPresentationService;
-    private readonly IAccountPresentationValidationService _accountPresentationValidationService;
     private readonly ICategoryPresentationService _categoryPresentationService;
     private readonly IDialogService _dialogService;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
-        IAccountPresentationValidationService accountPresentationValidationService,
         ICategoryPresentationService categoryPresentationService,
         IDialogService dialogService)
     {
         _accountPresentationService = accountPresentationService;
-        _accountPresentationValidationService = accountPresentationValidationService;
         _categoryPresentationService = categoryPresentationService;
         _dialogService = dialogService;
 
@@ -101,15 +97,34 @@ public partial class AddEditAccountWindow
         {
             if (m.Value is not { EntityType: DependencyType.AccountType, DataAction: DataAction.Add, Content: var accountType }) return;
             AccountTypes.AddAndSort(accountType, s => s.Name!);
-            AccountViewModel.AccountType = accountType;
+            AccountViewModel.AccountTypeViewModel = accountType;
+        });
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (_, m) =>
+        {
+            if (m.Value is not { EntityType: DependencyType.CategoryType, DataAction: DataAction.Add, Content: var categoryType }) return;
+            CategoryTypes.AddAndSort(categoryType, s => s.Name!);
+            HistoryViewModel.CategoryTypeViewModel = categoryType;
         });
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, (_, m) =>
         {
-            if (m.Value is not { EntityType: DependencyType.AccountType, DataAction: DataAction.Delete, Content: var accountTypeId }) return;
-            AccountTypes.Remove(AccountTypes.First(x => x.Id == accountTypeId));
-            AccountViewModel.AccountType = null;
-            AccountViewModel.AcceptAccountTypeChanges();
+            if (m.Value is not { DataAction: DataAction.Delete, Content: var id }) return;
+
+            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+            switch (m.Value.EntityType)
+            {
+                case DependencyType.AccountType:
+                    AccountTypes.Remove(AccountTypes.First(x => x.Id == id));
+                    AccountViewModel.AccountTypeViewModel = null;
+                    AccountViewModel.AcceptAccountTypeViewModelChanges();
+                    break;
+                case DependencyType.CategoryType:
+                    CategoryTypes.Remove(CategoryTypes.First(x => x.Id == id));
+                    HistoryViewModel.CategoryTypeViewModel = null;
+                    HistoryViewModel.AcceptCategoryTypeViewModelChanges();
+                    break;
+            }
         });
     }
 
