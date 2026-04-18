@@ -8,6 +8,7 @@ namespace MyExpenses.Presentation.Mappings;
 [Mapper]
 public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
 {
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsDeleting))]
     public partial TotalByAccountViewModel MapToViewModel(TotalByAccountDto src);
 
     [MapperIgnoreTarget(nameof(AccountViewModel.IsEditing))]

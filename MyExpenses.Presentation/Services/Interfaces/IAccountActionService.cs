@@ -1,5 +1,4 @@
 using MyExpenses.Presentation.ViewModels.Accounts;
-using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
