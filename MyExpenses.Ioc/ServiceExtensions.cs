@@ -42,7 +42,8 @@ public static class ServiceExtensions
             .AddScoped<IExpenseRepository, ExpenseRepository>()
             .AddScoped<ISystemRepository, SystemRepository>();
 
-        services.AddScoped<IAccountValidationRepository, AccountValidationRepository>();
+        services.AddScoped<IAccountValidationRepository, AccountValidationRepository>()
+            .AddScoped<IExpenseValidationRepository, ExpenseValidationRepository>();
 
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<IExpenseService, ExpenseService>()
@@ -52,10 +53,10 @@ public static class ServiceExtensions
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
             .AddScoped<IExpensePresentationService, ExpensePresentationService>()
-            .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>()
             .AddScoped<ISystemPresentationService, SystemPresentationService>();
 
-        services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>();
+        services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>()
+            .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>();
 
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();

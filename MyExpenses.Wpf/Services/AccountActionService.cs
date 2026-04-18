@@ -9,7 +9,6 @@ using MyExpenses.Presentation.Resources.Resx.CategoryManagementResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
-using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Wpf.Services;
@@ -17,7 +16,8 @@ namespace MyExpenses.Wpf.Services;
 public class AccountActionService(
     IDialogService dialogService,
     IAccountPresentationService accountPresentationService, ISystemPresentationService systemPresentationService,
-    IAccountPresentationValidationService accountPresentationValidationService) : IAccountActionService
+    IAccountPresentationValidationService accountPresentationValidationService,
+    IExpensePresentationValidationService expensePresentationValidationService, IExpensePresentationService expensePresentationService) : IAccountActionService
 {
     public async Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {
@@ -46,9 +46,9 @@ public class AccountActionService(
                 await CreateCategoryType(input, cancellationToken);
                 break;
 
-            // case (MessageBoxInputResult.Valid, true):
-                // await UpdateAccountType(accountViewModel.AccountType!, input, cancellationToken);
-                // break;
+            case (MessageBoxInputResult.Valid, true):
+                await UpdateCategoryType(historyViewModel.CategoryTypeViewModel!, input, cancellationToken);
+                break;
         }
     }
 
@@ -60,13 +60,13 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await validationService.IsCategoryTypeNameAvailableAsync(input, cancellationToken);
+        var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, cancellationToken);
         if (available)
         {
             var randomColor = await systemPresentationService.GetRandomColorViewModel(cancellationToken);
 
             var newCategoryType = new CategoryTypeViewModel { Name = input, Color = randomColor };
-            var result = await accountPresentationService.AddCategoryType(newCategoryType, cancellationToken);
+            var result = await expensePresentationService.AddCategoryType(newCategoryType, cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -89,13 +89,43 @@ public class AccountActionService(
             MsgBoxImage.Error);
     }
 
-    public Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input,
+    public async Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input,
         CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemQuestionCaption,
+            string.Format(AccountResources.MessageBoxEditItemQuestionContent, categoryTypeViewModel.Name, input),
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        // TODO continue here
+        // var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, categoryTypeViewModel, cancellationToken);
+        // if (available)
+        // {
+        //     categoryTypeViewModel.Name = input;
+        //     var result = await accountPresentationService.UpdateAccountTypeName(categoryTypeViewModel, cancellationToken);
+        //     if (result.IsSuccess)
+        //     {
+        //         WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>((DependencyType.CategoryType, DataAction.Update, categoryTypeViewModel)));
+        //
+        //         dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
+        //             AccountResources.MessageBoxEditItemSuccessContent,
+        //             MsgBoxImage.Check);
+        //     }
+        //     else
+        //     {
+        //         dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
+        //             AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
+        //     }
+        //     return;
+        // }
+        //
+        // dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorAlreadyUsedCaption,
+        //     string.Format(AccountResources.MessageBoxEditItemErrorAlreadyUsedContent, categoryTypeViewModel.Name),
+        //     MsgBoxImage.Error);
     }
 
-    public Task DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
+    public async Task DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
@@ -142,7 +172,7 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await validationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
+        var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
         if (available)
         {
             var newAccountType = new AccountTypeViewModel { Name = input };
@@ -177,7 +207,7 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await validationService.IsAccountTypeNameAvailableAsync(input, accountTypeViewModel, cancellationToken);
+        var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, accountTypeViewModel, cancellationToken);
         if (available)
         {
             accountTypeViewModel.Name = input;
