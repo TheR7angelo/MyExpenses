@@ -16,7 +16,7 @@ namespace MyExpenses.Wpf.Services;
 
 public class AccountActionService(
     IDialogService dialogService,
-    IAccountPresentationService accountPresentationService,
+    IAccountPresentationService accountPresentationService, ISystemPresentationService systemPresentationService,
     IAccountPresentationValidationService validationService) : IAccountActionService
 {
     public async Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
@@ -63,7 +63,7 @@ public class AccountActionService(
         var available = await validationService.IsCategoryTypeNameAvailableAsync(input, cancellationToken);
         if (available)
         {
-            var randomColor = await accountPresentationService.GetRandomColorViewModel(cancellationToken);
+            var randomColor = await systemPresentationService.GetRandomColorViewModel(cancellationToken);
 
             var newCategoryType = new CategoryTypeViewModel { Name = input, Color = randomColor };
             var result = await accountPresentationService.AddCategoryType(newCategoryType, cancellationToken);

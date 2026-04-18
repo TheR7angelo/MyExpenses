@@ -47,12 +47,14 @@ public static class ServiceExtensions
 
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<ICategoryService, CategoryService>()
-            .AddScoped<IExpenseService, ExpenseService>();
+            .AddScoped<IExpenseService, ExpenseService>()
+            .AddScoped<ISystemService, SystemService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
-            .AddScoped<ICategoryPresentationService, CategoryPresentationService>();
+            .AddScoped<ICategoryPresentationService, CategoryPresentationService>()
+            .AddScoped<ISystemPresentationService, SystemPresentationService>();
 
         services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>();
 
@@ -61,7 +63,8 @@ public static class ServiceExtensions
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
-            .AddSingleton<ICategoryDtoViewModelMapper, CategoryDtoViewModelMapper>();
+            .AddSingleton<ICategoryDtoViewModelMapper, CategoryDtoViewModelMapper>()
+            .AddSingleton<ISystemDtoViewModel, SystemDtoViewModel>();
 
         services.AddServiceLogging(logEventLevel);
 
