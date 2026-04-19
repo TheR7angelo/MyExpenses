@@ -11,7 +11,6 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -26,7 +25,7 @@ using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditAccountWindow : IMessengerEntity
+public partial class AddEditAccountWindow
 {
     #region DependecyProperty
 
@@ -107,12 +106,12 @@ public partial class AddEditAccountWindow : IMessengerEntity
             HistoryViewModel.CategoryTypeViewModel = categoryType;
         });
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, (_, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, (_, message) =>
         {
-            if (m.Value is not { DataAction: DataAction.Delete, Content: var id }) return;
+            if (message.Value is not { DataAction: DataAction.Delete, Content: var id }) return;
 
             // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-            switch (m.Value.EntityType)
+            switch (message.Value.EntityType)
             {
                 case DependencyType.AccountType:
                     AccountTypes.Remove(AccountTypes.First(x => x.Id == id));
