@@ -213,32 +213,6 @@ public class AccountActionService(
                 string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
                 MsgBoxImage.Error);
         }
-
-        // var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
-        // if (available)
-        // {
-        //     var newAccountType = new AccountTypeViewModel { Name = input };
-        //     var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
-        //
-        //     if (result.IsSuccess)
-        //     {
-        //         WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
-        //         dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
-        //             string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
-        //             MsgBoxImage.Check);
-        //     }
-        //     else
-        //     {
-        //         dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-        //             string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
-        //             MsgBoxImage.Error);
-        //     }
-        //     return;
-        // }
-        //
-        // dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-        //     string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
-        //     MsgBoxImage.Error);
     }
 
     public async Task UpdateAccountType(AccountTypeViewModel accountTypeViewModel, string input, CancellationToken cancellationToken = default)
@@ -249,30 +223,21 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, accountTypeViewModel, cancellationToken);
-        if (available)
+        accountTypeViewModel.Name = input;
+        var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
+        if (result.IsSuccess)
         {
-            accountTypeViewModel.Name = input;
-            var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
-            if (result.IsSuccess)
-            {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Update, accountTypeViewModel)));
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Update, accountTypeViewModel)));
 
-                dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
-                    AccountResources.MessageBoxEditItemSuccessContent,
-                    MsgBoxImage.Check);
-            }
-            else
-            {
-                dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
-                    AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
-            }
-            return;
+            dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
+                AccountResources.MessageBoxEditItemSuccessContent,
+                MsgBoxImage.Check);
         }
-
-        dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorAlreadyUsedCaption,
-            string.Format(AccountResources.MessageBoxEditItemErrorAlreadyUsedContent, accountTypeViewModel.Name),
-            MsgBoxImage.Error);
+        else
+        {
+            dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
+                AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
+        }
     }
 
     public async Task DeleteAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)

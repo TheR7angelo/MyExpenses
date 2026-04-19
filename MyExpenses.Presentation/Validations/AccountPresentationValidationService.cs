@@ -9,55 +9,6 @@ public class AccountPresentationValidationService(IAccountValidationRepository a
     ILogger<AccountPresentationValidationService> logger)
     : IAccountPresentationValidationService
 {
-    // public async Task<bool> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
-    // {
-    //     if (!accountViewModel.IsDirty) return true;
-    //
-    //     if (accountViewModel.HasErrors) return false;
-    //
-    //     return true;
-    //
-    //     // if (!accountViewModel.IsNameDirty) return true;
-    //     //
-    //     // var dto = mapper.MapToDto(accountViewModel);
-    //     //
-    //     //
-    //     // var domain = domainMapper.MapToDomain(dto);
-    //     //
-    //     // var isFormatValid = await accountDomainValidationService.IsAccountNameValid(domain, cancellationToken);
-    //     // if (!isFormatValid) return false;
-    //     //
-    //     // var alreadyExists = await accountValidationRepository.IsAccountNameAlreadyExistAsync(dto, cancellationToken);
-    //     //
-    //     // return !alreadyExists;
-    // }
-
-    // public Task<Result> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // public async Task<Result> IsAccountTypeValid(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
-    // {
-    //     if (!accountTypeViewModel.IsDirty) return await Task.FromResult(Result.Success());
-    //
-    //     // TODO continue
-    //     if (accountTypeViewModel.HasErrors)
-    //     {
-    //         var domainValidationResult = accountTypeViewModel.GetErrorCodes();
-    //         var errors = domainValidationResult.Select(e => new { e.ErrorCode, e.InternalMessage });
-    //         logger.LogError("Validation failed with errors: {@Errors}", errors);
-    //     }
-    //
-    //     var isUnique = await IsAccountTypeNameAvailableAsync(accountTypeViewModel.Name!, cancellationToken);
-    //     if (!isUnique)
-    //     {
-    //         // accountTypeViewModel.SetErrors("Name", "Account type name must be unique");
-    //     }
-    //
-    //     return await Task.FromResult(Result.Success());
-    // }
-
     public async Task<bool> IsAccountTypeNameAvailableAsync(string input, AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default)
     {
