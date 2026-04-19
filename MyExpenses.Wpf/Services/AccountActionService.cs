@@ -35,6 +35,7 @@ public class AccountActionService(
             out var messageBoxResult, out var input, CategoryTypeDomain.MaxNameLength, placeholder);
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
+        if (input.Equals(defaultText)) return;
 
         switch (messageBoxResult, editMode)
         {
@@ -148,6 +149,7 @@ public class AccountActionService(
             out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeHolder);
 
         if (result is not true || string.IsNullOrWhiteSpace(input)) return;
+        if (input.Equals(defaultText)) return;
 
         switch (messageBoxResult, editMode)
         {

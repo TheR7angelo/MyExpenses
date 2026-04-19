@@ -33,11 +33,12 @@ public class AccountPresentationValidationService(IAccountValidationRepository a
     //     //
     //     // return !alreadyExists;
     // }
+
     // public Task<Result> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     // {
     //     throw new NotImplementedException();
     // }
-    //
+
     // public async Task<Result> IsAccountTypeValid(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     // {
     //     if (!accountTypeViewModel.IsDirty) return await Task.FromResult(Result.Success());
