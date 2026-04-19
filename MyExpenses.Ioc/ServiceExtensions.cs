@@ -65,7 +65,9 @@ public static class ServiceExtensions
             .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
             .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>();
 
-        services.AddScoped<AccountTypeViewModelValidator>();
+        services.AddScoped<AccountViewModelValidator>()
+            .AddScoped<AccountTypeViewModelValidator>()
+            .AddScoped<CategoryTypeViewModelValidator>();
 
         services.AddServiceLogging(logEventLevel);
 
