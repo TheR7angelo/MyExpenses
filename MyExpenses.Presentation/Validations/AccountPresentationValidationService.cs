@@ -1,5 +1,3 @@
-using Domain.Interfaces;
-using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Presentation.Validations.Interfaces;
@@ -49,6 +47,12 @@ public class AccountPresentationValidationService(IAccountValidationRepository a
     //         var domainValidationResult = accountTypeViewModel.GetErrorCodes();
     //         var errors = domainValidationResult.Select(e => new { e.ErrorCode, e.InternalMessage });
     //         logger.LogError("Validation failed with errors: {@Errors}", errors);
+    //     }
+    //
+    //     var isUnique = await IsAccountTypeNameAvailableAsync(accountTypeViewModel.Name!, cancellationToken);
+    //     if (!isUnique)
+    //     {
+    //         // accountTypeViewModel.SetErrors("Name", "Account type name must be unique");
     //     }
     //
     //     return await Task.FromResult(Result.Success());

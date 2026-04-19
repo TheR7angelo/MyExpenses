@@ -5,7 +5,7 @@ using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Presentation.Mappings;
 
-[Mapper]
+[Mapper(UseDeepCloning = true)]
 public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
 {
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsDeleting))]
@@ -31,4 +31,6 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial CurrencyDto MapToDto(CurrencyViewModel src);
 
     public partial AccountTypeViewModel MapToViewModel(AccountTypeDto src);
+
+    public partial AccountTypeViewModel Clone(AccountTypeViewModel src);
 }

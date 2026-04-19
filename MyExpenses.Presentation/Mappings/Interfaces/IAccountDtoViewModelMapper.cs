@@ -53,4 +53,11 @@ public interface IAccountDtoViewModelMapper
     /// <param name="src">The AccountTypeViewModel object to be mapped.</param>
     /// <returns>An AccountTypeDto object representing the mapped data.</returns>
     public AccountTypeDto MapToDto(AccountTypeViewModel src);
+
+    /// <summary>
+    /// Creates a deep copy of the given AccountTypeViewModel object.
+    /// </summary>
+    /// <param name="src">The AccountTypeViewModel object to be cloned.</param>
+    /// <returns>A new AccountTypeViewModel object that is a deep copy of the provided source object.</returns>
+    public AccountTypeViewModel Clone(AccountTypeViewModel src);
 }

@@ -14,6 +14,8 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.5" />
       <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
       <PackageReference Include="TheR7angelo.DirtyTracking" Version="1.0.0" />

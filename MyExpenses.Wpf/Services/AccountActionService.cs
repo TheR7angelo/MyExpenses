@@ -2,11 +2,15 @@ using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Accounts;
 using Domain.Models.Categories;
 using Domain.Models.Dependencies;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Resources.Resx.CategoryManagementResources;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -17,7 +21,9 @@ public class AccountActionService(
     IDialogService dialogService,
     IAccountPresentationService accountPresentationService, ISystemPresentationService systemPresentationService,
     IAccountPresentationValidationService accountPresentationValidationService,
-    IExpensePresentationValidationService expensePresentationValidationService, IExpensePresentationService expensePresentationService) : IAccountActionService
+    IExpensePresentationValidationService expensePresentationValidationService, IExpensePresentationService expensePresentationService,
+    IAccountDtoViewModelMapper accountDtoViewModelMapper,
+    ILogger<AccountActionService> logger) : IAccountActionService
 {
     public async Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {
@@ -134,36 +140,51 @@ public class AccountActionService(
 
     public async Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
-        var editMode = accountViewModel.AccountTypeViewModel != null;
-        var defaultText = editMode ? accountViewModel.AccountTypeViewModel!.Name ?? string.Empty : string.Empty;
+        var isEdit = accountViewModel.AccountTypeViewModel != null;
+        var currentName = isEdit ? accountViewModel.AccountTypeViewModel!.Name ?? string.Empty : string.Empty;
 
-        var placeHolder = editMode
-            ? AccountResources.TextBoxEditAccountTypeName
-            : AccountResources.TextBoxAddNewAccountTypeName;
+        var title = isEdit ? AccountResources.TitleWindowEditAccountTypeName : AccountResources.TitleWindowAddAccountTypeName;
+        var placeholder = isEdit ? AccountResources.TextBoxEditAccountTypeName : AccountResources.TextBoxAddNewAccountTypeName;
 
-        var titleWindow = editMode
-            ? AccountResources.TitleWindowEditAccountTypeName
-            : AccountResources.TitleWindowAddAccountTypeName;
+        var dialogResult = dialogService.ShowInputDialog(title, currentName,
+            out var btnResult, out var input, AccountTypeDomain.MaxNameLength, placeholder);
 
-        var result = dialogService.ShowInputDialog(titleWindow, defaultText,
-            out var messageBoxResult, out var input, AccountTypeDomain.MaxNameLength, placeHolder);
+        if (dialogResult is not true || btnResult is MessageBoxInputResult.Cancel) return;
 
-        if (result is not true || string.IsNullOrWhiteSpace(input)) return;
-        if (input.Equals(defaultText)) return;
-
-        switch (messageBoxResult, editMode)
+        if (btnResult is MessageBoxInputResult.Delete && isEdit)
         {
-            case (MessageBoxInputResult.Delete, _):
-                await DeleteAccountType(accountViewModel.AccountTypeViewModel!, cancellationToken);
-                break;
+            await DeleteAccountType(accountViewModel.AccountTypeViewModel!, cancellationToken);
+            return;
+        }
 
-            case (MessageBoxInputResult.Valid, false):
-                await CreateAccountType(input, cancellationToken);
-                break;
+        var tempVm = isEdit ? accountDtoViewModelMapper.Clone(accountViewModel.AccountTypeViewModel!) : new AccountTypeViewModel();
+        tempVm.Name = input;
 
-            case (MessageBoxInputResult.Valid, true):
-                await UpdateAccountType(accountViewModel.AccountTypeViewModel!, input, cancellationToken);
-                break;
+        var validator = App.ServiceProvider.GetRequiredService<AccountTypeViewModelValidator>();
+        var valResult = await validator.ValidateAsync(tempVm, cancellationToken);
+
+        if (!valResult.IsValid)
+        {
+            var error = valResult.Errors.First();
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption, error.ErrorMessage, MsgBoxImage.Error);
+
+            if (error.CustomState is DomainValidationFailure domainError)
+            {
+                logger.LogError("Validation failed for account type with error {ErrorCodeString}: {InternalMessage}", domainError.ErrorCodeString, domainError.InternalMessage);
+            }
+
+            // ReSharper disable once TailRecursiveCall
+            await ManageAccountTypeAction(accountViewModel, cancellationToken);
+            return;
+        }
+
+        if (isEdit)
+        {
+            await UpdateAccountType(tempVm, input!, cancellationToken);
+        }
+        else
+        {
+            await CreateAccountType(input!, cancellationToken);
         }
     }
 
@@ -175,31 +196,49 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
-        if (available)
-        {
-            var newAccountType = new AccountTypeViewModel { Name = input };
-            var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
+        var newAccountType = new AccountTypeViewModel { Name = input };
+        var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
 
-            if (result.IsSuccess)
-            {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
-                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
-                    string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
-                    MsgBoxImage.Check);
-            }
-            else
-            {
-                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-                    string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
-                    MsgBoxImage.Error);
-            }
-            return;
+        if (result.IsSuccess)
+        {
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
+
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
+                string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
+                MsgBoxImage.Check);
+        }
+        else
+        {
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+                string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
+                MsgBoxImage.Error);
         }
 
-        dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-            string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
-            MsgBoxImage.Error);
+        // var available = await accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, cancellationToken);
+        // if (available)
+        // {
+        //     var newAccountType = new AccountTypeViewModel { Name = input };
+        //     var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
+        //
+        //     if (result.IsSuccess)
+        //     {
+        //         WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
+        //         dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
+        //             string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
+        //             MsgBoxImage.Check);
+        //     }
+        //     else
+        //     {
+        //         dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+        //             string.Format(AccountResources.MessageBoxCreateItemErrorContent, newAccountType.Name),
+        //             MsgBoxImage.Error);
+        //     }
+        //     return;
+        // }
+        //
+        // dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+        //     string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
+        //     MsgBoxImage.Error);
     }
 
     public async Task UpdateAccountType(AccountTypeViewModel accountTypeViewModel, string input, CancellationToken cancellationToken = default)
