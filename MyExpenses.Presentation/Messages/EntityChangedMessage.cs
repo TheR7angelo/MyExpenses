@@ -10,5 +10,12 @@ public enum DataAction
     Delete
 }
 
-public class EntityChangedMessage<T>((DependencyType EntityType, DataAction DataAction, T Content) value)
-    : ValueChangedMessage<(DependencyType EntityType, DataAction DataAction, T Content)>(value);
+public class EntityChangedMessage<T>(EntityChanged<T> value)
+    : ValueChangedMessage<EntityChanged<T>>(value);
+
+public readonly struct EntityChanged<T>
+{
+    public DependencyType EntityType { get; init; }
+    public DataAction DataAction { get; init; }
+    public T Content { get; init; }
+}

@@ -213,20 +213,20 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxDeleteteErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteteErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxDeletetemErrorCaption {
             get {
                 return ResourceManager.GetString("MessageBoxDeletetemErrorCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        public static string MessageBoxDeletetemErrorContent {
-            get {
-                return ResourceManager.GetString("MessageBoxDeletetemErrorContent", resourceCulture);
             }
         }
         

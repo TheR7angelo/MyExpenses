@@ -1,4 +1,3 @@
-using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
@@ -9,13 +8,13 @@ using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services;
 
-public class ExpensePresentationService(IExpenseService categoryService, IExpenseDtoViewModelMapper mapper,
+public class ExpensePresentationService(IExpenseService expenseService, IExpenseDtoViewModelMapper mapper,
     IExpenseValidationRepository expenseValidationRepository,
     ILogger<ExpensePresentationService> logger) : IExpensePresentationService
 {
     public async Task<IEnumerable<CategoryTypeViewModel>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var categoryTypes = await categoryService.GetAllCategoryTypesAsync(cancellationToken);
+        var categoryTypes = await expenseService.GetAllCategoryTypesAsync(cancellationToken);
         return categoryTypes.Select(mapper.MapToViewModel);
     }
 
@@ -51,9 +50,16 @@ public class ExpensePresentationService(IExpenseService categoryService, IExpens
         }
     }
 
+    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeViewModel categoryTypeViewModel,
+        CancellationToken cancellationToken = default)
+    {
+        var categoryTypeDto = mapper.MapToDto(categoryTypeViewModel);
+        return expenseService.DeleteCategoryTypeAsync(categoryTypeDto, cancellationToken);
+    }
+
     public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
     {
         var categoryTypeDto = mapper.MapToDto(newCategoryType);
-        return categoryService.AddCategoryTypeAsync(categoryTypeDto, cancellationToken);
+        return expenseService.AddCategoryTypeAsync(categoryTypeDto, cancellationToken);
     }
 }

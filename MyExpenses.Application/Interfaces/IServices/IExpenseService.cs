@@ -19,4 +19,13 @@ public interface IExpenseService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
     public Task<Result> AddCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified category type from the system.
+    /// </summary>
+    /// <param name="categoryTypeDto">An object representing the category type to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the operation, including any deleted dependencies.</returns>
+    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDto categoryTypeDto,
+        CancellationToken cancellationToken = default);
 }

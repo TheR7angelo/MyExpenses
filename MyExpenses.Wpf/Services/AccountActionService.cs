@@ -97,7 +97,13 @@ public class AccountActionService(
 
             if (result.IsSuccess)
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>((DependencyType.CategoryType, DataAction.Add, newCategoryType)));
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>(new EntityChanged<CategoryTypeViewModel>
+                {
+                    EntityType = DependencyType.CategoryType,
+                    DataAction = DataAction.Add,
+                    Content = newCategoryType
+                }));
+
                 dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
                     string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newCategoryType.Name),
                     MsgBoxImage.Check);
@@ -166,26 +172,27 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        // var deleteResult = await accountPresentationService.DeleteAccountTypeAsync(accountTypeViewModel, cancellationToken);
-        //
-        // if (deleteResult.IsSuccess)
-        // {
-        //     if (deleteResult.DeletedItems?.TryGetValue(DependencyType.Account, out var accountIds) is true)
-        //     {
-        //         WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((DependencyType.Account, DataAction.Delete, accountIds)));
-        //     }
-        //     WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>((DependencyType.AccountType, DataAction.Delete, accountTypeViewModel.Id)));
-        //
-        //     dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemSuccessCaption,
-        //         string.Format(AccountResources.MessageBoxDeleteItemSuccessContent, accountTypeViewModel.Name),
-        //         MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     dialogService.ShowMessageBox(AccountResources.MessageBoxDeletetemErrorCaption,
-        //         AccountResources.MessageBoxDeletetemErrorContent,
-        //         MsgBoxImage.Error);
-        // }
+        var deleteResult = await expensePresentationService.DeleteCategoryTypeAsync(categoryTypeViewModel, cancellationToken);
+
+        if (deleteResult.IsSuccess)
+        {
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>(new EntityChanged<int>
+            {
+                EntityType = DependencyType.CategoryType,
+                DataAction = DataAction.Delete,
+                Content = categoryTypeViewModel.Id
+            }));
+
+            dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemSuccessCaption,
+                string.Format(AccountResources.MessageBoxDeleteItemSuccessContent, categoryTypeViewModel.Name),
+                MsgBoxImage.Check);
+        }
+        else
+        {
+            dialogService.ShowMessageBox(AccountResources.MessageBoxDeletetemErrorCaption,
+                AccountResources.MessageBoxDeleteteErrorContent,
+                MsgBoxImage.Error);
+        }
     }
 
     public async Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
@@ -251,7 +258,12 @@ public class AccountActionService(
 
         if (result.IsSuccess)
         {
-            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Add, newAccountType)));
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>(new EntityChanged<AccountTypeViewModel>
+            {
+                EntityType = DependencyType.AccountType,
+                DataAction = DataAction.Add,
+                Content = newAccountType
+            }));
 
             dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
                 string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newAccountType.Name),
@@ -277,7 +289,12 @@ public class AccountActionService(
         var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
         if (result.IsSuccess)
         {
-            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>((DependencyType.AccountType, DataAction.Update, accountTypeViewModel)));
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<AccountTypeViewModel>(new EntityChanged<AccountTypeViewModel>
+            {
+                EntityType = DependencyType.AccountType,
+                DataAction = DataAction.Update,
+                Content = accountTypeViewModel
+            }));
 
             dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
                 AccountResources.MessageBoxEditItemSuccessContent,
@@ -309,9 +326,19 @@ public class AccountActionService(
         {
             if (deleteResult.DeletedItems?.TryGetValue(DependencyType.Account, out var accountIds) is true)
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>((DependencyType.Account, DataAction.Delete, accountIds)));
+                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int[]>(new EntityChanged<int[]>
+                {
+                    EntityType = DependencyType.Account,
+                    DataAction = DataAction.Delete,
+                    Content = accountIds
+                }));
             }
-            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>((DependencyType.AccountType, DataAction.Delete, accountTypeViewModel.Id)));
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<int>(new EntityChanged<int>
+            {
+                EntityType = DependencyType.AccountType,
+                DataAction = DataAction.Delete,
+                Content = accountTypeViewModel.Id
+            }));
 
             dialogService.ShowMessageBox(AccountResources.MessageBoxDeleteItemSuccessCaption,
                 string.Format(AccountResources.MessageBoxDeleteItemSuccessContent, accountTypeViewModel.Name),
@@ -320,7 +347,7 @@ public class AccountActionService(
         else
         {
             dialogService.ShowMessageBox(AccountResources.MessageBoxDeletetemErrorCaption,
-                AccountResources.MessageBoxDeletetemErrorContent,
+                AccountResources.MessageBoxDeleteteErrorContent,
                 MsgBoxImage.Error);
         }
     }

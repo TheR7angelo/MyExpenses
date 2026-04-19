@@ -1,5 +1,4 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,7 @@ using MyExpenses.Sql.Mappings;
 namespace MyExpenses.Sql.Repositories;
 
 public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactory<DataBaseContext> dbContextFactory,
-    IExpenseRepository expenseRepository, ISystemRepository systemRepository,
+    IExpenseRepository expenseRepository,
     ILogger<AccountRepository> logger) : IAccountRepository
 {
     public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default)

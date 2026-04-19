@@ -34,6 +34,15 @@ public interface IExpenseRepository
     public Task<int[]> GetAllExpenseIdAsync(int[] accountIds, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves an array of all expense IDs associated with a specified category type.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type for which to retrieve the expense IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of expense IDs associated with the specified category type.</returns>
+    public Task<int[]> GetAllExpenseIdAsync(CategoryTypeDomain categoryTypeDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the unique identifiers of all bank transfers associated with the specified account IDs.
     /// </summary>
     /// <param name="accountIds">An array of account IDs for which to retrieve the bank transfer IDs.</param>
@@ -42,12 +51,30 @@ public interface IExpenseRepository
     public Task<int[]> GetAllBankTransferIdsAsync(int[] accountIds, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the IDs of all bank transfers associated with a specified category type domain.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type domain for which to retrieve the bank transfer IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of IDs representing the bank transfers associated with the specified category type domain.</returns>
+    public Task<int[]> GetAllBankTransferIdsAsync(CategoryTypeDomain categoryTypeDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the unique identifiers of all recurring transactions associated with the specified account IDs.
     /// </summary>
     /// <param name="accountIds">An array of account IDs for which to retrieve the recurring transaction IDs.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of integers representing the recurring transaction IDs associated with the specified accounts.</returns>
     public Task<int[]> GetAllRecurringTransactionIdsAsync(int[] accountIds,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all recurring transactions associated with the specified category type.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type associated with the recurring transactions.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of IDs corresponding to recurring transactions associated with the specified category type.</returns>
+    public Task<int[]> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain categoryTypeDomain,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -100,4 +127,13 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation.</returns>
     public Task<Result> AddCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified account type and returns the result of the deletion process.
+    /// </summary>
+    /// <param name="accountType">The account type to be deleted.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The result of the deletion operation, including details of any deleted items.</returns>
+    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDomain accountType,
+        CancellationToken cancellationToken = default);
 }

@@ -41,5 +41,6 @@ public enum ErrorCode
 
     DatabaseError = 100,
     AccountTypeNotFound,
+    CategoryTypeNotFound,
     NotFound,
 }

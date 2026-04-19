@@ -28,4 +28,12 @@ public interface IExpensePresentationService
     /// <param name="cancellationToken">A cancellation token to observe while awaiting the task to complete.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is a boolean indicating whether the category type name is available.</returns>
     public Task<bool> IsCategoryTypeNameAvailableAsync(string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified category type asynchronously.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">The category type view model to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains the outcome of the deletion process.</return>
+    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default);
 }
