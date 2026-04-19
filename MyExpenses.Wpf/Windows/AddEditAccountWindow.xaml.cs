@@ -11,6 +11,7 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -115,13 +116,9 @@ public partial class AddEditAccountWindow
             {
                 case DependencyType.AccountType:
                     AccountTypes.Remove(AccountTypes.First(x => x.Id == id));
-                    AccountViewModel.AccountTypeViewModel = null;
-                    AccountViewModel.AcceptAccountTypeViewModelChanges();
                     break;
                 case DependencyType.CategoryType:
                     CategoryTypes.Remove(CategoryTypes.First(x => x.Id == id));
-                    HistoryViewModel.CategoryTypeViewModel = null;
-                    HistoryViewModel.AcceptCategoryTypeViewModelChanges();
                     break;
             }
         });
@@ -256,11 +253,18 @@ public partial class AddEditAccountWindow
 
     private async void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var error = await CheckIsError();
-        if (error) return;
+        // TODO correct
 
-        DialogResult = true;
-        Close();
+        // var error = await CheckIsError();
+        // if (error) return;
+        //
+        // DialogResult = true;
+        // Close();
+
+        var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
+        var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
+
+        AccountViewModel.ValidateWithFluent(valResult);
     }
 
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
