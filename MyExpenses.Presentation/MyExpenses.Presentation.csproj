@@ -30,7 +30,7 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>DependencyRessources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\CategoryManagementResources\CategoryManagementResources.resx">
+      <EmbeddedResource Update="Resources\Resx\CategoryManagementResources\ExpenseManagementResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>CategoryManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -47,10 +47,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DependencyRessources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\CategoryManagementResources\CategoryManagementResources.Designer.cs">
+      <Compile Update="Resources\Resx\CategoryManagementResources\ExpenseManagementResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>CategoryManagementResources.resx</DependentUpon>
+        <DependentUpon>ExpenseManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

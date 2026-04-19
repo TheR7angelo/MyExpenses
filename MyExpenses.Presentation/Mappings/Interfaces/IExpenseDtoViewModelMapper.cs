@@ -26,4 +26,15 @@ public interface IExpenseDtoViewModelMapper
     /// A <see cref="CategoryTypeDto"/> containing the mapped data from the provided <see cref="CategoryTypeViewModel"/>.
     /// </returns>
     public CategoryTypeDto MapToDto(CategoryTypeViewModel src);
+
+    /// <summary>
+    /// Creates a copy of the provided <see cref="CategoryTypeViewModel"/> instance.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">
+    /// The <see cref="CategoryTypeViewModel"/> instance to be cloned.
+    /// </param>
+    /// <returns>
+    /// A new <see cref="CategoryTypeViewModel"/> instance that is a copy of the provided instance.
+    /// </returns>
+    public CategoryTypeViewModel Clone(CategoryTypeViewModel categoryTypeViewModel);
 }

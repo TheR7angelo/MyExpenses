@@ -21,6 +21,7 @@ public static class DependencyTypeConverter
                 DependencyType.Expense => DependencyRessources.DependencyTypeExpenses,
                 DependencyType.RecurringExpense => DependencyRessources.DependencyTypeRecurringExpenses,
                 DependencyType.AccountType => DependencyRessources.DependencyTypeAccountTypes,
+                DependencyType.CategoryType => DependencyRessources.DependencyTypeCategoryTypes,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -32,6 +33,7 @@ public static class DependencyTypeConverter
             DependencyType.Expense => DependencyRessources.DependencyTypeExpense,
             DependencyType.RecurringExpense => DependencyRessources.DependencyTypeRecurringExpense,
             DependencyType.AccountType => DependencyRessources.DependencyTypeAccountType,
+            DependencyType.CategoryType => DependencyRessources.DependencyTypeCategoryType,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -50,6 +52,8 @@ public static class DependencyTypeConverter
             str.Equals(DependencyRessources.DependencyTypeRecurringExpenses)) return DependencyType.RecurringExpense;
         if (str.Equals(DependencyRessources.DependencyTypeAccountType) ||
             str.Equals(DependencyRessources.DependencyTypeAccountTypes)) return DependencyType.AccountType;
+        if (str.Equals(DependencyRessources.DependencyTypeCategoryType) ||
+            str.Equals(DependencyRessources.DependencyTypeCategoryTypes)) return DependencyType.CategoryType;
 
         return null;
     }

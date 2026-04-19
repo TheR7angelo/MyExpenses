@@ -40,13 +40,6 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         return await accountService.DeleteAccountTypeAsync(accountTypeDto, cancellationToken);
     }
 
-    public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeViewModel accountTypeViewModel,
-        CancellationToken cancellationToken = default)
-    {
-        var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
-        return await systemService.GetAllDependenciesAsync(accountTypeDto, cancellationToken);
-    }
-
     public async Task<Result> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);

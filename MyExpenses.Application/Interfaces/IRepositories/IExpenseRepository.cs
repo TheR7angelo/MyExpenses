@@ -1,5 +1,6 @@
 using Domain.Models.Accounts;
 using Domain.Models.Categories;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -56,6 +57,33 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>An integer representing the count of expenses associated with the specified account.</returns>
     public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all expenses associated with a specific category type.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type domain for which to retrieve the expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of expenses associated with the specified category type.</returns>
+    public Task<int> GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all bank transactions associated with a specified category type.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type for which to retrieve the bank transaction count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of bank transactions associated with the specified category type.</returns>
+    public Task<int> GetAllBankTransactionCountAsync(CategoryTypeDomain categoryTypeDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the count of all recursive expenses associated with the specified category type.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category type for which to retrieve the recursive expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of recursive expenses associated with the specified category type.</returns>
+    public Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
         CancellationToken cancellationToken = default);
 
     /// <summary>

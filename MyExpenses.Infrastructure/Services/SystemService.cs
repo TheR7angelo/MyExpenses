@@ -1,15 +1,16 @@
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Categories;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;
 
 namespace MyExpenses.Infrastructure.Services;
 
-public class SystemService(IAccountDtoDomainMapper mapperAccount,
+public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDomainMapper mapperExpense,
     ILogger<SystemService> logger,
-    IAccountRepository accountRepository, IExpenseRepository expenseRepository, IExpenseRepository categoryRepository) : ISystemService
+    IAccountRepository accountRepository, IExpenseRepository expenseRepository) : ISystemService
 {
     public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
@@ -58,6 +59,42 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount,
         dependencies = dependencies.OrderBy(d => d.Category).ToList();
 
         logger.LogInformation("Finished dependency loading for account type with {DependencyCount} dependencies", dependencies.Count);
+        return dependencies;
+    }
+
+    public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var categoryTypeDomain = mapperExpense.MapToDomain(categoryTypeDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["CategoryTypeName"] = categoryTypeDomain.Name!
+        });
+
+        logger.LogInformation("Loading dependencies for category type {CategoryTypeName}", categoryTypeDomain.Name);
+
+        var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(categoryTypeDomain, cancellationToken);
+        var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(categoryTypeDomain, cancellationToken);
+        var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(categoryTypeDomain, cancellationToken);
+
+        await Task.WhenAll(expenseCountTask, bankTransactionCountTask, recursiveExpenseCountTask);
+
+        var expenseCount = await expenseCountTask;
+        var bankTransactionCount = await bankTransactionCountTask;
+        var recursiveExpenseCount = await recursiveExpenseCountTask;
+
+        dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+        logger.LogInformation("Loaded dependencies for category type {CategoryTypeName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
+        categoryTypeDomain.Name,
+        expenseCount,
+        bankTransactionCount,
+        recursiveExpenseCount);
+
+        logger.LogInformation("Finished dependency loading for category type with {DependencyCount} dependencies", dependencies.Count);
         return dependencies;
     }
 }

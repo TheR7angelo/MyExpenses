@@ -7,13 +7,15 @@ using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Presentation.Mappings;
 
-[Mapper]
+[Mapper(UseDeepCloning = true)]
 public partial class ExpenseDtoViewModelMapper(ISystemDtoViewModelMapper mapper) : IExpenseDtoViewModelMapper
 {
     public partial CategoryTypeViewModel MapToViewModel(CategoryTypeDto src);
 
     [MapperIgnoreSource(nameof(CategoryTypeViewModel.HasErrors))]
     public partial CategoryTypeDto MapToDto(CategoryTypeViewModel src);
+
+    public partial CategoryTypeViewModel Clone(CategoryTypeViewModel categoryTypeViewModel);
 
     private ColorDto MapToDto(ColorViewModel source)
     {

@@ -56,4 +56,10 @@
     <data name="DependencyTypeRecurringExpenses" xml:space="preserve">
         <value>Recurring expenses</value>
     </data>
+    <data name="DependencyTypeCategoryType" xml:space="preserve">
+        <value>Category type</value>
+    </data>
+    <data name="DependencyTypeCategoryTypes" xml:space="preserve">
+        <value>Category types</value>
+    </data>
 </root>

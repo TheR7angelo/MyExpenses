@@ -1,3 +1,4 @@
+using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;

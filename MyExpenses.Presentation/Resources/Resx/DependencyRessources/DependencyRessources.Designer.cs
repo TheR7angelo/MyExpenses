@@ -159,6 +159,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DependencyRessources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category type.
+        /// </summary>
+        public static string DependencyTypeCategoryType {
+            get {
+                return ResourceManager.GetString("DependencyTypeCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category types.
+        /// </summary>
+        public static string DependencyTypeCategoryTypes {
+            get {
+                return ResourceManager.GetString("DependencyTypeCategoryTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expense.
         /// </summary>
         public static string DependencyTypeExpense {
