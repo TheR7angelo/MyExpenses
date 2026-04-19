@@ -60,6 +60,33 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type name must be unique.
+        /// </summary>
+        public static string AccountTypeViewModelValidatorNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("AccountTypeViewModelValidatorNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type name is required.
+        /// </summary>
+        public static string AccountTypeViewModelValidatorNameRequired {
+            get {
+                return ResourceManager.GetString("AccountTypeViewModelValidatorNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be between 1 and {0} characters long.
+        /// </summary>
+        public static string AccountTypeViewModelValidatorNameTooLong {
+            get {
+                return ResourceManager.GetString("AccountTypeViewModelValidatorNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxAddEditAccountTypeErrorCaption {

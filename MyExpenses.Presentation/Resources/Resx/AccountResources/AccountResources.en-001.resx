@@ -95,4 +95,13 @@
     <data name="TitleWindowEditAccountTypeName" xml:space="preserve">
         <value>Edit account type</value>
     </data>
+    <data name="AccountTypeViewModelValidatorNameRequired" xml:space="preserve">
+        <value>Account type name is required</value>
+    </data>
+    <data name="AccountTypeViewModelValidatorNameTooLong" xml:space="preserve">
+        <value>Name must be between 1 and {0} characters long</value>
+    </data>
+    <data name="AccountTypeViewModelValidatorNameAlreadyExists" xml:space="preserve">
+        <value>Account type name must be unique</value>
+    </data>
 </root>
