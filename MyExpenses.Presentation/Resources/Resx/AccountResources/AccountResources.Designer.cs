@@ -87,6 +87,42 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type is required.
+        /// </summary>
+        public static string AccountViewModelValidatorAccountTypeRequired {
+            get {
+                return ResourceManager.GetString("AccountViewModelValidatorAccountTypeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency type is required.
+        /// </summary>
+        public static string AccountViewModelValidatorCurrencyRequired {
+            get {
+                return ResourceManager.GetString("AccountViewModelValidatorCurrencyRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account name is required.
+        /// </summary>
+        public static string AccountViewModelValidatorNameRequired {
+            get {
+                return ResourceManager.GetString("AccountViewModelValidatorNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be between 1 and {0} characters long.
+        /// </summary>
+        public static string AccountViewModelValidatorNameTooLong {
+            get {
+                return ResourceManager.GetString("AccountViewModelValidatorNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxAddEditAccountTypeErrorCaption {

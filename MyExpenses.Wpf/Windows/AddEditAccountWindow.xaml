@@ -10,6 +10,7 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
                  xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
                  xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
+                 xmlns:accounts="clr-namespace:Domain.Models.Accounts;assembly=MyExpenses.Domain"
                  mc:Ignorable="d"
 
                  Title="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountTitleWindow}}"
@@ -65,7 +66,7 @@
                  materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountTextBoxAccountName}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding AccountViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding AccountViewModel, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}">
+                 MaxLength="{x:Static accounts:AccountDomain.MaxNameLength}">
         </TextBox>
 
         <ComboBox Grid.Row="1" Grid.Column="0"

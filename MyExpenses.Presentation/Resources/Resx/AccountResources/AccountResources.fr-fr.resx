@@ -104,4 +104,16 @@
     <data name="AccountTypeViewModelValidatorNameAlreadyExists" xml:space="preserve">
         <value>Le nom du type de compte doit être unique</value>
     </data>
+    <data name="AccountViewModelValidatorNameTooLong" xml:space="preserve">
+        <value>Le nom doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="AccountViewModelValidatorNameRequired" xml:space="preserve">
+        <value>Le nom du compte est requis</value>
+    </data>
+    <data name="AccountViewModelValidatorAccountTypeRequired" xml:space="preserve">
+        <value>Le type de compte est requis</value>
+    </data>
+    <data name="AccountViewModelValidatorCurrencyRequired" xml:space="preserve">
+        <value>Le type de monnaie est requis</value>
+    </data>
 </root>
