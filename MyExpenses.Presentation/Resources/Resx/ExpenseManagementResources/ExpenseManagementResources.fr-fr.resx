@@ -23,4 +23,16 @@
     <data name="TitleWindowAddCategoryTypeName" xml:space="preserve">
         <value>Ajouter un nouveau type de catégorie</value>
     </data>
+    <data name="CategoryTypeViewModelNameRequired" xml:space="preserve">
+        <value>Le nom du type de catégorie est requis</value>
+    </data>
+    <data name="CategoryTypeViewModelNameTooLong" xml:space="preserve">
+        <value>Le nom doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="CategoryTypeViewModelNameAlreadyExists" xml:space="preserve">
+        <value>Le nom du type de catégorie doit être unique</value>
+    </data>
+    <data name="CategoryTypeViewModelColorRequired" xml:space="preserve">
+        <value>La couleur est requise</value>
+    </data>
 </root>

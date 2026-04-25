@@ -34,6 +34,9 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>CategoryManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ExpenseManagementResources\ExpenseManagementResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

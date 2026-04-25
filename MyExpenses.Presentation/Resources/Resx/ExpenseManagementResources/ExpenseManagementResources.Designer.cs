@@ -61,6 +61,42 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color is required.
+        /// </summary>
+        public static string CategoryTypeViewModelColorRequired {
+            get {
+                return ResourceManager.GetString("CategoryTypeViewModelColorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type name must be unique.
+        /// </summary>
+        public static string CategoryTypeViewModelNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("CategoryTypeViewModelNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type name is required.
+        /// </summary>
+        public static string CategoryTypeViewModelNameRequired {
+            get {
+                return ResourceManager.GetString("CategoryTypeViewModelNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be between 1 and {0} characters long.
+        /// </summary>
+        public static string CategoryTypeViewModelNameTooLong {
+            get {
+                return ResourceManager.GetString("CategoryTypeViewModelNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new category type name :.
         /// </summary>
         public static string TextBoxAddNewCategoryTypeName {
