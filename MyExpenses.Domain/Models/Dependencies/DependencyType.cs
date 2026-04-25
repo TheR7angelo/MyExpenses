@@ -10,7 +10,8 @@ public enum DependencyType
     CategoryType,
     Expense,
     RecurringExpense,
-    AccountType
+    AccountType,
+    Currency
 }
 
 public static class DependencyCaptionName

@@ -93,6 +93,14 @@ public partial class AddEditAccountWindow
 
         InitializeComponent();
 
+        RegisterEntityChangeHandlers();
+
+        Closed += (_, _) => WeakReferenceMessenger.Default.UnregisterAll(this);
+    }
+
+    // ReSharper disable once CognitiveComplexity
+    private void RegisterEntityChangeHandlers()
+    {
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountTypeViewModel>>(this, (_, m) =>
         {
             if (m.Value is not { EntityType: DependencyType.AccountType, DataAction: DataAction.Add, Content: var accountType }) return;
@@ -107,6 +115,13 @@ public partial class AddEditAccountWindow
             HistoryViewModel.CategoryTypeViewModel = categoryType;
         });
 
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CurrencyViewModel>>(this, (_, m) =>
+        {
+            if (m.Value is not { EntityType: DependencyType.Currency, DataAction: DataAction.Add, Content: var currency }) return;
+            Currencies.AddAndSort(currency, s => s.Symbol!);
+            AccountViewModel.CurrencyViewModel = currency;
+        });
+
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, (_, message) =>
         {
             if (message.Value is not { DataAction: DataAction.Delete, Content: var id }) return;
@@ -119,6 +134,9 @@ public partial class AddEditAccountWindow
                     break;
                 case DependencyType.CategoryType:
                     CategoryTypes.Remove(CategoryTypes.First(x => x.Id == id));
+                    break;
+                case DependencyType.Currency:
+                    Currencies.Remove(Currencies.First(x => x.Id == id));
                     break;
             }
         });
