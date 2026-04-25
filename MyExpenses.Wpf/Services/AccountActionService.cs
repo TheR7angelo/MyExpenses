@@ -11,7 +11,6 @@ using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
-using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
@@ -20,8 +19,7 @@ namespace MyExpenses.Wpf.Services;
 public class AccountActionService(
     IDialogService dialogService,
     IAccountPresentationService accountPresentationService, ISystemPresentationService systemPresentationService,
-    IAccountPresentationValidationService accountPresentationValidationService,
-    IExpensePresentationValidationService expensePresentationValidationService, IExpensePresentationService expensePresentationService,
+    IExpensePresentationService expensePresentationService,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
     ILogger<AccountActionService> logger) : IAccountActionService
 {
@@ -74,10 +72,10 @@ public class AccountActionService(
         {
             await UpdateCategoryType(historyViewModel.CategoryTypeViewModel!, input!, cancellationToken);
         }
-        // else
-        // {
-        //     await CreateAccountType(input!, cancellationToken);
-        // }
+        else
+        {
+            await CreateCategoryType(input!, cancellationToken);
+        }
     }
 
     public async Task CreateCategoryType(string input, CancellationToken cancellationToken = default)
@@ -88,39 +86,28 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, cancellationToken);
-        if (available)
+        var newCategoryTypeViewModel = new CategoryTypeViewModel { Name = input, Color = await systemPresentationService.GetRandomColorViewModel(cancellationToken) };
+        var result = await expensePresentationService.AddCategoryType(newCategoryTypeViewModel, cancellationToken);
+
+        if (result.IsSuccess)
         {
-            var randomColor = await systemPresentationService.GetRandomColorViewModel(cancellationToken);
-
-            var newCategoryType = new CategoryTypeViewModel { Name = input, Color = randomColor };
-            var result = await expensePresentationService.AddCategoryType(newCategoryType, cancellationToken);
-
-            if (result.IsSuccess)
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>(new EntityChanged<CategoryTypeViewModel>
             {
-                WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>(new EntityChanged<CategoryTypeViewModel>
-                {
-                    EntityType = DependencyType.CategoryType,
-                    DataAction = DataAction.Add,
-                    Content = newCategoryType
-                }));
+                EntityType = DependencyType.CategoryType,
+                DataAction = DataAction.Add,
+                Content = newCategoryTypeViewModel
+            }));
 
-                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
-                    string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newCategoryType.Name),
-                    MsgBoxImage.Check);
-            }
-            else
-            {
-                dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-                    string.Format(AccountResources.MessageBoxCreateItemErrorContent, newCategoryType.Name),
-                    MsgBoxImage.Error);
-            }
-            return;
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemSuccessCaption,
+                string.Format(AccountResources.MessageBoxCreateItemSuccessContent, newCategoryTypeViewModel.Name),
+                MsgBoxImage.Check);
         }
-
-        dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
-            string.Format(AccountResources.MessageBoxCreateItemErrorAlreadyUsedContent, input),
-            MsgBoxImage.Error);
+        else
+        {
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption,
+                string.Format(AccountResources.MessageBoxCreateItemErrorContent, newCategoryTypeViewModel.Name),
+                MsgBoxImage.Error);
+        }
     }
 
     public async Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input,
