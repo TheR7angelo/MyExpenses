@@ -301,7 +301,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             }
 
             updatedCategoryType.Name = categoryType.Name;
-            updatedCategoryType.ColorFkNavigation = categoryType.Color.MapToEntity();
+            // updatedCategoryType.ColorFk = categoryType.Color.MapToEntity().Id;
             await context.SaveChangesAsync(cancellationToken);
 
             logger.LogInformation("Category type (ID={CategoryTypeId}) with name {AccountTypeName} was successfully updated", categoryType.Id, categoryType.Name);
