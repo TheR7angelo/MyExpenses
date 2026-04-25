@@ -151,43 +151,15 @@ public partial class AddEditAccountWindow
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred while managing category type action");
-            // _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
-                // AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
-
-        // // TODO continue here
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // var addEditCategoryType = new AddEditCategoryTypeWindow();
-        // var result = addEditCategoryType.ShowDialog();
-        // if (result is not true) return;
-        //
-        // var newCategoryType = addEditCategoryType.CategoryType;
-        //
-        // Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
-        // var (success, exception) = newCategoryType.AddOrEdit();
-        // if (success)
-        // {
-        //     // TODO correct
-        //     // CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
-        //     // History.CategoryTypeFk = newCategoryType.Id;
-        //
-        //     Log.Information("Account type was successfully added");
-        //     var json = newCategoryType.ToJsonString();
-        //     Log.Information("{Json}", json);
-        //
-        //     Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
-        //         CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessMessage, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
-        //         CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorMessage, MsgBoxImage.Error);
-        // }
     }
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
+        // TODO continue here
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
