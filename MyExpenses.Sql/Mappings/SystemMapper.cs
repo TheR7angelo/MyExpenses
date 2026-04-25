@@ -11,4 +11,7 @@ public static partial class SystemMapper
 
     [MapperIgnoreSource(nameof(TColor.TCategoryTypes))]
     public static partial ColorDomain MapToDomain(TColor src);
+
+    [MapperIgnoreTarget(nameof(TColor.TCategoryTypes))]
+    public static partial TColor MapToEntity(this ColorDomain src);
 }
