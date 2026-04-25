@@ -6,7 +6,7 @@ using Riok.Mapperly.Abstractions;
 namespace MyExpenses.Sql.Mappings;
 
 [Mapper]
-public static partial class CategoryMapper
+public static partial class ExpensesMapper
 {
     public static partial IQueryable<CategoryTypeDomain> ProjectToDomain(this IQueryable<TCategoryType> src);
 
