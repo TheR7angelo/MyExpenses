@@ -130,7 +130,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
             await accountActionService.ManageAccountTypeAction(AccountViewModel);
         }
         catch (Exception exception)
@@ -145,7 +145,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
             await accountActionService.ManageCategoryTypeAction(HistoryViewModel);
         }
         catch (Exception exception)

@@ -3,7 +3,7 @@ using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
 
-public interface IAccountActionService
+public interface IActionService
 {
     /// <summary>
     /// Manages the action to perform on a category type based on the given historical view model data.

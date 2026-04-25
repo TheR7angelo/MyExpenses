@@ -55,7 +55,7 @@ public static class WpfRegistration
 
         private IServiceCollection AddWpfSelfServices()
         {
-            services.AddTransient<IAccountActionService, AccountActionService>();
+            services.AddTransient<IActionService, ActionService>();
 
             return services;
         }
