@@ -57,6 +57,12 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return expenseService.DeleteCategoryTypeAsync(categoryTypeDto, cancellationToken);
     }
 
+    public Task<Result> UpdateCategoryTypeName(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
+    {
+        var categoryTypeDto = mapper.MapToDto(categoryTypeViewModel);
+        return expenseService.UpdateCategoryTypeNameAsync(categoryTypeDto, cancellationToken);
+    }
+
     public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
     {
         var categoryTypeDto = mapper.MapToDto(newCategoryType);

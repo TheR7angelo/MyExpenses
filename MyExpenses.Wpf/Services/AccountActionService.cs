@@ -50,29 +50,30 @@ public class AccountActionService(
 
         var tempVm = isEdit ? expenseDtoViewModelMapper.Clone(historyViewModel.CategoryTypeViewModel!) : new CategoryTypeViewModel();
         tempVm.Name = input;
+        tempVm.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken);
 
         var validator = App.ServiceProvider.GetRequiredService<CategoryTypeViewModelValidator>();
         var valResult = await validator.ValidateAsync(tempVm, cancellationToken);
 
-        // if (!valResult.IsValid)
-        // {
-        //     var error = valResult.Errors.First();
-        //     dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption, error.ErrorMessage, MsgBoxImage.Error);
-        //
-        //     if (error.CustomState is DomainValidationFailure domainError)
-        //     {
-        //         logger.LogError("Validation failed for account type with error {ErrorCodeString}: {InternalMessage}", domainError.ErrorCodeString, domainError.InternalMessage);
-        //     }
-        //
-        //     // ReSharper disable once TailRecursiveCall
-        //     await ManageAccountTypeAction(accountViewModel, cancellationToken);
-        //     return;
-        // }
-        //
-        // if (isEdit)
-        // {
-        //     await UpdateAccountType(tempVm, input!, cancellationToken);
-        // }
+        if (!valResult.IsValid)
+        {
+            var error = valResult.Errors.First();
+            dialogService.ShowMessageBox(AccountResources.MessageBoxCreateItemErrorCaption, error.ErrorMessage, MsgBoxImage.Error);
+
+            if (error.CustomState is DomainValidationFailure domainError)
+            {
+                logger.LogError("Validation failed for category type with error {ErrorCodeString}: {InternalMessage}", domainError.ErrorCodeString, domainError.InternalMessage);
+            }
+
+            // ReSharper disable once TailRecursiveCall
+            await ManageCategoryTypeAction(historyViewModel, cancellationToken);
+            return;
+        }
+
+        if (isEdit)
+        {
+            await UpdateCategoryType(historyViewModel.CategoryTypeViewModel!, input!, cancellationToken);
+        }
         // else
         // {
         //     await CreateAccountType(input!, cancellationToken);
@@ -131,32 +132,26 @@ public class AccountActionService(
 
         if (response is not MessageBoxResult.Yes) return;
 
-        // TODO continue here
-        var available = await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(input, categoryTypeViewModel, cancellationToken);
-        Console.WriteLine(available);
-        // if (available)
-        // {
-        //     categoryTypeViewModel.Name = input;
-        //     var result = await accountPresentationService.UpdateAccountTypeName(categoryTypeViewModel, cancellationToken);
-        //     if (result.IsSuccess)
-        //     {
-        //         WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>((DependencyType.CategoryType, DataAction.Update, categoryTypeViewModel)));
-        //
-        //         dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
-        //             AccountResources.MessageBoxEditItemSuccessContent,
-        //             MsgBoxImage.Check);
-        //     }
-        //     else
-        //     {
-        //         dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
-        //             AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
-        //     }
-        //     return;
-        // }
-        //
-        // dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorAlreadyUsedCaption,
-        //     string.Format(AccountResources.MessageBoxEditItemErrorAlreadyUsedContent, categoryTypeViewModel.Name),
-        //     MsgBoxImage.Error);
+        categoryTypeViewModel.Name = input;
+        var result = await expensePresentationService.UpdateCategoryTypeName(categoryTypeViewModel, cancellationToken);
+        if (result.IsSuccess)
+        {
+            WeakReferenceMessenger.Default.Send(new EntityChangedMessage<CategoryTypeViewModel>(new EntityChanged<CategoryTypeViewModel>
+            {
+                EntityType = DependencyType.CategoryType,
+                DataAction = DataAction.Update,
+                Content = categoryTypeViewModel
+            }));
+
+            dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemSuccessCaption,
+                AccountResources.MessageBoxEditItemSuccessContent,
+                MsgBoxImage.Check);
+        }
+        else
+        {
+            dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemErrorCaption,
+                AccountResources.MessageBoxEditItemErrorContent, MsgBoxImage.Error);
+        }
     }
 
     public async Task DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)

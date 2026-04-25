@@ -277,4 +277,40 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete category type: {e.Message}");
         }
     }
+
+    public async Task<Result> UpdateCategoryTypeNameAsync(CategoryTypeDomain categoryType, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Updating category type (ID={AccountTypeId}) with name {AccountTypeName}", categoryType.Id, categoryType.Name);
+
+        var json = categoryType.ToJson();
+        logger.LogInformation("Category type json: {Json}", json);
+
+        try
+        {
+            var updatedCategoryType = await context.TCategoryTypes.FirstOrDefaultAsync(s => s.Id == categoryType.Id, cancellationToken);
+            if (updatedCategoryType is null)
+            {
+                return Result.Failure(ErrorCode.NotFound, "Category type not found");
+            }
+
+            if (categoryType.Name is null)
+            {
+                return Result.Failure(ErrorCode.NameRequired, "Category type name cannot be null");
+            }
+
+            updatedCategoryType.Name = categoryType.Name;
+            updatedCategoryType.ColorFkNavigation = categoryType.Color.MapToEntity();
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Category type (ID={CategoryTypeId}) with name {AccountTypeName} was successfully updated", categoryType.Id, categoryType.Name);
+            return Result.Success("Category type was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update category type (ID={CategoryTypeId}) with name {CategoryTypeName}", categoryType.Id, categoryType.Name);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to update account type");
+        }
+    }
 }

@@ -136,4 +136,13 @@ public interface IExpenseRepository
     /// <returns>The result of the deletion operation, including details of any deleted items.</returns>
     public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDomain accountType,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the name of an existing category type in the system.
+    /// </summary>
+    /// <param name="categoryType">The category type domain object containing the updated name and related information.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result indicating whether the update was successful, including any relevant error information if applicable.</returns>
+    public Task<Result> UpdateCategoryTypeNameAsync(CategoryTypeDomain categoryType,
+        CancellationToken cancellationToken = default);
 }

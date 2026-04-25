@@ -36,4 +36,13 @@ public interface IExpensePresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains the outcome of the deletion process.</return>
     public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the name of a category type.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">The category type view model containing the updated name.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains the result of the update operation.</return>
+    public Task<Result> UpdateCategoryTypeName(CategoryTypeViewModel categoryTypeViewModel,
+        CancellationToken cancellationToken = default);
 }
