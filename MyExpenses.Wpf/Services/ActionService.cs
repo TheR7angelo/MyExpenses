@@ -194,6 +194,83 @@ public class ActionService(
         ShowDeleteResultMessage(deleteResult.IsSuccess, accountTypeViewModel.Name);
     }
 
+    public Task ManageCurrencyAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        return ManageNamedEntityAction(
+            currentViewModel: accountViewModel.CurrencyViewModel,
+            getName: viewModel => viewModel.Symbol,
+            setName: (viewModel, name) => viewModel.Symbol = name,
+            maxNameLength: CurrencyDomain.MaxSymbolLength,
+            addTitle: AccountResources.TitleWindowAddCurrencySymbol,
+            editTitle: AccountResources.TitleWindowEditCurrencySymbol,
+            addPlaceholder: AccountResources.TextBoxAddNewCurrencySymbol,
+            editPlaceholder: AccountResources.TextBoxEditCurrencySymbol,
+            createValidationViewModel: () => new CurrencyViewModel(),
+            cloneValidationViewModel: accountDtoViewModelMapper.Clone,
+            beforeValidationAsync: _ => Task.CompletedTask,
+            validateAsync: ValidateAsync<CurrencyViewModelValidator, CurrencyViewModel>,
+            logValidationError: error => LogDomainValidationError("currency", error),
+            deleteAsync: DeleteCurrency,
+            createAsync: CreateCurrency,
+            updateAsync: UpdateCurrency,
+            cancellationToken: cancellationToken);
+    }
+
+    public async Task CreateCurrency(string input, CancellationToken cancellationToken = default)
+    {
+        if (!AskCreateConfirmation(input)) return;
+
+        var newCurrency = new CurrencyViewModel { Symbol = input };
+        var result = await accountPresentationService.AddCurrency(newCurrency, cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            SendEntityChangedMessage(DependencyType.Currency, DataAction.Add, newCurrency);
+        }
+
+        ShowCreateResultMessage(result.IsSuccess, newCurrency.Symbol);
+    }
+
+    public async Task UpdateCurrency(CurrencyViewModel currencyViewModel, string input, CancellationToken cancellationToken = default)
+    {
+        if (!AskUpdateConfirmation(currencyViewModel.Symbol, input)) return;
+
+        currencyViewModel.Symbol = input;
+
+        var result = await accountPresentationService.UpdateCurrencySymbol(currencyViewModel, cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            SendEntityChangedMessage(DependencyType.Currency, DataAction.Update, currencyViewModel);
+        }
+
+        ShowUpdateResultMessage(result.IsSuccess);
+    }
+
+    public async Task DeleteCurrency(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)
+    {
+        var dependencies = await systemPresentationService.GetAllDependenciesAsync(
+            currencyViewModel, cancellationToken);
+
+        var dependenciesArray = dependencies.ToArray();
+
+        var response = dependenciesArray.Length is 0
+            ? AskDeleteConfirmation(currencyViewModel.Symbol)
+            : dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.Currency,dependenciesArray);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        var deleteResult = await accountPresentationService.DeleteCurrencyAsync(currencyViewModel, cancellationToken);
+
+        if (deleteResult.IsSuccess)
+        {
+            SendDeletedAccountsMessageIfNeeded(deleteResult.DeletedItems);
+            SendEntityChangedMessage(DependencyType.Currency, DataAction.Delete, currencyViewModel.Id);
+        }
+
+        ShowDeleteResultMessage(deleteResult.IsSuccess, currencyViewModel.Symbol);
+    }
+
     private async Task ManageNamedEntityAction<TViewModel>(TViewModel? currentViewModel, Func<TViewModel, string?> getName,
         Action<TViewModel, string?> setName,
         int maxNameLength, string addTitle, string editTitle, string addPlaceholder, string editPlaceholder,

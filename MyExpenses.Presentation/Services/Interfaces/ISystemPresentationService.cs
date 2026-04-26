@@ -25,6 +25,14 @@ public interface ISystemPresentationService
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all deletion dependencies for the specified currency.
+    /// </summary>
+    /// <param name="currencyViewModel">The currency view model for which dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified currency.</return>
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a random color view model asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

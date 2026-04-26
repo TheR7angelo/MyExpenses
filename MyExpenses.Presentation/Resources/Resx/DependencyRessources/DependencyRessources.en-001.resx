@@ -62,4 +62,10 @@
     <data name="DependencyTypeCategoryTypes" xml:space="preserve">
         <value>Category types</value>
     </data>
+    <data name="DependencyTypeCurrency" xml:space="preserve">
+        <value>Currency symbol</value>
+    </data>
+    <data name="DependencyTypeCurrencies" xml:space="preserve">
+        <value>Currency symbols</value>
+    </data>
 </root>

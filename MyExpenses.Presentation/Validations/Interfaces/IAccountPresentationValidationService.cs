@@ -21,4 +21,12 @@ public interface IAccountPresentationValidationService
     /// <param name="cancellationToken">A cancellation token to observe while awaiting the task to complete.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is a boolean indicating whether the account type name is available.</returns>
     public Task<bool> IsAccountTypeNameAvailableAsync(string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if the provided currency symbol is available for use.
+    /// </summary>
+    /// <param name="symbol">The currency symbol to validate for availability.</param>
+    /// <param name="cancellationToken">A cancellation token to observe while awaiting the task to complete.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is a boolean indicating whether the currency symbol is available.</returns>
+    public Task<bool> IsCurrencySymbolIsAvailableAsync(string symbol, CancellationToken cancellationToken = default);
 }

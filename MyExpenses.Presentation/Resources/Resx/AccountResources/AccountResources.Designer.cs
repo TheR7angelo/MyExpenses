@@ -123,6 +123,33 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The currency symbol must be unique.
+        /// </summary>
+        public static string CurrencyViewModelNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("CurrencyViewModelNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A currency symbol is required.
+        /// </summary>
+        public static string CurrencyViewModelNameRequired {
+            get {
+                return ResourceManager.GetString("CurrencyViewModelNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The symbol must be between 1 and {0} characters long.
+        /// </summary>
+        public static string CurrencyViewModelNameTooLong {
+            get {
+                return ResourceManager.GetString("CurrencyViewModelNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxAddEditAccountTypeErrorCaption {
@@ -348,11 +375,29 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new currency symbol :.
+        /// </summary>
+        public static string TextBoxAddNewCurrencySymbol {
+            get {
+                return ResourceManager.GetString("TextBoxAddNewCurrencySymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit account type name :.
         /// </summary>
         public static string TextBoxEditAccountTypeName {
             get {
                 return ResourceManager.GetString("TextBoxEditAccountTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit currency symbol :.
+        /// </summary>
+        public static string TextBoxEditCurrencySymbol {
+            get {
+                return ResourceManager.GetString("TextBoxEditCurrencySymbol", resourceCulture);
             }
         }
         
@@ -366,11 +411,29 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new currency symbol.
+        /// </summary>
+        public static string TitleWindowAddCurrencySymbol {
+            get {
+                return ResourceManager.GetString("TitleWindowAddCurrencySymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit account type.
         /// </summary>
         public static string TitleWindowEditAccountTypeName {
             get {
                 return ResourceManager.GetString("TitleWindowEditAccountTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit currency symbol.
+        /// </summary>
+        public static string TitleWindowEditCurrencySymbol {
+            get {
+                return ResourceManager.GetString("TitleWindowEditCurrencySymbol", resourceCulture);
             }
         }
     }

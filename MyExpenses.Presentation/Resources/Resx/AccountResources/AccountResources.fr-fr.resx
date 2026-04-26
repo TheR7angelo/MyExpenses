@@ -116,4 +116,25 @@
     <data name="AccountViewModelValidatorCurrencyRequired" xml:space="preserve">
         <value>Le type de monnaie est requis</value>
     </data>
+    <data name="CurrencyViewModelNameRequired" xml:space="preserve">
+        <value>Un symbole monétaire est requis</value>
+    </data>
+    <data name="CurrencyViewModelNameTooLong" xml:space="preserve">
+        <value>Le symbole doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="CurrencyViewModelNameAlreadyExists" xml:space="preserve">
+        <value>Le symbole monétaire doit être unique</value>
+    </data>
+    <data name="TitleWindowAddCurrencySymbol" xml:space="preserve">
+        <value>Ajouter un nouveau symbole monétaire</value>
+    </data>
+    <data name="TitleWindowEditCurrencySymbol" xml:space="preserve">
+        <value>Modifier le symbole de la monnaie</value>
+    </data>
+    <data name="TextBoxAddNewCurrencySymbol" xml:space="preserve">
+        <value>Ajouter un nouveau symbole monétaire :</value>
+    </data>
+    <data name="TextBoxEditCurrencySymbol" xml:space="preserve">
+        <value>Modifier le symbole monétaire :</value>
+    </data>
 </root>

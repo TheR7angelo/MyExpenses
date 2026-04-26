@@ -60,4 +60,11 @@ public interface IAccountDtoViewModelMapper
     /// <param name="src">The AccountTypeViewModel object to be cloned.</param>
     /// <returns>A new AccountTypeViewModel object that is a deep copy of the provided source object.</returns>
     public AccountTypeViewModel Clone(AccountTypeViewModel src);
+
+    /// <summary>
+    /// Creates a deep copy of the provided CurrencyViewModel object.
+    /// </summary>
+    /// <param name="src">The CurrencyViewModel object to be cloned.</param>
+    /// <returns>A new instance of CurrencyViewModel that is a deep copy of the source object.</returns>
+    public CurrencyViewModel Clone(CurrencyViewModel src);
 }

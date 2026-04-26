@@ -52,4 +52,19 @@ public interface IAccountValidationRepository
     /// </returns>
     public Task<bool> IsAccountTypeNameAlreadyExistAsync(string accountTypeName,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if a currency symbol is available for use in the database.
+    /// </summary>
+    /// <param name="symbol">
+    /// The currency symbol to validate for availability.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The token to monitor for cancellation requests during the asynchronous operation.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains a boolean indicating
+    /// whether the currency symbol is available (true) or already in use (false).
+    /// </returns>
+    public Task<bool> IsCurrencySymbolIsAvailableAsync(string symbol, CancellationToken cancellationToken = default);
 }

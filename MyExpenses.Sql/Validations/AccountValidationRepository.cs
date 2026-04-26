@@ -24,6 +24,12 @@ public class AccountValidationRepository(IDbContextFactory<DataBaseContext> dbCo
         return await context.TAccountTypes.AnyAsync(a => a.Name == accountTypeName, cancellationToken: cancellationToken);
     }
 
+    public async Task<bool> IsCurrencySymbolIsAvailableAsync(string symbol, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        return await context.TCurrencies.AnyAsync(a => a.Symbol == symbol, cancellationToken: cancellationToken);
+    }
+
     public async Task<bool> IsCategoryTypeNameAlreadyExistAsync(string categoryTypeName, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

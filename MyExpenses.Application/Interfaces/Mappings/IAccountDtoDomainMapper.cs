@@ -34,6 +34,13 @@ public interface IAccountDtoDomainMapper
     public CurrencyDto MapToDto(CurrencyDomain src);
 
     /// <summary>
+    /// Maps the CurrencyDto object to a CurrencyDomain object.
+    /// </summary>
+    /// <param name="src">The source CurrencyDto object to map.</param>
+    /// <returns>A CurrencyDomain object that is mapped from the source object.</returns>
+    public CurrencyDomain MapToDomain(CurrencyDto src);
+
+    /// <summary>
     /// Maps the AccountTypeDomain object to an AccountTypeDto object.
     /// </summary>
     /// <param name="src">The source AccountTypeDomain object to map.</param>

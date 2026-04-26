@@ -52,8 +52,21 @@ public class AccountService(IAccountRepository accountRepository,
         return await accountRepository.UpdateAccountTypeName(accountType, cancellationToken);
     }
 
-        // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
-    // {
-    //
-    // }
+    public Task<Result> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken)
+    {
+        var currencyDomain = mapperAccount.MapToDomain(currencyDto);
+        return accountRepository.AddCurrencyAsync(currencyDomain, cancellationToken);
+    }
+
+    public Task<Result> UpdateCurrencySymbolAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)
+    {
+        var currencyDomain = mapperAccount.MapToDomain(currencyDto);
+        return accountRepository.UpdateCurrencySymbolAsync(currencyDomain, cancellationToken);
+    }
+
+    public Task<DeletionResult> DeleteCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)
+    {
+        var currencyDomain = mapperAccount.MapToDomain(currencyDto);
+        return accountRepository.DeleteCurrencyAsync(currencyDomain, cancellationToken);
+    }
 }

@@ -1,4 +1,3 @@
-using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
@@ -62,4 +61,28 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the update operation.</return>
     public Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new currency to the system.
+    /// </summary>
+    /// <param name="newCurrency">The <see cref="CurrencyViewModel"/> representing the currency to be added.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
+    public Task<Result> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the currency symbol for the specified currency view model.
+    /// </summary>
+    /// <param name="currencyViewModel">The view model containing the currency information to be updated.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
+    public Task<Result> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified currency asynchronously.
+    /// </summary>
+    /// <param name="currencyViewModel">The currency to be deleted, represented as a <see cref="CurrencyViewModel"/>.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the deletion outcome.</return>
+    public Task<DeletionResult> DeleteCurrencyAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
 }

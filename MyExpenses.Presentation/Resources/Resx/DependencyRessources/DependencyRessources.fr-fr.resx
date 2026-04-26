@@ -62,4 +62,10 @@
     <data name="DependencyTypeCategoryTypes" xml:space="preserve">
         <value>Types de catégories</value>
     </data>
+    <data name="DependencyTypeCurrency" xml:space="preserve">
+        <value>Symbole monétaire</value>
+    </data>
+    <data name="DependencyTypeCurrencies" xml:space="preserve">
+        <value>Symboles monétaires</value>
+    </data>
 </root>

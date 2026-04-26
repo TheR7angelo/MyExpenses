@@ -1,5 +1,4 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -33,8 +32,15 @@ public interface IAccountRepository
     /// <param name="accountType">The type of account to filter the retrieval process.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>An <see cref="AccountDomain"/> object containing details of the retrieved accounts.</returns>
-    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType,
-        CancellationToken cancellationToken = default);
+    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a collection of accounts based on the provided currency domain asynchronously.
+    /// </summary>
+    /// <param name="currencyDomain">The currency domain to filter the accounts by.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A collection of <see cref="AccountDomain"/> objects matching the provided currency domain.</returns>
+    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all account types asynchronously.
@@ -75,4 +81,28 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the update operation.</returns>
     public Task<Result> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Asynchronously adds a new currency to the account repository.
+    /// </summary>
+    /// <param name="currencyDomain">The <see cref="CurrencyDomain"/> object representing the currency to be added.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation.</returns>
+    public Task<Result> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the currency symbol asynchronously for a specified currency domain object.
+    /// </summary>
+    /// <param name="currencyDomain">The domain object representing the currency to be updated.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result"/> object indicating the success or failure of the update operation.</returns>
+    public Task<Result> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified currency asynchronously.
+    /// </summary>
+    /// <param name="currencyDomain">The currency domain object representing the currency to be deleted.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="DeletionResult"/> containing details of the deletion operation, including any related dependencies that were removed.</returns>
+    public Task<DeletionResult> DeleteCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
 }

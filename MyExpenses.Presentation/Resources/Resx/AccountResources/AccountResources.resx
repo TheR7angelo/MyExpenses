@@ -123,4 +123,25 @@
     <data name="AccountViewModelValidatorCurrencyRequired" xml:space="preserve">
         <value>Currency type is required</value>
     </data>
+    <data name="CurrencyViewModelNameRequired" xml:space="preserve">
+        <value>A currency symbol is required</value>
+    </data>
+    <data name="CurrencyViewModelNameTooLong" xml:space="preserve">
+        <value>The symbol must be between 1 and {0} characters long</value>
+    </data>
+    <data name="CurrencyViewModelNameAlreadyExists" xml:space="preserve">
+        <value>The currency symbol must be unique</value>
+    </data>
+    <data name="TitleWindowAddCurrencySymbol" xml:space="preserve">
+        <value>Add new currency symbol</value>
+    </data>
+    <data name="TitleWindowEditCurrencySymbol" xml:space="preserve">
+        <value>Edit currency symbol</value>
+    </data>
+    <data name="TextBoxAddNewCurrencySymbol" xml:space="preserve">
+        <value>Add a new currency symbol :</value>
+    </data>
+    <data name="TextBoxEditCurrencySymbol" xml:space="preserve">
+        <value>Edit currency symbol :</value>
+    </data>
 </root>

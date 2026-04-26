@@ -20,7 +20,7 @@ public partial class CurrencyViewModel : ObservableValidator
     public partial string? Symbol { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial DateTime? DateAdded { get; set; }
+    public partial DateTime? DateAdded { get; set; } = DateTime.Now;
 
     public IEnumerable<DomainValidationResult> GetErrorCodes()
         => GetErrors().OfType<DomainValidationResult>();

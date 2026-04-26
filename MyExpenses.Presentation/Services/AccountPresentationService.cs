@@ -1,4 +1,3 @@
-using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Mappings.Interfaces;
@@ -52,9 +51,21 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         return await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
     }
 
-    // public async Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default)
-    // {
-    //     var accountType = viewModelMapper.MapToDto(accountViewModel);
-    //     return await accountService.AddOrEditAsync(accountType, cancellationToken);
-    // }
+    public Task<Result> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default)
+    {
+        var currencyDto = viewModelMapper.MapToDto(newCurrency);
+        return accountService.AddCurrencyAsync(currencyDto, cancellationToken);
+    }
+
+    public Task<Result> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)
+    {
+        var currencyDto = viewModelMapper.MapToDto(currencyViewModel);
+        return accountService.UpdateCurrencySymbolAsync(currencyDto, cancellationToken);
+    }
+
+    public Task<DeletionResult> DeleteCurrencyAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)
+    {
+        var currencyDto = viewModelMapper.MapToDto(currencyViewModel);
+        return accountService.DeleteCurrencyAsync(currencyDto, cancellationToken);
+    }
 }

@@ -43,4 +43,7 @@ public static partial class AccountMapper
     [MapperIgnoreTarget(nameof(TCategoryType.TRecursiveExpenses))]
     [MapperIgnoreTarget(nameof(TCategoryType.THistories))]
     public static partial TCategoryType MapToEntity(this CategoryTypeDomain categoryTypeDomain);
+
+    [MapperIgnoreTarget(nameof(TCurrency.TAccounts))]
+    public static partial TCurrency MapToEntity(this CurrencyDomain currencyDomain);
 }

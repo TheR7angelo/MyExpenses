@@ -33,4 +33,6 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial AccountTypeViewModel MapToViewModel(AccountTypeDto src);
 
     public partial AccountTypeViewModel Clone(AccountTypeViewModel src);
+
+    public partial CurrencyViewModel Clone(CurrencyViewModel src);
 }

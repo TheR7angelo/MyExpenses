@@ -67,7 +67,8 @@ public static class ServiceExtensions
 
         services.AddScoped<AccountViewModelValidator>()
             .AddScoped<AccountTypeViewModelValidator>()
-            .AddScoped<CategoryTypeViewModelValidator>();
+            .AddScoped<CategoryTypeViewModelValidator>()
+            .AddScoped<CurrencyViewModelValidator>();
 
         services.AddServiceLogging(logEventLevel);
 

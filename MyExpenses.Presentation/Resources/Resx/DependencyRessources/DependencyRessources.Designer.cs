@@ -177,6 +177,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DependencyRessources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency symbols.
+        /// </summary>
+        public static string DependencyTypeCurrencies {
+            get {
+                return ResourceManager.GetString("DependencyTypeCurrencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbol.
+        /// </summary>
+        public static string DependencyTypeCurrency {
+            get {
+                return ResourceManager.GetString("DependencyTypeCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expense.
         /// </summary>
         public static string DependencyTypeExpense {

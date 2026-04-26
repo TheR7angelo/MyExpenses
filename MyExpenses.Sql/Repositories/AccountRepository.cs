@@ -68,6 +68,21 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         return accounts;
     }
 
+    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading all accounts with currency {CurrencySymbol}", currencyDomain.Symbol);
+
+        var accounts = await dataBaseContext.TAccounts
+            .AsNoTracking()
+            .Where(s => s.CurrencyFk == currencyDomain.Id)
+            .ProjectToDomain()
+            .ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} account", accounts.Length);
+
+        return accounts;
+    }
+
     public async Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -215,6 +230,126 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
+    public async Task<Result> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    {
+        var currency = currencyDomain.MapToEntity();
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Adding currency with symbol {CurrencySymbol}", currency.Symbol);
+
+        var json = currency.ToJson();
+        logger.LogInformation("Currency json: {Json}", json);
+        logger.Log(LogLevel.Information, "Currency json: {Json}", json);
+
+        try
+        {
+            context.TCurrencies.Add(currency);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Currency with symbol {CurrencySymbol} was successfully added", currency.Symbol);
+            return Result.Success("Currency was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add currency with symbol {CurrencySymbol}", currency.Symbol);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to add currency");
+        }
+    }
+
+    public async Task<Result> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Updating currency (ID={CurrencyId}) with symbol {CurrencySymbol}", currencyDomain.Id, currencyDomain.Symbol);
+
+        var json = currencyDomain.ToJson();
+        logger.LogInformation("Currency json: {Json}", json);
+
+        try
+        {
+            var updatedCurrency = await context.TCurrencies.FirstOrDefaultAsync(s => s.Id == currencyDomain.Id, cancellationToken);
+            if (updatedCurrency is null)
+            {
+                return Result.Failure(ErrorCode.NotFound, "Currency not found");
+            }
+
+            updatedCurrency.Symbol = currencyDomain.Symbol;
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Currency (ID={CurrencyId}) with symbol {CurrencySymbol} was successfully updated", currencyDomain.Id, currencyDomain.Symbol);
+            return Result.Success("Currency was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update currency (ID={CurrencyId}) with symbol {CurrencySymbol}", currencyDomain.Id, currencyDomain.Symbol);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to update currency");
+        }
+    }
+
+    public async Task<DeletionResult> DeleteCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Deleting currency with symbol {CurrencySymbol} and id {CurrencyId}", currencyDomain.Symbol, currencyDomain.Id);
+
+        var currencyEntity = await
+            context.TCurrencies.FirstOrDefaultAsync(s => s.Id == currencyDomain.Id,
+                cancellationToken: cancellationToken);
+
+        if (currencyEntity is null && currencyDomain.Id is 0)
+        {
+            logger.LogWarning("Currency with id {CurrencyId} was not found", currencyDomain.Id);
+
+            return DeletionResult.Success("Currency was not persisted, so nothing had to be deleted");
+        }
+
+        if (currencyEntity is null) {
+            logger.LogWarning("Currency with id {CurrencyId} was not found", currencyDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The currency with id {currencyDomain.Id} was not found");
+        }
+
+        try
+        {
+            var accountIds = await GetAllAccountIdAsync(currencyDomain, cancellationToken);
+
+            var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(accountIds, cancellationToken);
+            var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(accountIds, cancellationToken);
+            var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(accountIds, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (accountIds.Length > 0) logger.LogWarning("Currency has associated accounts {@AccountIds}", accountIds);
+            if (expenseIds.Length > 0) logger.LogWarning("Currency has associated expenses {@ExpenseIds}", expenseIds);
+            if (bankTransferIds.Length > 0) logger.LogWarning("Currency has associated bank transfers {@BankTransferIds}", bankTransferIds);
+            if (recurringExpenseIds.Length > 0) logger.LogWarning("Currency has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds);
+
+            logger.LogInformation("Deleting currency with id {CurrencyId}", currencyDomain.Id);
+            context.TCurrencies.Remove(currencyEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Currency with id {CurrencyId} was successfully deleted", currencyDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.Account, accountIds },
+                { DependencyType.Expense, expenseIds },
+                { DependencyType.BankTransfer, bankTransferIds },
+                { DependencyType.RecurringExpense, recurringExpenseIds }
+            };
+            return DeletionResult.Success("Currency was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete currency with id {CurrencyId}", currencyDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete currency: {e.Message}");
+        }
+    }
+
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
         CancellationToken cancellationToken = default)
     {
@@ -223,6 +358,19 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         logger.LogInformation("Loading all accounts with account type {AccountTypeName}", accountType.Name);
 
         var result = await context.TAccounts.Where(s => s.AccountTypeFk == accountType.Id).Select(s => s.Id).ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} account", result.Length);
+
+        return result;
+    }
+
+    private async Task<int[]> GetAllAccountIdAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all accounts with currency {CurrencyName}", currencyDomain.Symbol);
+
+        var result = await context.TAccounts.Where(s => s.CurrencyFk == currencyDomain.Id).Select(s => s.Id).ToArrayAsync(cancellationToken);
 
         logger.LogInformation("Loaded {Count} account", result.Length);
 

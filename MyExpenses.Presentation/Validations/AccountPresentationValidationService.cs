@@ -76,4 +76,36 @@ public class AccountPresentationValidationService(IAccountValidationRepository a
             throw;
         }
     }
+
+    public async Task<bool> IsCurrencySymbolIsAvailableAsync(string symbol, CancellationToken cancellationToken = default)
+    {
+        using var scope = logger.BeginScope("Checking currency symbol availability. Input={Input}", symbol);
+
+        logger.LogInformation("Starting validation for currency symbol availability");
+
+        try
+        {
+            var alreadyExists = await accountValidationRepository.IsCurrencySymbolIsAvailableAsync(
+                symbol, cancellationToken);
+
+            if (alreadyExists)
+            {
+                logger.LogInformation("Currency symbol is already used");
+                return false;
+            }
+
+            logger.LogInformation("Currency symbol is available");
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogWarning("Validation was canceled");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while checking currency symbol availability");
+            throw;
+        }
+    }
 }

@@ -22,6 +22,8 @@ public partial class AccountDtoDomainMapper : IAccountDtoDomainMapper
 
     public partial CurrencyDto MapToDto(CurrencyDomain src);
 
+    public partial CurrencyDomain MapToDomain(CurrencyDto src);
+
     public partial AccountTypeDto MapToDto(AccountTypeDomain src);
 
     public partial AccountTypeDomain MapToDomain(AccountTypeDto src);

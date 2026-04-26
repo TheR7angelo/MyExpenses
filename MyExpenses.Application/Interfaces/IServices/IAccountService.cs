@@ -59,4 +59,28 @@ public interface IAccountService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating success or failure.</returns>
     public Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new currency to the system based on the provided currency data.
+    /// </summary>
+    /// <param name="currencyDto">An object that contains the details of the currency to be added.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating the outcome of the operation.</returns>
+    public Task<Result> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Updates the currency symbol for a given currency record.
+    /// </summary>
+    /// <param name="currencyDto">The data transfer object containing the currency details to be updated.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the outcome of the update operation.</returns>
+    public Task<Result> UpdateCurrencySymbolAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified currency based on the provided currency data transfer object (DTO).
+    /// </summary>
+    /// <param name="currencyDto">The data transfer object representing the currency to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the operation.</returns>
+    public Task<DeletionResult> DeleteCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
 }

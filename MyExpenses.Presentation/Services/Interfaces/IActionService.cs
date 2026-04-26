@@ -74,4 +74,37 @@ public interface IActionService
     /// <param name="cancellationToken">A token to observe for cancellation requests during the operation.</param>
     /// <returns>A task representing the asynchronous delete operation.</returns>
     public Task DeleteAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Manages the action to perform on a currency based on the provided account view model data.
+    /// </summary>
+    /// <param name="accountViewModel">The view model containing account-related data required for managing the currency action.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task ManageCurrencyAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new currency based on the provided input data.
+    /// </summary>
+    /// <param name="input">The input string containing the information required to create the currency.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task CreateCurrency(string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the details of a currency based on the provided currency view model and the given input.
+    /// </summary>
+    /// <param name="currencyViewModel">The view model containing the data for the currency to be updated.</param>
+    /// <param name="input">A string containing additional information or parameters required for the update operation.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task UpdateCurrency(CurrencyViewModel currencyViewModel, string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified currency based on the provided view model data.
+    /// </summary>
+    /// <param name="currencyViewModel">The view model containing details of the currency to be deleted, including its identifier and related properties.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task DeleteCurrency(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
 }

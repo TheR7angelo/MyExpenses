@@ -18,9 +18,7 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
-using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.Sql;
 using Serilog;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
@@ -174,37 +172,18 @@ public partial class AddEditAccountWindow
         }
     }
 
-    private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO continue here
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var addEditCurrency = new AddEditCurrencyWindow();
-        var result = addEditCurrency.ShowDialog();
-        if (result is not true) return;
-
-        var newCurrency = addEditCurrency.Currency;
-
-        Log.Information("Attempting to inject the new currency symbole \"{NewCurrencySymbole}\"", newCurrency.Symbol);
-        var (success, exception) = newCurrency.AddOrEdit();
-        if (success)
+        try
         {
-            // TODO correct
-            // Currencies.AddAndSort(newCurrency, s => s.Symbol);
-            // Account.CurrencyFk = newCurrency.Id;
-
-            Log.Information("Account type was successfully added");
-            var json = newCurrency.ToJsonString();
-            Log.Information("{Json}", json);
-
-            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
-                CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessMessage, MsgBoxImage.Check);
+            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            await accountActionService.ManageCurrencyAction(AccountViewModel);
         }
-        else
+        catch (Exception exception)
         {
-            Log.Error(exception, "An error occurred please retry");
-            Dialogs.MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorTitle,
-                CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorMessage, MsgBoxImage.Error);
+            Log.Error(exception, "An error occurred while managing category type action");
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
     }
 
@@ -216,6 +195,8 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
+        // TODO continue here
+
         var response = Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
             string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Account.Name),
             System.Windows.MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
