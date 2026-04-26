@@ -22,6 +22,12 @@ public class AccountService(IAccountRepository accountRepository,
         return accounts.Select(mapperAccount.MapToDto);
     }
 
+    public async Task<AccountDto?> GetAccountAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var account = await accountRepository.GetAccountAsync(id, cancellationToken);
+        return account is null ? null : mapperAccount.MapToDto(account);
+    }
+
     public async Task<IEnumerable<AccountTypeDto>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
         var accountTypes = await accountRepository.GetAllAccountTypeAsync(cancellationToken);

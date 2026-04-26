@@ -67,4 +67,11 @@ public interface IAccountDtoViewModelMapper
     /// <param name="src">The CurrencyViewModel object to be cloned.</param>
     /// <returns>A new instance of CurrencyViewModel that is a deep copy of the source object.</returns>
     public CurrencyViewModel Clone(CurrencyViewModel src);
+
+    /// <summary>
+    /// Merges the data from the source AccountViewModel into the destination AccountViewModel.
+    /// </summary>
+    /// <param name="src">The source AccountViewModel containing the data to be merged.</param>
+    /// <param name="dest">The destination AccountViewModel where the data will be merged.</param>
+    public void Merge(AccountViewModel src, AccountViewModel dest);
 }

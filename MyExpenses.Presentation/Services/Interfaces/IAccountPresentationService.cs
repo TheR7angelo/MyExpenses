@@ -85,4 +85,12 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the deletion outcome.</return>
     public Task<DeletionResult> DeleteCurrencyAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves an account view model associated with the specified total by account view model.
+    /// </summary>
+    /// <param name="totalByAccountViewModel">An instance of <see cref="TotalByAccountViewModel"/> representing the account details.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains an <see cref="AccountViewModel"/>.</return>
+    public Task<AccountViewModel?> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default);
 }

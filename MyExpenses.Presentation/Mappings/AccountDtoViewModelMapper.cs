@@ -35,4 +35,6 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial AccountTypeViewModel Clone(AccountTypeViewModel src);
 
     public partial CurrencyViewModel Clone(CurrencyViewModel src);
+
+    public partial void Merge(AccountViewModel src, AccountViewModel dest);
 }

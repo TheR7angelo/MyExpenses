@@ -105,7 +105,7 @@ public partial class AccountManagementPage
         }
     }
 
-    private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
         // TODO continue here
         if (sender is not Button button) return;
@@ -115,7 +115,9 @@ public partial class AccountManagementPage
         if (account is null) return;
 
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
-        addEditAccountWindow.SetTAccount(account);
+        // TODO bug to correct
+        await addEditAccountWindow.LoadAsync(totalByAccountViewModel);
+        // addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
 
         if (addEditAccountWindow.DialogResult is not true) return;

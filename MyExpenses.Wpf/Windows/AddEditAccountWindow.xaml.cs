@@ -8,6 +8,7 @@ using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -78,14 +79,17 @@ public partial class AddEditAccountWindow
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly IDialogService _dialogService;
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
-        IDialogService dialogService)
+        IDialogService dialogService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
         _dialogService = dialogService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
 
         _ = FillCollection();
 
@@ -318,11 +322,14 @@ public partial class AddEditAccountWindow
         EditAccount = true;
     }
 
-    public void SetAccount(AccountViewModel accountViewModel)
-    {
-        accountViewModel.CopyPropertiesTo(accountViewModel);
-        EditAccount = true;
-    }
-
     #endregion
+
+    public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)
+    {
+        var accountViewModel = await _accountPresentationService.GetAccount(totalByAccountViewModel);
+        if (accountViewModel is null) return;
+
+        accountViewModel.IsEditing = true;
+        _accountDtoViewModelMapper.Merge(accountViewModel, AccountViewModel);
+    }
 }

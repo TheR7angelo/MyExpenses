@@ -20,6 +20,14 @@ public interface IAccountService
     public Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves an account based on the specified account ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the account to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the <see cref="AccountDto"/> object for the specified account.</returns>
+    public Task<AccountDto?> GetAccountAsync(int id, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a collection of account types, including details such as ID, name, and date added.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

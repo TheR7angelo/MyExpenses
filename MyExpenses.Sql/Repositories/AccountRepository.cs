@@ -83,6 +83,22 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         return accounts;
     }
 
+    public async Task<AccountDomain?> GetAccountAsync(int id, CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading account with id {AccountId}", id);
+
+        var account = await dataBaseContext.TAccounts
+            .Include(s => s.AccountTypeFkNavigation)
+            .Include(s => s.CurrencyFkNavigation)
+            .AsNoTracking()
+            .ProjectToDomain()
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
+        logger.LogInformation("Loaded account");
+
+        return account;
+    }
+
     public async Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

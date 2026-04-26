@@ -68,4 +68,10 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         var currencyDto = viewModelMapper.MapToDto(currencyViewModel);
         return accountService.DeleteCurrencyAsync(currencyDto, cancellationToken);
     }
+
+    public async Task<AccountViewModel?> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountDto = await accountService.GetAccountAsync(totalByAccountViewModel.Id, cancellationToken);
+        return accountDto is null ? null : viewModelMapper.MapToViewModel(accountDto);
+    }
 }
