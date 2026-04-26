@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Accounts;
 using Domain.Models.Categories;
 using Domain.Models.Dependencies;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -42,7 +43,7 @@ public class ActionService(
             createValidationViewModel: () => new CategoryTypeViewModel(),
             cloneValidationViewModel: expenseDtoViewModelMapper.Clone,
             beforeValidationAsync: async viewModel => { viewModel.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken); },
-            validateAsync: ValidateCategoryTypeAsync,
+            validateAsync: ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>,
             logValidationError: error => LogDomainValidationError("category type", error),
             deleteAsync: DeleteCategoryType,
             createAsync: CreateCategoryType,
@@ -129,7 +130,7 @@ public class ActionService(
             createValidationViewModel: () => new AccountTypeViewModel(),
             cloneValidationViewModel: accountDtoViewModelMapper.Clone,
             beforeValidationAsync: _ => Task.CompletedTask,
-            validateAsync: ValidateAccountTypeAsync,
+            validateAsync: ValidateAsync<AccountTypeViewModelValidator, AccountTypeViewModel>,
             logValidationError: error => LogDomainValidationError("account type", error),
             deleteAsync: DeleteAccountType,
             createAsync: CreateAccountType,
@@ -291,16 +292,10 @@ public class ActionService(
             : createAsync(input, cancellationToken);
     }
 
-    private Task<ValidationResult> ValidateCategoryTypeAsync(CategoryTypeViewModel viewModel, CancellationToken cancellationToken)
+    private Task<ValidationResult> ValidateAsync<TValidator, TEntity>(TEntity viewModel, CancellationToken cancellationToken)
+        where TValidator : AbstractValidator<TEntity>
     {
-        var validator = App.ServiceProvider.GetRequiredService<CategoryTypeViewModelValidator>();
-        return validator.ValidateAsync(viewModel, cancellationToken);
-    }
-
-    private Task<ValidationResult> ValidateAccountTypeAsync(AccountTypeViewModel viewModel, CancellationToken cancellationToken)
-    {
-        var validator = App.ServiceProvider.GetRequiredService<AccountTypeViewModelValidator>();
-
+        var validator = App.ServiceProvider.GetRequiredService<TValidator>();
         return validator.ValidateAsync(viewModel, cancellationToken);
     }
 
