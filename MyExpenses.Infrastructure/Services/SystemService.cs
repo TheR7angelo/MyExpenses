@@ -56,7 +56,7 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
                 recursiveExpenseCount);
         }
 
-        dependencies = dependencies.OrderBy(d => d.Category).ToList();
+        dependencies = GroupDependencies(dependencies).ToList();
 
         logger.LogInformation("Finished dependency loading for account type with {DependencyCount} dependencies", dependencies.Count);
         return dependencies;
@@ -87,6 +87,8 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
         dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
         dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+        dependencies = GroupDependencies(dependencies).ToList();
 
         logger.LogInformation("Loaded dependencies for category type {CategoryTypeName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
         categoryTypeDomain.Name,
