@@ -107,10 +107,11 @@ public partial class AccountManagementPage
 
     private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        var button = (Button)sender;
-        if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
+        // TODO continue here
+        if (sender is not Button button) return;
+        if (button.DataContext is not TotalByAccountViewModel totalByAccountViewModel) return;
 
-        var account = vTotalByAccount.Id.ToISql<TAccount>();
+        var account = totalByAccountViewModel.Id.ToISql<TAccount>();
         if (account is null) return;
 
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
