@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
@@ -80,16 +81,19 @@ public partial class AddEditAccountWindow
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly IDialogService _dialogService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+    private readonly ILogger<AddEditAccountWindow> _logger;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
         IDialogService dialogService,
-        IAccountDtoViewModelMapper accountDtoViewModelMapper)
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
+        ILogger<AddEditAccountWindow> logger)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
         _dialogService = dialogService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        _logger = logger;
 
         _ = FillCollection();
 
@@ -155,7 +159,7 @@ public partial class AddEditAccountWindow
         }
         catch (Exception exception)
         {
-            Log.Error(exception, "An error occurred while managing account type action");
+            _logger.LogError(exception, "An error occurred while managing account type action");
             _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
                 AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
@@ -170,7 +174,7 @@ public partial class AddEditAccountWindow
         }
         catch (Exception exception)
         {
-            Log.Error(exception, "An error occurred while managing category type action");
+            _logger.LogError(exception, "An error occurred while managing category type action");
             _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
                 AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
@@ -185,7 +189,7 @@ public partial class AddEditAccountWindow
         }
         catch (Exception exception)
         {
-            Log.Error(exception, "An error occurred while managing category type action");
+            _logger.LogError(exception, "An error occurred while managing category type action");
             _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
                 AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
