@@ -12,6 +12,7 @@
                  xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
                  xmlns:accounts="clr-namespace:Domain.Models.Accounts;assembly=MyExpenses.Domain"
                  xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
+                 xmlns:behaviors="clr-namespace:MyExpenses.Wpf.Behaviors"
                  mc:Ignorable="d"
 
                  Title="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountTitleWindow}}"
@@ -156,9 +157,10 @@
 
                 <TextBox Grid.Row="1" Grid.Column="0"
                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountHintAssistTextBoxAccountStartingBalance}}"
+                         behaviors:NumericTextBoxAssist.IsNumericOnly="True"
+                         behaviors:NumericTextBoxAssist.MaxDecimal="2"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
-                         Text="{Binding HistoryViewModel.Value, Mode=TwoWay}"
-                         PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
+                         Text="{Binding HistoryViewModel.Value, Mode=TwoWay}">
                 </TextBox>
 
                 <ComboBox Grid.Row="1" Grid.Column="1"

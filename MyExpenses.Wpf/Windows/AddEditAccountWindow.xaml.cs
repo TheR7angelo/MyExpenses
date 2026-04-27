@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +15,6 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
 using Serilog;
@@ -244,14 +241,6 @@ public partial class AddEditAccountWindow
         var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
 
         AccountViewModel.ValidateWithFluent(valResult);
-    }
-
-    private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        e.Handled = !txt.IsOnlyDecimal();
     }
 
     #endregion
