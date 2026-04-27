@@ -11,6 +11,7 @@
                  xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
                  xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
                  xmlns:accounts="clr-namespace:Domain.Models.Accounts;assembly=MyExpenses.Domain"
+                 xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
                  mc:Ignorable="d"
 
                  Title="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountTitleWindow}}"
@@ -41,7 +42,6 @@
 
     <mah:MetroWindow.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -150,14 +150,14 @@
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountHintAssistTextBoxAccountStartingBalanceDescription}}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
-                         Text="{Binding History.Description, Mode=TwoWay}"
-                         MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}">
+                         Text="{Binding HistoryViewModel.Description, Mode=TwoWay}"
+                         MaxLength="{x:Static expenses:HistoryDomain.MaxDescriptionLength}">
                 </TextBox>
 
                 <TextBox Grid.Row="1" Grid.Column="0"
                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountHintAssistTextBoxAccountStartingBalance}}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
-                         Text="{Binding History.Value, Mode=TwoWay}"
+                         Text="{Binding HistoryViewModel.Value, Mode=TwoWay}"
                          PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
                 </TextBox>
 
