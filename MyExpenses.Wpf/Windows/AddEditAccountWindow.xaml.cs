@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,7 +21,6 @@ using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
 using Serilog;
-using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -62,14 +60,16 @@ public partial class AddEditAccountWindow
 
     public bool DeleteAccount { get; private set; }
 
+    // TODO to delete
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TAccount Account { get; } = new();
     public AccountViewModel AccountViewModel { get; } = new();
+
+    // TODO to delete
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new() { IsPointed = true };
 
     public HistoryViewModel HistoryViewModel { get; } = new() { IsPointed = true };
-    public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
 
     public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
     public ObservableCollection<CurrencyViewModel> Currencies { get; } = [];
@@ -258,59 +258,6 @@ public partial class AddEditAccountWindow
 
     #region Function
 
-    private async Task<bool> CheckIsError()
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Creating a new ValidationContext for the Account object to perform data validation.
-        // The serviceProvider and items are set to null because they are not required in this context.
-        // The ValidationResults list will store any validation errors detected during the process.
-        var validationContext = new ValidationContext(Account, serviceProvider: null, items: null);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
-        // is evident from the initialization. The result will still be compatible with any method
-        // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
-        if (isValid)
-        {
-            // var alreadyExiste = await CheckAccountName(Account.Name);
-            // if (alreadyExiste)
-            // {
-            //     MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
-            //     return true;
-            // }
-
-            if (EnableStartingBalance is false) return false;
-
-            if (string.IsNullOrEmpty(History.Description))
-            {
-                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
-                    MsgBoxImage.Warning);
-                return true;
-            }
-        }
-
-        var propertyError = validationResults.First();
-        var propertyMemberName = propertyError.MemberNames.First();
-
-        var messageErrorKey = propertyMemberName switch
-        {
-            nameof(TAccount.Name) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountNameError),
-            nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError),
-            nameof(TAccount.CurrencyFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError),
-            _ => null
-        };
-
-        var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
-            ? propertyError.ErrorMessage!
-            : AddEditAccountResources.ResourceManager.GetString(messageErrorKey)!;
-
-        Dialogs.MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Warning);
-
-        return true;
-    }
-
     private async Task FillCollection()
     {
         await Task.WhenAll(
@@ -320,6 +267,24 @@ public partial class AddEditAccountWindow
         );
     }
 
+    public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)
+    {
+        var accountViewModel = await _accountPresentationService.GetAccount(totalByAccountViewModel);
+        if (accountViewModel is null) return;
+
+        _accountDtoViewModelMapper.Merge(accountViewModel, AccountViewModel);
+
+        AccountViewModel.AccountTypeViewModel = accountViewModel.AccountTypeViewModel is null
+            ? null
+            : AccountTypes.FirstOrDefault(s => s.Id == accountViewModel.AccountTypeViewModel.Id);
+
+        AccountViewModel.CurrencyViewModel = accountViewModel.CurrencyViewModel is null
+            ? null
+            : Currencies.FirstOrDefault(s => s.Id == accountViewModel.CurrencyViewModel.Id);
+
+        EditAccount = true;
+    }
+
     public void SetTAccount(TAccount account)
     {
         account.CopyPropertiesTo(Account);
@@ -327,13 +292,4 @@ public partial class AddEditAccountWindow
     }
 
     #endregion
-
-    public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)
-    {
-        var accountViewModel = await _accountPresentationService.GetAccount(totalByAccountViewModel);
-        if (accountViewModel is null) return;
-
-        accountViewModel.IsEditing = true;
-        _accountDtoViewModelMapper.Merge(accountViewModel, AccountViewModel);
-    }
 }
