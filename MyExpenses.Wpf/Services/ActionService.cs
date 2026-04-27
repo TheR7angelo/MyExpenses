@@ -271,6 +271,30 @@ public class ActionService(
         ShowDeleteResultMessage(deleteResult.IsSuccess, currencyViewModel.Symbol);
     }
 
+    public async Task DeleteAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var dependencies = await systemPresentationService.GetAllDependenciesAsync(
+            accountViewModel, cancellationToken);
+
+        var dependenciesArray = dependencies.ToArray();
+
+        var response = dependenciesArray.Length is 0
+            ? AskDeleteConfirmation(accountViewModel.Name)
+            : dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.Account,dependenciesArray);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        var deleteResult = await accountPresentationService.DeleteAccountAsync(accountViewModel, cancellationToken);
+
+        if (deleteResult.IsSuccess)
+        {
+            SendDeletedAccountsMessageIfNeeded(deleteResult.DeletedItems);
+            SendEntityChangedMessage(DependencyType.Account, DataAction.Delete, accountViewModel.Id);
+        }
+
+        ShowDeleteResultMessage(deleteResult.IsSuccess, accountViewModel.Name);
+    }
+
     private async Task ManageNamedEntityAction<TViewModel>(TViewModel? currentViewModel, Func<TViewModel, string?> getName,
         Action<TViewModel, string?> setName,
         int maxNameLength, string addTitle, string editTitle, string addPlaceholder, string editPlaceholder,

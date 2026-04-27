@@ -61,6 +61,20 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return bankTransactionCount;
     }
 
+    public async Task<int[]> GetAllBankTransferIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all bank transfers for accounts with ids {AccountIds}", accountDomain.Id);
+
+        var result = await context.TBankTransfers.Where(e => e.FromAccountFk == accountDomain.Id || e.ToAccountFk == accountDomain.Id)
+            .Select(e => e.Id).ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} bank transfers for account", result.Length);
+
+        return result;
+    }
+
     public async Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
         CancellationToken cancellationToken = default)
     {
@@ -71,6 +85,21 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .CountAsync(e => e.CategoryTypeFk == categoryTypeDomain.Id, cancellationToken);
 
         logger.LogInformation("Loaded {Count} recursive expense count for category type with id {CategoryType}", recursiveExpenseCount, categoryTypeDomain.Id);
+
+        return recursiveExpenseCount;
+    }
+
+    public async Task<int[]> GetAllRecurringTransactionIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading recursive expense count for category type with id {AccountId}", accountDomain.Id);
+        var recursiveExpenseCount = await context.TRecursiveExpenses
+            .Where(e => e.AccountFk == accountDomain.Id)
+            .Select(s => s.Id)
+            .ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} recursive expense count for account type with id {AccountId}", recursiveExpenseCount, accountDomain.Id);
 
         return recursiveExpenseCount;
     }
@@ -109,6 +138,17 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         var result = await context.THistories.Where(e => ((IEnumerable<int>)accountIds).Contains(e.AccountFk)).Select(e => e.Id).ToArrayAsync(cancellationToken);
 
         logger.LogInformation("Loaded {Count} expenses for accounts", result.Length);
+        return result;
+    }
+
+    public async Task<int[]> GetAllExpenseIdAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all expenses for account with id {AccountId}", accountDomain.Id);
+        var result = await context.THistories.Where(e => e.AccountFk == accountDomain.Id).Select(e => e.Id).ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} expenses for account", result.Length);
         return result;
     }
 

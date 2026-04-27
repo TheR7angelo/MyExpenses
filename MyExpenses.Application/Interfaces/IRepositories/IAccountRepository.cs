@@ -113,4 +113,12 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="DeletionResult"/> containing details of the deletion operation, including any related dependencies that were removed.</returns>
     public Task<DeletionResult> DeleteCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes an account asynchronously.
+    /// </summary>
+    /// <param name="accountDomain">The account domain object representing the account to be deleted.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="DeletionResult"/> object indicating the status and details of the deletion operation.</returns>
+    public Task<DeletionResult> DeleteAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 }

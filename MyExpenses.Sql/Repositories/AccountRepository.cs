@@ -366,6 +366,66 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
+    public async Task<DeletionResult> DeleteAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Deleting account with name {AccountName} and id {AccountId}", accountDomain.Name, accountDomain.Id);
+
+        var accountEntity = await
+            context.TAccounts.FirstOrDefaultAsync(s => s.Id == accountDomain.Id,
+                cancellationToken: cancellationToken);
+
+        if (accountEntity is null && accountDomain.Id is 0)
+        {
+            logger.LogWarning("Account with id {AccountId} was not found", accountDomain.Id);
+
+            return DeletionResult.Success("Account was not persisted, so nothing had to be deleted");
+        }
+
+        if (accountEntity is null) {
+            logger.LogWarning("Account with id {AccountId} was not found", accountDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The account with id {accountDomain.Id} was not found");
+        }
+
+        try
+        {
+            var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(accountDomain, cancellationToken);
+            var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(accountDomain, cancellationToken);
+            var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(accountDomain, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (expenseIds.Length > 0) logger.LogWarning("Account has associated expenses {@ExpenseIds}", expenseIds);
+            if (bankTransferIds.Length > 0) logger.LogWarning("Account has associated bank transfers {@BankTransferIds}", bankTransferIds);
+            if (recurringExpenseIds.Length > 0) logger.LogWarning("Account has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds);
+
+            logger.LogInformation("Deleting account with id {AccountId}", accountDomain.Id);
+            context.TAccounts.Remove(accountEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Account with id {AccountId} was successfully deleted", accountDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.Account, [accountDomain.Id] },
+                { DependencyType.Expense, expenseIds },
+                { DependencyType.BankTransfer, bankTransferIds },
+                { DependencyType.RecurringExpense, recurringExpenseIds }
+            };
+            return DeletionResult.Success("Account was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete account with id {AccountId}", accountDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete account: {e.Message}");
+        }
+    }
+
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
         CancellationToken cancellationToken = default)
     {

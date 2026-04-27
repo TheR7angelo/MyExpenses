@@ -107,4 +107,12 @@ public interface IActionService
     /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task DeleteCurrency(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes an account based on the provided account view model data.
+    /// </summary>
+    /// <param name="accountViewModel">The view model containing data for the account that needs to be deleted.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task DeleteAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

@@ -101,7 +101,6 @@ public partial class AddEditAccountWindow
         Closed += (_, _) => WeakReferenceMessenger.Default.UnregisterAll(this);
     }
 
-    // ReSharper disable once CognitiveComplexity
     private void RegisterEntityChangeHandlers()
     {
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountTypeViewModel>>(this, (_, m) =>
@@ -198,38 +197,25 @@ public partial class AddEditAccountWindow
         Close();
     }
 
-    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO continue here
-
-        var response = Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
-            string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Account.Name),
-            System.Windows.MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
-        if (response is not System.Windows.MessageBoxResult.Yes) return;
-
-        Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
-        var (success, exception) = Account.Delete(true);
-
-        if (success)
+        try
         {
-            Log.Information("Account was successfully removed");
-            Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountSuccessTitle,
-                AddEditAccountResources.MessageBoxDeleteAccountSuccessMessage, MsgBoxImage.Check);
-
-            DeleteAccount = true;
-            DialogResult = true;
-            Close();
-            return;
+            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            await accountActionService.DeleteAccount(AccountViewModel);
         }
-
-        Log.Error(exception, "An error occurred please retry");
-        Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountErrorTitle,
-            AddEditAccountResources.MessageBoxDeleteAccountErrorMessage, MsgBoxImage.Error);
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "An error occurred while managing category type action");
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
+        }
     }
 
     private async void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         // TODO correct
+        // TODO continue here
 
         // var error = await CheckIsError();
         // if (error) return;

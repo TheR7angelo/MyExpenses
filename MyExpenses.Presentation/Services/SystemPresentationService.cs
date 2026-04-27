@@ -33,6 +33,12 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
         return systemService.GetAllDependenciesAsync(currencyDto, cancellationToken);
     }
 
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountDto = accountDtoViewModelMapper.MapToDto(accountViewModel);
+        return systemService.GetAllDependenciesAsync(accountDto, cancellationToken);
+    }
+
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
     {
         var randomColor = await systemRepository.GetRandomColor(cancellationToken);

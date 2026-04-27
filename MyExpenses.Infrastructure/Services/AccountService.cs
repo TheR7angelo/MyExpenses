@@ -75,4 +75,10 @@ public class AccountService(IAccountRepository accountRepository,
         var currencyDomain = mapperAccount.MapToDomain(currencyDto);
         return accountRepository.DeleteCurrencyAsync(currencyDomain, cancellationToken);
     }
+
+    public Task<DeletionResult> DeleteAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+        var accountDomain = mapperAccount.MapToDomain(accountDto);
+        return accountRepository.DeleteAccountAsync(accountDomain, cancellationToken);
+    }
 }

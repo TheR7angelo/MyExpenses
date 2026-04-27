@@ -6,11 +6,11 @@ public class AccountDomain
 
     public int Id { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
-    public AccountTypeDomain? AccountTypeDomain { get; set; }
+    public AccountTypeDomain AccountTypeDomain { get; set; } = new();
 
-    public CurrencyDomain? CurrencyDomain { get; set; }
+    public CurrencyDomain CurrencyDomain { get; set; } = new();
 
     public bool? Active { get; set; }
 

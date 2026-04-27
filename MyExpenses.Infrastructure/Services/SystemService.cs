@@ -150,6 +150,45 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return dependencies;
     }
 
+    public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var account = mapperAccount.MapToDomain(accountDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["AccountName"] = account.Name
+        });
+
+        logger.LogInformation("Starting dependency loading for account {AccountName}", account.Name);
+
+        var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(account, cancellationToken);
+        var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(account, cancellationToken);
+        var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(account, cancellationToken);
+
+        await Task.WhenAll(expenseCountTask, bankTransactionCountTask, recursiveExpenseCountTask);
+
+        var expenseCount = await expenseCountTask;
+        var bankTransactionCount = await bankTransactionCountTask;
+        var recursiveExpenseCount = await recursiveExpenseCountTask;
+
+        dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+        logger.LogInformation(
+            "Loaded dependencies for account {AccountName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
+            account.Name,
+            expenseCount,
+            bankTransactionCount,
+            recursiveExpenseCount);
+
+        dependencies = GroupDependencies(dependencies).ToList();
+
+        logger.LogInformation("Finished dependency loading for account with {DependencyCount} dependencies", dependencies.Count);
+        return dependencies;
+    }
+
     private IEnumerable<DeletionDependency> GroupDependencies(IEnumerable<DeletionDependency> dependencies)
     {
         return dependencies

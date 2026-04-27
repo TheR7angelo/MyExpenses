@@ -74,4 +74,10 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         var accountDto = await accountService.GetAccountAsync(totalByAccountViewModel.Id, cancellationToken);
         return accountDto is null ? null : viewModelMapper.MapToViewModel(accountDto);
     }
+
+    public Task<DeletionResult> DeleteAccountAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountDto = viewModelMapper.MapToDto(accountViewModel);
+        return accountService.DeleteAccountAsync(accountDto, cancellationToken);
+    }
 }

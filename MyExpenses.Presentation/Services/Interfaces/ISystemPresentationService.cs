@@ -33,6 +33,14 @@ public interface ISystemPresentationService
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all deletion dependencies associated with the specified account view model asynchronously.
+    /// </summary>
+    /// <param name="accountViewModel">The account view model whose dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of <see cref="DeletionDependency"/> objects indicating the dependencies.</returns>
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a random color view model asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

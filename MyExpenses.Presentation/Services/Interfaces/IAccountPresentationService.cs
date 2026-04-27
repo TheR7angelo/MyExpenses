@@ -93,4 +93,12 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains an <see cref="AccountViewModel"/>.</return>
     public Task<AccountViewModel?> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified account asynchronously.
+    /// </summary>
+    /// <param name="accountViewModel">The account to be deleted, represented by an <see cref="AccountViewModel"/>.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the success or failure of the operation.</returns>
+    public Task<DeletionResult> DeleteAccountAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

@@ -29,4 +29,12 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="DeletionDependency"/> objects.</returns>
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all deletion dependencies for the given account.
+    /// </summary>
+    /// <param name="accountDto">The account data transfer object for which dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of deletion dependencies associated with the account.</returns>
+    public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
 }

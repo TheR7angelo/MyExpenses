@@ -1,6 +1,5 @@
 using Domain.Models.Accounts;
 using Domain.Models.Categories;
-using Domain.Models.Expenses;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -32,6 +31,14 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of integers representing the expense IDs associated with the specified accounts.</returns>
     public Task<int[]> GetAllExpenseIdAsync(int[] accountIds, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all expenses associated with the specified accounts.
+    /// </summary>
+    /// <param name="accountDomain">The account domain for which to retrieve the associated expense IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of expense IDs associated with the specified accounts.</returns>
+    public Task<int[]> GetAllExpenseIdAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves an array of all expense IDs associated with a specified category type.
@@ -105,6 +112,14 @@ public interface IExpenseRepository
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the IDs of all bank transfers associated with the specified accounts.
+    /// </summary>
+    /// <param name="accountDomain">The account for which to retrieve the bank transfer IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of bank transfer IDs associated with the specified accounts.</returns>
+    public Task<int[]> GetAllBankTransferIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the count of all recursive expenses associated with the specified category type.
     /// </summary>
     /// <param name="categoryTypeDomain">The category type for which to retrieve the recursive expense count.</param>
@@ -112,6 +127,14 @@ public interface IExpenseRepository
     /// <returns>The total number of recursive expenses associated with the specified category type.</returns>
     public Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all recurring transactions associated with the specified account.
+    /// </summary>
+    /// <param name="accountDomain">The account domain from which the recurring transaction IDs will be retrieved.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of IDs representing the recurring transactions associated with the specified account.</returns>
+    public Task<int[]> GetAllRecurringTransactionIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all category types from the data source.
@@ -134,8 +157,7 @@ public interface IExpenseRepository
     /// <param name="accountType">The account type to be deleted.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The result of the deletion operation, including details of any deleted items.</returns>
-    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDomain accountType,
-        CancellationToken cancellationToken = default);
+    public Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDomain accountType, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the name of an existing category type in the system.
@@ -143,6 +165,5 @@ public interface IExpenseRepository
     /// <param name="categoryType">The category type domain object containing the updated name and related information.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>A result indicating whether the update was successful, including any relevant error information if applicable.</returns>
-    public Task<Result> UpdateCategoryTypeNameAsync(CategoryTypeDomain categoryType,
-        CancellationToken cancellationToken = default);
+    public Task<Result> UpdateCategoryTypeNameAsync(CategoryTypeDomain categoryType, CancellationToken cancellationToken = default);
 }
