@@ -11,12 +11,10 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsDeleting))]
     public partial TotalByAccountViewModel MapToViewModel(TotalByAccountDto src);
 
-    [MapperIgnoreTarget(nameof(AccountViewModel.IsEditing))]
     [MapProperty(nameof(AccountDto.AccountTypeDto), nameof(AccountViewModel.AccountTypeViewModel))]
     [MapProperty(nameof(AccountDto.CurrencyDto), nameof(AccountViewModel.CurrencyViewModel))]
     public partial AccountViewModel MapToViewModel(AccountDto src);
 
-    [MapperIgnoreSource(nameof(AccountViewModel.IsEditing))]
     [MapperIgnoreSource(nameof(AccountViewModel.HasErrors))]
     [MapProperty(nameof(AccountViewModel.AccountTypeViewModel), nameof(AccountDto.AccountTypeDto))]
     [MapProperty(nameof(AccountViewModel.CurrencyViewModel), nameof(AccountDto.CurrencyDto))]

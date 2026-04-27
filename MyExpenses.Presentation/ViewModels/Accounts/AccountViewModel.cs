@@ -8,9 +8,6 @@ namespace MyExpenses.Presentation.ViewModels.Accounts;
 [DirtyTracking]
 public partial class AccountViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    public partial bool IsEditing { get; set; }
-
     public int Id { get; set; }
 
     [ObservableProperty]
