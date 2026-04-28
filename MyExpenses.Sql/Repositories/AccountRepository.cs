@@ -190,7 +190,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result<AccountTypeDomain>> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeDomain>> CreateAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
     {
         var accountType = accountTypeDomain.MapToEntity();
 
@@ -248,7 +248,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result<CurrencyDomain>> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyDomain>> CreateCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
     {
         var currency = currencyDomain.MapToEntity();
 

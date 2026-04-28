@@ -149,7 +149,7 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type domain object containing details of the category to add.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> AddCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+    public Task<Result> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the specified account type and returns the result of the deletion process.

@@ -46,10 +46,10 @@ public class AccountService(IAccountRepository accountRepository,
         return await accountRepository.DeleteAccountTypeAsync(accountType, cancellationToken);
     }
 
-    public async Task<Result<AccountTypeDto>> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeDto>> CreateAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
         var accountTypeDomain = mapperAccount.MapToDomain(accountTypeDto);
-        var success = await accountRepository.AddAccountTypeAsync(accountTypeDomain, cancellationToken);
+        var success = await accountRepository.CreateAccountTypeAsync(accountTypeDomain, cancellationToken);
         return mapperAccount.MapToDto(success);
     }
 
@@ -59,10 +59,10 @@ public class AccountService(IAccountRepository accountRepository,
         return await accountRepository.UpdateAccountTypeName(accountType, cancellationToken);
     }
 
-    public async Task<Result<CurrencyDto>> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyDto>> CreateCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)
     {
         var currencyDomain = mapperAccount.MapToDomain(currencyDto);
-        var success = await accountRepository.AddCurrencyAsync(currencyDomain, cancellationToken);
+        var success = await accountRepository.CreateCurrencyAsync(currencyDomain, cancellationToken);
         return mapperAccount.MapToDto(success);
     }
 

@@ -234,7 +234,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<Result> AddCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<Result> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
     {
         var categoryType = categoryTypeDomain.MapToEntity();
 

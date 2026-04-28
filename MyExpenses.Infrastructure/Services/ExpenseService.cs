@@ -14,10 +14,10 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return categories.Select(mapper.MapToDto);
     }
 
-    public async Task<Result> AddCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)
+    public async Task<Result> CreateCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)
     {
         var categoryType = mapper.MapToDomain(categoryTypeDto);
-        return await expenseRepository.AddCategoryTypeAsync(categoryType, cancellationToken);
+        return await expenseRepository.CreateCategoryTypeAsync(categoryType, cancellationToken);
     }
 
     public async Task<DeletionResult> DeleteCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)

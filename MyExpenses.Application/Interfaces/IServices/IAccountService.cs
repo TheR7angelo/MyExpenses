@@ -58,7 +58,7 @@ public interface IAccountService
     /// <param name="accountTypeDto">The account type information to be added.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{AccountTypeDto}"/> indicating the outcome of the operation and the added account type details if successful.</returns>
-    public Task<Result<AccountTypeDto>> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
+    public Task<Result<AccountTypeDto>> CreateAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the name of an account type.
@@ -74,7 +74,7 @@ public interface IAccountService
     /// <param name="currencyDto">The details of the currency to be added.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{CurrencyDto}"/> indicating the success or failure of the operation along with the added currency details.</returns>
-    public Task<Result<CurrencyDto>> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
+    public Task<Result<CurrencyDto>> CreateCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the currency symbol for a given currency record.

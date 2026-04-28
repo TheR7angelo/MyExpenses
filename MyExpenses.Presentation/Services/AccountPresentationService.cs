@@ -42,7 +42,7 @@ public class AccountPresentationService(IAccountService accountService,
     public async Task<Result<AccountTypeViewModel>> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
-        var success = await accountService.AddAccountTypeAsync(accountTypeDto, cancellationToken);
+        var success = await accountService.CreateAccountTypeAsync(accountTypeDto, cancellationToken);
         return viewModelMapper.MapToViewModel(success);
     }
 
@@ -55,7 +55,7 @@ public class AccountPresentationService(IAccountService accountService,
     public async Task<Result<CurrencyViewModel>> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default)
     {
         var currencyDto = viewModelMapper.MapToDto(newCurrency);
-        var success = await accountService.AddCurrencyAsync(currencyDto, cancellationToken);
+        var success = await accountService.CreateCurrencyAsync(currencyDto, cancellationToken);
         return viewModelMapper.MapToViewModel(success);
     }
 

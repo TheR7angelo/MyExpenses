@@ -18,7 +18,7 @@ public interface IExpenseService
     /// <param name="categoryTypeDto">The data transfer object representing the category type to be added, including its name, color, and other relevant details.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> AddCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default);
+    public Task<Result> CreateCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a specified category type from the system.
