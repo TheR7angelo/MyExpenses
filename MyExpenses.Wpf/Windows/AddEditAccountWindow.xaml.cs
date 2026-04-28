@@ -10,14 +10,10 @@ using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
-using MyExpenses.Sql.Context;
-using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -206,7 +202,7 @@ public partial class AddEditAccountWindow
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "An error occurred while managing category type action");
+            _logger.LogError(exception, "An error occurred while deleting account action");
             _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
                 AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
         }
@@ -214,19 +210,26 @@ public partial class AddEditAccountWindow
 
     private async void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO correct
-        // TODO continue here
+        try
+        {
+            bool result;
 
-        // var error = await CheckIsError();
-        // if (error) return;
-        //
-        // DialogResult = true;
-        // Close();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            if (EditAccount) result = await accountActionService.EditAccount(AccountViewModel);
+            else if (EnableStartingBalance) result = await accountActionService.AddAccount(AccountViewModel, HistoryViewModel);
+            else result = await accountActionService.AddAccount(AccountViewModel);
 
-        var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
-        var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
+            if (!result) return;
 
-        AccountViewModel.ValidateWithFluent(valResult);
+            DialogResult = true;
+            Close();
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "An error occurred while managing account action");
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxAddEditAccountTypeErrorContent, MsgBoxImage.Error);
+        }
     }
 
     #endregion
@@ -256,6 +259,7 @@ public partial class AddEditAccountWindow
         AccountViewModel.CurrencyViewModel = accountViewModel.CurrencyViewModel is null
             ? null
             : Currencies.FirstOrDefault(s => s.Id == accountViewModel.CurrencyViewModel.Id);
+        AccountViewModel.AcceptChanges();
 
         EditAccount = true;
     }

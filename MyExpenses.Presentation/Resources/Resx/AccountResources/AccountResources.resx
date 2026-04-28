@@ -144,4 +144,13 @@
     <data name="TextBoxEditCurrencySymbol" xml:space="preserve">
         <value>Edit currency symbol :</value>
     </data>
+    <data name="MessageBoxUpdateAccountSuccessCaption" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxUpdateAccountSuccessMessage" xml:space="preserve">
+        <value>The account has been successfully modified</value>
+    </data>
+    <data name="MessageBoxEditItemsQuestionContent" xml:space="preserve">
+        <value>The current changes are pending, do you really want to update them ?{0}{1}</value>
+    </data>
 </root>

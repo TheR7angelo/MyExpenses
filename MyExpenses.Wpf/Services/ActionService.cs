@@ -295,6 +295,71 @@ public class ActionService(
         ShowDeleteResultMessage(deleteResult.IsSuccess, accountViewModel.Name);
     }
 
+    public async Task<bool> EditAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        if (!accountViewModel.IsDirty) return false;
+
+        var valResultAccount = await ValidateAsync<AccountViewModelValidator, AccountViewModel>(accountViewModel, cancellationToken);
+        if (valResultAccount.IsValid)
+        {
+            var pendingChanges = accountViewModel.PendingChanges;
+            var oldValues = pendingChanges.Select(s => s.OldValueDisplay).ToArray();
+            var newValues = pendingChanges.Select(s => s.NewValueDisplay).ToArray();
+            if (!AskUpdateConfirmation(oldValues, newValues)) return false;
+
+            var result = await accountPresentationService.UpdateAccount(accountViewModel, cancellationToken);
+            ShowUpdateResultMessage(result.IsSuccess);
+
+            if (!result.IsSuccess) return false;
+            SendEntityChangedMessage(DependencyType.Account, DataAction.Update, accountViewModel);
+            return true;
+        }
+
+        accountViewModel.ValidateWithFluent(valResultAccount);
+        return false;
+    }
+
+    public Task<bool> AddAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel,
+        CancellationToken cancellationToken = default)
+    {
+        // // TODO correct
+        // // TODO continue here
+        //
+        // // var error = await CheckIsError();
+        // // if (error) return;
+        // //
+        // // DialogResult = true;
+        // // Close();
+        //
+        // var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
+        // var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
+        //
+        // AccountViewModel.ValidateWithFluent(valResult);
+
+        // TODO correct
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> AddAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        // // TODO correct
+        // // TODO continue here
+        //
+        // // var error = await CheckIsError();
+        // // if (error) return;
+        // //
+        // // DialogResult = true;
+        // // Close();
+        //
+        // var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
+        // var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
+        //
+        // AccountViewModel.ValidateWithFluent(valResult);
+
+        // TODO correct
+        throw new NotImplementedException();
+    }
+
     private async Task ManageNamedEntityAction<TViewModel>(TViewModel? currentViewModel, Func<TViewModel, string?> getName,
         Action<TViewModel, string?> setName,
         int maxNameLength, string addTitle, string editTitle, string addPlaceholder, string editPlaceholder,
@@ -427,10 +492,27 @@ public class ActionService(
         return response is MessageBoxResult.Yes;
     }
 
-    private bool AskUpdateConfirmation(string? oldName, string newName)
+    private bool AskUpdateConfirmation(string? oldName, string? newName)
     {
         var response = dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemQuestionCaption,
             string.Format(AccountResources.MessageBoxEditItemQuestionContent, oldName, newName),
+            MessageBoxButton.YesNo,MsgBoxImage.Question);
+
+        return response is MessageBoxResult.Yes;
+    }
+
+    private bool AskUpdateConfirmation(string?[] oldNames, string?[] newNames)
+    {
+        if (oldNames.Length != newNames.Length)
+        {
+            throw new ArgumentException(@"the number of old names must be equal to the number of new names", nameof(oldNames));
+        }
+
+        var lines = oldNames.Select((t, i) => $"- \"{t}\" → \"{newNames[i]}\"");
+        var changes = string.Join(Environment.NewLine, lines);
+
+        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemQuestionCaption,
+            string.Format(AccountResources.MessageBoxEditItemQuestionContent, Environment.NewLine, changes),
             MessageBoxButton.YesNo,MsgBoxImage.Question);
 
         return response is MessageBoxResult.Yes;

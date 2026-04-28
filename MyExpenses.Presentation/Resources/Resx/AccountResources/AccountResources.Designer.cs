@@ -348,6 +348,15 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current changes are pending, do you really want to update them ?{0}{1}.
+        /// </summary>
+        public static string MessageBoxEditItemsQuestionContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemsQuestionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string MessageBoxEditItemSuccessCaption {
@@ -362,6 +371,24 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         public static string MessageBoxEditItemSuccessContent {
             get {
                 return ResourceManager.GetString("MessageBoxEditItemSuccessContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxUpdateAccountSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateAccountSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account has been successfully modified.
+        /// </summary>
+        public static string MessageBoxUpdateAccountSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateAccountSuccessMessage", resourceCulture);
             }
         }
         
