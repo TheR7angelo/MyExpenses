@@ -881,7 +881,7 @@ SELECT ta.id,
                      0) AS REAL)                          AS total_not_pointed,
        tc.symbol
 FROM t_account ta
-         INNER JOIN t_history th
+         LEFT JOIN t_history th
                     ON ta.id = th.account_fk
          INNER JOIN t_currency tc
                     ON ta.currency_fk = tc.id

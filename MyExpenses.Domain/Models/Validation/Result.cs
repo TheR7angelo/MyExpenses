@@ -54,3 +54,24 @@ public class DeletionResult : Result<Dictionary<DependencyType, int[]>>
 
     public Dictionary<DependencyType, int[]>? DeletedItems => Value;
 }
+
+public static class ResultMappingExtensions
+{
+    public static Result<TDestination> Map<TSource, TDestination>(
+        this Result<TSource> src,
+        Func<TSource, TDestination> map)
+    {
+        if (!src.IsSuccess)
+        {
+            return Result<TDestination>.Failure(
+                src.ErrorCode,
+                src.InternalMessage ?? string.Empty);
+        }
+
+        var value = src.Value is null ? default : map(src.Value);
+
+        return Result<TDestination>.Success(
+            value,
+            src.InternalMessage ?? string.Empty);
+    }
+}
