@@ -19,14 +19,20 @@ public class AccountViewModelValidator : AbstractValidator<AccountViewModel>
             .Length(1, AccountDomain.MaxNameLength).WithMessage(string.Format(AccountResources.AccountViewModelValidatorNameTooLong, AccountDomain.MaxNameLength))
             .WithError(ErrorCode.NameTooLong, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorNameTooLong), AccountDomain.MaxNameLength)
 
-            .MustAsync(async (name, cancellation) => !await repository.IsAccountNameAlreadyExistAsync(name, cancellation));
+            .MustAsync(async (name, cancellation) => !await repository.IsAccountNameAlreadyExistAsync(name, cancellation))
+
+            .When(x => x.IsNameDirty);
 
         RuleFor(x => x.AccountTypeViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorAccountTypeRequired)
-            .WithError(ErrorCode.AccountTypeRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorAccountTypeRequired));
+            .WithError(ErrorCode.AccountTypeRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorAccountTypeRequired))
+
+            .When(x => x.IsAccountTypeViewModelDirty);
 
         RuleFor(x => x.CurrencyViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorCurrencyRequired)
-            .WithError(ErrorCode.CurrencyRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorCurrencyRequired));
+            .WithError(ErrorCode.CurrencyRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorCurrencyRequired))
+
+            .When(x => x.IsCurrencyViewModelDirty);
     }
 }

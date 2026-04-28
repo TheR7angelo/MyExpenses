@@ -10,6 +10,7 @@ public partial class AccountTypeViewModel : BaseViewModel
     [ObservableProperty]
     public partial int Id { get; set; }
 
+    [DirtyTrackedProperty]
     [ObservableProperty]
     public partial string? Name { get; set; }
 

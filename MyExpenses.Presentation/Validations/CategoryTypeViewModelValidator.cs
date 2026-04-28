@@ -22,10 +22,14 @@ public class CategoryTypeViewModelValidator : AbstractValidator<CategoryTypeView
 
             .MustAsync(async (name, cancellation) => await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(name, cancellation))
             .WithMessage(ExpenseManagementResources.CategoryTypeViewModelNameAlreadyExists)
-            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelNameAlreadyExists));
+            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelNameAlreadyExists))
+
+            .When(x => x.IsNameDirty);
 
         RuleFor(x => x.Color)
             .NotEmpty().WithMessage(ExpenseManagementResources.CategoryTypeViewModelColorRequired)
-            .WithError(ErrorCode.ColorRequired, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelColorRequired));
+            .WithError(ErrorCode.ColorRequired, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelColorRequired))
+
+            .When(x => x.IsColorDirty);
     }
 }

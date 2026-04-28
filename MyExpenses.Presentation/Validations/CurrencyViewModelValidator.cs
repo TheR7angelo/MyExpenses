@@ -24,6 +24,8 @@ public class CurrencyViewModelValidator : AbstractValidator<CurrencyViewModel>
 
             .MustAsync(async (name, cancellation) => await expensePresentationValidationService.IsCurrencySymbolIsAvailableAsync(name, cancellation))
             .WithMessage(AccountResources.CurrencyViewModelNameAlreadyExists)
-            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameAlreadyExists));
+            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameAlreadyExists))
+
+            .When(x => x.IsSymbolDirty);
     }
 }

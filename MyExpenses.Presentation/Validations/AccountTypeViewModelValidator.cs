@@ -21,6 +21,8 @@ public class AccountTypeViewModelValidator : AbstractValidator<AccountTypeViewMo
 
             .MustAsync(async (name, cancellation) => !await repository.IsAccountTypeNameAlreadyExistAsync(name, cancellation))
             .WithMessage(AccountResources.AccountTypeViewModelValidatorNameAlreadyExists)
-            .WithError(ErrorCode.NameAlreadyExists, AccountResources.ResourceManager, nameof(AccountResources.AccountTypeViewModelValidatorNameAlreadyExists));
+            .WithError(ErrorCode.NameAlreadyExists, AccountResources.ResourceManager, nameof(AccountResources.AccountTypeViewModelValidatorNameAlreadyExists))
+
+            .When(x => x.IsNameDirty);
     }
 }

@@ -10,15 +10,19 @@ public partial class AccountViewModel : BaseViewModel
 {
     public int Id { get; set; }
 
+    [DirtyTrackedProperty]
     [ObservableProperty]
     public partial string? Name { get; set; }
 
+    [DirtyTrackedProperty(DisplayMember = nameof(AccountTypeViewModel.Name))]
     [ObservableProperty]
     public partial AccountTypeViewModel? AccountTypeViewModel { get; set; }
 
+    [DirtyTrackedProperty(DisplayMember = nameof(CurrencyViewModel.Symbol))]
     [ObservableProperty]
     public partial CurrencyViewModel? CurrencyViewModel { get; set; }
 
+    [DirtyTrackedProperty]
     [ObservableProperty]
     public partial bool Active { get; set; }
 
