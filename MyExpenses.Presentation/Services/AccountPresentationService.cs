@@ -80,4 +80,10 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         var accountDto = viewModelMapper.MapToDto(accountViewModel);
         return accountService.DeleteAccountAsync(accountDto, cancellationToken);
     }
+
+    public Task<Result> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountDto = viewModelMapper.MapToDto(accountViewModel);
+        return accountService.UpdateAccountAsync(accountDto, cancellationToken);
+    }
 }

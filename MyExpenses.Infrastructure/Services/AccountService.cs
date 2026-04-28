@@ -81,4 +81,10 @@ public class AccountService(IAccountRepository accountRepository,
         var accountDomain = mapperAccount.MapToDomain(accountDto);
         return accountRepository.DeleteAccountAsync(accountDomain, cancellationToken);
     }
+
+    public Task<Result> UpdateAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+        var accountDomain = mapperAccount.MapToDomain(accountDto);
+        return accountRepository.UpdateAccountAsync(accountDomain, cancellationToken);
+    }
 }

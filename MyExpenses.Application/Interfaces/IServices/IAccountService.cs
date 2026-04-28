@@ -99,4 +99,12 @@ public interface IAccountService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> object indicating the success or failure of the operation, along with details of any deleted items.</returns>
     public Task<DeletionResult> DeleteAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the details of an existing account.
+    /// </summary>
+    /// <param name="accountDto">The data transfer object containing the updated account information.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</returns>
+    public Task<Result> UpdateAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
 }

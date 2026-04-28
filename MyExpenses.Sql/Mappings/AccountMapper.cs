@@ -46,4 +46,34 @@ public static partial class AccountMapper
 
     [MapperIgnoreTarget(nameof(TCurrency.TAccounts))]
     public static partial TCurrency MapToEntity(this CurrencyDomain currencyDomain);
+
+    [MapperIgnoreTarget(nameof(TAccount.TBankTransferFromAccountFkNavigations))]
+    [MapperIgnoreTarget(nameof(TAccount.TBankTransferToAccountFkNavigations))]
+    [MapperIgnoreTarget(nameof(TAccount.CurrencyFkNavigation))]
+    [MapperIgnoreTarget(nameof(TAccount.AccountTypeFkNavigation))]
+    [MapperIgnoreTarget(nameof(TAccount.THistories))]
+    [MapperIgnoreTarget(nameof(TAccount.TRecursiveExpenses))]
+    [MapProperty(nameof(AccountDomain.AccountTypeDomain.Id), nameof(TAccount.AccountTypeFk))]
+    [MapProperty(nameof(AccountDomain.CurrencyDomain.Id), nameof(TAccount.CurrencyFk))]
+    public static partial TAccount MapToEntity(this AccountDomain accountDomain);
+
+    /// <summary>
+    /// Merges two instances of the <see cref="TAccount"/> entity, incorporating values from the source into the destination.
+    /// </summary>
+    /// <param name="src">The source <see cref="TAccount"/> entity containing the values to merge.</param>
+    /// <param name="dst">The destination <see cref="TAccount"/> entity that will be updated with values from the source.</param>
+    /// <returns>The destination <see cref="TAccount"/> entity with values updated from the source.</returns>
+    [MapperIgnoreTarget(nameof(TAccount.AccountTypeFkNavigation))]
+    [MapperIgnoreTarget(nameof(TAccount.CurrencyFkNavigation))]
+    [MapperIgnoreTarget(nameof(TAccount.THistories))]
+    [MapperIgnoreTarget(nameof(TAccount.TRecursiveExpenses))]
+    [MapperIgnoreTarget(nameof(TAccount.TBankTransferFromAccountFkNavigations))]
+    [MapperIgnoreTarget(nameof(TAccount.TBankTransferToAccountFkNavigations))]
+    [MapperIgnoreSource(nameof(TAccount.AccountTypeFkNavigation))]
+    [MapperIgnoreSource(nameof(TAccount.CurrencyFkNavigation))]
+    [MapperIgnoreSource(nameof(TAccount.THistories))]
+    [MapperIgnoreSource(nameof(TAccount.TRecursiveExpenses))]
+    [MapperIgnoreSource(nameof(TAccount.TBankTransferFromAccountFkNavigations))]
+    [MapperIgnoreSource(nameof(TAccount.TBankTransferToAccountFkNavigations))]
+    public static partial void Merge(this TAccount src, TAccount dst);
 }

@@ -121,4 +121,12 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="DeletionResult"/> object indicating the status and details of the deletion operation.</returns>
     public Task<DeletionResult> DeleteAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates an existing account asynchronously with the provided account details.
+    /// </summary>
+    /// <param name="accountDomain">The domain object representing the account to be updated.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation, along with error details, if applicable.</returns>
+    public Task<Result> UpdateAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 }

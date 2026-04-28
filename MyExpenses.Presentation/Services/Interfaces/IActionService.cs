@@ -115,4 +115,29 @@ public interface IActionService
     /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task DeleteAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Edits the details of an existing account based on the provided account view model.
+    /// </summary>
+    /// <param name="accountViewModel">The view model containing details of the account to be edited.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task that represents the asynchronous operation, returning a boolean indicating success or failure of the edit operation.</returns>
+    public Task<bool> EditAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new account based on the provided account information and historical data.
+    /// </summary>
+    /// <param name="accountViewModel">The view model containing details and configurations for the account to be added.</param>
+    /// <param name="historyViewModel">The view model containing historical data relevant to the account addition.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation, returning a boolean indicating the success or failure of the account addition.</returns>
+    public Task<bool> AddAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds a new account based on the provided account view model.
+    /// </summary>
+    /// <param name="accountViewModel">The view model containing details of the account to be added, such as name, balance, and account type.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation, containing a boolean value indicating the success or failure of the operation.</returns>
+    public Task<bool> AddAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

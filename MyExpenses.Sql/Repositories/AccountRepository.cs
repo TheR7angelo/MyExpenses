@@ -426,6 +426,38 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
+    public async Task<Result> UpdateAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Updating account (ID={AccountId}) with name {AccountName}", accountDomain.Id, accountDomain.Name);
+
+        var json = accountDomain.ToJson();
+        logger.LogInformation("Account json: {Json}", json);
+
+        try
+        {
+            var updatedAccount = await context.TAccounts.FirstOrDefaultAsync(s => s.Id == accountDomain.Id, cancellationToken);
+            if (updatedAccount is null)
+            {
+                return Result.Failure(ErrorCode.NotFound, "Account not found");
+            }
+
+            var entity = accountDomain.MapToEntity();
+            entity.Merge(updatedAccount);
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Account (ID={AccountId}) with name {AccountName} was successfully updated", accountDomain.Id, accountDomain.Name);
+            return Result.Success("Account was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update account (ID={AccountId}) with name {AccountName}", accountDomain.Id, accountDomain.Name);
+            return Result.Failure(ErrorCode.DatabaseError, "Failed to update account");
+        }
+    }
+
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
         CancellationToken cancellationToken = default)
     {
