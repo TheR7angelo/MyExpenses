@@ -1,3 +1,4 @@
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -35,4 +36,20 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial CurrencyViewModel Clone(CurrencyViewModel src);
 
     public partial void Merge(AccountViewModel src, AccountViewModel dest);
+
+    public Result<AccountTypeViewModel> MapToViewModel(Result<AccountTypeDto> src)
+    {
+        if (!src.IsSuccess) return Result<AccountTypeViewModel>.Failure(src.ErrorCode, src.InternalMessage ?? string.Empty);
+
+        var viewModel = src.Value is null ? null : MapToViewModel(src.Value);
+        return Result<AccountTypeViewModel>.Success(viewModel, src.InternalMessage ?? string.Empty);
+    }
+
+    public Result<CurrencyViewModel> MapToViewModel(Result<CurrencyDto> src)
+    {
+        if (!src.IsSuccess) return Result<CurrencyViewModel>.Failure(src.ErrorCode, src.InternalMessage ?? string.Empty);
+
+        var viewModel = src.Value is null ? null : MapToViewModel(src.Value);
+        return Result<CurrencyViewModel>.Success(viewModel, src.InternalMessage ?? string.Empty);
+    }
 }

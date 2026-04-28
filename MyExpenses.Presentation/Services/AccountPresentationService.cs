@@ -6,7 +6,7 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 
 namespace MyExpenses.Presentation.Services;
 
-public class AccountPresentationService(IAccountService accountService, ISystemService systemService,
+public class AccountPresentationService(IAccountService accountService,
     IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
 {
     public async Task<IEnumerable<AccountViewModel>> GetAllAccountViewModelAsync(CancellationToken cancellationToken = default)
@@ -39,10 +39,11 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         return await accountService.DeleteAccountTypeAsync(accountTypeDto, cancellationToken);
     }
 
-    public async Task<Result> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeViewModel>> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
-        return await accountService.AddAccountTypeAsync(accountTypeDto, cancellationToken);
+        var success = await accountService.AddAccountTypeAsync(accountTypeDto, cancellationToken);
+        return viewModelMapper.MapToViewModel(success);
     }
 
     public async Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
@@ -51,10 +52,11 @@ public class AccountPresentationService(IAccountService accountService, ISystemS
         return await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
     }
 
-    public Task<Result> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyViewModel>> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default)
     {
         var currencyDto = viewModelMapper.MapToDto(newCurrency);
-        return accountService.AddCurrencyAsync(currencyDto, cancellationToken);
+        var success = await accountService.AddCurrencyAsync(currencyDto, cancellationToken);
+        return viewModelMapper.MapToViewModel(success);
     }
 
     public Task<Result> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)

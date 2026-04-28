@@ -18,18 +18,32 @@ public class Result
     public static Result Success(string? internalMessage = null)
         => new(true, ErrorCode.None, internalMessage);
 
-    public static Result Failure(ErrorCode errorCode, string internalMessage) =>
-        new(false, errorCode, internalMessage);
+    public static Result Failure(ErrorCode errorCode, string internalMessage)
+        => new(false, errorCode, internalMessage);
 }
 
-public class DeletionResult : Result
+public class Result<T> : Result
 {
-    public Dictionary<DependencyType, int[]>? DeletedItems { get; private set; }
+    public T? Value { get; private set; }
 
-    private DeletionResult(bool success, ErrorCode errorCode, string? internalMessage, Dictionary<DependencyType, int[]>? deletedItems = null)
+    protected Result(bool success, ErrorCode errorCode, string? internalMessage, T? value = default)
         : base(success, errorCode, internalMessage)
     {
-        DeletedItems = deletedItems;
+        Value = value;
+    }
+
+    public static Result<T> Success(T? value = default, string? internalMessage = null)
+        => new(true, ErrorCode.None, internalMessage, value);
+
+    public new static Result<T> Failure(ErrorCode errorCode, string internalMessage)
+        => new(false, errorCode, internalMessage);
+}
+
+public class DeletionResult : Result<Dictionary<DependencyType, int[]>>
+{
+    private DeletionResult(bool success, ErrorCode errorCode, string? internalMessage, Dictionary<DependencyType, int[]>? deletedItems = null)
+        : base(success, errorCode, internalMessage, deletedItems)
+    {
     }
 
     public static DeletionResult Success(string? internalMessage = null, Dictionary<DependencyType, int[]>? deletedItems = null) =>
@@ -37,4 +51,6 @@ public class DeletionResult : Result
 
     public new static DeletionResult Failure(ErrorCode errorCode, string internalMessage) =>
         new(false, errorCode, internalMessage);
+
+    public Dictionary<DependencyType, int[]>? DeletedItems => Value;
 }

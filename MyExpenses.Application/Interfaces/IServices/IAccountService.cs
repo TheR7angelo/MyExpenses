@@ -53,12 +53,12 @@ public interface IAccountService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Adds a new account type to the system using the provided account type details.
+    /// Adds a new account type to the system.
     /// </summary>
-    /// <param name="accountTypeDto">An object containing the details of the account type to be added.</param>
+    /// <param name="accountTypeDto">The account type information to be added.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{AccountTypeDto}"/> indicating the outcome of the operation and the added account type details if successful.</returns>
+    public Task<Result<AccountTypeDto>> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the name of an account type.
@@ -69,12 +69,12 @@ public interface IAccountService
     public Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Adds a new currency to the system based on the provided currency data.
+    /// Adds a new currency to the system.
     /// </summary>
-    /// <param name="currencyDto">An object that contains the details of the currency to be added.</param>
+    /// <param name="currencyDto">The details of the currency to be added.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating the outcome of the operation.</returns>
-    public Task<Result> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{CurrencyDto}"/> indicating the success or failure of the operation along with the added currency details.</returns>
+    public Task<Result<CurrencyDto>> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the currency symbol for a given currency record.

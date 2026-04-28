@@ -147,7 +147,7 @@ public class ActionService(
 
         if (result.IsSuccess)
         {
-            SendEntityChangedMessage(DependencyType.AccountType, DataAction.Add, newAccountType);
+            SendEntityChangedMessage(DependencyType.AccountType, DataAction.Add, result.Value);
         }
 
         ShowCreateResultMessage(result.IsSuccess, newAccountType.Name);
@@ -225,7 +225,7 @@ public class ActionService(
 
         if (result.IsSuccess)
         {
-            SendEntityChangedMessage(DependencyType.Currency, DataAction.Add, newCurrency);
+            SendEntityChangedMessage(DependencyType.Currency, DataAction.Add, result.Value);
         }
 
         ShowCreateResultMessage(result.IsSuccess, newCurrency.Symbol);

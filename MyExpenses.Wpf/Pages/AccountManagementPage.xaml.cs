@@ -1,12 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
@@ -45,6 +43,15 @@ public partial class AccountManagementPage
             {
                 item.IsDeleting = true;
             }
+        });
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+        {
+            if (m.Value is not { EntityType: DependencyType.Account, DataAction: DataAction.Update, Content: var accountViewModel }) return;
+            var item = TotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
+            if (item is null) return;
+            item.Name = accountViewModel.Name ?? string.Empty;
+            item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
         });
     }
 
@@ -107,69 +114,13 @@ public partial class AccountManagementPage
 
     private async void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO continue here
         if (sender is not Button button) return;
         if (button.DataContext is not TotalByAccountViewModel totalByAccountViewModel) return;
 
-        var account = totalByAccountViewModel.Id.ToISql<TAccount>();
-        if (account is null) return;
-
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
-        // TODO bug to correct
         await addEditAccountWindow.LoadAsync(totalByAccountViewModel);
-        // addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
-
-        if (addEditAccountWindow.DialogResult is not true) return;
-        if (addEditAccountWindow.DeleteAccount)
-        {
-            // TODO CLEAN
-            // TotalByAccounts.Remove(vTotalByAccount);
-            // DashBoardPage?.RefreshAccountTotal();
-            return;
-        }
-
-        var editedAccount = addEditAccountWindow.Account;
-
-        Log.Information("Attempting to edit the account \"{AccountName}\"", account.Name);
-        var (success, exception) = editedAccount.AddOrEdit();
-        if (success)
-        {
-            Log.Information("Account was successfully edited");
-            var json = editedAccount.ToJsonString();
-            Log.Information("{Json}", json);
-
-            MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
-
-            var newVTotalByAccount = editedAccount.Id.ToISql<VTotalByAccount>();
-            if (newVTotalByAccount is null) return;
-
-            // TODO CLEAN
-            // TotalByAccounts.Remove(vTotalByAccount);
-
-            // TODO CLEAN
-            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-            // DashBoardPage?.RefreshAccountTotal();
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
-        }
     }
 
     #endregion
-
-    private void Timeline_OnCompleted(object? sender, EventArgs e)
-    {
-        if (sender is not ClockGroup clock) return;
-
-        var timeline = clock.Timeline;
-        var target = Storyboard.GetTarget(timeline) as FrameworkElement;
-
-        if (target?.DataContext is TotalByAccountViewModel item)
-        {
-            TotalByAccounts.Remove(item);
-        }
-    }
 }

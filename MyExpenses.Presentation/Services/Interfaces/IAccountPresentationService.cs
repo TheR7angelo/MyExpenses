@@ -40,19 +40,15 @@ public interface IAccountPresentationService
     /// <param name="accountTypeViewModel">The account type view model to be deleted.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the success or failure of the deletion.</return>
-    public Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel,
-        CancellationToken cancellationToken = default);
-
-    // public Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default);
+    public Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Adds a new account type asynchronously.
+    /// Adds a new account type.
     /// </summary>
-    /// <param name="accountTypeViewModel">The account type to add, represented as an <see cref="AccountTypeViewModel"/>.</param>
+    /// <param name="accountTypeViewModel">The view model representing the account type to be added.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
-    public Task<Result> AddAccountType(AccountTypeViewModel accountTypeViewModel,
-        CancellationToken cancellationToken = default);
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result{AccountTypeViewModel}"/> indicating the outcome of the operation.</return>
+    public Task<Result<AccountTypeViewModel>> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the name of an account type.
@@ -63,12 +59,12 @@ public interface IAccountPresentationService
     public Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Adds a new currency to the system.
+    /// Adds a new currency to the system asynchronously.
     /// </summary>
-    /// <param name="newCurrency">The <see cref="CurrencyViewModel"/> representing the currency to be added.</param>
+    /// <param name="newCurrency">The currency details to be added, encapsulated in a <see cref="CurrencyViewModel"/>.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
-    public Task<Result> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default);
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result{CurrencyViewModel}"/> indicating the outcome of the operation.</return>
+    public Task<Result<CurrencyViewModel>> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the currency symbol for the specified currency view model.

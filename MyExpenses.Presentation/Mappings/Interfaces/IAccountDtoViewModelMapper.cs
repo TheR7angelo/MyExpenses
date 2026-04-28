@@ -1,3 +1,4 @@
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
@@ -74,4 +75,18 @@ public interface IAccountDtoViewModelMapper
     /// <param name="src">The source AccountViewModel containing the data to be merged.</param>
     /// <param name="dest">The destination AccountViewModel where the data will be merged.</param>
     public void Merge(AccountViewModel src, AccountViewModel dest);
+
+    /// <summary>
+    /// Maps a Result of AccountTypeDto to a Result of AccountTypeViewModel.
+    /// </summary>
+    /// <param name="src">The Result object containing an AccountTypeDto to map.</param>
+    /// <returns>A Result object containing an AccountTypeViewModel representing the mapped data.</returns>
+    public Result<AccountTypeViewModel> MapToViewModel(Result<AccountTypeDto> src);
+
+    /// <summary>
+    /// Maps a Result of CurrencyDto to a Result of CurrencyViewModel.
+    /// </summary>
+    /// <param name="src">The result object containing the <see cref="CurrencyDto"/> to be transformed.</param>
+    /// <returns>The transformed result object containing the mapped <see cref="CurrencyViewModel"/>.</returns>
+    public Result<CurrencyViewModel> MapToViewModel(Result<CurrencyDto> src);
 }

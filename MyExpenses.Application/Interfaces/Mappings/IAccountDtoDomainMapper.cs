@@ -1,4 +1,5 @@
 using Domain.Models.Accounts;
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 
 namespace MyExpenses.Application.Interfaces.Mappings;
@@ -53,4 +54,18 @@ public interface IAccountDtoDomainMapper
     /// <param name="src">The source AccountTypeDto object to map.</param>
     /// <returns>An AccountTypeDomain object that is mapped from the source object.</returns>
     public AccountTypeDomain MapToDomain(AccountTypeDto src);
+
+    /// <summary>
+    /// Maps the given source object to its Data Transfer Object (DTO) equivalent.
+    /// </summary>
+    /// <param name="src">The source object to map.</param>
+    /// <returns>The mapped Data Transfer Object (DTO) of the source object.</returns>
+    public Result<AccountTypeDto> MapToDto(Result<AccountTypeDomain> src);
+
+    /// <summary>
+    /// Maps the specified source object to its corresponding Data Transfer Object (DTO) representation.
+    /// </summary>
+    /// <param name="src">The source object to map.</param>
+    /// <returns>A DTO object that is mapped from the source object.</returns>
+    public Result<CurrencyDto> MapToDto(Result<CurrencyDomain> src);
 }

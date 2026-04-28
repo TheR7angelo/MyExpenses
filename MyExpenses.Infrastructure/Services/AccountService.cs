@@ -46,10 +46,11 @@ public class AccountService(IAccountRepository accountRepository,
         return await accountRepository.DeleteAccountTypeAsync(accountType, cancellationToken);
     }
 
-    public async Task<Result> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeDto>> AddAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
-        var accountType = mapperAccount.MapToDomain(accountTypeDto);
-        return await accountRepository.AddAccountTypeAsync(accountType, cancellationToken);
+        var accountTypeDomain = mapperAccount.MapToDomain(accountTypeDto);
+        var success = await accountRepository.AddAccountTypeAsync(accountTypeDomain, cancellationToken);
+        return mapperAccount.MapToDto(success);
     }
 
     public async Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
@@ -58,10 +59,11 @@ public class AccountService(IAccountRepository accountRepository,
         return await accountRepository.UpdateAccountTypeName(accountType, cancellationToken);
     }
 
-    public Task<Result> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken)
+    public async Task<Result<CurrencyDto>> AddCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)
     {
         var currencyDomain = mapperAccount.MapToDomain(currencyDto);
-        return accountRepository.AddCurrencyAsync(currencyDomain, cancellationToken);
+        var success = await accountRepository.AddCurrencyAsync(currencyDomain, cancellationToken);
+        return mapperAccount.MapToDto(success);
     }
 
     public Task<Result> UpdateCurrencySymbolAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default)

@@ -78,9 +78,8 @@ public interface IAccountRepository
     /// </summary>
     /// <param name="accountTypeDomain">The account type to be added.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="Result"/> indicating the success or failure of the operation.</returns>
-    public Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain,
-        CancellationToken cancellationToken = default);
+    /// <returns>A <see cref="Result{AccountTypeDomain}"/> indicating the success or failure of the operation, including the added account type if successful.</returns>
+    public Task<Result<AccountTypeDomain>> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the name of an existing account type asynchronously.
@@ -95,8 +94,8 @@ public interface IAccountRepository
     /// </summary>
     /// <param name="currencyDomain">The <see cref="CurrencyDomain"/> object representing the currency to be added.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
+    /// <returns>A <see cref="Result{CurrencyDomain}"/> object indicating the success or failure of the operation, including the added currency if successful.</returns>
+    public Task<Result<CurrencyDomain>> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the currency symbol asynchronously for a specified currency domain object.

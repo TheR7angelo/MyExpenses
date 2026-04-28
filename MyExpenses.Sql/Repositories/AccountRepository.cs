@@ -190,7 +190,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeDomain>> AddAccountTypeAsync(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
     {
         var accountType = accountTypeDomain.MapToEntity();
 
@@ -206,13 +206,15 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             context.TAccountTypes.Add(accountType);
             await context.SaveChangesAsync(cancellationToken);
 
+            accountTypeDomain = accountType.MapToDomain();
+
             logger.LogInformation("Account type with name {AccountTypeName} was successfully added", accountType.Name);
-            return Result.Success("Account type was successfully added");
+            return Result<AccountTypeDomain>.Success(accountTypeDomain, "Account type was successfully added");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to add account type with name {AccountTypeName}", accountType.Name);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to add account type");
+            return Result<AccountTypeDomain>.Failure(ErrorCode.DatabaseError, "Failed to add account type");
         }
     }
 
@@ -246,7 +248,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyDomain>> AddCurrencyAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
     {
         var currency = currencyDomain.MapToEntity();
 
@@ -263,13 +265,15 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             context.TCurrencies.Add(currency);
             await context.SaveChangesAsync(cancellationToken);
 
+            currencyDomain = currency.MapToDomain();
+
             logger.LogInformation("Currency with symbol {CurrencySymbol} was successfully added", currency.Symbol);
-            return Result.Success("Currency was successfully added");
+            return Result<CurrencyDomain>.Success(currencyDomain, "Currency was successfully added");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to add currency with symbol {CurrencySymbol}", currency.Symbol);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to add currency");
+            return Result<CurrencyDomain>.Failure(ErrorCode.DatabaseError, "Failed to add currency");
         }
     }
 
