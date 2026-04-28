@@ -13,6 +13,7 @@ using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
@@ -442,6 +443,18 @@ public partial class DashBoardPage
             }
 
             RefreshRadioButtonSelected();
+        });
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+        {
+            if (m.Value.EntityType is not DependencyType.Account || m.Value.DataAction is not DataAction.Update) return;
+
+            var account = m.Value.Content;
+            var item = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(account.Id));
+            if (item is null) return;
+
+            item.Name = account.Name ?? string.Empty;
+            item.Symbol = account.CurrencyViewModel?.Symbol ?? string.Empty;
         });
     }
 

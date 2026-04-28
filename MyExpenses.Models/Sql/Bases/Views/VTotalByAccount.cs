@@ -1,18 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
-public partial class VTotalByAccount : ISql
+public partial class VTotalByAccount : ObservableValidator, ISql
 {
     [Column("id")]
     public int Id { get; set; }
 
+    [ObservableProperty]
     [Column("name")]
     [MaxLength(55)]
-    public string Name { get; set; }
+    public partial string Name { get; set; } = string.Empty;
 
     [Column("total")]
     public double Total { get; set; }
