@@ -19,8 +19,7 @@ public partial class CurrencyViewModel : ObservableValidator
     [MaxLengthWithCode(CurrencyDomain.MaxSymbolLength, ErrorCode.NameTooLong, ErrorMessage = "Currency symbol cannot exceed 55 characters")]
     public partial string? Symbol { get; set; } = string.Empty;
 
-    [ObservableProperty]
-    public partial DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     public IEnumerable<DomainValidationResult> GetErrorCodes()
         => GetErrors().OfType<DomainValidationResult>();
