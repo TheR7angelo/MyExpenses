@@ -5,18 +5,11 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
-using MyExpenses.Sql.Context;
-using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
-using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
