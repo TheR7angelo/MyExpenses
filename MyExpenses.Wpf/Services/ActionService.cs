@@ -340,24 +340,23 @@ public class ActionService(
         throw new NotImplementedException();
     }
 
-    public Task<bool> AddAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    public async Task<bool> AddAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
-        // // TODO correct
-        // // TODO continue here
-        //
-        // // var error = await CheckIsError();
-        // // if (error) return;
-        // //
-        // // DialogResult = true;
-        // // Close();
-        //
-        // var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
-        // var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
-        //
-        // AccountViewModel.ValidateWithFluent(valResult);
+        if (!accountViewModel.IsDirty) return false;
 
-        // TODO correct
-        throw new NotImplementedException();
+        var valResultAccount = await ValidateAsync<AccountViewModelValidator, AccountViewModel>(accountViewModel, cancellationToken);
+        if (valResultAccount.IsValid)
+        {
+            var result = await accountPresentationService.CreateAccount(accountViewModel, cancellationToken);
+            ShowUpdateResultMessage(result.IsSuccess);
+
+            if (!result.IsSuccess) return false;
+            SendEntityChangedMessage(DependencyType.Account, DataAction.Add, result.Value);
+            return true;
+        }
+
+        accountViewModel.ValidateWithFluent(valResultAccount);
+        return false;
     }
 
     private async Task ManageNamedEntityAction<TViewModel>(TViewModel? currentViewModel, Func<TViewModel, string?> getName,

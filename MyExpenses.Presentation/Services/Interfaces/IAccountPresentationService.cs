@@ -105,4 +105,20 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
     public Task<Result> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new account asynchronously.
+    /// </summary>
+    /// <param name="accountViewModel">The account view model containing the details of the account to be created.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result{AccountViewModel}"/> indicating the success or failure of the operation, along with the created account details if successful.</return>
+    public Task<Result<AccountViewModel>> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total information associated with a specific account view model asynchronously.
+    /// </summary>
+    /// <param name="accountViewModel">The account view model for which the total information is to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains the <see cref="TotalByAccountViewModel"/> corresponding to the provided account view model.</return>
+    public Task<TotalByAccountViewModel?> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

@@ -14,7 +14,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
     IExpenseRepository expenseRepository,
     ILogger<AccountRepository> logger) : IAccountRepository
 {
-    public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TotalByAccountDomain>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Loading all totals by account");
         var totalByAccounts = await dataBaseContext.VTotalByAccounts
@@ -460,6 +460,58 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             logger.LogError(e, "Failed to update account (ID={AccountId}) with name {AccountName}", accountDomain.Id, accountDomain.Name);
             return Result.Failure(ErrorCode.DatabaseError, "Failed to update account");
         }
+    }
+
+    public async Task<Result<AccountDomain>> CreateAccount(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        var account = accountDomain.MapToEntity();
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Adding account with name {AccountName}", accountDomain.Name);
+
+        var json = account.ToJson();
+        logger.LogInformation("Account json: {Json}", json);
+        logger.Log(LogLevel.Information, "Account json: {Json}", json);
+
+        try
+        {
+            context.TAccounts.Add(account);
+            await context.SaveChangesAsync(cancellationToken);
+
+            accountDomain = context.TAccounts
+                .AsNoTracking()
+                .Include(s => s.CurrencyFkNavigation)
+                .Include(s => s.AccountTypeFkNavigation)
+                .First(s => s.Id == account.Id)
+                .MapToDomain();
+
+            logger.LogInformation("Account with name {AccountName} was successfully added", accountDomain.Name);
+            return Result<AccountDomain>.Success(accountDomain, "Account was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add account with name {AccountName}", accountDomain.Name);
+            return Result<AccountDomain>.Failure(ErrorCode.DatabaseError, "Failed to add account");
+        }
+    }
+
+    public async Task<TotalByAccountDomain?> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading total by account with name {AccountName} and id {AccountId}", accountDomain.Name, accountDomain.Id);
+        var totalByAccount = await dataBaseContext.VTotalByAccounts
+            .AsNoTracking()
+            .ProjectToDomain()
+            .FirstOrDefaultAsync(s => s.Id == accountDomain.Id, cancellationToken);
+
+        if (totalByAccount is null)
+        {
+            logger.LogWarning("Total by account with id {AccountId} not found", accountDomain.Id);
+            return null;
+        }
+
+        logger.LogInformation("Loaded total by account with id {AccountId}", totalByAccount.Id);
+        return totalByAccount;
     }
 
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,

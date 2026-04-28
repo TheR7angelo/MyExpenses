@@ -45,13 +45,24 @@ public partial class AccountManagementPage
             }
         });
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, async (_, m) =>
         {
-            if (m.Value is not { EntityType: DependencyType.Account, DataAction: DataAction.Update, Content: var accountViewModel }) return;
-            var item = TotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
-            if (item is null) return;
-            item.Name = accountViewModel.Name ?? string.Empty;
-            item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
+            if (m.Value is not {EntityType: DependencyType.Account, Content: var accountViewModel }) return;
+
+            if (m.Value.DataAction is DataAction.Update)
+            {
+                var item = TotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
+                if (item is null) return;
+                item.Name = accountViewModel.Name ?? string.Empty;
+                item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
+            }
+
+            if (m.Value.DataAction is DataAction.Add)
+            {
+                var item = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
+                if (item is null) return;
+                TotalByAccounts.AddAndSort(item, s => s.Name);
+            }
         });
     }
 
@@ -76,40 +87,40 @@ public partial class AccountManagementPage
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
         addEditAccountWindow.ShowDialog();
 
-        // TODO injector DTO MODEL VIEW
-        if (addEditAccountWindow.DialogResult is not true) return;
-
-        var newAccount = addEditAccountWindow.Account;
-
-        if (addEditAccountWindow.EnableStartingBalance)
-        {
-            var newHistory = addEditAccountWindow.History;
-            newHistory.ModePaymentFk = 1;
-            newAccount.THistories = [newHistory];
-        }
-
-        Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
-        var (success, exception) = newAccount.AddOrEdit();
-        if (success)
-        {
-            Log.Information("Account was successfully added");
-            var json = newAccount.ToJsonString();
-            Log.Information("{Json}", json);
-
-            MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidSuccessTitle, AddEditAccountResources.MessageBoxButtonValidSuccessMessage, MsgBoxImage.Check);
-
-            var newVTotalByAccount = newAccount.Id.ToISql<VTotalByAccount>();
-            if (newVTotalByAccount is null) return;
-
-            // TODO CLEAN
-            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-            // DashBoardPage?.RefreshAccountTotal();
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidErrorTitle, AddEditAccountResources.MessageBoxButtonValidErrorMessage, MsgBoxImage.Warning);
-        }
+        // // TODO injector DTO MODEL VIEW
+        // if (addEditAccountWindow.DialogResult is not true) return;
+        //
+        // var newAccount = addEditAccountWindow.Account;
+        //
+        // if (addEditAccountWindow.EnableStartingBalance)
+        // {
+        //     var newHistory = addEditAccountWindow.History;
+        //     newHistory.ModePaymentFk = 1;
+        //     newAccount.THistories = [newHistory];
+        // }
+        //
+        // Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
+        // var (success, exception) = newAccount.AddOrEdit();
+        // if (success)
+        // {
+        //     Log.Information("Account was successfully added");
+        //     var json = newAccount.ToJsonString();
+        //     Log.Information("{Json}", json);
+        //
+        //     MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidSuccessTitle, AddEditAccountResources.MessageBoxButtonValidSuccessMessage, MsgBoxImage.Check);
+        //
+        //     var newVTotalByAccount = newAccount.Id.ToISql<VTotalByAccount>();
+        //     if (newVTotalByAccount is null) return;
+        //
+        //     // TODO CLEAN
+        //     // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+        //     // DashBoardPage?.RefreshAccountTotal();
+        // }
+        // else
+        // {
+        //     Log.Error(exception, "An error occurred please retry");
+        //     MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidErrorTitle, AddEditAccountResources.MessageBoxButtonValidErrorMessage, MsgBoxImage.Warning);
+        // }
     }
 
     private async void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)

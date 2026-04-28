@@ -88,4 +88,18 @@ public class AccountPresentationService(IAccountService accountService,
         var accountDto = viewModelMapper.MapToDto(accountViewModel);
         return accountService.UpdateAccountAsync(accountDto, cancellationToken);
     }
+
+    public async Task<Result<AccountViewModel>> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountDto = viewModelMapper.MapToDto(accountViewModel);
+        var success = await accountService.CreateAccount(accountDto, cancellationToken);
+        return viewModelMapper.MapToViewModel(success);
+    }
+
+    public async Task<TotalByAccountViewModel?> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var dto = viewModelMapper.MapToDto(accountViewModel);
+        var totalByAccountDto = await accountService.GetTotalByAccountAsync(dto, cancellationToken);
+        return totalByAccountDto is null ? null : viewModelMapper.MapToViewModel(totalByAccountDto);
+    }
 }

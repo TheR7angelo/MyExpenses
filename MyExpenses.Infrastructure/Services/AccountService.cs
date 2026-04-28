@@ -12,7 +12,7 @@ public class AccountService(IAccountRepository accountRepository,
 {
     public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
-        var totalByAccountDomain = await accountRepository.GetTotalByAccountAsync(cancellationToken);
+        var totalByAccountDomain = await accountRepository.GetAllTotalByAccountAsync(cancellationToken);
         return totalByAccountDomain.Select(mapperAccount.MapToDto);
     }
 
@@ -88,5 +88,20 @@ public class AccountService(IAccountRepository accountRepository,
     {
         var accountDomain = mapperAccount.MapToDomain(accountDto);
         return accountRepository.UpdateAccountAsync(accountDomain, cancellationToken);
+    }
+
+    public async Task<Result<AccountDto>> CreateAccount(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+        var accountDomain = mapperAccount.MapToDomain(accountDto);
+        var success = await accountRepository.CreateAccount(accountDomain, cancellationToken);
+        return mapperAccount.MapToDto(success);
+    }
+
+    public async Task<TotalByAccountDto?> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+        var domain = mapperAccount.MapToDomain(accountDto);
+
+        var totalByAccountDomain = await accountRepository.GetTotalByAccountAsync(domain, cancellationToken);
+        return totalByAccountDomain is null ? null : mapperAccount.MapToDto(totalByAccountDomain);
     }
 }

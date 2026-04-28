@@ -107,4 +107,20 @@ public interface IAccountService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</returns>
     public Task<Result> UpdateAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new account using the provided account details.
+    /// </summary>
+    /// <param name="accountDto">The account details to be used for creating the new account.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{AccountDto}"/> indicating the success or failure of the operation and the created account details, if successful.</returns>
+    public Task<Result<AccountDto>> CreateAccount(AccountDto accountDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total amounts for a specific account, including details such as total, total pointed, and total not pointed.
+    /// </summary>
+    /// <param name="accountDto">The account data transfer object containing the account information.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="TotalByAccountDto"/> object with the total amounts for the specified account.</returns>
+    public Task<TotalByAccountDto?> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
 }

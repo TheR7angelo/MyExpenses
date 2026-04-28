@@ -12,7 +12,9 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
@@ -35,7 +37,7 @@ namespace MyExpenses.Wpf.Pages;
 public partial class DashBoardPage
 {
     public ObservableCollection<VHistory> VHistories { get; } = [];
-    public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
+    public ObservableCollection<TotalByAccountViewModel> VTotalByAccounts { get; } = [];
 
     private DataGridRow? DataGridRow { get; set; }
 
@@ -346,20 +348,20 @@ public partial class DashBoardPage
     }
 
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
-        DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
+        DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(TotalByAccountViewModel), typeof(DashBoardPage),
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(VTotalByAccount)));
+            new PropertyMetadata(default(TotalByAccountViewModel)));
 
-    public VTotalByAccount? CurrentVTotalByAccount
+    public TotalByAccountViewModel? CurrentVTotalByAccount
     {
-        get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
+        get => (TotalByAccountViewModel)GetValue(CurrentVTotalByAccountProperty);
         set => SetValue(CurrentVTotalByAccountProperty, value);
     }
 
     private static DashBoardPage Instance { get; set; } = null!;
 
-    private static VTotalByAccount? _staticVTotalByAccount;
-    private static VTotalByAccount? StaticVTotalByAccount
+    private static TotalByAccountViewModel? _staticVTotalByAccount;
+    private static TotalByAccountViewModel? StaticVTotalByAccount
     {
         get => _staticVTotalByAccount;
         set
@@ -369,9 +371,15 @@ public partial class DashBoardPage
         }
     }
 
-    public DashBoardPage()
+    private readonly IAccountPresentationService _accountPresentationService;
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+
+    public DashBoardPage(IAccountPresentationService accountPresentationService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper)
     {
         Instance = this;
+        _accountPresentationService = accountPresentationService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
 
         var (currentYear, currentMonth, _) = DateTime.Now;
 
@@ -445,16 +453,24 @@ public partial class DashBoardPage
             RefreshRadioButtonSelected();
         });
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, async (_, m) =>
         {
-            if (m.Value.EntityType is not DependencyType.Account || m.Value.DataAction is not DataAction.Update) return;
+            if (m.Value is not {EntityType: DependencyType.Account, Content: var accountViewModel }) return;
 
-            var account = m.Value.Content;
-            var item = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(account.Id));
-            if (item is null) return;
+            if (m.Value.DataAction is DataAction.Update)
+            {
+                var item = VTotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
+                if (item is null) return;
+                item.Name = accountViewModel.Name ?? string.Empty;
+                item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
+            }
 
-            item.Name = account.Name ?? string.Empty;
-            item.Symbol = account.CurrencyViewModel?.Symbol ?? string.Empty;
+            if (m.Value.DataAction is DataAction.Add)
+            {
+                var item = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
+                if (item is null) return;
+                VTotalByAccounts.AddAndSort(item, s => s.Name);
+            }
         });
     }
 
@@ -622,7 +638,7 @@ public partial class DashBoardPage
     private void RadioButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
         var button = (RadioButton)sender;
-        if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
+        if (button.DataContext is not TotalByAccountViewModel vTotalByAccount) return;
 
         StaticVTotalByAccount = vTotalByAccount;
 
@@ -720,15 +736,11 @@ public partial class DashBoardPage
         newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
     }
 
-    internal void RefreshAccountTotal()
+    private async void RefreshAccountTotal()
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-
         // ReSharper disable once HeapView.ClosureAllocation
-        var newVTotalByAccounts = context.VTotalByAccounts.ToList();
+        var newVTotalByAccounts = (await _accountPresentationService.GetAllTotalByAccountViewModelAsync())
+            .ToList();
 
         var itemsToDelete = VTotalByAccounts
             // ReSharper disable HeapView.DelegateAllocation
@@ -748,7 +760,7 @@ public partial class DashBoardPage
             var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
             if (exist is not null)
             {
-                vTotalByAccount.CopyPropertiesTo(exist);
+                _accountDtoViewModelMapper.Merge(vTotalByAccount, exist);
             }
             else
             {
@@ -809,10 +821,10 @@ public partial class DashBoardPage
         var radioButton = StaticVTotalByAccount is null
             ? radioButtons.FirstOrDefault()
             : radioButtons.FirstOrDefault(rb =>
-                rb.DataContext is VTotalByAccount vTotalByAccount &&
+                rb.DataContext is TotalByAccountViewModel vTotalByAccount &&
                 vTotalByAccount.Id.Equals(StaticVTotalByAccount.Id));
 
-        StaticVTotalByAccount = radioButton?.DataContext as VTotalByAccount;
+        StaticVTotalByAccount = radioButton?.DataContext as TotalByAccountViewModel;
 
         if (radioButton is null) return;
         radioButton.IsChecked = true;

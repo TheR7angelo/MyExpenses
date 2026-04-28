@@ -10,7 +10,7 @@ public interface IAccountRepository
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A collection of <see cref="TotalByAccountDomain"/> objects containing account totals and related information.</returns>
-    public Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default);
+    public Task<IEnumerable<TotalByAccountDomain>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the names of all accounts asynchronously.
@@ -128,4 +128,20 @@ public interface IAccountRepository
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation, along with error details, if applicable.</returns>
     public Task<Result> UpdateAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new account asynchronously.
+    /// </summary>
+    /// <param name="accountDomain">The domain model representing the account to be created.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="Result{AccountDomain}"/> containing the created account details or an error if the operation fails.</returns>
+    public Task<Result<AccountDomain>> CreateAccount(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total amounts for a specific account asynchronously.
+    /// </summary>
+    /// <param name="accountDomain">The account domain object representing the account for which the totals are being calculated.</param>
+    /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
+    /// <returns>A <see cref="TotalByAccountDomain"/> object containing the total amounts and related information for the specified account.</returns>
+    public Task<TotalByAccountDomain?> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 }

@@ -26,13 +26,13 @@ public class AccountViewModelValidator : AbstractValidator<AccountViewModel>
         RuleFor(x => x.AccountTypeViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorAccountTypeRequired)
             .WithError(ErrorCode.AccountTypeRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorAccountTypeRequired))
-
-            .When(x => x.IsAccountTypeViewModelDirty);
+            ;
+            // .When(x => x.IsAccountTypeViewModelDirty);
 
         RuleFor(x => x.CurrencyViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorCurrencyRequired)
             .WithError(ErrorCode.CurrencyRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorCurrencyRequired))
-
-            .When(x => x.IsCurrencyViewModelDirty);
+            ;
+            // .When(x => x.IsCurrencyViewModelDirty);
     }
 }

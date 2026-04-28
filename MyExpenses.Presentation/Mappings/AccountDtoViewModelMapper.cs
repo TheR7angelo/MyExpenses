@@ -12,6 +12,8 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsDeleting))]
     public partial TotalByAccountViewModel MapToViewModel(TotalByAccountDto src);
 
+    public partial void Merge(TotalByAccountViewModel src, TotalByAccountViewModel dest);
+
     [MapProperty(nameof(AccountDto.AccountTypeDto), nameof(AccountViewModel.AccountTypeViewModel))]
     [MapProperty(nameof(AccountDto.CurrencyDto), nameof(AccountViewModel.CurrencyViewModel))]
     public partial AccountViewModel MapToViewModel(AccountDto src);
@@ -38,18 +40,11 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial void Merge(AccountViewModel src, AccountViewModel dest);
 
     public Result<AccountTypeViewModel> MapToViewModel(Result<AccountTypeDto> src)
-    {
-        if (!src.IsSuccess) return Result<AccountTypeViewModel>.Failure(src.ErrorCode, src.InternalMessage ?? string.Empty);
-
-        var viewModel = src.Value is null ? null : MapToViewModel(src.Value);
-        return Result<AccountTypeViewModel>.Success(viewModel, src.InternalMessage ?? string.Empty);
-    }
+        => src.Map(MapToViewModel);
 
     public Result<CurrencyViewModel> MapToViewModel(Result<CurrencyDto> src)
-    {
-        if (!src.IsSuccess) return Result<CurrencyViewModel>.Failure(src.ErrorCode, src.InternalMessage ?? string.Empty);
+        => src.Map(MapToViewModel);
 
-        var viewModel = src.Value is null ? null : MapToViewModel(src.Value);
-        return Result<CurrencyViewModel>.Success(viewModel, src.InternalMessage ?? string.Empty);
-    }
+    public Result<AccountViewModel> MapToViewModel(Result<AccountDto> src)
+        => src.Map(MapToViewModel);
 }

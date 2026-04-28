@@ -46,4 +46,7 @@ public partial class AccountDtoDomainMapper : IAccountDtoDomainMapper
         var dto = src.Value is null ? null : MapToDto(src.Value);
         return Result<CurrencyDto>.Success(dto, src.InternalMessage);
     }
+
+    public Result<AccountDto> MapToDto(Result<AccountDomain> success)
+        => success.Map(MapToDto);
 }

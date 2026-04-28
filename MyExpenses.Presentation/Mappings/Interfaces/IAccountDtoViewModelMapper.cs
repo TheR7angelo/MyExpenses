@@ -14,6 +14,13 @@ public interface IAccountDtoViewModelMapper
     public TotalByAccountViewModel MapToViewModel(TotalByAccountDto src);
 
     /// <summary>
+    /// Merges the data from the source TotalByAccountViewModel into the destination TotalByAccountViewModel.
+    /// </summary>
+    /// <param name="src">The source TotalByAccountViewModel containing updated values.</param>
+    /// <param name="dest">The destination TotalByAccountViewModel to be updated with values from the source.</param>
+    public void Merge(TotalByAccountViewModel src, TotalByAccountViewModel dest);
+
+    /// <summary>
     /// Maps an AccountDto object to an AccountViewModel object.
     /// </summary>
     /// <param name="src">The AccountDto object to be mapped.</param>
@@ -89,4 +96,11 @@ public interface IAccountDtoViewModelMapper
     /// <param name="src">The result object containing the <see cref="CurrencyDto"/> to be transformed.</param>
     /// <returns>The transformed result object containing the mapped <see cref="CurrencyViewModel"/>.</returns>
     public Result<CurrencyViewModel> MapToViewModel(Result<CurrencyDto> src);
+
+    /// <summary>
+    /// Maps an AccountDto object to an AccountViewModel object.
+    /// </summary>
+    /// <param name="src">The AccountDto object to be mapped.</param>
+    /// <returns>An AccountViewModel object representing the mapped data.</returns>
+    public Result<AccountViewModel> MapToViewModel(Result<AccountDto> src);
 }
