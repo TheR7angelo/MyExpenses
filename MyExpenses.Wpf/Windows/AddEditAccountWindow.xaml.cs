@@ -215,9 +215,9 @@ public partial class AddEditAccountWindow
             bool result;
 
             var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
-            if (EditAccount) result = await accountActionService.EditAccount(AccountViewModel);
-            else if (EnableStartingBalance) result = await accountActionService.AddAccount(AccountViewModel, HistoryViewModel);
-            else result = await accountActionService.AddAccount(AccountViewModel);
+            if (EditAccount) result = await accountActionService.UpdateAccount(AccountViewModel);
+            else if (EnableStartingBalance) result = await accountActionService.CreateAccount(AccountViewModel, HistoryViewModel);
+            else result = await accountActionService.CreateAccount(AccountViewModel);
 
             if (!result) return;
 

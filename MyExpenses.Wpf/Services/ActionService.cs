@@ -295,7 +295,7 @@ public class ActionService(
         ShowDeleteResultMessage(deleteResult.IsSuccess, accountViewModel.Name);
     }
 
-    public async Task<bool> EditAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    public async Task<bool> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
         if (!accountViewModel.IsDirty) return false;
 
@@ -319,7 +319,7 @@ public class ActionService(
         return false;
     }
 
-    public Task<bool> AddAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel,
+    public Task<bool> CreateAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel,
         CancellationToken cancellationToken = default)
     {
         // // TODO correct
@@ -340,7 +340,7 @@ public class ActionService(
         throw new NotImplementedException();
     }
 
-    public async Task<bool> AddAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    public async Task<bool> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
         if (!accountViewModel.IsDirty) return false;
 
