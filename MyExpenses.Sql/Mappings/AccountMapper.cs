@@ -1,5 +1,4 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using Riok.Mapperly.Abstractions;
@@ -37,12 +36,6 @@ public static partial class AccountMapper
 
     [MapperIgnoreTarget(nameof(TAccountType.TAccounts))]
     public static partial TAccountType MapToEntity(this AccountTypeDomain accountTypeDomain);
-
-    [MapProperty(nameof(CategoryTypeDomain.Color.Id), nameof(TCategoryType.ColorFk))]
-    [MapperIgnoreTarget(nameof(TCategoryType.ColorFkNavigation))]
-    [MapperIgnoreTarget(nameof(TCategoryType.TRecursiveExpenses))]
-    [MapperIgnoreTarget(nameof(TCategoryType.THistories))]
-    public static partial TCategoryType MapToEntity(this CategoryTypeDomain categoryTypeDomain);
 
     [MapperIgnoreTarget(nameof(TCurrency.TAccounts))]
     public static partial TCurrency MapToEntity(this CurrencyDomain currencyDomain);

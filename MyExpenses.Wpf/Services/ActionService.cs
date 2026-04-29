@@ -1,7 +1,8 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
 using Domain.Models.Dependencies;
+using Domain.Models.Expenses;
+using Domain.Models.Validation;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,7 +61,7 @@ public class ActionService(
             Name = input, Color = await systemPresentationService.GetRandomColorViewModel(cancellationToken)
         };
 
-        var result = await expensePresentationService.AddCategoryType(newCategoryTypeViewModel, cancellationToken);
+        var result = await expensePresentationService.CreateCategoryType(newCategoryTypeViewModel, cancellationToken);
 
         if (result.IsSuccess)
         {
@@ -319,25 +320,48 @@ public class ActionService(
         return false;
     }
 
-    public Task<bool> CreateAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel,
+    public async Task<bool> CreateAccount(AccountViewModel accountViewModel, HistoryViewModel historyViewModel,
         CancellationToken cancellationToken = default)
     {
-        // // TODO correct
-        // // TODO continue here
-        //
-        // // var error = await CheckIsError();
-        // // if (error) return;
-        // //
-        // // DialogResult = true;
-        // // Close();
-        //
-        // var validator = App.ServiceProvider.GetRequiredService<AccountViewModelValidator>();
-        // var valResult = await validator.ValidateAsync(AccountViewModel, CancellationToken.None);
-        //
-        // AccountViewModel.ValidateWithFluent(valResult);
+        if (!accountViewModel.IsDirty && !historyViewModel.IsDirty) return false;
 
-        // TODO correct
-        throw new NotImplementedException();
+        historyViewModel.AccountViewModel = accountViewModel;
+
+        var validateAccountTask = ValidateAsync<AccountViewModelValidator, AccountViewModel>(accountViewModel, cancellationToken);
+        var validateHistoryTask = ValidateAsync<HistoryViewModelValidator, HistoryViewModel>(historyViewModel, cancellationToken);
+
+        await Task.WhenAll(validateAccountTask, validateHistoryTask);
+
+        var valResultAccount = validateAccountTask.Result;
+        var valResultHistory = validateHistoryTask.Result;
+        if (valResultAccount.IsValid && valResultHistory.IsValid)
+        {
+            Result<HistoryViewModel> expenseResult;
+
+            var accountResult = await accountPresentationService.CreateAccount(accountViewModel, cancellationToken);
+            historyViewModel.AccountViewModel = accountResult.Value;
+            if (accountResult.IsSuccess) expenseResult = await expensePresentationService.CreateExpense(historyViewModel, cancellationToken);
+            else
+            {
+                ShowCreateResultMessage(accountResult.IsSuccess, accountResult.Value?.Name);
+                return false;
+            }
+
+            if (!expenseResult.IsSuccess)
+            {
+                await accountPresentationService.DeleteAccountAsync(accountResult.Value!, cancellationToken);
+                ShowCreateResultMessage(expenseResult.IsSuccess, expenseResult.Value?.Description);
+                return false;
+            }
+
+            SendEntityChangedMessage(DependencyType.Account, DataAction.Add, accountResult.Value);
+            SendEntityChangedMessage(DependencyType.Expense, DataAction.Add, expenseResult.Value);
+            return true;
+        }
+
+        accountViewModel.ValidateWithFluent(valResultAccount);
+        historyViewModel.ValidateWithFluent(valResultHistory);
+        return false;
     }
 
     public async Task<bool> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)

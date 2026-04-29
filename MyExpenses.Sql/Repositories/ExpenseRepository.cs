@@ -1,6 +1,6 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
 using Domain.Models.Dependencies;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -234,7 +234,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<Result> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<CategoryTypeDomain>> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
     {
         var categoryType = categoryTypeDomain.MapToEntity();
 
@@ -250,13 +250,19 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             context.TCategoryTypes.Add(categoryType);
             await context.SaveChangesAsync(cancellationToken);
 
+            categoryTypeDomain = context.TCategoryTypes
+                .AsNoTracking()
+                .Include(s => s.ColorFkNavigation)
+                .First(s => s.Id == categoryType.Id)
+                .MapToDomain();
+
             logger.LogInformation("Category type with name {CategoryTypeName} was successfully added", categoryType.Name);
-            return Result.Success("Category type was successfully added");
+            return Result<CategoryTypeDomain>.Success(categoryTypeDomain, "Category type was successfully added");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to add category type with name {CategoryTypeName}", categoryType.Name);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to add category type");
+            return Result<CategoryTypeDomain>.Failure(ErrorCode.DatabaseError, "Failed to add category type");
         }
     }
 
@@ -352,5 +358,51 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             logger.LogError(e, "Failed to update category type (ID={CategoryTypeId}) with name {CategoryTypeName}", categoryType.Id, categoryType.Name);
             return Result.Failure(ErrorCode.DatabaseError, "Failed to update account type");
         }
+    }
+
+    public async Task<Result<HistoryDomain>> CreateExpenseAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default)
+    {
+        var history = historyDomain.MapToEntity();
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Adding expense with description {HistoryDescription}", historyDomain.Description);
+
+        var json = historyDomain.ToJson();
+        logger.LogInformation("Expense json: {Json}", json);
+
+        try
+        {
+            context.THistories.Add(history);
+            await context.SaveChangesAsync(cancellationToken);
+
+            historyDomain = context.THistories
+                .AsNoTracking()
+                .Include(s => s.AccountFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation)
+                .Include(s => s.ModePaymentFkNavigation)
+                .Include(s => s.PlaceFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation)
+                .First(s => s.Id == history.Id)
+                .MapToDomain();
+
+            logger.LogInformation("Expense with description {HistoryDescription} was successfully added", historyDomain.Description);
+            return Result<HistoryDomain>.Success(historyDomain, "Expense was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add expense with description {HistoryDescription}", historyDomain.Description);
+            return Result<HistoryDomain>.Failure(ErrorCode.DatabaseError, "Failed to add expense");
+        }
+    }
+
+    public async Task<ModePaymentDomain?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default)
+    {
+        await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        return await dataBaseContext.TModePayments
+            .AsNoTracking()
+            .ProjectToDomain()
+            .FirstOrDefaultAsync(s => s.Id == modePaymentId, cancellationToken);
     }
 }

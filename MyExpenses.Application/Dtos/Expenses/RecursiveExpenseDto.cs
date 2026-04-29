@@ -1,28 +1,25 @@
-using Domain.Models.Accounts;
-using Domain.Models.Systems;
+using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Systems;
 
-namespace Domain.Models.Expenses;
+namespace MyExpenses.Application.Dtos.Expenses;
 
-public class RecursiveExpenseDomain
+public class RecursiveExpenseDto
 {
-    public const int MaxDescriptionLength = 255;
-    public const int MaxNoteLength = 255;
-
     public int Id { get; set; }
 
-    public AccountDomain Account { get; set; }
+    public AccountDto Account { get; set; }
 
     public string Description { get; set; }
 
     public string? Note { get; set; }
 
-    public CategoryTypeDomain CategoryType { get; set; }
+    public CategoryTypeDto CategoryType { get; set; }
 
-    public ModePaymentDomain ModePayment { get; set; }
+    public ModePaymentDto ModePayment { get; set; }
 
     public double Value { get; set; }
 
-    public PlaceDomain Place { get; set; }
+    public PlaceDto Place { get; set; }
 
     public DateOnly StartDate { get; set; }
 
@@ -30,7 +27,7 @@ public class RecursiveExpenseDomain
 
     public int RecursiveCount { get; set; }
 
-    public RecursiveFrequencyDomain RecursiveFrequency { get; set; }
+    public RecursiveFrequencyDto RecursiveFrequency { get; set; }
 
     public DateOnly NextDueDate { get; set; }
 

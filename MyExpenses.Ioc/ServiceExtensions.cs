@@ -59,7 +59,8 @@ public static class ServiceExtensions
             .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>();
 
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
-            .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>();
+            .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()
+            .AddSingleton<ISystemDtoDomainMapper, SystemDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
             .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
@@ -68,7 +69,8 @@ public static class ServiceExtensions
         services.AddScoped<AccountViewModelValidator>()
             .AddScoped<AccountTypeViewModelValidator>()
             .AddScoped<CategoryTypeViewModelValidator>()
-            .AddScoped<CurrencyViewModelValidator>();
+            .AddScoped<CurrencyViewModelValidator>()
+            .AddScoped<HistoryViewModelValidator>();
 
         services.AddServiceLogging(logEventLevel);
 

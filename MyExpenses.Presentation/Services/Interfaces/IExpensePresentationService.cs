@@ -17,9 +17,8 @@ public interface IExpensePresentationService
     /// </summary>
     /// <param name="newCategoryType">The category type to be added, containing its details such as name and color.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains the outcome of the addition operation.</return>
-    public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType,
-        CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains the outcome of the addition operation.</returns>
+    public Task<Result<CategoryTypeViewModel>> CreateCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Checks if the provided category type name is available for use.
@@ -45,4 +44,20 @@ public interface IExpensePresentationService
     /// <return>A task representing the asynchronous operation. The task result contains the result of the update operation.</return>
     public Task<Result> UpdateCategoryTypeName(CategoryTypeViewModel categoryTypeViewModel,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new expense entry based on the provided history view model.
+    /// </summary>
+    /// <param name="historyViewModel">The view model containing details of the expense to be created.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains the created expense wrapped in a Result object.</return>
+    public Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the mode of payment view model based on the specified mode payment ID.
+    /// </summary>
+    /// <param name="modePaymentId">The unique identifier of the mode payment to retrieve.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A task representing the asynchronous operation. The task result contains the mode of payment view model if found, or null if it does not exist.</return>
+    public Task<ModePaymentViewModel?> GetModePaymentViewModel(int modePaymentId, CancellationToken cancellationToken = default);
 }

@@ -1,5 +1,5 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -148,8 +148,8 @@ public interface IExpenseRepository
     /// </summary>
     /// <param name="categoryTypeDomain">The category type domain object containing details of the category to add.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="Result"/> object indicating the success or failure of the operation.</returns>
-    public Task<Result> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+    /// <returns>A <see cref="Result{CategoryTypeDomain}"/> object indicating the success or failure of the operation.</returns>
+    public Task<Result<CategoryTypeDomain>> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the specified account type and returns the result of the deletion process.
@@ -166,4 +166,20 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>A result indicating whether the update was successful, including any relevant error information if applicable.</returns>
     public Task<Result> UpdateCategoryTypeNameAsync(CategoryTypeDomain categoryType, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new expense record based on the provided domain model.
+    /// </summary>
+    /// <param name="historyDomain">The domain model representing the expense to be created.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing the created expense record.</returns>
+    public Task<Result<HistoryDomain>> CreateExpenseAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the mode of payment details associated with a specified ID.
+    /// </summary>
+    /// <param name="modePaymentId">The unique identifier of the mode of payment to retrieve.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The mode of payment details associated with the specified ID, or null if not found.</returns>
+    public Task<ModePaymentDomain?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default);
 }

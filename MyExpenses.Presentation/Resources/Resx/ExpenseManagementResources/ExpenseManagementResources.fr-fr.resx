@@ -35,4 +35,25 @@
     <data name="CategoryTypeViewModelColorRequired" xml:space="preserve">
         <value>La couleur est requise</value>
     </data>
+    <data name="HistoryViewModelValidatorAccountViewModelRequired" xml:space="preserve">
+        <value>Un compte est requis</value>
+    </data>
+    <data name="HistoryViewModelValidatorDescriptionLength" xml:space="preserve">
+        <value>La description doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="HistoryViewModelValidatorCategoryTypeViewModelRequired" xml:space="preserve">
+        <value>Le type de catégorie est requis</value>
+    </data>
+    <data name="HistoryViewModelValidatorModePaymentViewModelRequired" xml:space="preserve">
+        <value>Un mode de payment est requis</value>
+    </data>
+    <data name="HistoryViewModelValidatorValueRequired" xml:space="preserve">
+        <value>Une valeur est requise</value>
+    </data>
+    <data name="HistoryViewModelValidatorDateRequired" xml:space="preserve">
+        <value>Une date est requise</value>
+    </data>
+    <data name="HistoryViewModelValidatorPlaceViewModelRequired" xml:space="preserve">
+        <value>Un lieu est requis</value>
+    </data>
 </root>

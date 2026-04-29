@@ -1,6 +1,6 @@
 using Domain.Models.Systems;
 
-namespace Domain.Models.Categories;
+namespace Domain.Models.Expenses;
 
 public class CategoryTypeDomain
 {
@@ -12,5 +12,5 @@ public class CategoryTypeDomain
 
     public DateTime DateAdded { get; init; } = DateTime.Now;
 
-    public required ColorDomain Color { get; set; }
+    public ColorDomain Color { get; set; }
 }

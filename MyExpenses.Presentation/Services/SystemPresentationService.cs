@@ -1,6 +1,7 @@
 using Domain.Models.Dependencies;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
+using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -9,7 +10,7 @@ using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services;
 
-public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper,
+public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper, ISystemDtoDomainMapper systemDtoDomainMapper,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
     ISystemService systemService,
     ISystemRepository systemRepository) : ISystemPresentationService
@@ -42,11 +43,20 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
     {
         var randomColor = await systemRepository.GetRandomColor(cancellationToken);
-        var colorDto = viewModelMapperMapper.MapToDto(randomColor);
+        var colorDto = systemDtoDomainMapper.MapToDto(randomColor);
         var colorModel = viewModelMapperMapper.MapToViewModel(colorDto);
 
         return colorModel;
     }
 
+    public async Task<PlaceViewModel?> GetPlaceViewModel(int defaultPlaceId, CancellationToken cancellationToken = default)
+    {
+        var place = await systemRepository.GetPlace(defaultPlaceId, cancellationToken);
+        if (place is null) return null;
 
+        var placeDto = systemDtoDomainMapper.MapToDto(place);
+        var placeViewModel = viewModelMapperMapper.MapToViewModel(placeDto);
+
+        return placeViewModel;
+    }
 }

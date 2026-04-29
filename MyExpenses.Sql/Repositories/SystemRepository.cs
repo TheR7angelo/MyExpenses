@@ -29,4 +29,16 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
 
         return randomColor;
     }
+
+    public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        var place = await context.TPlaces
+            .AsNoTracking()
+            .ProjectToDomain()
+            .FirstOrDefaultAsync(s => s.Id == placeId, cancellationToken);
+
+        return place;
+    }
 }

@@ -1,8 +1,8 @@
 using Domain.Models.Accounts;
-using Domain.Models.Categories;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Dtos.Categories;
+using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Interfaces.Mappings;
 using Riok.Mapperly.Abstractions;
 

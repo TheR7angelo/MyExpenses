@@ -2,6 +2,8 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using Domain.Models.Expenses;
+using Domain.Models.Systems;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -72,18 +74,21 @@ public partial class AddEditAccountWindow
 
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
+    private readonly ISystemPresentationService _systemPresentationService;
     private readonly IDialogService _dialogService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly ILogger<AddEditAccountWindow> _logger;
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
+        ISystemPresentationService systemPresentationService,
         IDialogService dialogService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         ILogger<AddEditAccountWindow> logger)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
+        _systemPresentationService = systemPresentationService;
         _dialogService = dialogService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _logger = logger;
@@ -212,10 +217,21 @@ public partial class AddEditAccountWindow
     {
         try
         {
+            if (EnableStartingBalance && HistoryViewModel.PlaceViewModel is null)
+            {
+                HistoryViewModel.PlaceViewModel = await _systemPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId);
+            }
+
+            if (EnableStartingBalance && HistoryViewModel.ModePaymentViewModel is null)
+            {
+                HistoryViewModel.ModePaymentViewModel = await _expensePresentationService.GetModePaymentViewModel(ModePaymentDomain.DefaultModePaymentId);
+            }
+
             bool result;
 
             var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
             if (EditAccount) result = await accountActionService.UpdateAccount(AccountViewModel);
+            // TODO correct
             else if (EnableStartingBalance) result = await accountActionService.CreateAccount(AccountViewModel, HistoryViewModel);
             else result = await accountActionService.CreateAccount(AccountViewModel);
 

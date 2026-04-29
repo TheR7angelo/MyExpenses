@@ -97,6 +97,69 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An account is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorAccountViewModelRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorAccountViewModelRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorCategoryTypeViewModelRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorCategoryTypeViewModelRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A date is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorDateRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorDateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The description should be between 1 and {0} characters.
+        /// </summary>
+        public static string HistoryViewModelValidatorDescriptionLength {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorDescriptionLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A payment method is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorModePaymentViewModelRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorModePaymentViewModelRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A place is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorPlaceViewModelRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorPlaceViewModelRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A value is required.
+        /// </summary>
+        public static string HistoryViewModelValidatorValueRequired {
+            get {
+                return ResourceManager.GetString("HistoryViewModelValidatorValueRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new category type name :.
         /// </summary>
         public static string TextBoxAddNewCategoryTypeName {

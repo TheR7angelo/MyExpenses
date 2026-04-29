@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Domain.Models.Categories;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 using MyExpenses.Presentation.ViewModels.Systems;

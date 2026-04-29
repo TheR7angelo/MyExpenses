@@ -1,6 +1,6 @@
 using MyExpenses.Application.Dtos.Systems;
 
-namespace MyExpenses.Application.Dtos.Categories;
+namespace MyExpenses.Application.Dtos.Expenses;
 
 public class CategoryTypeDto
 {

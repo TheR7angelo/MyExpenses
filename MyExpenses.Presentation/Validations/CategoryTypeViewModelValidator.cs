@@ -1,4 +1,4 @@
-using Domain.Models.Categories;
+using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using FluentValidation;
 using MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources;

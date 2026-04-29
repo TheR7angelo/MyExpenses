@@ -1,14 +1,7 @@
-namespace Domain.Models.Expenses;
+namespace MyExpenses.Application.Dtos.Systems;
 
-public class PlaceDomain
+public class PlaceDto
 {
-    public const int MaxNameLength = 155;
-    public const int MaxNumberLength = 20;
-    public const int MaxStreetLength = 155;
-    public const int MaxPostalLength = 10;
-    public const int MaxCityLength = 100;
-    public const int MaxCountryLength = 55;
-
     public int Id { get; set; }
 
     public required string Name { get; set; }
@@ -32,8 +25,4 @@ public class PlaceDomain
     public bool CanBeDeleted { get; init; } = true;
 
     public DateTime DateAdded { get; set; } = DateTime.Now;
-
-    public HistoryDomain[] Histories { get; set; } = [];
-
-    public RecursiveExpenseDomain[] RecursiveExpenses { get; set; } = [];
 }

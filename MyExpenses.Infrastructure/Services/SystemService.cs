@@ -1,7 +1,7 @@
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Dtos.Categories;
+using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;

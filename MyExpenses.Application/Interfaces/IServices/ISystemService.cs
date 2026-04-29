@@ -1,6 +1,6 @@
 using Domain.Models.Dependencies;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Dtos.Categories;
+using MyExpenses.Application.Dtos.Expenses;
 
 namespace MyExpenses.Application.Interfaces.IServices;
 

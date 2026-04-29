@@ -25,4 +25,18 @@ public interface ISystemRepository
     /// A task containing the random color as a <c>ColorDomain</c> object.
     /// </returns>
     public Task<ColorDomain> GetRandomColor(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves information about a specific place in the system.
+    /// </summary>
+    /// <param name="placeId">
+    /// The unique identifier of the place to retrieve.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
+    /// </param>
+    /// <returns>
+    /// A task containing the place information as a <c>PlaceDomain</c> object, or null if no place exists with the given identifier.
+    /// </returns>
+    public Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default);
 }

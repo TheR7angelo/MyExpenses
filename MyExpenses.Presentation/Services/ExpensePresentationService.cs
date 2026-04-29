@@ -63,9 +63,23 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return expenseService.UpdateCategoryTypeNameAsync(categoryTypeDto, cancellationToken);
     }
 
-    public Task<Result> AddCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
+    public async Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        var historyDto = mapper.MapToDto(historyViewModel);
+        var result = await expenseService.CreateExpenseAsync(historyDto, cancellationToken);
+        return mapper.Map(result);
+    }
+
+    public async Task<ModePaymentViewModel?> GetModePaymentViewModel(int modePaymentId, CancellationToken cancellationToken = default)
+    {
+        var modePaymentDto = await expenseService.GetModePaymentByIdAsync(modePaymentId, cancellationToken);
+        return modePaymentDto is null ? null : mapper.MapToViewModel(modePaymentDto);
+    }
+
+    public async Task<Result<CategoryTypeViewModel>> CreateCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
     {
         var categoryTypeDto = mapper.MapToDto(newCategoryType);
-        return expenseService.CreateCategoryTypeAsync(categoryTypeDto, cancellationToken);
+        var result = await expenseService.CreateCategoryTypeAsync(categoryTypeDto, cancellationToken);
+        return mapper.MapToViewModel(result);
     }
 }

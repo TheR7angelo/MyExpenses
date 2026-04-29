@@ -1,11 +1,7 @@
-namespace Domain.Models.Expenses;
+namespace MyExpenses.Application.Dtos.Expenses;
 
-public class ModePaymentDomain
+public class ModePaymentDto
 {
-    public const int MaxNameLength = 55;
-
-    public const int DefaultModePaymentId = 1;
-
     public int Id { get; set; }
 
     public string? Name { get; set; }

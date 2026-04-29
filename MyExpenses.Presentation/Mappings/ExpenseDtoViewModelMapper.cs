@@ -1,6 +1,9 @@
-using MyExpenses.Application.Dtos.Categories;
+using Domain.Models.Validation;
+using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
 using Riok.Mapperly.Abstractions;
@@ -8,7 +11,8 @@ using Riok.Mapperly.Abstractions;
 namespace MyExpenses.Presentation.Mappings;
 
 [Mapper(UseDeepCloning = true)]
-public partial class ExpenseDtoViewModelMapper(ISystemDtoViewModelMapper mapper) : IExpenseDtoViewModelMapper
+public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accountDtoViewModelMapper,
+    ISystemDtoViewModelMapper mapper) : IExpenseDtoViewModelMapper
 {
     public partial CategoryTypeViewModel MapToViewModel(CategoryTypeDto src);
 
@@ -17,9 +21,78 @@ public partial class ExpenseDtoViewModelMapper(ISystemDtoViewModelMapper mapper)
 
     public partial CategoryTypeViewModel Clone(CategoryTypeViewModel categoryTypeViewModel);
 
+    [MapProperty(nameof(HistoryViewModel.AccountViewModel), nameof(HistoryDto.Account))]
+    [MapProperty(nameof(HistoryViewModel.CategoryTypeViewModel), nameof(HistoryDto.CategoryType))]
+    [MapProperty(nameof(HistoryViewModel.PlaceViewModel), nameof(HistoryDto.Place))]
+    [MapProperty(nameof(HistoryViewModel.ModePaymentViewModel), nameof(HistoryDto.ModePayment))]
+    [MapProperty(nameof(HistoryViewModel.BankTransferViewModel), nameof(HistoryDto.BankTransfer))]
+    [MapProperty(nameof(HistoryViewModel.RecursiveExpenseViewModel), nameof(HistoryDto.RecursiveExpense))]
+    [MapperIgnoreSource(nameof(HistoryViewModel.HasErrors))]
+    public partial HistoryDto MapToDto(HistoryViewModel src);
+
+    [MapProperty(nameof(HistoryDto.Account), nameof(HistoryViewModel.AccountViewModel))]
+    [MapProperty(nameof(HistoryDto.CategoryType), nameof(HistoryViewModel.CategoryTypeViewModel))]
+    [MapProperty(nameof(HistoryDto.Place), nameof(HistoryViewModel.PlaceViewModel))]
+    [MapProperty(nameof(HistoryDto.ModePayment), nameof(HistoryViewModel.ModePaymentViewModel))]
+    [MapProperty(nameof(HistoryDto.BankTransfer), nameof(HistoryViewModel.BankTransferViewModel))]
+    [MapProperty(nameof(HistoryDto.RecursiveExpense), nameof(HistoryViewModel.RecursiveExpenseViewModel))]
+    public partial HistoryViewModel MapToViewModel(HistoryDto src);
+
+    [MapperIgnoreSource(nameof(ModePaymentViewModel.HasErrors))]
+    public partial ModePaymentDto MapToDto(ModePaymentViewModel src);
+
+    public partial ModePaymentViewModel MapToViewModel(ModePaymentDto src);
+
+    [MapperIgnoreSource(nameof(BankTransferViewModel.HasErrors))]
+    public partial BankTransferDto MapToDto(BankTransferViewModel src);
+
+    public partial BankTransferViewModel MapToViewModel(BankTransferDto src);
+
+    [MapProperty(nameof(RecursiveExpenseViewModel.AccountViewModel), nameof(RecursiveExpenseDto.Account))]
+    [MapProperty(nameof(RecursiveExpenseViewModel.CategoryTypeViewModel), nameof(RecursiveExpenseDto.CategoryType))]
+    [MapProperty(nameof(RecursiveExpenseViewModel.ModePaymentViewModel), nameof(RecursiveExpenseDto.ModePayment))]
+    [MapProperty(nameof(RecursiveExpenseViewModel.RecursiveFrequencyViewModel), nameof(RecursiveExpenseDto.RecursiveFrequency))]
+    [MapProperty(nameof(RecursiveExpenseViewModel.PlaceViewModel), nameof(RecursiveExpenseDto.Place))]
+    [MapperIgnoreSource(nameof(RecursiveExpenseViewModel.HasErrors))]
+    public partial RecursiveExpenseDto MapToDto(RecursiveExpenseViewModel src);
+
+    [MapProperty(nameof(RecursiveExpenseDto.Account), nameof(RecursiveExpenseViewModel.AccountViewModel))]
+    [MapProperty(nameof(RecursiveExpenseDto.CategoryType), nameof(RecursiveExpenseViewModel.CategoryTypeViewModel))]
+    [MapProperty(nameof(RecursiveExpenseDto.ModePayment), nameof(RecursiveExpenseViewModel.ModePaymentViewModel))]
+    [MapProperty(nameof(RecursiveExpenseDto.RecursiveFrequency), nameof(RecursiveExpenseViewModel.RecursiveFrequencyViewModel))]
+    [MapProperty(nameof(RecursiveExpenseDto.Place), nameof(RecursiveExpenseViewModel.PlaceViewModel))]
+    public partial RecursiveExpenseViewModel MapToViewModel(RecursiveExpenseDto src);
+
+    public Result<CategoryTypeViewModel> MapToViewModel(Result<CategoryTypeDto> result)
+        => result.Map(MapToViewModel);
+
+    public Result<HistoryViewModel> Map(Result<HistoryDto> result)
+        => result.Map(MapToViewModel);
+
+    private PlaceDto MapToDto(PlaceViewModel source)
+        => mapper.MapToDto(source);
+
+    private PlaceViewModel MapToViewModel(PlaceDto source)
+        => mapper.MapToViewModel(source);
+
+    private AccountDto MapToDto(AccountViewModel source)
+        => accountDtoViewModelMapper.MapToDto(source);
+
+    private AccountViewModel MapToViewModel(AccountDto source)
+        => accountDtoViewModelMapper.MapToViewModel(source);
+
+    private RecursiveFrequencyDto MapToDto(RecursiveFrequencyViewModel source)
+        => mapper.MapToDto(source);
+
+    private RecursiveFrequencyViewModel MapToViewModel(RecursiveFrequencyDto source)
+        => mapper.MapToViewModel(source);
+
     private ColorDto MapToDto(ColorViewModel source)
-    {
-        var target = mapper.MapToDto(source);
-        return target;
-    }
+        => mapper.MapToDto(source);
+
+    private ColorViewModel MapToViewModel(ColorDto source)
+        => mapper.MapToViewModel(source);
+
+    private ColorViewModel Clone(ColorViewModel source)
+        => mapper.Clone(source);
 }

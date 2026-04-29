@@ -11,17 +11,15 @@ public class BankTransferDomain
 
     public double Value { get; set; }
 
-    public required AccountDomain FromAccount { get; set; }
+    public AccountDomain FromAccount { get; set; }
 
-    public required AccountDomain ToAccount { get; set; }
+    public AccountDomain ToAccount { get; set; }
 
-    public required string MainReason { get; set; }
+    public string MainReason { get; set; }
 
     public string? AdditionalReason { get; set; }
 
     public DateTime Date { get; set; }
 
     public DateTime DateAdded { get; set; }
-
-    public HistoryDomain[] Histories { get; set; } = [];
 }

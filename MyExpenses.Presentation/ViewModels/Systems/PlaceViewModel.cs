@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models.Expenses;
+using Domain.Models.Systems;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 using TheR7angelo.DirtyTracking.Abstractions;

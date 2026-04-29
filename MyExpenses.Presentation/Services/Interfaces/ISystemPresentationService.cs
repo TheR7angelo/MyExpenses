@@ -47,4 +47,12 @@ public interface ISystemPresentationService
     /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/>
     /// indicating the operation's success or failure.</return>
     public Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the place view model associated with the specified default place identifier.
+    /// </summary>
+    /// <param name="defaultPlaceId">The identifier of the default place to retrieve.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A <see cref="PlaceViewModel"/> representing the default place, or null if no place is found.</return>
+    public Task<PlaceViewModel?> GetPlaceViewModel(int defaultPlaceId, CancellationToken cancellationToken = default);
 }
