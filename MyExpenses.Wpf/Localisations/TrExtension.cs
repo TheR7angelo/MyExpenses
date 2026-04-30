@@ -86,7 +86,11 @@ public class TrExtension : MarkupExtension
             _resourceManagerName = resourceManagerName;
             _key = key;
 
-            LocalizationService.Instance.LanguageChanged += (_, _) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+            LocalizationService.Instance.LanguageChanged += (_, _) =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LanguageTag)));
+            };
         }
 
         public string Text
@@ -102,6 +106,9 @@ public class TrExtension : MarkupExtension
                 return $"!{_resourceManagerName}:{_key}!";
             }
         }
+
+        public string LanguageTag
+            => LocalizationService.Instance.CurrentCulture.IetfLanguageTag;
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }

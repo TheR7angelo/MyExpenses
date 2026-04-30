@@ -8,6 +8,7 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
         xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
         mc:Ignorable="d"
 
         d:DesignHeight="130"
@@ -42,6 +43,8 @@
         </Grid.RowDefinitions>
 
         <TextBox Text="{Binding TextBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SpellCheck.IsEnabled="True"
+                 Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
                  MaxLength="{Binding TextBoxMaxLength, Mode=OneWay}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxHint, Mode=OneWay}"
                  Style="{StaticResource MaterialDesignFilledTextBox}">
