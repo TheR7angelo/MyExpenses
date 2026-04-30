@@ -378,11 +378,18 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
             historyDomain = context.THistories
                 .AsNoTracking()
-                .Include(s => s.AccountFkNavigation)
-                .Include(s => s.CategoryTypeFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.AccountTypeFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.CurrencyFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s.ColorFkNavigation)
                 .Include(s => s.ModePaymentFkNavigation)
                 .Include(s => s.PlaceFkNavigation)
-                .Include(s => s.RecursiveExpenseFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.AccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.CategoryTypeFkNavigation).ThenInclude(s => s!.ColorFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.FrequencyFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.ModePaymentFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.PlaceFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
                 .First(s => s.Id == history.Id)
                 .MapToDomain();
 

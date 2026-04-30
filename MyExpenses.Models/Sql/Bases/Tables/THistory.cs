@@ -63,7 +63,7 @@ public partial class THistory : ISql
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
-    public virtual TAccount? AccountFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TAccount AccountFkNavigation { get; set => SetProperty(ref field, value); }
 
     [ForeignKey("BankTransferFk")]
     [InverseProperty("THistories")]
@@ -71,15 +71,15 @@ public partial class THistory : ISql
 
     [ForeignKey("CategoryTypeFk")]
     [InverseProperty("THistories")]
-    public virtual TCategoryType? CategoryTypeFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TCategoryType CategoryTypeFkNavigation { get; set => SetProperty(ref field, value); }
 
     [ForeignKey("ModePaymentFk")]
     [InverseProperty("THistories")]
-    public virtual TModePayment? ModePaymentFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TModePayment ModePaymentFkNavigation { get; set => SetProperty(ref field, value); }
 
     [ForeignKey("PlaceFk")]
     [InverseProperty("THistories")]
-    public virtual TPlace? PlaceFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TPlace PlaceFkNavigation { get; set => SetProperty(ref field, value); }
 
     [ForeignKey("RecursiveExpenseFk")]
     [InverseProperty("THistories")]

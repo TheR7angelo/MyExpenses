@@ -153,4 +153,10 @@
     <data name="MessageBoxEditItemsQuestionContent" xml:space="preserve">
         <value>The current changes are pending, do you really want to update them ?{0}{1}</value>
     </data>
+    <data name="MessageBoxAddEditAccountTypeSuccessCaption" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxAddEditAccountTypeSuccessContent" xml:space="preserve">
+        <value>The new account has been successfully added</value>
+    </data>
 </root>

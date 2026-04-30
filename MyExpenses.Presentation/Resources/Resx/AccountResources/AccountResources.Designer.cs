@@ -168,6 +168,24 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxAddEditAccountTypeSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxAddEditAccountTypeSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new account has been successfully added.
+        /// </summary>
+        public static string MessageBoxAddEditAccountTypeSuccessContent {
+            get {
+                return ResourceManager.GetString("MessageBoxAddEditAccountTypeSuccessContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxCreateItemErrorAlreadyUsedCaption {
