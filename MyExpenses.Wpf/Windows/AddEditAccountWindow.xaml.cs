@@ -60,10 +60,6 @@ public partial class AddEditAccountWindow
     public TAccount Account { get; } = new();
     public AccountViewModel AccountViewModel { get; } = new();
 
-    // TODO to delete
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public THistory History { get; } = new() { IsPointed = true };
-
     public HistoryViewModel HistoryViewModel { get; } = new() { IsPointed = true };
 
     public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
@@ -282,6 +278,7 @@ public partial class AddEditAccountWindow
         EditAccount = true;
     }
 
+    // TODO to delete
     public void SetTAccount(TAccount account)
     {
         account.CopyPropertiesTo(Account);
