@@ -50,6 +50,7 @@ public static class WpfRegistration
         private IServiceCollection AddAutoRegisteredDialogs()
         {
             services.AddTransient<IDialogService, DialogService>();
+            services.AddSingleton<INavigationServices, NavigationServices>();
             return services;
         }
 
