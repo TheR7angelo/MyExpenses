@@ -48,7 +48,7 @@ public interface IActionService
     /// <param name="accountViewModel">The view model representing the account data and its current state.</param>
     /// <param name="cancellationToken">A token to observe for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+    public Task ManageAccountTypeAction(AccountViewModel? accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new account type based on the provided account type view model.

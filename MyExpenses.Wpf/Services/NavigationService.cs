@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Wpf.Windows;
 
@@ -18,5 +19,11 @@ public class NavigationService(IServiceProvider provider) : INavigationService
         var window = provider.GetRequiredService<AddEditAccountWindow>();
         await window.LoadAsync(vm);
         window.ShowDialog();
+    }
+
+    public async Task ShowAddAccountType()
+    {
+        var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+        await accountActionService.ManageAccountTypeAction(null);
     }
 }

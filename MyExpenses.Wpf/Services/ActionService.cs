@@ -116,11 +116,11 @@ public class ActionService(
     }
 
     public Task ManageAccountTypeAction(
-        AccountViewModel accountViewModel,
+        AccountViewModel? accountViewModel,
         CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: accountViewModel.AccountTypeViewModel,
+            currentViewModel: accountViewModel?.AccountTypeViewModel,
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: AccountTypeDomain.MaxNameLength,
