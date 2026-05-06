@@ -10,6 +10,9 @@ using MyExpenses.Wpf.Windows.Dialogs;
 
 namespace MyExpenses.Wpf.DependencyInjections;
 
+/// <summary>
+/// Provides extension methods for registering WPF-specific dependencies into the service collection.
+/// </summary>
 public static class WpfRegistration
 {
     /// <param name="services">The IServiceCollection instance to which the views will be registered.</param>
@@ -56,6 +59,10 @@ public static class WpfRegistration
             return services;
         }
 
+        /// <summary>
+        /// Registers WPF-specific services, such as IActionService and AccountManagementViewModel, into the dependency injection container.
+        /// </summary>
+        /// <returns>An updated IServiceCollection instance with the registered WPF services.</returns>
         private IServiceCollection AddWpfSelfServices()
         {
             services.AddTransient<IActionService, ActionService>();
