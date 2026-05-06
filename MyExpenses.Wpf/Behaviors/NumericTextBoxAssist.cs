@@ -2,6 +2,10 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+// ReSharper disable HeapView.ObjectAllocation.Possible
+// ReSharper disable HeapView.BoxingAllocation
+// ReSharper disable HeapView.ObjectAllocation.Evident
+// ReSharper disable UnusedMember.Global
 
 namespace MyExpenses.Wpf.Behaviors;
 
@@ -83,7 +87,7 @@ public static class NumericTextBoxAssist
         obj.SetValue(AllowDecimalProperty, value);
     }
 
-    public static bool GetAllowNegative(DependencyObject obj)
+    private static bool GetAllowNegative(DependencyObject obj)
     {
         return (bool)obj.GetValue(AllowNegativeProperty);
     }
@@ -93,7 +97,7 @@ public static class NumericTextBoxAssist
         obj.SetValue(AllowNegativeProperty, value);
     }
 
-    public static bool GetAllowPositive(DependencyObject obj)
+    private static bool GetAllowPositive(DependencyObject obj)
     {
         return (bool)obj.GetValue(AllowPositiveProperty);
     }
@@ -103,7 +107,7 @@ public static class NumericTextBoxAssist
         obj.SetValue(AllowPositiveProperty, value);
     }
 
-    public static double? GetMinValue(DependencyObject obj)
+    private static double? GetMinValue(DependencyObject obj)
     {
         return (double?)obj.GetValue(MinValueProperty);
     }
@@ -113,7 +117,7 @@ public static class NumericTextBoxAssist
         obj.SetValue(MinValueProperty, value);
     }
 
-    public static double? GetMaxValue(DependencyObject obj)
+    private static double? GetMaxValue(DependencyObject obj)
     {
         return (double?)obj.GetValue(MaxValueProperty);
     }
@@ -133,7 +137,7 @@ public static class NumericTextBoxAssist
         obj.SetValue(MaxDecimalProperty, value);
     }
 
-    public static MidpointRounding GetRoundingMode(DependencyObject obj)
+    private static MidpointRounding GetRoundingMode(DependencyObject obj)
     {
         return (MidpointRounding)obj.GetValue(RoundingModeProperty);
     }
@@ -185,20 +189,7 @@ public static class NumericTextBoxAssist
 
     private static void TextBox_OnPasting(object sender, DataObjectPastingEventArgs e)
     {
-        if (sender is not TextBox textBox)
-        {
-            e.CancelCommand();
-            return;
-        }
-
-        if (!e.DataObject.GetDataPresent(DataFormats.Text))
-        {
-            e.CancelCommand();
-            return;
-        }
-
-        var pastedText = e.DataObject.GetData(DataFormats.Text) as string;
-        if (pastedText is null)
+        if (sender is not TextBox textBox || !e.DataObject.GetDataPresent(DataFormats.Text) || e.DataObject.GetData(DataFormats.Text) is not string pastedText)
         {
             e.CancelCommand();
             return;
@@ -221,13 +212,7 @@ public static class NumericTextBoxAssist
             return;
         }
 
-        if (IsIntermediateValue(textBox.Text))
-        {
-            textBox.Text = string.Empty;
-            return;
-        }
-
-        if (!TryParse(textBox.Text, out var value))
+        if (IsIntermediateValue(textBox.Text) || !TryParse(textBox.Text, out var value))
         {
             textBox.Text = string.Empty;
             return;
@@ -246,52 +231,31 @@ public static class NumericTextBoxAssist
             .Insert(textBox.SelectionStart, input);
     }
 
-    private static bool IsValidInput(TextBox textBox, string text, bool allowIntermediateValues)
+    private static bool IsValidInput(TextBox tb, string text, bool allowIntermediateValues)
     {
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            return true;
-        }
+        if (string.IsNullOrWhiteSpace(text)) return true;
 
-        if (allowIntermediateValues && IsAllowedIntermediateValue(textBox, text))
-        {
-            return true;
-        }
+        if (allowIntermediateValues && IsAllowedIntermediateValue(tb, text)) return true;
 
-        if (!GetAllowDecimal(textBox) && HasDecimalSeparator(text))
-        {
-            return false;
-        }
+        var allowDec = GetAllowDecimal(tb);
+        var allowNeg = GetAllowNegative(tb);
+        var allowPos = GetAllowPositive(tb);
+        var min = GetMinValue(tb);
+        var max = GetMaxValue(tb);
 
-        if (!TryParse(text, out var value))
-        {
-            return false;
-        }
+        if (!TryParse(text, out var v)) return false;
 
-        if (!GetAllowNegative(textBox) && value < 0)
+        return text switch
         {
-            return false;
-        }
+            _ when !allowDec && HasDecimalSeparator(text) => false,
+            _ when !allowNeg && v < 0 => false,
+            _ when !allowPos && v > 0 => false,
+            _ when v < min || v > max => false,
+            _ => true
+        };
 
-        if (!GetAllowPositive(textBox) && value > 0)
-        {
-            return false;
-        }
-
-        var minValue = GetMinValue(textBox);
-        if (minValue is not null && value < minValue.Value)
-        {
-            return false;
-        }
-
-        var maxValue = GetMaxValue(textBox);
-        if (maxValue is not null && value > maxValue.Value)
-        {
-            return false;
-        }
-
-        return true;
     }
+
 
     private static bool IsAllowedIntermediateValue(TextBox textBox, string text)
     {
@@ -328,18 +292,13 @@ public static class NumericTextBoxAssist
     private static double ClampValue(TextBox textBox, double value)
     {
         var minValue = GetMinValue(textBox);
-        if (minValue is not null && value < minValue.Value)
+        if (value < minValue)
         {
             return minValue.Value;
         }
 
         var maxValue = GetMaxValue(textBox);
-        if (maxValue is not null && value > maxValue.Value)
-        {
-            return maxValue.Value;
-        }
-
-        return value;
+        return value > maxValue ? maxValue.Value : value;
     }
 
     private static double RoundValue(TextBox textBox, double value)
@@ -365,6 +324,7 @@ public static class NumericTextBoxAssist
         }
 
         var decimalPlaces = Math.Max(0, maxDecimalPlaces.Value);
+        // ReSharper disable once HeapView.ObjectAllocation
         return value.ToString($"F{decimalPlaces}", CultureInfo.CurrentCulture);
     }
 }
