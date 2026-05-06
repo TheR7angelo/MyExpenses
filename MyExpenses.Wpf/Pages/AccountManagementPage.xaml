@@ -9,17 +9,17 @@
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
 
       Title="AccountManagementPage"
 
       d:DesignHeight="450"
       d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:AccountManagementViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
@@ -35,7 +35,7 @@
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Click="ButtonAddNewAccount_OnClick">
+                    Command="{Binding AddAccountCommand}">
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
@@ -61,12 +61,12 @@
 
                             <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                                 Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonVAccount_OnClick">
+                                Command="{Binding DataContext.ViewAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}">
 
                                 <b:Interaction.Behaviors>
                                     <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
                                                                    Duration="0:0:1"
-                                                                   DeleteCommand="{Binding DeleteSelfCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AccountManagementPage}}}"
+                                                                   DeleteCommand="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                                    DeleteCommandParameter="{Binding .}">
                                     </utils:DeleteAnimationBehavior>
                                 </b:Interaction.Behaviors>

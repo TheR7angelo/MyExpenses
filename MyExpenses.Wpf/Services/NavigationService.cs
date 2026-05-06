@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Wpf.Windows;
 
 namespace MyExpenses.Wpf.Services;
 
-public class NavigationServices(IServiceProvider provider) : INavigationServices
+public class NavigationService(IServiceProvider provider) : INavigationService
 {
     public void ShowAddAccount()
     {

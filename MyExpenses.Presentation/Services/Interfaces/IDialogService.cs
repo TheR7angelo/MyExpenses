@@ -45,4 +45,11 @@ public interface IDialogService
     /// <returns>A <see cref="MessageBoxResult"/> indicating the user's response to the confirmation dialog.</returns>
     public MessageBoxResult AskConfirmationOfDependenciesRemoval(DependencyType dependencyType,
         IEnumerable<DeletionDependency> dependencies);
+
+    /// <summary>
+    /// Displays an error dialog with the specified error message.
+    /// </summary>
+    /// <param name="errorMessage">The error message to display in the dialog.</param>
+    /// <returns>A task that represents the asynchronous operation of displaying the error dialog.</returns>
+    public void ShowError(string errorMessage);
 }

@@ -2,7 +2,9 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Wpf.Services;
 using MyExpenses.Wpf.Windows.Dialogs;
 
@@ -50,13 +52,14 @@ public static class WpfRegistration
         private IServiceCollection AddAutoRegisteredDialogs()
         {
             services.AddTransient<IDialogService, DialogService>();
-            services.AddSingleton<INavigationServices, NavigationServices>();
+            services.AddSingleton<INavigationService, NavigationService>();
             return services;
         }
 
         private IServiceCollection AddWpfSelfServices()
         {
             services.AddTransient<IActionService, ActionService>();
+            services.AddTransient<AccountManagementViewModel>();
 
             return services;
         }

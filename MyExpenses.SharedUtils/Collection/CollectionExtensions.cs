@@ -123,13 +123,10 @@ public static class CollectionExtensions
     {
         ArgumentNullException.ThrowIfNull(collection);
 
-        var tempList = collection.ToList();
-        tempList.Add(item);
+        var index = collection
+            .TakeWhile(x => string.Compare(keySelector(x), keySelector(item), StringComparison.OrdinalIgnoreCase) < 0)
+            .Count();
 
-        // ReSharper disable once HeapView.DelegateAllocation
-        tempList.Sort((x, y) => string.Compare(keySelector(x), keySelector(y), StringComparison.Ordinal));
-
-        var index = tempList.IndexOf(item);
         collection.Insert(index, item);
     }
 

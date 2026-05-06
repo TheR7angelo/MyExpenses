@@ -1,8 +1,8 @@
 ﻿using MyExpenses.Presentation.ViewModels.Accounts;
 
-namespace MyExpenses.Wpf.Services;
+namespace MyExpenses.Presentation.Services;
 
-public interface INavigationServices
+public interface INavigationService
 {
     /// <summary>
     /// Displays the "Add Account" window as a dialog.

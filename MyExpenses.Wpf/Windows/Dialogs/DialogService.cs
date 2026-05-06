@@ -57,6 +57,11 @@ public class DialogService : IDialogService
         return dependenciesWindow.DialogResult is not true ? MessageBoxResult.Cancel : MessageBoxResult.Yes;
     }
 
+    public void ShowError(string errorMessage)
+    {
+        MsgBox.MsgBox.Show("Error", errorMessage, System.Windows.MessageBoxButton.OK, MsgBoxImage.Error);
+    }
+
     private static System.Windows.MessageBoxButton ConvertButton(MessageBoxButton button)
     {
         return button switch
