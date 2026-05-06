@@ -66,7 +66,6 @@ public static class WpfRegistration
         private IServiceCollection AddWpfSelfServices()
         {
             services.AddTransient<IActionService, ActionService>();
-            services.AddTransient<AccountManagementViewModel>();
 
             return services;
         }

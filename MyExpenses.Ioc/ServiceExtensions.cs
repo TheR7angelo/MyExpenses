@@ -10,6 +10,7 @@ using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Infrastructure.Mapping;
 using MyExpenses.Infrastructure.Services;
+using MyExpenses.Presentation.DependencyInjections;
 using MyExpenses.Presentation.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services;
@@ -78,6 +79,8 @@ public static class ServiceExtensions
 
         services.AddDbContext<DataBaseContext>(ConfigureDatabase, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Singleton);
         services.AddDbContextFactory<DataBaseContext>(ConfigureDatabase);
+
+        services.RegisterViewModels();
 
         return services;
     }
