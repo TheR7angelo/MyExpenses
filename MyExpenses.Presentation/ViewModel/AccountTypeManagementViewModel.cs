@@ -19,6 +19,11 @@ public class AccountTypeManagementViewModel : ViewModelBase
 
     public IAsyncRelayCommand LoadCommand { get; }
 
+    public IRelayCommand<AccountTypeViewModel> DeleteCommand { get; }
+    public IAsyncRelayCommand<AccountTypeViewModel> ViewAccountTypeCommand { get; }
+
+    public IRelayCommand AddAccountTypeCommand { get; }
+
     public AccountTypeManagementViewModel(IAccountPresentationService accountService,
         INavigationService navigation,
         IDialogService dialog,
@@ -30,6 +35,32 @@ public class AccountTypeManagementViewModel : ViewModelBase
         _logger = logger;
 
         LoadCommand = new AsyncRelayCommand(LoadAsync);
+        DeleteCommand = new RelayCommand<AccountTypeViewModel>(Delete);
+        ViewAccountTypeCommand = new AsyncRelayCommand<AccountTypeViewModel>(ViewAccountTypeAsync);
+        AddAccountTypeCommand = new RelayCommand(AddAccountType);
+    }
+
+    private void AddAccountType()
+    {
+        // TODO work
+        throw new NotImplementedException();
+    }
+
+    private Task ViewAccountTypeAsync(AccountTypeViewModel? item, CancellationToken cancellationToken = default)
+    {
+        // TODO work
+        if (item is null) return Task.CompletedTask;
+
+
+
+        throw new NotImplementedException();
+    }
+
+    private void Delete(AccountTypeViewModel? item)
+    {
+        if (item is null) return;
+
+        AccountTypes.Remove(item);
     }
 
     private async Task LoadAsync()

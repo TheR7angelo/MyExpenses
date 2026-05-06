@@ -35,7 +35,7 @@
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Command="{Binding AddAccountCommand}">
+                    Command="{Binding DataContext.AddAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}">
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
@@ -72,41 +72,41 @@
                                     </utils:DeleteAnimationBehavior>
                                 </b:Interaction.Behaviors>
 
-                            <Button.Content>
-                                <StackPanel Orientation="Vertical"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
+                                <Button.Content>
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
 
-                                    <materialDesign:PackIcon
-                                        Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
-                                        Height="96" Width="96"
-                                        HorizontalAlignment="Center">
-                                    </materialDesign:PackIcon>
+                                        <materialDesign:PackIcon
+                                            Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                                            Height="96" Width="96"
+                                            HorizontalAlignment="Center">
+                                        </materialDesign:PackIcon>
 
-                                    <TextBlock Text="{Binding Name}"
-                                               TextAlignment="Center" TextWrapping="Wrap"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    </TextBlock>
+                                        <TextBlock Text="{Binding Name}"
+                                                   TextAlignment="Center" TextWrapping="Wrap"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        </TextBlock>
 
-                                    <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
 
-                                        <Label Content="{Binding Total}"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                        </Label>
+                                            <Label Content="{Binding Total}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                            </Label>
 
-                                        <Label Content="{Binding Symbol}"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                        </Label>
+                                            <Label Content="{Binding Symbol}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                            </Label>
+
+                                        </StackPanel>
 
                                     </StackPanel>
+                                </Button.Content>
 
-                                </StackPanel>
-                            </Button.Content>
-
-                        </Button>
+                            </Button>
 
                         </materialDesign:TransitioningContent>
 

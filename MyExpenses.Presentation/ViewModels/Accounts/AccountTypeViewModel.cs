@@ -15,4 +15,7 @@ public partial class AccountTypeViewModel : BaseViewModel
     public partial string? Name { get; set; }
 
     public DateTime? DateAdded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsDeleting { get; set; }
 }
