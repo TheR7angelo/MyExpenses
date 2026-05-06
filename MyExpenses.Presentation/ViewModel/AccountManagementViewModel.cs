@@ -211,11 +211,7 @@ public class AccountManagementViewModel : ViewModelBase
         TotalByAccounts.Clear();
 
         var items = await _accountService.GetAllTotalByAccountViewModelAsync();
-
-        foreach (var item in items.OrderBy(s => s.Name))
-        {
-            TotalByAccounts.Add(item);
-        }
+        TotalByAccounts.AddRangeAndSort(items, s => s.Name);
     }
 
     /// <summary>
