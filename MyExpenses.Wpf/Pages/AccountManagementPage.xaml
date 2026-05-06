@@ -61,7 +61,8 @@
 
                             <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                                 Style="{StaticResource MaterialDesignPaperButton}"
-                                Command="{Binding DataContext.ViewAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}">
+                                Command="{Binding DataContext.ViewAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                CommandParameter="{Binding .}">
 
                                 <b:Interaction.Behaviors>
                                     <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
