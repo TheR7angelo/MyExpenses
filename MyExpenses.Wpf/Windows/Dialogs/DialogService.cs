@@ -1,6 +1,7 @@
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Resources.Resx.MessageBoxRessources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Wpf.Windows.Dialogs.InputDialog;
 
@@ -59,7 +60,7 @@ public class DialogService : IDialogService
 
     public void ShowError(string errorMessage)
     {
-        MsgBox.MsgBox.Show("Error", errorMessage, System.Windows.MessageBoxButton.OK, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(MessageBoxRessources.MessageBoxCaptionError, errorMessage, System.Windows.MessageBoxButton.OK, MsgBoxImage.Error);
     }
 
     private static System.Windows.MessageBoxButton ConvertButton(MessageBoxButton button)

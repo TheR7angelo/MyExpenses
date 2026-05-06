@@ -37,6 +37,10 @@
       <EmbeddedResource Update="Resources\Resx\ExpenseManagementResources\ExpenseManagementResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\MessageBoxRessources\MessageBoxRessources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>MessageBoxRessources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -54,6 +58,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ExpenseManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\MessageBoxRessources\MessageBoxRessources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MessageBoxRessources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

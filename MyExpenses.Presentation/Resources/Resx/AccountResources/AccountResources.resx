@@ -159,4 +159,10 @@
     <data name="MessageBoxAddEditAccountTypeSuccessContent" xml:space="preserve">
         <value>The new account has been successfully added</value>
     </data>
+    <data name="MessageBoxLoadAccountErrorContent" xml:space="preserve">
+        <value>An error occurred while loading accounts</value>
+    </data>
+    <data name="MessageBoxViewAccountErrorContent" xml:space="preserve">
+        <value>An error occurred while viewing account</value>
+    </data>
 </root>

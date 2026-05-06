@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -196,8 +197,7 @@ public class AccountManagementViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error loading accounts");
-            // TODO trad
-            _dialog.ShowError("An error occurred while loading accounts.");
+            _dialog.ShowError(AccountResources.MessageBoxLoadAccountErrorContent);
         }
     }
 
@@ -314,8 +314,7 @@ public class AccountManagementViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error viewing account");
-            // TODO trad
-            _dialog.ShowError("An error occurred while viewing account");
+            _dialog.ShowError(AccountResources.MessageBoxViewAccountErrorContent);
         }
     }
 
