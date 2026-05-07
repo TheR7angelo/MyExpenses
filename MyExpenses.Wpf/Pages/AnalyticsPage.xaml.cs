@@ -1,97 +1,22 @@
-using System.Windows;
-using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
-
 namespace MyExpenses.Wpf.Pages;
 
+/// <summary>
+/// Represents the Analytics page that displays various financial analytics and charts.
+/// </summary>
+/// <remarks>
+/// This page provides a tabbed interface for viewing different analytics visualizations,
+/// including cumulative sum charts, account totals, category breakdowns, budgets, and more.
+/// </remarks>
 public partial class AnalyticsPage
 {
-    public static readonly DependencyProperty TabItemAccountsModePaymentMonthlySumControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemAccountsModePaymentMonthlySumControlHeader), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemAccountsModePaymentMonthlySumControlHeader
-    {
-        get => (string)GetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty);
-        set => SetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemCumulativeSumChartControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemCumulativeSumChartControlHeader), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemCumulativeSumChartControlHeader
-    {
-        get => (string)GetValue(TabItemCumulativeSumChartControlHeaderProperty);
-        set => SetValue(TabItemCumulativeSumChartControlHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemAccountTotalEllipseControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemAccountTotalEllipseControlHeader), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemAccountTotalEllipseControlHeader
-    {
-        get => (string)GetValue(TabItemAccountTotalEllipseControlHeaderProperty);
-        set => SetValue(TabItemAccountTotalEllipseControlHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemAccountsCategorySumControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemAccountsCategorySumControlHeader), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemAccountsCategorySumControlHeader
-    {
-        get => (string)GetValue(TabItemAccountsCategorySumControlHeaderProperty);
-        set => SetValue(TabItemAccountsCategorySumControlHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemAccountsCategorySumPositiveNegativeControlProperty =
-        DependencyProperty.Register(nameof(TabItemAccountsCategorySumPositiveNegativeControl), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemAccountsCategorySumPositiveNegativeControl
-    {
-        get => (string)GetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty);
-        set => SetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemBudgetsControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemBudgetsControlHeader), typeof(string), typeof(AnalyticsPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string TabItemBudgetsControlHeader
-    {
-        get => (string)GetValue(TabItemBudgetsControlHeaderProperty);
-        set => SetValue(TabItemBudgetsControlHeaderProperty, value);
-    }
-
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AnalyticsPage"/> class.
+    /// </summary>
+    /// <remarks>
+    /// Calls InitializeComponent to load and initialize the XAML resources.
+    /// </remarks>
     public AnalyticsPage()
     {
-        UpdateLanguage();
-
         InitializeComponent();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-    }
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        TabItemCumulativeSumChartControlHeader = AnalyticsManagementResources.TabItemCumulativeSumChartControlHeader;
-        TabItemAccountTotalEllipseControlHeader = AnalyticsManagementResources.TabItemAccountTotalEllipseControlHeader;
-        TabItemAccountsCategorySumControlHeader = AnalyticsManagementResources.TabItemAccountsCategorySumControlHeader;
-        TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsManagementResources.TabItemAccountsModePaymentMonthlySumControlHeader;
-        TabItemAccountsCategorySumPositiveNegativeControl = AnalyticsManagementResources.TabItemAccountsCategorySumPositiveNegativeControl;
-        TabItemBudgetsControlHeader = AnalyticsManagementResources.TabItemBudgetsControlHeader;
     }
 }

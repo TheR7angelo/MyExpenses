@@ -41,6 +41,13 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>MessageBoxRessources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AnalyticsRessources\AnalyticsResource.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AnalyticsResource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AnalyticsResources\AnalyticsResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -63,6 +70,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>MessageBoxRessources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AnalyticsRessources\AnalyticsResource.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AnalyticsResource.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

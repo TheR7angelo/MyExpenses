@@ -12,14 +12,20 @@ namespace MyExpenses.Wpf.Localisations;
 /// <remarks>
 /// This extension is used in XAML to translate UI text based on a specified resource key.
 /// It supports binding arguments for formatting the localized text.
+///
+/// Performance Optimization: Uses internal caching to reuse DummyProvider instances
+/// with the same resource key, preventing multiple event subscriptions and reducing memory overhead.
 /// </remarks>
 /// <example>
 /// Use this extension in XAML with a localization resource key, for example:
-/// {loc:Tr SomeResourceKey}.
+/// {loc:Tr MainWindowResources:WindowTitle}.
 /// </example>
 [MarkupExtensionReturnType(typeof(object))]
 public class TrExtension : MarkupExtension
 {
+    // Cache to reuse DummyProvider instances and prevent memory leaks
+    private static readonly Dictionary<string, DummyProvider> ProviderCache = [];
+
     public string? Value { get; set; }
 
     public System.Collections.ObjectModel.Collection<BindingBase>? Args { get; } = [];
@@ -46,7 +52,13 @@ public class TrExtension : MarkupExtension
         var managerName = parts[0];
         var key = parts[1];
 
-        var provider = new DummyProvider(managerName, key);
+        // Reuse cached provider to prevent creating multiple event subscriptions for the same key
+        var cacheKey = $"{managerName}:{key}";
+        if (!ProviderCache.TryGetValue(cacheKey, out var provider))
+        {
+            provider = new DummyProvider(managerName, key);
+            ProviderCache[cacheKey] = provider;
+        }
 
         if (Args is null || Args.Count is 0)
         {
@@ -76,21 +88,28 @@ public class TrExtension : MarkupExtension
         return multiBinding.ProvideValue(serviceProvider);
     }
 
-    private class DummyProvider : INotifyPropertyChanged
+    private class DummyProvider : INotifyPropertyChanged, IDisposable
     {
         private readonly string _resourceManagerName;
         private readonly string _key;
+        private EventHandler? _languageChangedHandler;
 
+        /// <summary>
+        /// Creates a localization provider that listens to language changes.
+        /// Implements IDisposable to prevent memory leaks by unsubscribing from LocalizationService.LanguageChanged.
+        /// </summary>
         public DummyProvider(string resourceManagerName, string key)
         {
             _resourceManagerName = resourceManagerName;
             _key = key;
 
-            LocalizationService.Instance.LanguageChanged += (_, _) =>
+            _languageChangedHandler = (_, _) =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LanguageTag)));
             };
+
+            LocalizationService.Instance.LanguageChanged += _languageChangedHandler;
         }
 
         public string Text
@@ -111,6 +130,21 @@ public class TrExtension : MarkupExtension
             => LocalizationService.Instance.CurrentCulture.IetfLanguageTag;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void Dispose()
+        {
+            if (_languageChangedHandler != null)
+            {
+                LocalizationService.Instance.LanguageChanged -= _languageChangedHandler;
+                _languageChangedHandler = null;
+            }
+            GC.SuppressFinalize(this);
+        }
+
+        ~DummyProvider()
+        {
+            Dispose();
+        }
     }
 
     private class FormatConverter : IMultiValueConverter

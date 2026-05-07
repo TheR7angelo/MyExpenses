@@ -11,6 +11,8 @@
       xmlns:accountsCategorySumPositiveNegativeControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls"
       xmlns:budgetsControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.BudgetsControl"
       xmlns:accountsCategorySumControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumControl"
+      xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+      xmlns:analyticsResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.AnalyticsResources;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -30,27 +32,27 @@
 
             <TabControl Style="{StaticResource MaterialDesignFilledTabControlScrollViewer}">
 
-                <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemAccountTotalEllipseControlHeader }}">
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemAccountsCategorySumPositiveNegativeControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemAccountsCategorySumPositiveNegativeControl }}">
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemCumulativeSumChartControlHeader }}">
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemBudgetsControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemBudgetsControlHeader }}">
                     <budgetsControl:BudgetsControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemAccountsModePaymentMonthlySumControlHeader }}">
                     <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="{localisations:Tr {x:Static analyticsResources:AnalyticsResourceManager.TabItemAccountsCategorySumControlHeader }}">
                     <accountsCategorySumControl:AccountsCategorySumControl />
                 </TabItem>
 
