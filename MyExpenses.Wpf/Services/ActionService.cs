@@ -115,12 +115,13 @@ public class ActionService(
         ShowDeleteResultMessage(deleteResult.IsSuccess, categoryTypeViewModel.Name);
     }
 
-    public Task ManageAccountTypeAction(
-        AccountViewModel? accountViewModel,
-        CancellationToken cancellationToken = default)
+    public Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+        => ManageAccountTypeAction(accountViewModel.AccountTypeViewModel, cancellationToken);
+
+    public Task ManageAccountTypeAction(AccountTypeViewModel? accountTypeViewModel = null, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: accountViewModel?.AccountTypeViewModel,
+            currentViewModel: accountTypeViewModel,
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: AccountTypeDomain.MaxNameLength,

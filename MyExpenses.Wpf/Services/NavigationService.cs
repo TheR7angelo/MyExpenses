@@ -24,6 +24,12 @@ public class NavigationService(IServiceProvider provider) : INavigationService
     public async Task ShowAddAccountType()
     {
         var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
-        await accountActionService.ManageAccountTypeAction(null);
+        await accountActionService.ManageAccountTypeAction();
+    }
+
+    public async Task ShowEditAccountTypeAsync(AccountTypeViewModel item)
+    {
+        var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+        await accountActionService.ManageAccountTypeAction(item);
     }
 }

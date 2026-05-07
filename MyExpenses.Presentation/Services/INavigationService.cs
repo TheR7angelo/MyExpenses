@@ -24,4 +24,12 @@ public interface INavigationService
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task ShowAddAccountType();
+
+    /// <summary>
+    /// Displays the "Edit Account Type" view as a dialog asynchronously.
+    /// This method allows editing of the properties of a specific account type.
+    /// </summary>
+    /// <param name="item">The account type view model representing the account type to be edited.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task ShowEditAccountTypeAsync(AccountTypeViewModel item);
 }
