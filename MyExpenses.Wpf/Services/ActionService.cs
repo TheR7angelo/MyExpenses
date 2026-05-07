@@ -11,7 +11,7 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
-using MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -37,10 +37,10 @@ public class ActionService(
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: CategoryTypeDomain.MaxNameLength,
-            addTitle: ExpenseManagementResources.TitleWindowAddCategoryTypeName,
-            editTitle: ExpenseManagementResources.TitleWindowEditCategoryTypeName,
-            addPlaceholder: ExpenseManagementResources.TextBoxAddNewCategoryTypeName,
-            editPlaceholder: ExpenseManagementResources.TextBoxEditCategoryTypeName,
+            addTitle: ExpenseResources.TitleWindowAddCategoryTypeName,
+            editTitle: ExpenseResources.TitleWindowEditCategoryTypeName,
+            addPlaceholder: ExpenseResources.TextBoxAddNewCategoryTypeName,
+            editPlaceholder: ExpenseResources.TextBoxEditCategoryTypeName,
             createValidationViewModel: () => new CategoryTypeViewModel(),
             cloneValidationViewModel: expenseDtoViewModelMapper.Clone,
             beforeValidationAsync: async viewModel => { viewModel.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken); },

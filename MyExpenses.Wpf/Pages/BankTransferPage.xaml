@@ -6,6 +6,10 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+      xmlns:behaviors="clr-namespace:MyExpenses.Wpf.Behaviors"
+      xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
+      xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
+      xmlns:expenseResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
       Title="BankTransferPage"
 
@@ -14,6 +18,7 @@
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
@@ -51,7 +56,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist }}"
                           ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -83,7 +88,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxToAccountHintAssist }}"
                           ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -115,7 +120,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxCategoryTypeHintAssist }}"
                           ItemsSource="{Binding CategoryTypes, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
                           SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -124,7 +129,7 @@
                 <ComboBox Grid.Column="1"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxModePaymentHintAssist }}"
                           ItemsSource="{Binding ModePayments, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
                           SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -133,23 +138,26 @@
             </Grid>
 
             <DatePicker Grid.Row="3" x:Name="DatePicker"
-                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerWhenHintAssist }}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <TextBox Grid.Row="4"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist }}"
+                     materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     behaviors:NumericTextBoxAssist.IsNumericOnly="True"
+                     behaviors:NumericTextBoxAssist.AllowDecimal="True"
+                     behaviors:NumericTextBoxAssist.MaxDecimal="2"
+                     behaviors:NumericTextBoxAssist.AllowNegative="False"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
-                     AcceptsReturn="False" AcceptsTab="False"
-                     materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     PreviewTextInput="UIElement_OnPreviewTextInput"
-                     TextChanged="TextBoxValue_OnTextChanged">
+                     AcceptsReturn="False" AcceptsTab="False">
             </TextBox>
 
             <TextBox Grid.Row="5"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxMainReasonHintAssist }}"
+                     SpellCheck.IsEnabled="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
                      MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=MainReason}"
@@ -157,8 +165,9 @@
             </TextBox>
 
             <TextBox Grid.Row="6"
+                     SpellCheck.IsEnabled="True"
                      MinHeight="75"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxAdditionalReasonHintAssist }}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
                      MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=AdditionalReason}"
@@ -170,12 +179,12 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
-                <Button Content="{Binding ButtonPrepareValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPrepareValidContent }}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPrepare_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonPrepareCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPrepareCancelContent }}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPrepare_OnClick">
                 </Button>
@@ -318,14 +327,14 @@
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxMainReasonHintAssist }}"
                      Text="{Binding BankTransfer.MainReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
 
             <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxAdditionalReasonHintAssist }}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
 
@@ -335,12 +344,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
-                <Button Content="{Binding ButtonPreviewValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPreviewValidContent }}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPreview_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonPreviewCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPreviewCancelContent }}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPreview_OnClick">
                 </Button>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
+namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
     using System;
     
     
@@ -21,14 +21,14 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ExpenseManagementResources {
+    public class ExpenseResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ExpenseManagementResources() {
+        internal ExpenseResources() {
         }
         
         /// <summary>
@@ -38,8 +38,7 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(("MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources.ExpenseManageme" +
-                            "ntResources"), typeof(ExpenseManagementResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Presentation.Resources.Resx.ExpenseResources.ExpenseResources", typeof(ExpenseResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +56,42 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonPrepareCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonPrepareCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate.
+        /// </summary>
+        public static string ButtonPrepareValidContent {
+            get {
+                return ResourceManager.GetString("ButtonPrepareValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonPreviewCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonPreviewCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate.
+        /// </summary>
+        public static string ButtonPreviewValidContent {
+            get {
+                return ResourceManager.GetString("ButtonPreviewValidContent", resourceCulture);
             }
         }
         
@@ -93,6 +128,51 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         public static string CategoryTypeViewModelNameTooLong {
             get {
                 return ResourceManager.GetString("CategoryTypeViewModelNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category Type:.
+        /// </summary>
+        public static string ComboBoxCategoryTypeHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxCategoryTypeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From the account:.
+        /// </summary>
+        public static string ComboBoxFromAccountHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxFromAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method:.
+        /// </summary>
+        public static string ComboBoxModePaymentHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To the account:.
+        /// </summary>
+        public static string ComboBoxToAccountHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxToAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date :.
+        /// </summary>
+        public static string DatePickerWhenHintAssist {
+            get {
+                return ResourceManager.GetString("DatePickerWhenHintAssist", resourceCulture);
             }
         }
         
@@ -160,6 +240,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional reason:.
+        /// </summary>
+        public static string TextBoxAdditionalReasonHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxAdditionalReasonHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new category type name :.
         /// </summary>
         public static string TextBoxAddNewCategoryTypeName {
@@ -174,6 +263,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources {
         public static string TextBoxEditCategoryTypeName {
             get {
                 return ResourceManager.GetString("TextBoxEditCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main reason:.
+        /// </summary>
+        public static string TextBoxMainReasonHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxMainReasonHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount:.
+        /// </summary>
+        public static string TextBoxValueHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxValueHintAssist", resourceCulture);
             }
         }
         

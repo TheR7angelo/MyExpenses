@@ -3,7 +3,7 @@ using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using FluentValidation;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
-using MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
@@ -20,11 +20,11 @@ public class CurrencyViewModelValidator : AbstractValidator<CurrencyViewModel>
 
             .Length(1, CurrencyDomain.MaxSymbolLength)
             .WithMessage(string.Format(AccountResources.CurrencyViewModelNameTooLong, CategoryTypeDomain.MaxNameLength))
-            .WithError(ErrorCode.NameTooLong, ExpenseManagementResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameTooLong), CurrencyDomain.MaxSymbolLength)
+            .WithError(ErrorCode.NameTooLong, ExpenseResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameTooLong), CurrencyDomain.MaxSymbolLength)
 
             .MustAsync(async (name, cancellation) => await expensePresentationValidationService.IsCurrencySymbolIsAvailableAsync(name, cancellation))
             .WithMessage(AccountResources.CurrencyViewModelNameAlreadyExists)
-            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameAlreadyExists))
+            .WithError(ErrorCode.NameAlreadyExists, ExpenseResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameAlreadyExists))
 
             .When(x => x.IsSymbolDirty);
     }

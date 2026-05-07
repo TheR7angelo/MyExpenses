@@ -1,7 +1,7 @@
 using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using FluentValidation;
-using MyExpenses.Presentation.Resources.Resx.ExpenseManagementResources;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
@@ -13,22 +13,22 @@ public class CategoryTypeViewModelValidator : AbstractValidator<CategoryTypeView
     {
         RuleFor(x => x.Name)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(ExpenseManagementResources.CategoryTypeViewModelNameRequired)
-            .WithError(ErrorCode.NameRequired, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelNameRequired))
+            .NotEmpty().WithMessage(ExpenseResources.CategoryTypeViewModelNameRequired)
+            .WithError(ErrorCode.NameRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelNameRequired))
 
             .Length(1, CategoryTypeDomain.MaxNameLength)
-            .WithMessage(string.Format(ExpenseManagementResources.CategoryTypeViewModelNameTooLong, CategoryTypeDomain.MaxNameLength))
-            .WithError(ErrorCode.NameTooLong, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelNameTooLong), CategoryTypeDomain.MaxNameLength)
+            .WithMessage(string.Format(ExpenseResources.CategoryTypeViewModelNameTooLong, CategoryTypeDomain.MaxNameLength))
+            .WithError(ErrorCode.NameTooLong, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelNameTooLong), CategoryTypeDomain.MaxNameLength)
 
             .MustAsync(async (name, cancellation) => await expensePresentationValidationService.IsCategoryTypeNameAvailableAsync(name, cancellation))
-            .WithMessage(ExpenseManagementResources.CategoryTypeViewModelNameAlreadyExists)
-            .WithError(ErrorCode.NameAlreadyExists, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelNameAlreadyExists))
+            .WithMessage(ExpenseResources.CategoryTypeViewModelNameAlreadyExists)
+            .WithError(ErrorCode.NameAlreadyExists, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelNameAlreadyExists))
 
             .When(x => x.IsNameDirty);
 
         RuleFor(x => x.Color)
-            .NotEmpty().WithMessage(ExpenseManagementResources.CategoryTypeViewModelColorRequired)
-            .WithError(ErrorCode.ColorRequired, ExpenseManagementResources.ResourceManager, nameof(ExpenseManagementResources.CategoryTypeViewModelColorRequired))
+            .NotEmpty().WithMessage(ExpenseResources.CategoryTypeViewModelColorRequired)
+            .WithError(ErrorCode.ColorRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelColorRequired))
 
             .When(x => x.IsColorDirty);
     }

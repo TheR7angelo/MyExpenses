@@ -2,6 +2,7 @@ using System.Resources;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Resources.Resx.AnalyticsResources;
 using MyExpenses.Presentation.Resources.Resx.DependencyRessources;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.Dialogs;
@@ -20,6 +21,7 @@ public static class LocalizationResources
             [nameof(DialogResources)] = DialogResources.ResourceManager,
             [nameof(DependencyRessources)] = DependencyRessources.ResourceManager,
             [nameof(AccountResources)] = AccountResources.ResourceManager,
-            [nameof(AnalyticsResources)] = AnalyticsResources.ResourceManager
+            [nameof(AnalyticsResources)] = AnalyticsResources.ResourceManager,
+            [nameof(ExpenseResources)] = ExpenseResources.ResourceManager,
         };
 }

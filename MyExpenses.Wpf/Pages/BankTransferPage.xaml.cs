@@ -1,17 +1,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -151,138 +147,6 @@ public partial class BankTransferPage
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
-    public static readonly DependencyProperty ComboBoxFromAccountHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxFromAccountHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxFromAccountHintAssist
-    {
-        get => (string)GetValue(ComboBoxFromAccountHintAssistProperty);
-        set => SetValue(ComboBoxFromAccountHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty ComboBoxToAccountHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxToAccountHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxToAccountHintAssist
-    {
-        get => (string)GetValue(ComboBoxToAccountHintAssistProperty);
-        set => SetValue(ComboBoxToAccountHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxCategoryTypeHintAssist
-    {
-        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
-        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxModePaymentHintAssist
-    {
-        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
-        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
-        DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DatePickerWhenHintAssist
-    {
-        get => (string)GetValue(DatePickerWhenHintAssistProperty);
-        set => SetValue(DatePickerWhenHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty TextBoxValueHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxValueHintAssist
-    {
-        get => (string)GetValue(TextBoxValueHintAssistProperty);
-        set => SetValue(TextBoxValueHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty TextBoxMainReasonHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxMainReasonHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxMainReasonHintAssist
-    {
-        get => (string)GetValue(TextBoxMainReasonHintAssistProperty);
-        set => SetValue(TextBoxMainReasonHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty TextBoxAdditionalReasonHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxAdditionalReasonHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxAdditionalReasonHintAssist
-    {
-        get => (string)GetValue(TextBoxAdditionalReasonHintAssistProperty);
-        set => SetValue(TextBoxAdditionalReasonHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonPrepareValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonPrepareValidContent), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonPrepareValidContent
-    {
-        get => (string)GetValue(ButtonPrepareValidContentProperty);
-        set => SetValue(ButtonPrepareValidContentProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonPrepareCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonPrepareCancelContent), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonPrepareCancelContent
-    {
-        get => (string)GetValue(ButtonPrepareCancelContentProperty);
-        set => SetValue(ButtonPrepareCancelContentProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonPreviewValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonPreviewValidContent), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonPreviewValidContent
-    {
-        get => (string)GetValue(ButtonPreviewValidContentProperty);
-        set => SetValue(ButtonPreviewValidContentProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonPreviewCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonPreviewCancelContent), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonPreviewCancelContent
-    {
-        get => (string)GetValue(ButtonPreviewCancelContentProperty);
-        set => SetValue(ButtonPreviewCancelContentProperty, value);
-    }
-
     #endregion
 
     public BankTransferPage()
@@ -308,13 +172,7 @@ public partial class BankTransferPage
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
-        UpdateLanguage();
         InitializeComponent();
-
-        UpdateLanguageDatePicker();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
@@ -537,12 +395,6 @@ public partial class BankTransferPage
         }
     }
 
-    private void Interface_OnLanguageChanged()
-    {
-        UpdateLanguage();
-        UpdateLanguageDatePicker();
-    }
-
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         // ReSharper disable once HeapView.DelegateAllocation
@@ -565,29 +417,6 @@ public partial class BankTransferPage
         UpdateValuePrefixText();
     }
 
-    private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text;
-
-        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
-            BankTransfer.Value = value;
-        else if (!txt.EndsWith('.')) BankTransfer.Value = null;
-
-        RefreshVFromAccountReduce();
-        RefreshVToAccountIncrease();
-
-        textBox.CaretIndex = txt.Length;
-    }
-
-    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        e.Handled = !txt.IsOnlyDecimal();
-    }
-
     #endregion
 
     #region Function
@@ -598,25 +427,6 @@ public partial class BankTransferPage
         // ReSharper disable once HeapView.ClosureAllocation
         => Accounts.Where(account => accounts.All(s => s.Id != account.Id));
     // ReSharper restore HeapView.DelegateAllocation
-
-    private void UpdateLanguage()
-    {
-        ComboBoxFromAccountHintAssist = BankTransferManagementResources.ComboBoxFromAccountHintAssist;
-        ComboBoxToAccountHintAssist = BankTransferManagementResources.ComboBoxToAccountHintAssist;
-        ComboBoxCategoryTypeHintAssist = BankTransferManagementResources.ComboBoxCategoryTypeHintAssist;
-        ComboBoxModePaymentHintAssist = BankTransferManagementResources.ComboBoxModePaymentHintAssist;
-        DatePickerWhenHintAssist = BankTransferManagementResources.LabelTextTransferDate;
-        TextBoxValueHintAssist = BankTransferManagementResources.LabelTextTransferValue;
-        TextBoxMainReasonHintAssist = BankTransferManagementResources.TextBoxMainReasonHintAssist;
-        TextBoxAdditionalReasonHintAssist = BankTransferManagementResources.TextBoxAdditionalReasonHintAssist;
-        ButtonPrepareValidContent = BankTransferManagementResources.ButtonPrepareValidContent;
-        ButtonPrepareCancelContent = BankTransferManagementResources.ButtonPrepareCancelContent;
-        ButtonPreviewValidContent = BankTransferManagementResources.ButtonPreviewValidContent;
-        ButtonPreviewCancelContent = BankTransferManagementResources.ButtonPreviewCancelContent;
-    }
-
-    private void UpdateLanguageDatePicker()
-        => DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
 
     private void UpdateValuePrefixText()
     {
