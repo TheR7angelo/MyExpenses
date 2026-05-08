@@ -158,4 +158,10 @@
     <data name="MessageBoxViewAccountErrorContent" xml:space="preserve">
         <value>Une erreur s’est produite lors de la consultation du compte</value>
     </data>
+    <data name="MessageBoxViewAccountTypeErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la consultation du type de compte</value>
+    </data>
+    <data name="MessageBoxLoadAccountTypeErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors du chargement des types de comptes</value>
+    </data>
 </root>

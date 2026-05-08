@@ -158,8 +158,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error viewing account");
-            _dialog.ShowError(AccountResources.MessageBoxViewAccountErrorContent);
+            _logger.LogError(ex, "Error viewing account type");
+            _dialog.ShowError(AccountResources.MessageBoxViewAccountTypeErrorContent);
         }
     }
 
@@ -189,9 +189,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error loading accounts types");
-            // TODO trad
-            _dialog.ShowError("An error occurred while loading account types.");
+            _logger.LogError(ex, "Error loading account type");
+            _dialog.ShowError(AccountResources.MessageBoxLoadAccountTypeErrorContent);
         }
     }
 

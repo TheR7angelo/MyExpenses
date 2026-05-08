@@ -402,6 +402,15 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while loading account types.
+        /// </summary>
+        public static string MessageBoxLoadAccountTypeErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadAccountTypeErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string MessageBoxUpdateAccountSuccessCaption {
@@ -425,6 +434,15 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         public static string MessageBoxViewAccountErrorContent {
             get {
                 return ResourceManager.GetString("MessageBoxViewAccountErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while viewing account type.
+        /// </summary>
+        public static string MessageBoxViewAccountTypeErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxViewAccountTypeErrorContent", resourceCulture);
             }
         }
         

@@ -165,4 +165,10 @@
     <data name="MessageBoxViewAccountErrorContent" xml:space="preserve">
         <value>An error occurred while viewing account</value>
     </data>
+    <data name="MessageBoxViewAccountTypeErrorContent" xml:space="preserve">
+        <value>An error occurred while viewing account type</value>
+    </data>
+    <data name="MessageBoxLoadAccountTypeErrorContent" xml:space="preserve">
+        <value>An error occurred while loading account types</value>
+    </data>
 </root>
