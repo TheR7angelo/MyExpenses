@@ -70,6 +70,12 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return mapper.Map(result);
     }
 
+    public async Task<IEnumerable<ModePaymentViewModel>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)
+    {
+        var modePayment = await expenseService.GetAllModePaymentAsync(cancellationToken);
+        return modePayment.Select(mapper.MapToViewModel);
+    }
+
     public async Task<ModePaymentViewModel?> GetModePaymentViewModel(int modePaymentId, CancellationToken cancellationToken = default)
     {
         var modePaymentDto = await expenseService.GetModePaymentByIdAsync(modePaymentId, cancellationToken);

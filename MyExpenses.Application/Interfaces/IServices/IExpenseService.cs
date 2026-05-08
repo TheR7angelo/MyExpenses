@@ -47,6 +47,13 @@ public interface IExpenseService
     public Task<Result<HistoryDto>> CreateExpenseAsync(HistoryDto historyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all available modes of payment in the system.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="ModePaymentDto"/> object representing the collection of all modes of payment.</returns>
+    public Task<IEnumerable<ModePaymentDto>> GetAllModePaymentAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the mode of payment details for a specified ID.
     /// </summary>
     /// <param name="modePaymentId">The unique identifier of the mode of payment.</param>

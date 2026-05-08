@@ -403,6 +403,20 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
+    public async Task<IEnumerable<ModePaymentDomain>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all mode payment");
+        var modePayments = await context.TModePayments
+            .ProjectToDomain()
+            .ToListAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} mode payment", modePayments.Count);
+
+        return modePayments;
+    }
+
     public async Task<ModePaymentDomain?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default)
     {
         await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);

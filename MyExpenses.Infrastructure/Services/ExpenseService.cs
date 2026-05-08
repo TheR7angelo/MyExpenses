@@ -40,6 +40,12 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return mapper.Map(result);
     }
 
+    public async Task<IEnumerable<ModePaymentDto>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
+    {
+        var modePayment = await expenseRepository.GetAllModePaymentAsync(cancellationToken);
+        return modePayment.Select(mapper.MapToDto);
+    }
+
     public async Task<ModePaymentDto?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default)
     {
         var modePayment = await expenseRepository.GetModePaymentByIdAsync(modePaymentId, cancellationToken);

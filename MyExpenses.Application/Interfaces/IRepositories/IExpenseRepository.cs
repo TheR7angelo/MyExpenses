@@ -176,6 +176,13 @@ public interface IExpenseRepository
     public Task<Result<HistoryDomain>> CreateExpenseAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all available modes of payment from the data source.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of <see cref="ModePaymentDomain"/> objects representing all modes of payment.</returns>
+    public Task<IEnumerable<ModePaymentDomain>> GetAllModePaymentAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the mode of payment details associated with a specified ID.
     /// </summary>
     /// <param name="modePaymentId">The unique identifier of the mode of payment to retrieve.</param>

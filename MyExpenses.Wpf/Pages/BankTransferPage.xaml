@@ -10,11 +10,15 @@
       xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
       xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
       xmlns:expenseResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
       Title="BankTransferPage"
 
       d:DesignHeight="450"
       d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:BankTransferManagementViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -25,13 +29,12 @@
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </Page.Resources>
 
     <Grid>
 
         <Grid VerticalAlignment="Center"
-              Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+              Visibility="{Binding BankTransferPrepared, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
@@ -58,10 +61,14 @@
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist }}"
                           ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValuePath="{Binding SelectedValuePathAccount}"
-                          DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                          SelectionChanged="SelectorFromAccount_OnSelectionChanged">
+                          SelectedItem="{Binding BankTransferViewModel.FromAccount, Mode=TwoWay}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
                 </ComboBox>
 
                 <Button Grid.Column="1"
@@ -89,11 +96,15 @@
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxToAccountHintAssist }}"
-                          ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValuePath="{Binding SelectedValuePathAccount}"
-                          DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                          SelectionChanged="SelectorToAccount_OnSelectionChanged">
+                          ItemsSource="{Binding ToAccounts, Mode=OneWay}"
+                          SelectedItem="{Binding BankTransferViewModel.ToAccount, Mode=TwoWay}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
                 </ComboBox>
 
                 <Button Grid.Column="1"
@@ -121,46 +132,58 @@
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxCategoryTypeHintAssist }}"
-                          ItemsSource="{Binding CategoryTypes, Mode=OneWay}"
-                          DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
-                          SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding CategoryTypeViewModels}"
+                          SelectedItem="{Binding BankTransferViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
                 </ComboBox>
 
                 <ComboBox Grid.Column="1"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxModePaymentHintAssist }}"
-                          ItemsSource="{Binding ModePayments, Mode=OneWay}"
-                          DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
-                          SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding ModePaymentViewModels, Mode=OneWay}"
+                          SelectedItem="{Binding FromHistoryViewModel.ModePaymentViewModel, Mode=TwoWay}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
                 </ComboBox>
 
             </Grid>
 
-            <DatePicker Grid.Row="3" x:Name="DatePicker"
+            <DatePicker Grid.Row="3"
                         materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerWhenHintAssist }}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
-                        SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        SelectedDate="{Binding BankTransferViewModel.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <TextBox Grid.Row="4"
                      materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist }}"
-                     materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefix}"
                      behaviors:NumericTextBoxAssist.IsNumericOnly="True"
                      behaviors:NumericTextBoxAssist.AllowDecimal="True"
                      behaviors:NumericTextBoxAssist.MaxDecimal="2"
                      behaviors:NumericTextBoxAssist.AllowNegative="False"
+                     behaviors:NumericTextBoxAssist.MinValue="0"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Text="{Binding BankTransfer.Value, Mode=TwoWay}"
-                     AcceptsReturn="False" AcceptsTab="False">
+                     Text="{Binding BankTransferViewModel.Value, Mode=TwoWay, StringFormat=F2}">
             </TextBox>
 
             <TextBox Grid.Row="5"
                      materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxMainReasonHintAssist }}"
                      SpellCheck.IsEnabled="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
-                     MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=MainReason}"
+                     Text="{Binding BankTransferViewModel.MainReason, Mode=TwoWay}"
+                     MaxLength="{x:Static expenses:BankTransferDomain.MaxMainReasonLength}"
                      AcceptsReturn="False" AcceptsTab="False">
             </TextBox>
 
@@ -169,8 +192,8 @@
                      MinHeight="75"
                      materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxAdditionalReasonHintAssist }}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
-                     MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=AdditionalReason}"
+                     Text="{Binding BankTransferViewModel.AdditionalReason, Mode=TwoWay}"
+                     MaxLength="{x:Static expenses:BankTransferDomain.MaxAdditionalReasonLength}"
                      AcceptsReturn="True" AcceptsTab="True">
             </TextBox>
 
@@ -181,7 +204,12 @@
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPrepareValidContent }}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonValidBankTransferPrepare_OnClick">
+                        Command="{Binding DataContext.PrepareBankTransferCommand, RelativeSource={RelativeSource AncestorType=Page}}">
+
+                        <Button.CommandParameter>
+                            <system:Boolean>True</system:Boolean>
+                        </Button.CommandParameter>
+
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPrepareCancelContent }}"
@@ -196,7 +224,7 @@
         <Grid margin:PanelExtensions.MarginForAllChildren="5"
               VerticalAlignment="Center"
               HorizontalAlignment="Center"
-              Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+              Visibility="{Binding BankTransferPrepared, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -222,13 +250,13 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding VFromAccountReduce, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding FromTotalAccountNewValue, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
 
                         <TextBlock
-                            Text="{Binding VFromAccount.Name, FallbackValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding BankTransferViewModel.FromAccount.Name, FallbackValue=''}"
                             TextAlignment="Center" TextWrapping="Wrap"
                             HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
@@ -236,26 +264,22 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
 
-                            <TextBlock
-                                Text="{Binding VFromAccount.Total, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding FromTotalAccountOldValue}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
-                            <TextBlock
-                                Text="{Binding VFromAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding BankTransferViewModel.FromAccount.CurrencyViewModel.Symbol, FallbackValue=''}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
                             <materialDesign:PackIcon Margin="5, 0" Kind="ArrowRightBold" VerticalAlignment="Center" />
 
-                            <TextBlock
-                                Text="{Binding VFromAccountReduce, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding FromTotalAccountNewValue}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
-                            <TextBlock
-                                Text="{Binding VFromAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding BankTransferViewModel.FromAccount.CurrencyViewModel.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
                         </StackPanel>
@@ -281,40 +305,35 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding VToAccountIncrease, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding ToTotalAccountNewValue, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
 
-                        <TextBlock
-                            Text="{Binding VToAccount.Name, FallbackValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextAlignment="Center" TextWrapping="Wrap"
-                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding BankTransferViewModel.ToAccount.Name, FallbackValue=''}"
+                                   TextAlignment="Center" TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
 
-                            <TextBlock
-                                Text="{Binding VToAccount.Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ToTotalAccountOldValue}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
-                            <TextBlock
-                                Text="{Binding VToAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding BankTransferViewModel.ToAccount.CurrencyViewModel.Symbol, FallbackValue=''}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
                             <materialDesign:PackIcon Margin="5, 0" Kind="ArrowRightBold" VerticalAlignment="Center" />
 
-                            <TextBlock
-                                Text="{Binding VToAccountIncrease, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ToTotalAccountNewValue}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
-                            <TextBlock
-                                Text="{Binding VToAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding BankTransferViewModel.ToAccount.CurrencyViewModel.Symbol, FallbackValue=''}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
                         </StackPanel>
@@ -328,14 +347,14 @@
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxMainReasonHintAssist }}"
-                     Text="{Binding BankTransfer.MainReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding BankTransferViewModel.MainReason}">
             </TextBox>
 
             <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxAdditionalReasonHintAssist }}"
-                     Text="{Binding BankTransfer.AdditionalReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding BankTransferViewModel.AdditionalReason}">
             </TextBox>
 
             <StackPanel Grid.Row="3" Grid.Column="1"
@@ -351,7 +370,12 @@
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPreviewCancelContent }}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                        Click="ButtonCancelBankTransferPreview_OnClick">
+                        Command="{Binding DataContext.PrepareBankTransferCommand, RelativeSource={RelativeSource AncestorType=Page}}">
+
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+
                 </Button>
 
             </StackPanel>

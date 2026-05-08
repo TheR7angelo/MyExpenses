@@ -54,6 +54,13 @@ public interface IExpensePresentationService
     public Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all available mode of payment view models.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of all mode of payment view models.</returns>
+    public Task<IEnumerable<ModePaymentViewModel>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the mode of payment view model based on the specified mode payment ID.
     /// </summary>
     /// <param name="modePaymentId">The unique identifier of the mode payment to retrieve.</param>
