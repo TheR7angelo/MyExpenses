@@ -209,12 +209,15 @@ public static class NumericTextBoxAssist
 
         if (string.IsNullOrWhiteSpace(textBox.Text))
         {
+            var minValue = GetMinValue(textBox);
+            textBox.Text = FormatValue(textBox, minValue ?? 0);
             return;
         }
 
         if (IsIntermediateValue(textBox.Text) || !TryParse(textBox.Text, out var value))
         {
-            textBox.Text = string.Empty;
+            var minValue = GetMinValue(textBox);
+            textBox.Text = FormatValue(textBox, minValue ?? 0);
             return;
         }
 
