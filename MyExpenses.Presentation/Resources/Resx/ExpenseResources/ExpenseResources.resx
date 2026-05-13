@@ -18,17 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="TextBoxEditCategoryTypeName" xml:space="preserve">
-        <value>Edit category type name :</value>
+    <data name="BankTransferViewModelValidatorValueRequired" xml:space="preserve">
+        <value>A value is required and must be greater than zero</value>
     </data>
-    <data name="TextBoxAddNewCategoryTypeName" xml:space="preserve">
-        <value>Add a new category type name :</value>
+    <data name="ButtonPrepareCancelContent" xml:space="preserve">
+        <value>Cancel</value>
     </data>
-    <data name="TitleWindowEditCategoryTypeName" xml:space="preserve">
-        <value>Edit category type</value>
+    <data name="ButtonPrepareValidContent" xml:space="preserve">
+        <value>Validate</value>
     </data>
-    <data name="TitleWindowAddCategoryTypeName" xml:space="preserve">
-        <value>Add new category type</value>
+    <data name="ButtonPreviewCancelContent" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonPreviewValidContent" xml:space="preserve">
+        <value>Validate</value>
+    </data>
+    <data name="CategoryTypeViewModelColorRequired" xml:space="preserve">
+        <value>Color is required</value>
+    </data>
+    <data name="CategoryTypeViewModelNameAlreadyExists" xml:space="preserve">
+        <value>Category type name must be unique</value>
     </data>
     <data name="CategoryTypeViewModelNameRequired" xml:space="preserve">
         <value>Category type name is required</value>
@@ -36,67 +45,79 @@
     <data name="CategoryTypeViewModelNameTooLong" xml:space="preserve">
         <value>Name must be between 1 and {0} characters long</value>
     </data>
-    <data name="CategoryTypeViewModelNameAlreadyExists" xml:space="preserve">
-        <value>Category type name must be unique</value>
-    </data>
-    <data name="CategoryTypeViewModelColorRequired" xml:space="preserve">
-        <value>Color is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorAccountViewModelRequired" xml:space="preserve">
-        <value>An account is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorDescriptionLength" xml:space="preserve">
-        <value>The description should be between 1 and {0} characters</value>
-    </data>
-    <data name="HistoryViewModelValidatorCategoryTypeViewModelRequired" xml:space="preserve">
-        <value>Category type is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorModePaymentViewModelRequired" xml:space="preserve">
-        <value>A payment method is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorValueRequired" xml:space="preserve">
-        <value>A value is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorDateRequired" xml:space="preserve">
-        <value>A date is required</value>
-    </data>
-    <data name="HistoryViewModelValidatorPlaceViewModelRequired" xml:space="preserve">
-        <value>A place is required</value>
+    <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
+        <value>Category Type:</value>
     </data>
     <data name="ComboBoxFromAccountHintAssist" xml:space="preserve">
         <value>From the account:</value>
     </data>
-    <data name="ComboBoxToAccountHintAssist" xml:space="preserve">
-        <value>To the account:</value>
-    </data>
-    <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
-        <value>Category Type:</value>
-    </data>
     <data name="ComboBoxModePaymentHintAssist" xml:space="preserve">
         <value>Payment method:</value>
     </data>
-    <data name="TextBoxValueHintAssist" xml:space="preserve">
-        <value>Amount:</value>
+    <data name="ComboBoxToAccountHintAssist" xml:space="preserve">
+        <value>To the account:</value>
     </data>
     <data name="DatePickerWhenHintAssist" xml:space="preserve">
         <value>Date :</value>
     </data>
-    <data name="TextBoxMainReasonHintAssist" xml:space="preserve">
-        <value>Main reason:</value>
+    <data name="HistoryViewModelValidatorAccountViewModelRequired" xml:space="preserve">
+        <value>An account is required</value>
+    </data>
+    <data name="HistoryViewModelValidatorCategoryTypeViewModelRequired" xml:space="preserve">
+        <value>Category type is required</value>
+    </data>
+    <data name="HistoryViewModelValidatorDateRequired" xml:space="preserve">
+        <value>A date is required</value>
+    </data>
+    <data name="HistoryViewModelValidatorDescriptionLength" xml:space="preserve">
+        <value>The description should be between 1 and {0} characters</value>
+    </data>
+    <data name="HistoryViewModelValidatorModePaymentViewModelRequired" xml:space="preserve">
+        <value>A payment method is required</value>
+    </data>
+    <data name="HistoryViewModelValidatorPlaceViewModelRequired" xml:space="preserve">
+        <value>A place is required</value>
+    </data>
+    <data name="HistoryViewModelValidatorValueRequired" xml:space="preserve">
+        <value>A value is required</value>
     </data>
     <data name="TextBoxAdditionalReasonHintAssist" xml:space="preserve">
         <value>Additional reason:</value>
     </data>
-    <data name="ButtonPrepareValidContent" xml:space="preserve">
-        <value>Validate</value>
+    <data name="TextBoxAddNewCategoryTypeName" xml:space="preserve">
+        <value>Add a new category type name :</value>
     </data>
-    <data name="ButtonPrepareCancelContent" xml:space="preserve">
-        <value>Cancel</value>
+    <data name="TextBoxEditCategoryTypeName" xml:space="preserve">
+        <value>Edit category type name :</value>
     </data>
-    <data name="ButtonPreviewValidContent" xml:space="preserve">
-        <value>Validate</value>
+    <data name="TextBoxMainReasonHintAssist" xml:space="preserve">
+        <value>Main reason:</value>
     </data>
-    <data name="ButtonPreviewCancelContent" xml:space="preserve">
-        <value>Cancel</value>
+    <data name="TextBoxValueHintAssist" xml:space="preserve">
+        <value>Amount:</value>
+    </data>
+    <data name="TitleWindowAddCategoryTypeName" xml:space="preserve">
+        <value>Add new category type</value>
+    </data>
+    <data name="TitleWindowEditCategoryTypeName" xml:space="preserve">
+        <value>Edit category type</value>
+    </data>
+    <data name="BankTransferViewModelValidatorFromAccountRequired" xml:space="preserve">
+        <value>A from account is required</value>
+    </data>
+    <data name="BankTransferViewModelValidatorToAccountRequired" xml:space="preserve">
+        <value>A to account is required</value>
+    </data>
+    <data name="BankTransferViewModelValidatorMainReasonRequired" xml:space="preserve">
+        <value>A main reason is required</value>
+    </data>
+    <data name="BankTransferViewModelValidatorMainReasonTooLong" xml:space="preserve">
+        <value>A main reason cannot exceed {0} characters</value>
+    </data>
+    <data name="BankTransferViewModelValidatorAdditionalReasonTooLong" xml:space="preserve">
+        <value>An additional reason cannot exceed {0} characters</value>
+    </data>
+    <data name="BankTransferViewModelValidatorDateRequired" xml:space="preserve">
+        <value>Date is required</value>
     </data>
 </root>

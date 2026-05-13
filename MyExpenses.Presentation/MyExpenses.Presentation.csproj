@@ -48,6 +48,10 @@
       <EmbeddedResource Update="Resources\Resx\AnalyticsResources\AnalyticsResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ExpenseResources\ExpenseResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>ExpenseResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -75,6 +79,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AnalyticsResource.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\ExpenseResources\ExpenseResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ExpenseResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

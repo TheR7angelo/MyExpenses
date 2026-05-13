@@ -60,6 +60,69 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An additional reason cannot exceed {0} characters.
+        /// </summary>
+        public static string BankTransferViewModelValidatorAdditionalReasonTooLong {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorAdditionalReasonTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date is required.
+        /// </summary>
+        public static string BankTransferViewModelValidatorDateRequired {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorDateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A from account is required.
+        /// </summary>
+        public static string BankTransferViewModelValidatorFromAccountRequired {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorFromAccountRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A main reason is required.
+        /// </summary>
+        public static string BankTransferViewModelValidatorMainReasonRequired {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorMainReasonRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A main reason cannot exceed {0} characters.
+        /// </summary>
+        public static string BankTransferViewModelValidatorMainReasonTooLong {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorMainReasonTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A to account is required.
+        /// </summary>
+        public static string BankTransferViewModelValidatorToAccountRequired {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorToAccountRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A value is required and must be greater than zero.
+        /// </summary>
+        public static string BankTransferViewModelValidatorValueRequired {
+            get {
+                return ResourceManager.GetString("BankTransferViewModelValidatorValueRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ButtonPrepareCancelContent {

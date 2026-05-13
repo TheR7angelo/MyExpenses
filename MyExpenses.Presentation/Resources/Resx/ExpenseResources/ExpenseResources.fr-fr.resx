@@ -92,4 +92,25 @@
     <data name="ButtonPreviewCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="BankTransferViewModelValidatorValueRequired" xml:space="preserve">
+        <value>Une valeur est requise et doit être supérieure à zéro</value>
+    </data>
+    <data name="BankTransferViewModelValidatorFromAccountRequired" xml:space="preserve">
+        <value>Un compte A est requis</value>
+    </data>
+    <data name="BankTransferViewModelValidatorToAccountRequired" xml:space="preserve">
+        <value>Un compte B est requis</value>
+    </data>
+    <data name="BankTransferViewModelValidatorMainReasonRequired" xml:space="preserve">
+        <value>Une raison principale est requise</value>
+    </data>
+    <data name="BankTransferViewModelValidatorMainReasonTooLong" xml:space="preserve">
+        <value>Une raison principale ne peut pas dépasser {0} caractères</value>
+    </data>
+    <data name="BankTransferViewModelValidatorAdditionalReasonTooLong" xml:space="preserve">
+        <value>Une raison supplémentaire ne peut pas dépasser {0} caractères</value>
+    </data>
+    <data name="BankTransferViewModelValidatorDateRequired" xml:space="preserve">
+        <value>La date est requise</value>
+    </data>
 </root>
