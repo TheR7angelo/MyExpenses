@@ -165,9 +165,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     }
 
     private void CancelBankTransfer()
-    {
-        _navigationService.GoBack();
-    }
+        => _navigationService.GoBack();
 
     /// <summary>
     /// Sets the bank transfer preparation state.
