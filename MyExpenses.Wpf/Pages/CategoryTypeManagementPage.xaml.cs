@@ -7,26 +7,6 @@ public partial class CategoryTypeManagementPage
 {
     public CategoryTypeManagementPage(CategoryTypeManagementViewModel categoryTypeManagementViewModel)
     {
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // Necessary instantiation of DataBaseContext to interact with the database.
-        // // This creates a scoped database context for performing queries and modifications in the database.
-        // using var context = new DataBaseContextOld();
-        //
-        // CategoryTypes = new ObservableCollection<TCategoryType>();
-        //
-        // var temp = context.TCategoryTypes.OrderBy(s => s.Name).ToList();
-        // var colors = context.TColors.AsNoTracking().ToDictionary(c => c.Id);
-
-        // TODO correct
-        // foreach (var t in temp)
-        // {
-            // if (t.ColorFk is not null)
-            // {
-                // t.ColorFkNavigation = colors.TryGetValue((int)t.ColorFk!, out var color) ? color : null;
-            // }
-            // CategoryTypes.Add(t);
-        // }
-
         InitializeComponent();
 
         DataContext = categoryTypeManagementViewModel;
