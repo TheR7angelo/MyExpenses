@@ -20,6 +20,13 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
         window.ShowDialog();
     }
 
+    public void ShowEditAccount(AccountViewModel? vm)
+    {
+        var window = provider.GetRequiredService<AddEditAccountWindow>();
+        window.Load(vm);
+        window.ShowDialog();
+    }
+
     public async Task ShowAddAccountType()
     {
         var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();

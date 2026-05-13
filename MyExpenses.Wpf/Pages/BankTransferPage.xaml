@@ -74,7 +74,8 @@
                 <Button Grid.Column="1"
                         HorizontalAlignment="Left"
                         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                        Click="ButtonFromAddAccount_OnClick">
+                        Command="{Binding AddFromAccountCommand}"
+                        CommandParameter="{Binding BankTransferViewModel.FromAccount}">
 
                     <Button.Content>
                         <materialDesign:PackIcon Kind="PencilPlus" />
@@ -110,7 +111,8 @@
                 <Button Grid.Column="1"
                         HorizontalAlignment="Left"
                         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                        Click="ButtonToAddAccount_OnClick">
+                        Command="{Binding AddToAccountCommand}"
+                        CommandParameter="{Binding BankTransferViewModel.ToAccount}">
 
                     <Button.Content>
                         <materialDesign:PackIcon Kind="PencilPlus" />

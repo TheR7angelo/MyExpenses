@@ -121,4 +121,11 @@ public interface IAccountPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains the <see cref="TotalByAccountViewModel"/> corresponding to the provided account view model.</return>
     public Task<TotalByAccountViewModel?> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Merges the data from the source account view model into the destination account view model.
+    /// </summary>
+    /// <param name="src">The source account view model containing the data to be merged.</param>
+    /// <param name="dst">The destination account view model where the data will be merged.</param>
+    public void Merge(AccountViewModel src, AccountViewModel dst);
 }

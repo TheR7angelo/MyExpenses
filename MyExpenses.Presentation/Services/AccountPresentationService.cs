@@ -102,4 +102,9 @@ public class AccountPresentationService(IAccountService accountService,
         var totalByAccountDto = await accountService.GetTotalByAccountAsync(dto, cancellationToken);
         return totalByAccountDto is null ? null : viewModelMapper.MapToViewModel(totalByAccountDto);
     }
+
+    public void Merge(AccountViewModel src, AccountViewModel dst)
+    {
+        viewModelMapper.Merge(src, dst);
+    }
 }

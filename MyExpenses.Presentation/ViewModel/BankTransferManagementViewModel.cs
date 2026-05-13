@@ -2,7 +2,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -27,6 +30,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// The navigation service.
     /// </summary>
     private readonly INavigationService _navigationService;
+
+    private readonly INavigationWindowService _navigationWindowService;
 
     /// <summary>
     /// The dialog service.
@@ -99,7 +104,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <summary>
     /// Gets the array of total values by account used for calculating transfer previews.
     /// </summary>
-    private TotalByAccountViewModel[] TotalByAccounts { get; set; } = null!;
+    private List<TotalByAccountViewModel> TotalByAccounts { get; set; } = [];
 
     /// <summary>
     /// Gets the old total value of the source account before the transfer.
@@ -135,14 +140,29 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     public IRelayCommand<bool> PrepareBankTransferCommand { get; }
 
+    /// <summary>
+    /// Gets the command to add or edit a "From" account.
+    /// </summary>
+    public IRelayCommand<AccountViewModel?> AddFromAccountCommand { get; }
+
+    /// <summary>
+    /// Gets the command to add or edit a "To" account.
+    /// </summary>
+    public IRelayCommand<AccountViewModel?> AddToAccountCommand { get; }
+
     public IRelayCommand CancelBankTransferCommand { get; }
 
     private readonly BankTransferViewModelValidator _validatorBankTransferViewModelValidator;
     private readonly HistoryViewModelValidator _validatorHistoryViewModelValidator;
 
+    /// <summary>
+    /// Tracks which account (From or To) triggered the add/edit operation for proper auto-selection after creation.
+    /// </summary>
+    private AccountSource? _currentAccountSource;
+
 
     public BankTransferManagementViewModel(IAccountPresentationService accountService, IExpensePresentationService expensePresentationService,
-        INavigationService navigationService,
+        INavigationService navigationService, INavigationWindowService navigationWindowService,
         IDialogService dialog,
         ILogger<BankTransferManagementViewModel> logger,
         BankTransferViewModelValidator validatorBankTransferViewModelValidator,
@@ -151,6 +171,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
         _navigationService = navigationService;
+        _navigationWindowService = navigationWindowService;
         _dialog = dialog;
         _logger = logger;
         _validatorBankTransferViewModelValidator = validatorBankTransferViewModelValidator;
@@ -158,11 +179,107 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
         CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
         PrepareBankTransferCommand = new AsyncRelayCommand<bool>(PrepareBankTransfer);
+        AddFromAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.From));
+        AddToAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.To));
         LoadCommand = new AsyncRelayCommand(LoadAsync);
 
         // Subscribe to property changes on BankTransferViewModel
         BankTransferViewModel.PropertyChanged += OnBankTransferViewModelPropertyChanged;
         FromHistoryViewModel.PropertyChanged += OnFromHistoryViewModelPropertyChanged;
+
+        RegisterMessages();
+    }
+
+    private void RegisterMessages()
+    {
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChanged);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, OnAccountDeleted);
+    }
+
+    private void OnAccountDeleted(object recipient, EntityChangedMessage<int> m)
+    {
+        if (m.Value.EntityType is not DependencyType.Account && m.Value.DataAction is not DataAction.Delete) return;
+
+        ApplyDelete(m.Value.Content);
+    }
+
+    private async void OnAccountChanged(object recipient, EntityChangedMessage<AccountViewModel> m)
+    {
+        if (m.Value.EntityType is not DependencyType.Account) return;
+
+        switch (m.Value.DataAction)
+        {
+            case DataAction.Update:
+                ApplyUpdate(m.Value.Content);
+                break;
+
+            case DataAction.Add:
+                await ApplyAddAsync(m.Value.Content);
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        _currentAccountSource = null;
+    }
+
+    private void ApplyDelete(int accountId)
+    {
+        var item = Accounts.FirstOrDefault(s => s.Id == accountId);
+        if (item is null) return;
+
+        Accounts.Remove(item);
+        OnPropertyChanged(nameof(FromAccounts));
+        OnPropertyChanged(nameof(ToAccounts));
+
+        var totalByAccount = TotalByAccounts.FirstOrDefault(t => t.Id == accountId);
+        if (totalByAccount is not null) TotalByAccounts.Remove(totalByAccount);
+    }
+
+    private async Task ApplyAddAsync(AccountViewModel vm)
+    {
+        Accounts.AddAndSort(vm, s => s.Name!);
+        OnPropertyChanged(nameof(FromAccounts));
+        OnPropertyChanged(nameof(ToAccounts));
+
+        var item = await _accountService.GetTotalByAccountViewModelAsync(vm);
+        if (item is not null) TotalByAccounts.Add(item);
+
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+        switch (_currentAccountSource)
+        {
+            case AccountSource.From:
+                BankTransferViewModel.FromAccount = vm;
+                break;
+            case AccountSource.To:
+                BankTransferViewModel.ToAccount = vm;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void ApplyUpdate(AccountViewModel vm)
+    {
+        var item = Accounts.FirstOrDefault(s => s.Id == vm.Id);
+        if (item is null) return;
+
+        _accountService.Merge(vm, item);
+    }
+
+    /// <summary>
+    /// Opens the account edit/create dialog for the specified account source.
+    /// For new accounts (Create), automatically selects them in the appropriate ComboBox after creation.
+    /// For existing accounts (Update), just opens the edit dialog.
+    /// </summary>
+    /// <param name="accountViewModel">The account to edit, or null to create a new one.</param>
+    /// <param name="source">Indicates whether this is for the "From" or "To" account selection.</param>
+    private void AddAccountAsync(AccountViewModel? accountViewModel, AccountSource source)
+    {
+        // Store the source so we can auto-select the newly created account later
+        _currentAccountSource = source;
+        _navigationWindowService.ShowEditAccount(accountViewModel);
     }
 
     private void CancelBankTransfer()
@@ -266,9 +383,30 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         CategoryTypeViewModels.AddRangeAndSort(categoryTypeTask.Result, s => s.Name!);
         ModePaymentViewModels.AddRangeAndSort(modePaymentTask.Result, s => s.Name!);
         Accounts.AddRangeAndSort(accountTask.Result, s => s.Name!);
-        TotalByAccounts = totalByAccountTask.Result.ToArray();
+        TotalByAccounts.AddRange(totalByAccountTask.Result);
 
         OnPropertyChanged(nameof(FromAccounts));
         OnPropertyChanged(nameof(ToAccounts));
+    }
+
+    /// <summary>
+    /// Indicates the source of the account add/edit operation.
+    /// </summary>
+    private enum AccountSource : byte
+    {
+        /// <summary>
+        /// Represents the absence of a specific account source.
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// Operation triggered from the "From" account selection.
+        /// </summary>
+        From,
+
+        /// <summary>
+        /// Operation triggered from the "To" account selection.
+        /// </summary>
+        To
     }
 }

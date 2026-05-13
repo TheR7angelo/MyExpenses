@@ -200,6 +200,9 @@ public partial class AddEditAccountWindow
         {
             var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
             await accountActionService.DeleteAccount(AccountViewModel);
+
+            DialogResult = true;
+            Close();
         }
         catch (Exception exception)
         {
@@ -259,6 +262,11 @@ public partial class AddEditAccountWindow
     public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)
     {
         var accountViewModel = await _accountPresentationService.GetAccount(totalByAccountViewModel);
+        Load(accountViewModel);
+    }
+
+    public void Load(AccountViewModel? accountViewModel)
+    {
         if (accountViewModel is null) return;
 
         _accountDtoViewModelMapper.Merge(accountViewModel, AccountViewModel);
