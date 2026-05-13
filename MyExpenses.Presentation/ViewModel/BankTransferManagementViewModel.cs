@@ -3,7 +3,6 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -26,7 +25,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <summary>
     /// The navigation service.
     /// </summary>
-    private readonly INavigationService _navigation;
+    private readonly INavigationService _navigationService;
 
     /// <summary>
     /// The dialog service.
@@ -135,31 +134,39 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     public IRelayCommand<bool> PrepareBankTransferCommand { get; }
 
+    public IRelayCommand CancelBankTransferCommand { get; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BankTransferManagementViewModel"/> class.
     /// </summary>
     /// <param name="accountService">The service for account-related operations.</param>
     /// <param name="expensePresentationService">The service for expense-related operations.</param>
-    /// <param name="navigation">The navigation service.</param>
+    /// <param name="navigationService">The navigation service.</param>
     /// <param name="dialog">The dialog service.</param>
     /// <param name="logger">The logger instance.</param>
     public BankTransferManagementViewModel(IAccountPresentationService accountService, IExpensePresentationService expensePresentationService,
-        INavigationService navigation,
+        INavigationService navigationService,
         IDialogService dialog,
         ILogger<BankTransferManagementViewModel> logger)
     {
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
-        _navigation = navigation;
+        _navigationService = navigationService;
         _dialog = dialog;
         _logger = logger;
 
+        CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
         PrepareBankTransferCommand = new RelayCommand<bool>(PrepareBankTransfer);
         LoadCommand = new AsyncRelayCommand(LoadAsync);
 
         // Subscribe to property changes on BankTransferViewModel
         BankTransferViewModel.PropertyChanged += OnBankTransferViewModelPropertyChanged;
         FromHistoryViewModel.PropertyChanged += OnFromHistoryViewModelPropertyChanged;
+    }
+
+    private void CancelBankTransfer()
+    {
+        _navigationService.GoBack();
     }
 
     /// <summary>

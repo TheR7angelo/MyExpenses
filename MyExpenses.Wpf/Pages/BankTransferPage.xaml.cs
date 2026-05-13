@@ -15,11 +15,6 @@ public partial class BankTransferPage
 
     #region Action
 
-    private void ButtonCancelBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
-    {
-        // nameof(MainWindow.FrameBody).GoBack();
-    }
-
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
     {
         // // ReSharper disable once HeapView.ObjectAllocation.Evident

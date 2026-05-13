@@ -214,7 +214,8 @@
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPrepareCancelContent }}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                        Click="ButtonCancelBankTransferPrepare_OnClick">
+                        Command="{Binding CancelBankTransferCommand}">
+                        <!-- Click="ButtonCancelBankTransferPrepare_OnClick"> -->
                 </Button>
 
             </StackPanel>
