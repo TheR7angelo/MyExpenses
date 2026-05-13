@@ -552,7 +552,7 @@ CREATE TRIGGER after_update_on_t_recursive_expense_when_recursive_total_not_null
     AFTER UPDATE
     ON t_recursive_expense
     FOR EACH ROW
-    WHEN NEW.recursive_total IS NOT NULL
+    WHEN NEW.recursive_total IS NOT NULL AND NEW.recursive_total > 0
 BEGIN
 
     UPDATE t_recursive_expense
