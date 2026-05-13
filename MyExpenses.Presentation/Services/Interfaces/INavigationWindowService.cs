@@ -1,8 +1,13 @@
 ﻿using MyExpenses.Presentation.ViewModels.Accounts;
 
-namespace MyExpenses.Presentation.Services;
+namespace MyExpenses.Presentation.Services.Interfaces;
 
-public interface INavigationService
+/// <summary>
+/// Provides navigation services for displaying various account-related windows in the application.
+/// This interface defines methods for launching windows or dialogs related to adding, editing,
+/// and managing accounts or account types.
+/// </summary>
+public interface INavigationWindowService
 {
     /// <summary>
     /// Displays the "Add Account" window as a dialog.

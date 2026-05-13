@@ -55,7 +55,7 @@ public static class WpfRegistration
         private IServiceCollection AddAutoRegisteredDialogs()
         {
             services.AddTransient<IDialogService, DialogService>();
-            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<INavigationWindowService, NavigationWindowService>();
             return services;
         }
 

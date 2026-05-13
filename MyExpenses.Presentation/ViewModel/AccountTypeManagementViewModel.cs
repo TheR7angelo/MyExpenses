@@ -18,7 +18,7 @@ namespace MyExpenses.Presentation.ViewModel;
 public class AccountTypeManagementViewModel : ViewModelBase
 {
     private readonly IAccountPresentationService _accountService;
-    private readonly INavigationService _navigation;
+    private readonly INavigationWindowService _navigationWindow;
     private readonly IDialogService _dialog;
     private readonly ILogger<AccountTypeManagementViewModel> _logger;
 
@@ -51,16 +51,16 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// Initializes a new instance of the <see cref="AccountTypeManagementViewModel"/> class.
     /// </summary>
     /// <param name="accountService">Service providing access to account type data.</param>
-    /// <param name="navigation">Service for navigating to account type views.</param>
+    /// <param name="navigationWindow">Service for navigating to account type views.</param>
     /// <param name="dialog">Service for displaying dialog messages.</param>
     /// <param name="logger">Logger for recording errors and events.</param>
     public AccountTypeManagementViewModel(IAccountPresentationService accountService,
-        INavigationService navigation,
+        INavigationWindowService navigationWindow,
         IDialogService dialog,
         ILogger<AccountTypeManagementViewModel> logger)
     {
         _accountService = accountService;
-        _navigation = navigation;
+        _navigationWindow = navigationWindow;
         _dialog = dialog;
         _logger = logger;
 
@@ -141,7 +141,7 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// </summary>
     private void AddAccountType()
     {
-        _navigation.ShowAddAccountType();
+        _navigationWindow.ShowAddAccountType();
     }
 
     /// <summary>
@@ -154,7 +154,7 @@ public class AccountTypeManagementViewModel : ViewModelBase
         try
         {
             if (item is null) return;
-            await _navigation.ShowEditAccountTypeAsync(item);
+            await _navigationWindow.ShowEditAccountTypeAsync(item);
         }
         catch (Exception ex)
         {

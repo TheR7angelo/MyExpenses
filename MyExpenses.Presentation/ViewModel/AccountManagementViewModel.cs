@@ -41,14 +41,14 @@ public class AccountManagementViewModel : ViewModelBase
     /// Service dependency used for handling navigation-related operations within the view model.
     /// </summary>
     /// <remarks>
-    /// The <c>_navigation</c> field is an instance of <see cref="INavigationService"/>
+    /// The <c>_navigation</c> field is an instance of <see cref="INavigationWindowService"/>
     /// and provides methods to facilitate navigation between different views in the application.
     /// It is used to manage navigation actions such as displaying add account or edit account views,
     /// ensuring seamless interaction flow within the user interface.
     /// This field enables the view model to delegate navigation responsibilities,
     /// adhering to the separation of concerns principle in the MVVM architecture.
     /// </remarks>
-    private readonly INavigationService _navigation;
+    private readonly INavigationWindowService _navigationWindow;
 
     /// <summary>
     /// Service dependency used for handling dialog interactions within the view model.
@@ -146,12 +146,12 @@ public class AccountManagementViewModel : ViewModelBase
     /// </summary>
     public AccountManagementViewModel(
         IAccountPresentationService accountService,
-        INavigationService navigation,
+        INavigationWindowService navigationWindow,
         IDialogService dialog,
         ILogger<AccountManagementViewModel> logger)
     {
         _accountService = accountService;
-        _navigation = navigation;
+        _navigationWindow = navigationWindow;
         _dialog = dialog;
         _logger = logger;
 
@@ -305,7 +305,7 @@ public class AccountManagementViewModel : ViewModelBase
         try
         {
             if (item is null) return;
-            await _navigation.ShowEditAccountAsync(item);
+            await _navigationWindow.ShowEditAccountAsync(item);
         }
         catch (Exception ex)
         {
@@ -322,6 +322,6 @@ public class AccountManagementViewModel : ViewModelBase
     /// </remarks>
     private void AddAccount()
     {
-        _navigation.ShowAddAccount();
+        _navigationWindow.ShowAddAccount();
     }
 }
