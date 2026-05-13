@@ -5,7 +5,7 @@ using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services.Interfaces;
 
-namespace MyExpenses.Wpf;
+namespace MyExpenses.Wpf.Services;
 
 /// <summary>
 /// Service providing navigation logic for WPF applications.

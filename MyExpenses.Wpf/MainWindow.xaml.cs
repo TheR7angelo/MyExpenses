@@ -11,6 +11,7 @@ using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Pages;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
+using MyExpenses.Wpf.Services;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MessageBoxButton = System.Windows.MessageBoxButton;
