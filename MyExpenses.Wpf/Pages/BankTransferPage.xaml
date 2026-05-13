@@ -133,7 +133,7 @@
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxCategoryTypeHintAssist }}"
                           ItemsSource="{Binding CategoryTypeViewModels}"
-                          SelectedItem="{Binding BankTransferViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedItem="{Binding FromHistoryViewModel.CategoryTypeViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
