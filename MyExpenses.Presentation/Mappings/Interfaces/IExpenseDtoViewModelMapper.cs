@@ -149,4 +149,15 @@ public interface IExpenseDtoViewModelMapper
     /// A <see cref="Result{HistoryViewModel}"/> containing the mapped data from the provided <see cref="Result{HistoryDto}"/>.
     /// </returns>
     public Result<HistoryViewModel> Map(Result<HistoryDto> result);
+
+    /// <summary>
+    /// Merges the data from a <see cref="BankTransferViewModel"/> source into a <see cref="HistoryViewModel"/> destination.
+    /// </summary>
+    /// <param name="src">
+    /// The <see cref="BankTransferViewModel"/> containing the source data to be merged.
+    /// </param>
+    /// <param name="dst">
+    /// The <see cref="HistoryViewModel"/> that will receive the merged data from the source.
+    /// </param>
+    public void Merge(BankTransferViewModel src, HistoryViewModel dst);
 }

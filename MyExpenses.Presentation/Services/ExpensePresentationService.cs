@@ -82,6 +82,11 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return modePaymentDto is null ? null : mapper.MapToViewModel(modePaymentDto);
     }
 
+    public void Merge(BankTransferViewModel src, HistoryViewModel dst)
+    {
+        mapper.Merge(src, dst);
+    }
+
     public async Task<Result<CategoryTypeViewModel>> CreateCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
     {
         var categoryTypeDto = mapper.MapToDto(newCategoryType);

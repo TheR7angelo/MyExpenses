@@ -69,6 +69,24 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
     public Result<HistoryViewModel> Map(Result<HistoryDto> result)
         => result.Map(MapToViewModel);
 
+    [MapperIgnoreSource(nameof(BankTransferViewModel.HasErrors))]
+    [MapperIgnoreSource(nameof(BankTransferViewModel.Id))]
+    [MapperIgnoreSource(nameof(BankTransferViewModel.FromAccount))]
+    [MapperIgnoreSource(nameof(BankTransferViewModel.ToAccount))]
+    [MapperIgnoreSource(nameof(BankTransferViewModel.AdditionalReason))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.HasErrors))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.Id))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.AccountViewModel))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.CategoryTypeViewModel))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.ModePaymentViewModel))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.PlaceViewModel))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.RecursiveExpenseViewModel))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.DatePointed))]
+    [MapperIgnoreTarget(nameof(HistoryViewModel.IsPointed))]
+    [MapProperty(nameof(BankTransferViewModel.MainReason), nameof(HistoryViewModel.Description))]
+    [MapProperty(nameof(BankTransferViewModel), nameof(HistoryViewModel.BankTransferViewModel))]
+    public partial void Merge(BankTransferViewModel src, HistoryViewModel dst);
+
     private PlaceDto MapToDto(PlaceViewModel source)
         => mapper.MapToDto(source);
 

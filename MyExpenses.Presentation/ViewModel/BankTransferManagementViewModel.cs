@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using Domain.Models.Systems;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -25,6 +26,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// The service for expense-related operations.
     /// </summary>
     private readonly IExpensePresentationService _expensePresentationService;
+
+    private readonly ISystemPresentationService _systemPresentationService;
 
     /// <summary>
     /// The navigation service.
@@ -59,11 +62,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// Gets the history view model for the source account transfer entry.
     /// </summary>
     public HistoryViewModel FromHistoryViewModel { get; } = new() { IsPointed =  true };
-
-    /// <summary>
-    /// Gets the history view model for the destination account transfer entry.
-    /// </summary>
-    public HistoryViewModel ToHistoryViewModel { get; } = new() { IsPointed = true };
 
     /// <summary>
     /// Gets the currency symbol prefix to display when both accounts use the same currency.
@@ -161,7 +159,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     private AccountSource? _currentAccountSource;
 
 
-    public BankTransferManagementViewModel(IAccountPresentationService accountService, IExpensePresentationService expensePresentationService,
+    public BankTransferManagementViewModel(IAccountPresentationService accountService,
+        IExpensePresentationService expensePresentationService, ISystemPresentationService systemPresentationService,
         INavigationService navigationService, INavigationWindowService navigationWindowService,
         IDialogService dialog,
         ILogger<BankTransferManagementViewModel> logger,
@@ -170,6 +169,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     {
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
+        _systemPresentationService = systemPresentationService;
         _navigationService = navigationService;
         _navigationWindowService = navigationWindowService;
         _dialog = dialog;
@@ -183,9 +183,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         AddToAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.To));
         LoadCommand = new AsyncRelayCommand(LoadAsync);
 
-        // Subscribe to property changes on BankTransferViewModel
         BankTransferViewModel.PropertyChanged += OnBankTransferViewModelPropertyChanged;
-        FromHistoryViewModel.PropertyChanged += OnFromHistoryViewModelPropertyChanged;
 
         RegisterMessages();
     }
@@ -277,7 +275,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <param name="source">Indicates whether this is for the "From" or "To" account selection.</param>
     private void AddAccountAsync(AccountViewModel? accountViewModel, AccountSource source)
     {
-        // Store the source so we can auto-select the newly created account later
         _currentAccountSource = source;
         _navigationWindowService.ShowEditAccount(accountViewModel);
     }
@@ -288,6 +285,9 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
     private async Task PrepareBankTransfer(bool isPrepared, CancellationToken cancellationToken = default)
     {
+        _expensePresentationService.Merge(BankTransferViewModel, FromHistoryViewModel);
+        FromHistoryViewModel.PlaceViewModel ??= await _systemPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId, cancellationToken);
+
         var validatorBankTransferTask = _validatorBankTransferViewModelValidator.ValidateAsync(BankTransferViewModel, cancellationToken);
         var validatorHistoryTask = _validatorHistoryViewModelValidator.ValidateAsync(FromHistoryViewModel, cancellationToken);
 
@@ -301,21 +301,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         {
             BankTransferViewModel.ValidateWithFluent(validationResultBankTransfer);
             FromHistoryViewModel.ValidateWithFluent(validationResultHistory);
-        }
-    }
-
-    /// <summary>
-    /// Handles property changes on the FromHistoryViewModel to synchronize related properties.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The event arguments containing the property name that changed.</param>
-    private void OnFromHistoryViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(FromHistoryViewModel.ModePaymentViewModel):
-                ToHistoryViewModel.ModePaymentViewModel = FromHistoryViewModel.ModePaymentViewModel;
-                break;
         }
     }
 
@@ -334,34 +319,25 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
                 FromHistoryViewModel.AccountViewModel = BankTransferViewModel.FromAccount;
                 break;
+
             case nameof(BankTransferViewModel.ToAccount):
                 OnPropertyChanged(nameof(FromAccounts));
                 OnPropertyChanged(nameof(ValuePrefix));
-
-                ToHistoryViewModel.AccountViewModel = BankTransferViewModel.ToAccount;
                 break;
 
             case nameof(BankTransferViewModel.Value):
-                FromHistoryViewModel.Value = -BankTransferViewModel.Value;
-                ToHistoryViewModel.Value = BankTransferViewModel.Value;
-
-                if (FromHistoryViewModel.AccountViewModel is not null)
+                if (BankTransferViewModel.FromAccount is not null)
                 {
-                    var totalByAccount = TotalByAccounts.FirstOrDefault(t => t.Id == FromHistoryViewModel.AccountViewModel.Id);
+                    var totalByAccount = TotalByAccounts.FirstOrDefault(t => t.Id == BankTransferViewModel.FromAccount.Id);
                     FromTotalAccountOldValue = totalByAccount?.Total ?? 0;
                     FromTotalAccountNewValue = FromTotalAccountOldValue - BankTransferViewModel.Value ?? 0;
                 }
-                if (ToHistoryViewModel.AccountViewModel is not null)
+                if (BankTransferViewModel.ToAccount is not null)
                 {
-                    var totalByAccount = TotalByAccounts.FirstOrDefault(t => t.Id == ToHistoryViewModel.AccountViewModel.Id);
+                    var totalByAccount = TotalByAccounts.FirstOrDefault(t => t.Id == BankTransferViewModel.ToAccount.Id);
                     ToTotalAccountOldValue = totalByAccount?.Total ?? 0;
                     ToTotalAccountNewValue = ToTotalAccountOldValue + BankTransferViewModel.Value ?? 0;
                 }
-                break;
-
-            case nameof(BankTransferViewModel.Date):
-                FromHistoryViewModel.Date = BankTransferViewModel.Date;
-                ToHistoryViewModel.Date = BankTransferViewModel.Date;
                 break;
         }
     }
@@ -394,11 +370,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     private enum AccountSource : byte
     {
-        /// <summary>
-        /// Represents the absence of a specific account source.
-        /// </summary>
-        None,
-
         /// <summary>
         /// Operation triggered from the "From" account selection.
         /// </summary>

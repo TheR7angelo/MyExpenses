@@ -67,4 +67,11 @@ public interface IExpensePresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <return>A task representing the asynchronous operation. The task result contains the mode of payment view model if found, or null if it does not exist.</return>
     public Task<ModePaymentViewModel?> GetModePaymentViewModel(int modePaymentId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Merges the specified source bank transfer view model into the destination history view model.
+    /// </summary>
+    /// <param name="src">The source bank transfer view model containing information to be merged.</param>
+    /// <param name="dst">The destination history view model to which the data will be merged.</param>
+    public void Merge(BankTransferViewModel src, HistoryViewModel dst);
 }
