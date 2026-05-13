@@ -113,4 +113,16 @@
     <data name="BankTransferViewModelValidatorDateRequired" xml:space="preserve">
         <value>Date is required</value>
     </data>
+    <data name="MessageBoxValidBankTransferSuccessCaption" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxValidBankTransferSuccessContent" xml:space="preserve">
+        <value>Do you want to register another bank transfer ?</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorContent" xml:space="preserve">
+        <value>An error occurred while recording the bank transfer, please try again</value>
+    </data>
 </root>

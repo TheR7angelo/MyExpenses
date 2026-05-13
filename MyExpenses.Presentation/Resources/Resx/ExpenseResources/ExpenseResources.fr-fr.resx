@@ -113,4 +113,16 @@
     <data name="BankTransferViewModelValidatorDateRequired" xml:space="preserve">
         <value>La date est requise</value>
     </data>
+    <data name="MessageBoxValidBankTransferSuccessCaption" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxValidBankTransferSuccessContent" xml:space="preserve">
+        <value>Voulez-vous enregistrer un autre virement bancaire ?</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorContent" xml:space="preserve">
+        <value>An error occurred while recording the bank transfer, please try again</value>
+    </data>
 </root>

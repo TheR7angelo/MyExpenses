@@ -303,6 +303,42 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxValidBankTransferErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while recording the bank transfer, please try again.
+        /// </summary>
+        public static string MessageBoxValidBankTransferErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxValidBankTransferSuccessCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to register another bank transfer ?.
+        /// </summary>
+        public static string MessageBoxValidBankTransferSuccessContent {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferSuccessContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Additional reason:.
         /// </summary>
         public static string TextBoxAdditionalReasonHintAssist {

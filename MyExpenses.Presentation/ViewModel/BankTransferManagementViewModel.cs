@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -150,6 +152,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     private AccountSource? _currentAccountSource;
 
+    private readonly ILogger<BankTransferManagementViewModel> _logger;
+
     /// <summary>
     /// ViewModel responsible for managing the bank transfer workflow. Provides commands for
     /// initiating, validating, and canceling bank transfers, as well as managing account setup
@@ -157,17 +161,17 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     public BankTransferManagementViewModel(IAccountPresentationService accountService,
         IExpensePresentationService expensePresentationService,
+        IExpenseActionService expenseActionService,
         INavigationService navigationService, INavigationWindowService navigationWindowService,
-        IDialogService dialog,
-        IExpenseActionService expenseActionService)
+        IDialogService dialog, ILogger<BankTransferManagementViewModel> logger)
     {
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
+        _expenseActionService = expenseActionService;
         _navigationService = navigationService;
         _navigationWindowService = navigationWindowService;
         _dialog = dialog;
-
-        _expenseActionService = expenseActionService;
+        _logger = logger;
 
         CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
         PrepareBankTransferCommand = new AsyncRelayCommand<bool>(PrepareBankTransfer);
@@ -201,20 +205,28 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <returns>A task that represents the asynchronous operation of validating and processing the bank transfer.</returns>
     private async Task ValidBankTransfer(CancellationToken cancellationToken = default)
     {
-        await _expenseActionService.CreateBankTransfer(BankTransferViewModel, FromHistoryViewModel, cancellationToken);
-
-        // TODO trad
-        var response = _dialog.ShowMessageBox("Question", "Do you want to create another bank transfer?",
-            MessageBoxButton.YesNo, MsgBoxImage.Question);
-
-        if (response is MessageBoxResult.Yes)
+        try
         {
-            BankTransferViewModel = new BankTransferViewModel();
-            FromHistoryViewModel = new HistoryViewModel();
+            await _expenseActionService.CreateBankTransfer(BankTransferViewModel, FromHistoryViewModel, cancellationToken);
+
+            var response = _dialog.ShowMessageBox(ExpenseResources.MessageBoxValidBankTransferSuccessCaption,
+                ExpenseResources.MessageBoxValidBankTransferSuccessContent,
+                MessageBoxButton.YesNo, MsgBoxImage.Question);
+
+            if (response is MessageBoxResult.Yes)
+            {
+                BankTransferViewModel = new BankTransferViewModel();
+                FromHistoryViewModel = new HistoryViewModel();
+            }
+            else
+            {
+                _navigationService.GoBack();
+            }
         }
-        else
+        catch (Exception e)
         {
-            _navigationService.GoBack();
+            _logger.LogError(e, "Error creating bank transfer");
+            _dialog.ShowError(ExpenseResources.MessageBoxValidBankTransferErrorContent);
         }
     }
 
