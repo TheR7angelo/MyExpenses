@@ -65,6 +65,10 @@ public static partial class ExpensesMapper
     [MapperIgnoreSource(nameof(TModePayment.TRecursiveExpenses))]
     public static partial ModePaymentDomain MapToDomain(this TModePayment src);
 
+    [MapperIgnoreTarget(nameof(TModePayment.THistories))]
+    [MapperIgnoreTarget(nameof(TModePayment.TRecursiveExpenses))]
+    public static partial TModePayment MapToEntity(this ModePaymentDomain modePaymentDomain);
+
     [MapperIgnoreTarget(nameof(TBankTransfer.THistories))]
     [MapperIgnoreTarget(nameof(TBankTransfer.FromAccountFkNavigation))]
     [MapperIgnoreTarget(nameof(TBankTransfer.ToAccountFkNavigation))]

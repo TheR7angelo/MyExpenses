@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Domain.Models.Expenses;
-using Domain.Models.Validation;
 using FluentValidation.Results;
 using MyExpenses.Presentation.Validations;
-using MyExpenses.Presentation.Validations.Attributes;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using TheR7angelo.DirtyTracking.Abstractions;
 

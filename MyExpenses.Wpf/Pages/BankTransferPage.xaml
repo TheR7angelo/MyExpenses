@@ -367,7 +367,7 @@
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPreviewValidContent }}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonValidBankTransferPreview_OnClick">
+                        Command="{Binding ValidBankTransferCommand}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonPreviewCancelContent }}"

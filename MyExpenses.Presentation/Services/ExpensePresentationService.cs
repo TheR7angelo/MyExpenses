@@ -87,6 +87,16 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         mapper.Merge(src, dst);
     }
 
+    public async Task<Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)>> CreateBankTransferAsync(BankTransferViewModel bankTransferViewModel, HistoryViewModel historyViewModel,
+        CancellationToken cancellationToken = default)
+    {
+        var bankTransferDto = mapper.MapToDto(bankTransferViewModel);
+        var historyDto = mapper.MapToDto(historyViewModel);
+        var result = await expenseService.CreateBankTransferAsync(bankTransferDto, historyDto, cancellationToken);
+
+        return mapper.MapToViewModel(result);
+    }
+
     public async Task<Result<CategoryTypeViewModel>> CreateCategoryType(CategoryTypeViewModel newCategoryType, CancellationToken cancellationToken = default)
     {
         var categoryTypeDto = mapper.MapToDto(newCategoryType);

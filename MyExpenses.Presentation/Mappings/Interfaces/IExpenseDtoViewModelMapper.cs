@@ -160,4 +160,19 @@ public interface IExpenseDtoViewModelMapper
     /// The <see cref="HistoryViewModel"/> that will receive the merged data from the source.
     /// </param>
     public void Merge(BankTransferViewModel src, HistoryViewModel dst);
+
+    /// <summary>
+    /// Maps a <see cref="BankTransferDto"/> and a collection of <see cref="HistoryDto"/>
+    /// to a tuple containing a <see cref="BankTransferViewModel"/>
+    /// and an enumerable of <see cref="HistoryViewModel"/>.
+    /// </summary>
+    /// <param name="result">
+    /// The <see cref="Result{T}"/> containing the tuple of <see cref="BankTransferDto"/>
+    /// and <see cref="IEnumerable{T}"/> of <see cref="HistoryDto"/> to be mapped.
+    /// </param>
+    /// <returns>
+    /// A <see cref="Result{T}"/> containing a tuple of <see cref="BankTransferViewModel"/>
+    /// and <see cref="IEnumerable{T}"/> of <see cref="HistoryViewModel"/>.
+    /// </returns>
+    public Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)> MapToViewModel(Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> result);
 }

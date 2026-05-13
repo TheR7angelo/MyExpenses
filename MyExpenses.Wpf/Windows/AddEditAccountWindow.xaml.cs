@@ -147,7 +147,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
             await accountActionService.ManageAccountTypeAction(AccountViewModel);
         }
         catch (Exception exception)
@@ -162,7 +162,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
             await accountActionService.ManageCategoryTypeAction(HistoryViewModel);
         }
         catch (Exception exception)
@@ -177,7 +177,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
             await accountActionService.ManageCurrencyAction(AccountViewModel);
         }
         catch (Exception exception)
@@ -198,7 +198,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
             await accountActionService.DeleteAccount(AccountViewModel);
 
             DialogResult = true;
@@ -228,7 +228,7 @@ public partial class AddEditAccountWindow
 
             bool result;
 
-            var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
             if (EditAccount) result = await accountActionService.UpdateAccount(AccountViewModel);
             else if (EnableStartingBalance) result = await accountActionService.CreateAccount(AccountViewModel, HistoryViewModel);
             else result = await accountActionService.CreateAccount(AccountViewModel);

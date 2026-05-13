@@ -189,4 +189,14 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The mode of payment details associated with the specified ID, or null if not found.</returns>
     public Task<ModePaymentDomain?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new bank transfer and the associated historical records in the system.
+    /// </summary>
+    /// <param name="bankTransferDomain">The bank transfer domain object containing the details of the transfer.</param>
+    /// <param name="historyDomain">The history domain object containing the details of the associated historical records.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing the created bank transfer object and a collection of associated historical records.</returns>
+    public Task<Result<(BankTransferDomain bankTransfer, IEnumerable<HistoryDomain> historiesDomain)>>
+        CreateBankTransferAsync(BankTransferDomain bankTransferDomain, HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 }

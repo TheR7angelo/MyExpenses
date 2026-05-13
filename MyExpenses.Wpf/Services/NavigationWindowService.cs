@@ -29,13 +29,13 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
 
     public async Task ShowAddAccountType()
     {
-        var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+        var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction();
     }
 
     public async Task ShowEditAccountTypeAsync(AccountTypeViewModel item)
     {
-        var accountActionService = App.ServiceProvider.GetRequiredService<IActionService>();
+        var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction(item);
     }
 }

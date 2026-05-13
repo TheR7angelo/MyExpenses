@@ -5,6 +5,7 @@ using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Mappings;
@@ -425,5 +426,64 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .AsNoTracking()
             .ProjectToDomain()
             .FirstOrDefaultAsync(s => s.Id == modePaymentId, cancellationToken);
+    }
+
+    public async Task<Result<(BankTransferDomain bankTransfer, IEnumerable<HistoryDomain> historiesDomain)>> CreateBankTransferAsync(BankTransferDomain bankTransferDomain, HistoryDomain historyDomain,
+        CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Creating bank transfer with raison {BankTransfer}", bankTransferDomain.MainReason);
+
+        var fromHistory = FormateBankTransferHistory(bankTransferDomain.FromAccount, historyDomain, -1);
+        var toHistory = FormateBankTransferHistory(bankTransferDomain.ToAccount, historyDomain);
+
+        var bankTransferEntity = bankTransferDomain.MapToEntity();
+        bankTransferEntity.THistories = new List<THistory> { fromHistory, toHistory };
+
+        await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        dataBaseContext.TBankTransfers.Add(bankTransferEntity);
+        await dataBaseContext.SaveChangesAsync(cancellationToken);
+
+        logger.LogInformation("Bank transfer with raison {BankTransfer} was successfully created", bankTransferDomain.MainReason);
+
+        bankTransferEntity = dataBaseContext.TBankTransfers
+            .Include(s => s.FromAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+            .Include(s => s.FromAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+            .Include(s => s.ToAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+            .Include(s => s.ToAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+            .Include(s => s.THistories!).ThenInclude(s => s.AccountFkNavigation).ThenInclude(s => s.AccountTypeFkNavigation)
+            .Include(s => s.THistories!).ThenInclude(s => s.AccountFkNavigation).ThenInclude(s => s.CurrencyFkNavigation)
+            .Include(s => s.THistories!).ThenInclude(s => s.CategoryTypeFkNavigation).ThenInclude(s => s.ColorFkNavigation)
+            .Include(s => s.THistories!).ThenInclude(s => s.ModePaymentFkNavigation)
+            .Include(s => s.THistories!).ThenInclude(s => s.PlaceFkNavigation)
+            .AsNoTracking()
+            .First(s => s.Id == bankTransferEntity.Id);
+
+        bankTransferDomain = bankTransferEntity.MapToDomain();
+        if (bankTransferEntity.THistories is null || bankTransferEntity.THistories.Count is 0 || bankTransferEntity.THistories.Count != 2)
+        {
+            logger.LogWarning("Failed to create bank transfer because the associated histories were not found for bank transfer with id {BankTransferId}", bankTransferEntity.Id);
+            return Result<(BankTransferDomain, IEnumerable<HistoryDomain>)>.Failure(ErrorCode.NotFound, "Failed to create bank transfer because the associated histories were not found");
+        }
+
+        var historiesDomain = bankTransferEntity.THistories
+            .Select(s => s.MapToDomain())
+            .OrderBy(s => s.Value).ToList();
+
+        return Result<(BankTransferDomain, IEnumerable<HistoryDomain>)>.Success((bankTransferDomain, historiesDomain));
+    }
+
+    private static THistory FormateBankTransferHistory(AccountDomain accountDomain, HistoryDomain historyDomain, int multiplier = 1)
+    {
+        return new THistory
+        {
+            AccountFk = accountDomain.Id,
+            Description = historyDomain.Description,
+            CategoryTypeFk = historyDomain.CategoryType.Id,
+            ModePaymentFk = historyDomain.ModePayment.Id,
+            Value = multiplier * historyDomain.Value,
+            Date = historyDomain.Date,
+            PlaceFk = historyDomain.Place.Id,
+            IsPointed = historyDomain.IsPointed
+        };
     }
 }

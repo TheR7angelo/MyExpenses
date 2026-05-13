@@ -93,4 +93,17 @@ public interface IExpenseDtoDomainMapper
     /// A Result object containing a CategoryTypeDto that is mapped from the source object.
     /// </returns>
     public Result<CategoryTypeDto> Map(Result<CategoryTypeDomain> categoryTypeDomain);
+
+    /// <summary>
+    /// Maps the specified Result object containing BankTransferDomain and a collection of HistoryDomain objects
+    /// to a Result object containing BankTransferDto and a collection of HistoryDto objects.
+    /// </summary>
+    /// <param name="historiesDomain">
+    /// A Result tuple containing a BankTransferDomain object and an IEnumerable of HistoryDomain objects to map.
+    /// </param>
+    /// <returns>
+    /// A Result object containing a BankTransferDto object and an IEnumerable of HistoryDto objects
+    /// that have been mapped from the input tuple.
+    /// </returns>
+    public Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> Map(Result<(BankTransferDomain bankTransferDomain, IEnumerable<HistoryDomain> historiesDomain)> historiesDomain);
 }

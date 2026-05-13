@@ -60,4 +60,15 @@ public interface IExpenseService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="ModePaymentDto"/> object representing the mode of payment information, or null if not found.</returns>
     public Task<ModePaymentDto?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Initiates the creation of a bank transfer, along with the associated expense history entries.
+    /// </summary>
+    /// <param name="bankTransferDto">The data object containing details of the bank transfer, including accounts, value, and reason.</param>
+    /// <param name="historyDto">The data object representing the expense history entry related to the bank transfer.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation.
+    /// The task result contains a <see cref="Result{T}"/> of a tuple consisting of the created <see cref="BankTransferDto"/> and an enumerable collection of <see cref="HistoryDto"/> objects.</returns>
+    public Task<Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)>> CreateBankTransferAsync(
+        BankTransferDto bankTransferDto, HistoryDto historyDto, CancellationToken cancellationToken = default);
 }

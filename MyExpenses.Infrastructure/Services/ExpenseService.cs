@@ -51,4 +51,13 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         var modePayment = await expenseRepository.GetModePaymentByIdAsync(modePaymentId, cancellationToken);
         return modePayment is null ? null : mapper.MapToDto(modePayment);
     }
+
+    public async Task<Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)>> CreateBankTransferAsync(BankTransferDto bankTransferDto, HistoryDto historyDto,
+        CancellationToken cancellationToken = default)
+    {
+        var bankTransferDomain = mapper.MapToDomain(bankTransferDto);
+        var historyDomain = mapper.MapToDomain(historyDto);
+        var result = await expenseRepository.CreateBankTransferAsync(bankTransferDomain, historyDomain, cancellationToken);
+        return mapper.Map(result);
+    }
 }

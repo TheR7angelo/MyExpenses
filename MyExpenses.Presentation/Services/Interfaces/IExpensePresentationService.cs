@@ -74,4 +74,16 @@ public interface IExpensePresentationService
     /// <param name="src">The source bank transfer view model containing information to be merged.</param>
     /// <param name="dst">The destination history view model to which the data will be merged.</param>
     public void Merge(BankTransferViewModel src, HistoryViewModel dst);
+
+    /// <summary>
+    /// Creates a bank transfer by associating a bank transfer view model with a history view model.
+    /// </summary>
+    /// <param name="bankTransferViewModel">The bank transfer details to be used for the operation.</param>
+    /// <param name="historyViewModel">The history details associated with the bank transfer.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="Result{T}"/> object,
+    /// which holds the created bank transfer and history view models on success.</returns>
+    public Task<Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)>>
+        CreateBankTransferAsync(BankTransferViewModel bankTransferViewModel, HistoryViewModel historyViewModel,
+            CancellationToken cancellationToken = default);
 }

@@ -4,11 +4,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
-using Domain.Models.Systems;
-using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -27,8 +25,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     private readonly IExpensePresentationService _expensePresentationService;
 
-    private readonly ISystemPresentationService _systemPresentationService;
-
     /// <summary>
     /// The navigation service.
     /// </summary>
@@ -42,11 +38,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     private readonly IDialogService _dialog;
 
     /// <summary>
-    /// The logger instance.
-    /// </summary>
-    private readonly ILogger<BankTransferManagementViewModel> _logger;
-
-    /// <summary>
     /// Gets or sets a value indicating whether the bank transfer is prepared for execution.
     /// When true, shows the transfer preview; when false, shows the configuration form.
     /// </summary>
@@ -56,12 +47,12 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <summary>
     /// Gets the view model containing the bank transfer configuration data.
     /// </summary>
-    public BankTransferViewModel BankTransferViewModel { get; set; } = new();
+    public BankTransferViewModel BankTransferViewModel { get; private set; } = new();
 
     /// <summary>
     /// Gets the history view model for the source account transfer entry.
     /// </summary>
-    public HistoryViewModel FromHistoryViewModel { get; } = new() { IsPointed =  true };
+    public HistoryViewModel FromHistoryViewModel { get; private set; } = new() { IsPointed =  true };
 
     /// <summary>
     /// Gets the currency symbol prefix to display when both accounts use the same currency.
@@ -80,6 +71,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// Gets the collection of available mode of payments for the transfer.
     /// </summary>
     public ObservableCollection<ModePaymentViewModel> ModePaymentViewModels { get; } = [];
+
     /// <summary>
     /// Gets the private collection of all available accounts.
     /// </summary>
@@ -149,38 +141,39 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     public IRelayCommand<AccountViewModel?> AddToAccountCommand { get; }
 
     public IRelayCommand CancelBankTransferCommand { get; }
+    public IAsyncRelayCommand ValidBankTransferCommand { get; }
 
-    private readonly BankTransferViewModelValidator _validatorBankTransferViewModelValidator;
-    private readonly HistoryViewModelValidator _validatorHistoryViewModelValidator;
+    private readonly IExpenseActionService _expenseActionService;
 
     /// <summary>
     /// Tracks which account (From or To) triggered the add/edit operation for proper auto-selection after creation.
     /// </summary>
     private AccountSource? _currentAccountSource;
 
-
+    /// <summary>
+    /// ViewModel responsible for managing the bank transfer workflow. Provides commands for
+    /// initiating, validating, and canceling bank transfers, as well as managing account setup
+    /// and navigation. Integrates with multiple services to handle business logic and UI interactions.
+    /// </summary>
     public BankTransferManagementViewModel(IAccountPresentationService accountService,
-        IExpensePresentationService expensePresentationService, ISystemPresentationService systemPresentationService,
+        IExpensePresentationService expensePresentationService,
         INavigationService navigationService, INavigationWindowService navigationWindowService,
         IDialogService dialog,
-        ILogger<BankTransferManagementViewModel> logger,
-        BankTransferViewModelValidator validatorBankTransferViewModelValidator,
-        HistoryViewModelValidator validatorHistoryViewModelValidator)
+        IExpenseActionService expenseActionService)
     {
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
-        _systemPresentationService = systemPresentationService;
         _navigationService = navigationService;
         _navigationWindowService = navigationWindowService;
         _dialog = dialog;
-        _logger = logger;
-        _validatorBankTransferViewModelValidator = validatorBankTransferViewModelValidator;
-        _validatorHistoryViewModelValidator = validatorHistoryViewModelValidator;
+
+        _expenseActionService = expenseActionService;
 
         CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
         PrepareBankTransferCommand = new AsyncRelayCommand<bool>(PrepareBankTransfer);
         AddFromAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.From));
         AddToAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.To));
+        ValidBankTransferCommand = new AsyncRelayCommand(ValidBankTransfer);
         LoadCommand = new AsyncRelayCommand(LoadAsync);
 
         BankTransferViewModel.PropertyChanged += OnBankTransferViewModelPropertyChanged;
@@ -188,12 +181,50 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         RegisterMessages();
     }
 
+    /// <summary>
+    /// Registers message handlers to respond to specific messaging events within the application.
+    /// This method sets up message listeners for entity changes related to accounts and handles
+    /// actions such as account updates or deletions to ensure the ViewModel stays synchronized with
+    /// the state of the application.
+    /// </summary>
     private void RegisterMessages()
     {
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChanged);
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int>>(this, OnAccountDeleted);
     }
 
+    /// <summary>
+    /// Validates and processes a bank transfer based on the provided bank transfer details and history view model.
+    /// Prompts the user for confirmation to initiate another bank transfer or navigate back upon completion.
+    /// </summary>
+    /// <param name="cancellationToken">Optional cancellation token to observe while the operation is performed.</param>
+    /// <returns>A task that represents the asynchronous operation of validating and processing the bank transfer.</returns>
+    private async Task ValidBankTransfer(CancellationToken cancellationToken = default)
+    {
+        await _expenseActionService.CreateBankTransfer(BankTransferViewModel, FromHistoryViewModel, cancellationToken);
+
+        // TODO trad
+        var response = _dialog.ShowMessageBox("Question", "Do you want to create another bank transfer?",
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
+        if (response is MessageBoxResult.Yes)
+        {
+            BankTransferViewModel = new BankTransferViewModel();
+            FromHistoryViewModel = new HistoryViewModel();
+        }
+        else
+        {
+            _navigationService.GoBack();
+        }
+    }
+
+    /// <summary>
+    /// Handles the deletion of an account by processing a message indicating that an account entity
+    /// has been deleted. Verifies the entity type and action in the message before applying the deletion logic.
+    /// </summary>
+    /// <param name="recipient">The recipient object that is handling the message.</param>
+    /// <param name="m">The message containing information about the deleted account, including the
+    /// entity type, action, and content.</param>
     private void OnAccountDeleted(object recipient, EntityChangedMessage<int> m)
     {
         if (m.Value.EntityType is not DependencyType.Account && m.Value.DataAction is not DataAction.Delete) return;
@@ -201,10 +232,19 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         ApplyDelete(m.Value.Content);
     }
 
+    /// <summary>
+    /// Handles account-related changes by responding to the provided message. Depending on the
+    /// data action specified in the message, this method applies either an addition or update
+    /// operation for the affected account. Resets the current account source upon completion.
+    /// </summary>
+    /// <param name="recipient">The recipient object handling the message. Typically used for message dispatch context.</param>
+    /// <param name="m">The message detailing the account change, including the action type and the updated or added account data.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the data action provided in the message is not supported.</exception>
     private async void OnAccountChanged(object recipient, EntityChangedMessage<AccountViewModel> m)
     {
         if (m.Value.EntityType is not DependencyType.Account) return;
 
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (m.Value.DataAction)
         {
             case DataAction.Update:
@@ -222,6 +262,12 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         _currentAccountSource = null;
     }
 
+    /// <summary>
+    /// Removes the account with the specified ID from the accounts collection
+    /// and updates related properties and collections. Triggers property change
+    /// notifications for UI updates.
+    /// </summary>
+    /// <param name="accountId">The ID of the account to remove from the collection.</param>
     private void ApplyDelete(int accountId)
     {
         var item = Accounts.FirstOrDefault(s => s.Id == accountId);
@@ -235,6 +281,17 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         if (totalByAccount is not null) TotalByAccounts.Remove(totalByAccount);
     }
 
+    /// <summary>
+    /// Asynchronously adds a new account to the Accounts collection, updates the related properties
+    /// for available FromAccounts and ToAccounts, and fetches the current total by account data
+    /// associated with the added account. Also updates the BankTransferViewModel depending on
+    /// the current account source.
+    /// </summary>
+    /// <param name="vm">The account view model to be added to the Accounts collection.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if the current account source is invalid during the assignment.
+    /// </exception>
     private async Task ApplyAddAsync(AccountViewModel vm)
     {
         Accounts.AddAndSort(vm, s => s.Name!);
@@ -258,6 +315,12 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Updates an existing account in the collection by merging it with the provided account data.
+    /// Ensures that the corresponding account entry in the collection is updated with any changes
+    /// from the provided <paramref name="vm"/> parameter.
+    /// </summary>
+    /// <param name="vm">The account information containing updated data to merge with an existing account.</param>
     private void ApplyUpdate(AccountViewModel vm)
     {
         var item = Accounts.FirstOrDefault(s => s.Id == vm.Id);
@@ -279,29 +342,24 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         _navigationWindowService.ShowEditAccount(accountViewModel);
     }
 
+    /// <summary>
+    /// Cancels the current bank transfer process and navigates back to the previous view.
+    /// Utilizes the navigation service to revert the UI state to the previous screen or context.
+    /// Typically invoked when the user chooses to abort the bank transfer operation.
+    /// </summary>
     private void CancelBankTransfer()
         => _navigationService.GoBack();
 
-
+    /// <summary>
+    /// Prepares the bank transfer process by validating the provided transfer details or resetting the state.
+    /// </summary>
+    /// <param name="isPrepared">Specifies whether the preparation process should validate the transfer details.</param>
+    /// <param name="cancellationToken">Token to monitor for cancellation requests during the operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     private async Task PrepareBankTransfer(bool isPrepared, CancellationToken cancellationToken = default)
     {
-        _expensePresentationService.Merge(BankTransferViewModel, FromHistoryViewModel);
-        FromHistoryViewModel.PlaceViewModel ??= await _systemPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId, cancellationToken);
-
-        var validatorBankTransferTask = _validatorBankTransferViewModelValidator.ValidateAsync(BankTransferViewModel, cancellationToken);
-        var validatorHistoryTask = _validatorHistoryViewModelValidator.ValidateAsync(FromHistoryViewModel, cancellationToken);
-
-        await Task.WhenAll(validatorBankTransferTask, validatorHistoryTask);
-
-        var validationResultBankTransfer = validatorBankTransferTask.Result;
-        var validationResultHistory = validatorHistoryTask.Result;
-
-        if (validationResultBankTransfer.IsValid && validationResultHistory.IsValid) BankTransferPrepared = isPrepared;
-        else
-        {
-            BankTransferViewModel.ValidateWithFluent(validationResultBankTransfer);
-            FromHistoryViewModel.ValidateWithFluent(validationResultHistory);
-        }
+        if (isPrepared) BankTransferPrepared = await _expenseActionService.ValidateBankTransfer(BankTransferViewModel, FromHistoryViewModel, cancellationToken);
+        else BankTransferPrepared = isPrepared;
     }
 
     /// <summary>

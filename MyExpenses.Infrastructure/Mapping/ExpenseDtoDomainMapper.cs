@@ -63,4 +63,14 @@ public partial class ExpenseDtoDomainMapper(ISystemDtoDomainMapper systemDtoDoma
 
     public Result<CategoryTypeDto> Map(Result<CategoryTypeDomain> categoryTypeDto)
         => categoryTypeDto.Map(MapToDto);
+
+    public Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> Map(Result<(BankTransferDomain bankTransferDomain, IEnumerable<HistoryDomain> historiesDomain)> historiesDomain)
+    {
+        var bankTransferDto = MapToDto(historiesDomain.Value.bankTransferDomain);
+        var historyDtos = historiesDomain.Value.historiesDomain.Select(MapToDto);
+
+        return !historiesDomain.IsSuccess
+            ? Result<(BankTransferDto, IEnumerable<HistoryDto>)>.Failure(historiesDomain.ErrorCode, historiesDomain.InternalMessage ?? string.Empty)
+            : Result<(BankTransferDto, IEnumerable<HistoryDto>)>.Success((bankTransferDto, historyDtos), historiesDomain.InternalMessage ?? string.Empty);
+    }
 }
