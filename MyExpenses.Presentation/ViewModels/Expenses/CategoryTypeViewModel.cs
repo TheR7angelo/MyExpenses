@@ -31,4 +31,6 @@ public partial class CategoryTypeViewModel : ObservableValidator
 
     public IEnumerable<DomainValidationResult> GetErrorCodes()
         => GetErrors().OfType<DomainValidationResult>();
+
+    public bool IsDeleting { get; set; }
 }
