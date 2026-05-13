@@ -140,7 +140,7 @@ public partial class MainWindow
 
     #endregion
 
-    public MainWindow(WelcomePage welcomePage)
+    public MainWindow(NavigationService navigationService)
     {
         var assembly = Assembly.GetEntryAssembly()!;
         ApplicationName = assembly.GetName().Name!;
@@ -149,7 +149,12 @@ public partial class MainWindow
 
         InitializeComponent();
 
-        FrameBody.Content = welcomePage;
+        navigationService.Initialize(FrameBody);
+        navigationService.Navigate(nameof(WelcomePage));
+
+        // FrameBody.Content = welcomePage;
+
+
 
         // ReSharper disable HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;

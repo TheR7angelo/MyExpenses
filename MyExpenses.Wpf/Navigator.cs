@@ -75,7 +75,7 @@ public static class Navigator
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    private static readonly Dictionary<string, NavigationService> NavigationServices = new();
+    private static readonly Dictionary<string, System.Windows.Navigation.NavigationService> NavigationServices = new();
 
     /// <summary>
     /// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.

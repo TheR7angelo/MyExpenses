@@ -2,9 +2,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Wpf.Services;
 using MyExpenses.Wpf.Windows.Dialogs;
 
@@ -66,6 +64,9 @@ public static class WpfRegistration
         private IServiceCollection AddWpfSelfServices()
         {
             services.AddTransient<IActionService, ActionService>();
+
+            services.AddSingleton<INavigationService, NavigationService>()
+                .AddSingleton<NavigationService>();
 
             return services;
         }
