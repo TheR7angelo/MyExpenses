@@ -15,60 +15,6 @@ public partial class BankTransferPage
 
     #region Action
 
-    private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
-    {
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // The serviceProvider and items are set to null because they are not required in this context.
-        // // The ValidationResults list will store any validation errors detected during the process.
-        // var validationContext = new ValidationContext(BankTransfer, serviceProvider: null, items: null);
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
-        // // is evident from the initialization. The result will still be compatible with any method
-        // // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
-        // var validationResults = new List<ValidationResult>();
-        // var isValid = Validator.TryValidateObject(BankTransfer, validationContext, validationResults, true);
-        //
-        // if (!isValid)
-        // {
-        //     var propertyError = validationResults.First();
-        //     var propertyMemberName = propertyError.MemberNames.First();
-        //
-        //     var messageErrorKey = propertyMemberName switch
-        //     {
-        //         nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferManagementResources.MessageBoxButtonValidationFromAccountFkError),
-        //         nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferManagementResources.MessageBoxButtonValidationToAccountFkError),
-        //         nameof(TBankTransfer.Value) => nameof(BankTransferManagementResources.MessageBoxButtonValidationValueError),
-        //         nameof(TBankTransfer.Date) => nameof(BankTransferManagementResources.MessageBoxButtonValidationDateError),
-        //         nameof(TBankTransfer.MainReason) => nameof(BankTransferManagementResources.MessageBoxButtonValidationMainReasonError),
-        //         _ => null
-        //     };
-        //
-        //     var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
-        //         ? propertyError.ErrorMessage!
-        //         : BankTransferManagementResources.ResourceManager.GetString(messageErrorKey)!;
-        //
-        //     MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
-        //     return;
-        // }
-        //
-        // if (Category is null)
-        // {
-        //     MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
-        //         MsgBoxImage.Warning);
-        //     return;
-        // }
-        //
-        // if (ModePayment is null)
-        // {
-        //     MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
-        //         MsgBoxImage.Warning);
-        //     return;
-        // }
-        //
-        // BankTransferPrepare = true;
-    }
-
     private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
         // var now = DateTime.Now;

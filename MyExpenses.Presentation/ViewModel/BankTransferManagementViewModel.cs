@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -136,27 +137,27 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
     public IRelayCommand CancelBankTransferCommand { get; }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BankTransferManagementViewModel"/> class.
-    /// </summary>
-    /// <param name="accountService">The service for account-related operations.</param>
-    /// <param name="expensePresentationService">The service for expense-related operations.</param>
-    /// <param name="navigationService">The navigation service.</param>
-    /// <param name="dialog">The dialog service.</param>
-    /// <param name="logger">The logger instance.</param>
+    private readonly BankTransferViewModelValidator _validatorBankTransferViewModelValidator;
+    private readonly HistoryViewModelValidator _validatorHistoryViewModelValidator;
+
+
     public BankTransferManagementViewModel(IAccountPresentationService accountService, IExpensePresentationService expensePresentationService,
         INavigationService navigationService,
         IDialogService dialog,
-        ILogger<BankTransferManagementViewModel> logger)
+        ILogger<BankTransferManagementViewModel> logger,
+        BankTransferViewModelValidator validatorBankTransferViewModelValidator,
+        HistoryViewModelValidator validatorHistoryViewModelValidator)
     {
         _accountService = accountService;
         _expensePresentationService = expensePresentationService;
         _navigationService = navigationService;
         _dialog = dialog;
         _logger = logger;
+        _validatorBankTransferViewModelValidator = validatorBankTransferViewModelValidator;
+        _validatorHistoryViewModelValidator = validatorHistoryViewModelValidator;
 
         CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
-        PrepareBankTransferCommand = new RelayCommand<bool>(PrepareBankTransfer);
+        PrepareBankTransferCommand = new AsyncRelayCommand<bool>(PrepareBankTransfer);
         LoadCommand = new AsyncRelayCommand(LoadAsync);
 
         // Subscribe to property changes on BankTransferViewModel
@@ -167,13 +168,23 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     private void CancelBankTransfer()
         => _navigationService.GoBack();
 
-    /// <summary>
-    /// Sets the bank transfer preparation state.
-    /// </summary>
-    /// <param name="isPrepared">True to show the transfer preview, false to show the configuration form.</param>
-    private void PrepareBankTransfer(bool isPrepared)
+
+    private async Task PrepareBankTransfer(bool isPrepared, CancellationToken cancellationToken = default)
     {
-        BankTransferPrepared = isPrepared;
+        var validatorBankTransferTask = _validatorBankTransferViewModelValidator.ValidateAsync(BankTransferViewModel, cancellationToken);
+        var validatorHistoryTask = _validatorHistoryViewModelValidator.ValidateAsync(FromHistoryViewModel, cancellationToken);
+
+        await Task.WhenAll(validatorBankTransferTask, validatorHistoryTask);
+
+        var validationResultBankTransfer = validatorBankTransferTask.Result;
+        var validationResultHistory = validatorHistoryTask.Result;
+
+        if (validationResultBankTransfer.IsValid && validationResultHistory.IsValid) BankTransferPrepared = isPrepared;
+        else
+        {
+            BankTransferViewModel.ValidateWithFluent(validationResultBankTransfer);
+            FromHistoryViewModel.ValidateWithFluent(validationResultHistory);
+        }
     }
 
     /// <summary>
