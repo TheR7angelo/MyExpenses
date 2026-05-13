@@ -65,8 +65,8 @@ public static class WpfRegistration
         {
             services.AddTransient<IActionService, ActionService>();
 
-            services.AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<NavigationService>();
+            services.AddSingleton<NavigationService>();
+            services.AddSingleton<INavigationService>(sp => sp.GetRequiredService<NavigationService>());
 
             return services;
         }
