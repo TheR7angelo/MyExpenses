@@ -232,9 +232,6 @@ public partial class AddEditAccountWindow
 
             if (!result) return;
 
-            _dialogService.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeSuccessCaption,
-                AccountResources.MessageBoxAddEditAccountTypeSuccessContent, MsgBoxImage.Check);
-
             DialogResult = true;
             Close();
         }
