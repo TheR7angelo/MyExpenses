@@ -1,5 +1,6 @@
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Resources.Resx.MessageBoxRessources;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -61,6 +62,11 @@ public class DialogService : IDialogService
     public void ShowError(string errorMessage)
     {
         MsgBox.MsgBox.Show(MessageBoxRessources.MessageBoxCaptionError, errorMessage, System.Windows.MessageBoxButton.OK, MsgBoxImage.Error);
+    }
+
+    public void CloseDialog(IClosable dialog)
+    {
+        dialog.Close();
     }
 
     private static System.Windows.MessageBoxButton ConvertButton(MessageBoxButton button)
