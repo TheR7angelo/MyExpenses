@@ -56,9 +56,6 @@ public static class ServiceExtensions
             .AddScoped<IExpensePresentationService, ExpensePresentationService>()
             .AddScoped<ISystemPresentationService, SystemPresentationService>();
 
-        services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>()
-            .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>();
-
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()
             .AddSingleton<ISystemDtoDomainMapper, SystemDtoDomainMapper>();
@@ -81,7 +78,8 @@ public static class ServiceExtensions
         services.AddDbContext<DataBaseContext>(ConfigureDatabase, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Singleton);
         services.AddDbContextFactory<DataBaseContext>(ConfigureDatabase);
 
-        services.RegisterViewModels();
+        services.RegisterViewModels()
+            .RegisterValidationServices();
 
         return services;
     }

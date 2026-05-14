@@ -1,5 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Validations;
+using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModel;
 
 namespace MyExpenses.Presentation.DependencyInjections;
@@ -15,28 +17,46 @@ namespace MyExpenses.Presentation.DependencyInjections;
 /// </remarks>
 public static class ViewModelRegistration
 {
-    /// <summary>
-    /// Registers the view models required for the application with the dependency injection container.
-    /// </summary>
     /// <param name="services">
     /// An instance of <see cref="IServiceCollection"/> where the view model services will be registered.
     /// </param>
-    /// <returns>
-    /// The updated <see cref="IServiceCollection"/> with the view model services added.
-    /// </returns>
-    public static IServiceCollection RegisterViewModels(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var viewModelTypes = assembly.GetTypes()
-            .Where(t =>
-                t is { IsClass: true, IsAbstract: false } &&
-                typeof(ViewModelBase).IsAssignableFrom(t));
-
-        foreach (var viewType in viewModelTypes)
+        /// <summary>
+        /// Registers the view models required for the application with the dependency injection container.
+        /// </summary>
+        /// <returns>
+        /// The updated <see cref="IServiceCollection"/> with the view model services added.
+        /// </returns>
+        public IServiceCollection RegisterViewModels()
         {
-            services.AddTransient(viewType);
+            var assembly = Assembly.GetExecutingAssembly();
+            var viewModelTypes = assembly.GetTypes()
+                .Where(t =>
+                    t is { IsClass: true, IsAbstract: false } &&
+                    typeof(ViewModelBase).IsAssignableFrom(t));
+
+            foreach (var viewType in viewModelTypes)
+            {
+                services.AddTransient(viewType);
+            }
+
+            return services;
         }
 
-        return services;
+        /// <summary>
+        /// Registers validation services required for the application with the dependency injection container.
+        /// </summary>
+        /// <returns>
+        /// The updated <see cref="IServiceCollection"/> with the validation services added.
+        /// </returns>
+        public IServiceCollection RegisterValidationServices()
+        {
+            services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>()
+                .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>()
+                .AddScoped<ISystemPresentationValidationService, SystemPresentationValidationService>();
+
+            return services;
+        }
     }
 }
