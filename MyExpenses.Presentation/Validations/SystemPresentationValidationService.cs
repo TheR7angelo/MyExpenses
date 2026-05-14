@@ -18,7 +18,7 @@ public class SystemPresentationValidationService(ISystemService systemService,
         {
             var alreadyExists = await systemService.IsColorNameAvailableAsync(name, cancellationToken);
 
-            if (alreadyExists)
+            if (!alreadyExists)
             {
                 logger.LogInformation("Color name is already used");
                 return false;
@@ -50,7 +50,7 @@ public class SystemPresentationValidationService(ISystemService systemService,
         {
             var alreadyExists = await systemService.IsColorHexadecimalCodeAvailableAsync(hexadecimalCode, cancellationToken);
 
-            if (alreadyExists)
+            if (!alreadyExists)
             {
                 logger.LogInformation("Color hexadecimal code is already used");
                 return false;
