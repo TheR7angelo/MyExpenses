@@ -14,6 +14,49 @@
         <converters:RoundThreeDecimalConverter x:Key="RoundThreeDecimalConverter" />
         <colors:ColorToHexConverter x:Key="ColorToHexConverter" />
 
+        <ControlTemplate x:Key="ValidationErrorTextOnlyTemplate">
+            <ControlTemplate.Resources>
+                <DataTemplate DataType="{x:Type ValidationError}">
+                    <TextBlock MaxWidth="{Binding ElementName=Placeholder, Path=ActualWidth}"
+                               Margin="2"
+                               HorizontalAlignment="{Binding ElementName=Placeholder, Path=AdornedElement.(materialDesign:ValidationAssist.HorizontalAlignment)}"
+                               FontSize="{Binding ElementName=Placeholder, Path=AdornedElement.(materialDesign:ValidationAssist.FontSize)}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.ValidationError}"
+                               Text="{Binding ErrorContent, Mode=OneTime}"
+                               TextWrapping="Wrap"
+                               UseLayoutRounding="False" />
+                </DataTemplate>
+            </ControlTemplate.Resources>
+
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="Placeholder" />
+
+                <materialDesign:PopupEx x:Name="ValidationPopup"
+                                        AllowsTransparency="True"
+                                        IsOpen="True"
+                                        Placement="Bottom"
+                                        PlacementTarget="{Binding ElementName=Placeholder, Mode=OneWay}"
+                                        VerticalOffset="2">
+                    <Border Background="{DynamicResource MaterialDesign.Brush.Background}">
+                        <TextBlock MaxWidth="{Binding ElementName=Placeholder, Path=ActualWidth}"
+                                   Margin="0,2"
+                                   HorizontalAlignment="{Binding ElementName=Placeholder, Path=AdornedElement.(materialDesign:ValidationAssist.HorizontalAlignment)}"
+                                   FontSize="{Binding ElementName=Placeholder, Path=AdornedElement.(materialDesign:ValidationAssist.FontSize)}"
+                                   Foreground="{DynamicResource MaterialDesign.Brush.ValidationError}"
+                                   Text="{Binding /ErrorContent, Mode=OneTime}"
+                                   TextWrapping="Wrap"
+                                   UseLayoutRounding="False" />
+                    </Border>
+                </materialDesign:PopupEx>
+            </StackPanel>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type local:ColorPickerControl}">
+            <Setter Property="Validation.ErrorTemplate"
+                    Value="{StaticResource ValidationErrorTextOnlyTemplate}">
+            </Setter>
+        </Style>
+
         <Style x:Key="StyleSlider" TargetType="Slider">
             <Setter Property="Template">
                 <Setter.Value>
