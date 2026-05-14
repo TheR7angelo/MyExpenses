@@ -9,6 +9,7 @@ using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
+using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.Services;
 
@@ -387,6 +388,28 @@ public abstract class AActionService(IDialogService dialogService, ILogger<AActi
             MessageBoxButton.YesNo,MsgBoxImage.Question);
 
         return response is MessageBoxResult.Yes;
+    }
+
+    /// <summary>
+    /// Prompts the user to confirm whether they wish to proceed with updating the displayed changes
+    /// in a tracked entity. The method uses the pending changes of the provided trackable entity
+    /// to display old and new values for confirmation.
+    /// </summary>
+    /// <param name="dirtyTrackable">
+    /// An object implementing the <see cref="IDirtyTrackable"/> interface, which provides access to pending
+    /// changes including old and new display values of the entity being tracked.
+    /// </param>
+    /// <returns>
+    /// A boolean value indicating whether the update was confirmed. Returns <c>true</c> if the user
+    /// confirms, otherwise <c>false</c>.
+    /// </returns>
+    internal bool AskUpdateConfirmation(IDirtyTrackable dirtyTrackable)
+    {
+        var pendingChanges = dirtyTrackable.PendingChanges;
+        var oldValues = pendingChanges.Select(s => s.OldValueDisplay).ToArray();
+        var newValues = pendingChanges.Select(s => s.NewValueDisplay).ToArray();
+
+        return AskUpdateConfirmation(oldValues, newValues);
     }
 
     /// <summary>
