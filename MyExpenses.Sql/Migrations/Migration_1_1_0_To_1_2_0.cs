@@ -303,7 +303,8 @@ CREATE TABLE t_category_type_dg_tmp
     name       TEXT(55)                           NOT NULL,
     color_fk   INTEGER                            NOT NULL
         CONSTRAINT t_account_type_t_color_id_fk
-            REFERENCES t_color,
+            REFERENCES t_color
+            ON DELETE CASCADE ON UPDATE CASCADE,
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
