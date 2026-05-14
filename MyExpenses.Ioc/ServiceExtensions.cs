@@ -15,7 +15,6 @@ using MyExpenses.Presentation.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Repositories;
 using MyExpenses.Sql.Validations;
@@ -63,13 +62,6 @@ public static class ServiceExtensions
             .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
             .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>();
 
-        services.AddScoped<AccountViewModelValidator>()
-            .AddScoped<AccountTypeViewModelValidator>()
-            .AddScoped<CategoryTypeViewModelValidator>()
-            .AddScoped<CurrencyViewModelValidator>()
-            .AddScoped<HistoryViewModelValidator>()
-            .AddScoped<BankTransferViewModelValidator>();
-
         services.AddServiceLogging(logEventLevel);
 
         services.AddSingleton<IDbStateProvider, DbStateProvider>();
@@ -79,7 +71,8 @@ public static class ServiceExtensions
 
         services.RegisterViewModels()
             .RegisterValidationServices()
-            .RegisterActionServices();
+            .RegisterActionServices()
+            .RegisterValidator();
 
         return services;
     }

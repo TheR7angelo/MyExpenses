@@ -69,5 +69,18 @@ public static class ViewModelRegistration
 
             return services;
         }
+
+        public IServiceCollection RegisterValidator()
+        {
+            services.AddScoped<AccountViewModelValidator>()
+                .AddScoped<AccountTypeViewModelValidator>()
+                .AddScoped<CategoryTypeViewModelValidator>()
+                .AddScoped<CurrencyViewModelValidator>()
+                .AddScoped<HistoryViewModelValidator>()
+                .AddScoped<BankTransferViewModelValidator>()
+                .AddScoped<CurrencyViewModelValidator>();
+
+            return services;
+        }
     }
 }
