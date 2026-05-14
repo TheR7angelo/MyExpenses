@@ -2,14 +2,15 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using Serilog;
@@ -39,7 +40,7 @@ public partial class ColorManagementPage
         // The instance of AddEditColorWindow is created locally within this method and is used temporarily.
         // Since there are no references to it after this scope and the Garbage Collector will handle
         // its cleanup efficiently, this allocation is intentional and does not require further optimization.
-        var addEditColorWindow = new AddEditColorWindow();
+        var addEditColorWindow = App.ServiceProvider.GetRequiredService<AddEditColorWindow>();
         addEditColorWindow.ShowDialog();
 
         if (addEditColorWindow.DialogResult is not true) return;
@@ -76,14 +77,18 @@ public partial class ColorManagementPage
         // ReSharper disable once HeapView.ClosureAllocation
         if (button.DataContext is not TColor colorToEdit) return;
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instance of AddEditColorWindow is created locally within this method and is used temporarily.
-        // Since there are no references to it after this scope and the Garbage Collector will handle
-        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
-        var addEditColorWindow = new AddEditColorWindow();
-        addEditColorWindow.SetTColor(colorToEdit);
+        var c = new ColorViewModel
+        {
+            Id = colorToEdit.Id,
+            Name = colorToEdit.Name,
+            HexadecimalColorCode = colorToEdit.HexadecimalColorCode,
+            DateAdded = colorToEdit.DateAdded
+        };
 
+        var addEditColorWindow = App.ServiceProvider.GetRequiredService<AddEditColorWindow>();
+        addEditColorWindow.LoadColorViewModel(c);
         addEditColorWindow.ShowDialog();
+
         if (addEditColorWindow.DialogResult is not true) return;
         if (addEditColorWindow.DeleteColor)
         {

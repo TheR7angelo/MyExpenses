@@ -53,4 +53,11 @@ public interface ISystemDtoViewModelMapper
     /// <param name="src">The recursive frequency DTO to map from.</param>
     /// <returns>A recursive frequency view model containing the mapped data.</returns>
     public RecursiveFrequencyViewModel MapToViewModel(RecursiveFrequencyDto src);
+
+    /// <summary>
+    /// Merges the properties of the source color view model into the destination color view model.
+    /// </summary>
+    /// <param name="src">The source <see cref="ColorViewModel"/> to merge from.</param>
+    /// <param name="dst">The destination <see cref="ColorViewModel"/> to merge into.</param>
+    public void Merge(ColorViewModel src, ColorViewModel dst);
 }

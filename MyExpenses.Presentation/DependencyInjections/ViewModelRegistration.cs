@@ -78,7 +78,8 @@ public static class ViewModelRegistration
                 .AddScoped<CurrencyViewModelValidator>()
                 .AddScoped<HistoryViewModelValidator>()
                 .AddScoped<BankTransferViewModelValidator>()
-                .AddScoped<CurrencyViewModelValidator>();
+                .AddScoped<CurrencyViewModelValidator>()
+                .AddScoped<ColorViewModelValidator>();
 
             return services;
         }

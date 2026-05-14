@@ -1,4 +1,3 @@
-using Domain.Models.Expenses;
 using Domain.Models.Systems;
 using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Presentation.Mappings.Interfaces;
@@ -11,6 +10,10 @@ namespace MyExpenses.Presentation.Mappings;
 public partial class SystemDtoViewModelMapper : ISystemDtoViewModelMapper
 {
     public partial ColorDto MapToDto(ColorDomain src);
+
+    [MapperIgnoreSource(nameof(ColorViewModel.HasErrors))]
+    [MapperRequiredMapping(RequiredMappingStrategy.Target)]
+    public partial ColorDto MapToDto(ColorViewModel src);
 
     public partial ColorViewModel MapToViewModel(ColorDto src);
 
@@ -25,6 +28,5 @@ public partial class SystemDtoViewModelMapper : ISystemDtoViewModelMapper
 
     public partial RecursiveFrequencyViewModel MapToViewModel(RecursiveFrequencyDto src);
 
-    [MapperIgnoreSource(nameof(ColorViewModel.HasErrors))]
-    public partial ColorDto MapToDto(ColorViewModel src);
+    public partial void Merge(ColorViewModel src, ColorViewModel dst);
 }

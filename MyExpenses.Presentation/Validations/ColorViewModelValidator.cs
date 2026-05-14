@@ -21,7 +21,9 @@ public class ColorViewModelValidator() : AbstractValidator<ColorViewModel>
 
             .MustAsync(async (name, cancellation) => !await systemPresentationValidationService.IsColorNameAvailableAsync(name!, cancellation))
             .WithMessage(SystemResources.ColorViewModelValidatorNameAlreadyUsed)
-            .WithError(ErrorCode.NameAlreadyExists, SystemResources.ResourceManager, nameof(SystemResources.ColorViewModelValidatorNameAlreadyUsed));
+            .WithError(ErrorCode.NameAlreadyExists, SystemResources.ResourceManager, nameof(SystemResources.ColorViewModelValidatorNameAlreadyUsed))
+
+            .When(x => x.IsNameDirty || x.Id is 0);
 
         RuleFor(x => x.HexadecimalColorCode)
             .Cascade(CascadeMode.Stop)
@@ -31,8 +33,10 @@ public class ColorViewModelValidator() : AbstractValidator<ColorViewModel>
             .Matches("#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})").WithMessage(SystemResources.ColorViewModelValidatorHexadecimalCodeInvalidFormat)
             .WithError(ErrorCode.HexadecimalColorCodeInvalidFormat, SystemResources.ResourceManager, nameof(SystemResources.ColorViewModelValidatorHexadecimalCodeInvalidFormat))
 
-            .MustAsync(async (hexadecimalCode, cancellation) => await systemPresentationValidationService.IsColorHexadecimalCodeAvailableAsync(hexadecimalCode!, cancellation))
+            .MustAsync(async (hexadecimalCode, cancellation) => !await systemPresentationValidationService.IsColorHexadecimalCodeAvailableAsync(hexadecimalCode!, cancellation))
             .WithMessage(x => string.Format(SystemResources.ColorViewModelValidatorHexadecimalCodeAlreadyUsed, x.HexadecimalColorCode))
-            .WithError(ErrorCode.HexadecimalColorCodeAlreadyExists, SystemResources.ResourceManager, nameof(SystemResources.ColorViewModelValidatorHexadecimalCodeAlreadyUsed), x => x.HexadecimalColorCode);
+            .WithError(ErrorCode.HexadecimalColorCodeAlreadyExists, SystemResources.ResourceManager, nameof(SystemResources.ColorViewModelValidatorHexadecimalCodeAlreadyUsed), x => x.HexadecimalColorCode)
+
+            .When(x => x.IsHexadecimalColorCodeDirty || x.Id is 0);
     }
 }

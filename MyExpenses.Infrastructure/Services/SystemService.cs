@@ -1,4 +1,5 @@
 using Domain.Models.Dependencies;
+using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Dtos.Expenses;
@@ -206,6 +207,24 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         var colorDtos = colorDomains.Select(systemDtoDomainMapper.MapToDto);
 
         return colorDtos;
+    }
+
+    public async Task<Result<ColorDto>> CreateColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default)
+    {
+        var colorDomain = systemDtoDomainMapper.MapToDomain(colorDto);
+        var result = await systemRepository.CreateColorAsync(colorDomain, cancellationToken);
+        return result.IsSuccess
+            ? Result<ColorDto>.Success(systemDtoDomainMapper.MapToDto(result.Value!))
+            : Result<ColorDto>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
+
+    public async Task<Result<ColorDto>> UpdateColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default)
+    {
+        var colorDomain = systemDtoDomainMapper.MapToDomain(colorDto);
+        var result = await systemRepository.UpdateColorAsync(colorDomain, cancellationToken);
+        return result.IsSuccess
+            ? Result<ColorDto>.Success(systemDtoDomainMapper.MapToDto(result.Value!))
+            : Result<ColorDto>.Failure(result.ErrorCode, result.InternalMessage!);
     }
 
     public async Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken)

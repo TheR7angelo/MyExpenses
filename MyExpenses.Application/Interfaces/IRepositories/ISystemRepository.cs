@@ -1,4 +1,5 @@
 ﻿using Domain.Models.Systems;
+using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
 
@@ -38,20 +39,6 @@ public interface ISystemRepository
     public Task<IEnumerable<ColorDomain>> GetAllColors(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves information about a specific place in the system.
-    /// </summary>
-    /// <param name="placeId">
-    /// The unique identifier of the place to retrieve.
-    /// </param>
-    /// <param name="cancellationToken">
-    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
-    /// </param>
-    /// <returns>
-    /// A task containing the place information as a <c>PlaceDomain</c> object, or null if no place exists with the given identifier.
-    /// </returns>
-    public Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Checks if a given color name is available in the system.
     /// </summary>
     /// <param name="name">
@@ -78,4 +65,48 @@ public interface ISystemRepository
     /// A task containing a boolean indicating whether the specified hexadecimal color code is available.
     /// </returns>
     public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new color entry in the system.
+    /// </summary>
+    /// <param name="colorDomain">
+    /// The domain model representing the color to be created.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task containing a result object that includes the created color domain entity if successful.
+    /// </returns>
+    public Task<Result<ColorDomain>> CreateColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates an existing color in the system.
+    /// </summary>
+    /// <param name="colorDomain">
+    /// The color domain model containing the updated color information.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task containing the result of the update operation. The result indicates whether the update was successful
+    /// and may include the updated color domain model or an error message.
+    /// </returns>
+    public Task<Result<ColorDomain>> UpdateColorAsync(ColorDomain colorDomain,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves information about a specific place in the system.
+    /// </summary>
+    /// <param name="placeId">
+    /// The unique identifier of the place to retrieve.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
+    /// </param>
+    /// <returns>
+    /// A task containing the place information as a <c>PlaceDomain</c> object, or null if no place exists with the given identifier.
+    /// </returns>
+    public Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default);
 }

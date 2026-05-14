@@ -18,6 +18,8 @@ public static partial class SystemMapper
     [MapperIgnoreTarget(nameof(TColor.TCategoryTypes))]
     public static partial TColor MapToEntity(this ColorDomain src);
 
+    public static partial void Merge(this TColor src, TColor dst);
+
     [MapperIgnoreSource(nameof(TPlace.THistories))]
     [MapperIgnoreSource(nameof(TPlace.TRecursiveExpenses))]
     [MapperIgnoreSource(nameof(TPlace.Geometry))]

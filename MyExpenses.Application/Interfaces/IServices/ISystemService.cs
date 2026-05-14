@@ -1,4 +1,5 @@
 using Domain.Models.Dependencies;
+using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Dtos.Systems;
@@ -54,14 +55,6 @@ public interface ISystemService
     public Task<IEnumerable<ColorDto>> GetAllColors(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves details of a specific place based on the provided identifier.
-    /// </summary>
-    /// <param name="placeId">The unique identifier of the place to retrieve.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="PlaceDto"/> object with details of the place.</returns>
-    public Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Checks if the specified color name is available for use.
     /// </summary>
     /// <param name="name">The name of the color to validate for availability.</param>
@@ -76,4 +69,28 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result indicates whether the color hexadecimal code is available.</returns>
     public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new color entry using the provided color data transfer object.
+    /// </summary>
+    /// <param name="colorDto">The data transfer object containing details of the color to be added, including name and hexadecimal code.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with the created <see cref="ColorDto"/>.</returns>
+    public Task<Result<ColorDto>> CreateColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the details of an existing color in the system based on the provided color data transfer object.
+    /// </summary>
+    /// <param name="colorDto">The data transfer object containing updated color details, such as name and hexadecimal color code.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{ColorDto}"/> indicating the success or failure of the update operation.</returns>
+    public Task<Result<ColorDto>> UpdateColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves details of a specific place based on the provided identifier.
+    /// </summary>
+    /// <param name="placeId">The unique identifier of the place to retrieve.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="PlaceDto"/> object with details of the place.</returns>
+    public Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken = default);
 }

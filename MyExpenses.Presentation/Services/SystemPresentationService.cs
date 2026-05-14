@@ -1,7 +1,6 @@
 using Domain.Models.Dependencies;
-using MyExpenses.Application.Interfaces.IRepositories;
+using Domain.Models.Validation;
 using MyExpenses.Application.Interfaces.IServices;
-using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -10,7 +9,7 @@ using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services;
 
-public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper, ISystemDtoDomainMapper systemDtoDomainMapper,
+public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
     ISystemService systemService) : ISystemPresentationService
 {
@@ -53,6 +52,26 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
         var colorViewModels = colors.Select(viewModelMapperMapper.MapToViewModel);
 
         return colorViewModels;
+    }
+
+    public async Task<Result<ColorViewModel>> CreateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
+    {
+        var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
+        var result = await systemService.CreateColorAsync(colorDto, cancellationToken);
+
+        return result.IsSuccess
+            ? Result<ColorViewModel>.Success(viewModelMapperMapper.MapToViewModel(result.Value!))
+            : Result<ColorViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
+
+    public async Task<Result<ColorViewModel>> UpdateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
+    {
+        var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
+        var result = await systemService.UpdateColorAsync(colorDto, cancellationToken);
+
+        return result.IsSuccess
+            ? Result<ColorViewModel>.Success(viewModelMapperMapper.MapToViewModel(result.Value!))
+            : Result<ColorViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
     }
 
     public async Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default)

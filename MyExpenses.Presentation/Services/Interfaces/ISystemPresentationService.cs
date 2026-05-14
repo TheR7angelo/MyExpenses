@@ -56,6 +56,22 @@ public interface ISystemPresentationService
     public Task<IEnumerable<ColorViewModel>> GetAllColorViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Creates a new color based on the provided color model.
+    /// </summary>
+    /// <param name="colorViewModel">The color view model containing information about the color to be created.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A <see cref="Result{T}"/> containing the created <see cref="ColorViewModel"/> if the operation is successful.</return>
+    public Task<Result<ColorViewModel>> CreateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the specified color data and saves the changes.
+    /// </summary>
+    /// <param name="colorViewModel">The color view model containing the data to be updated.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Result{ColorViewModel}"/> indicating the outcome of the update operation, including the updated color data if successful.</returns>
+    public Task<Result<ColorViewModel>> UpdateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the place view model associated with the specified place identifier.
     /// </summary>
     /// <param name="placeId">The identifier of the place to retrieve.</param>

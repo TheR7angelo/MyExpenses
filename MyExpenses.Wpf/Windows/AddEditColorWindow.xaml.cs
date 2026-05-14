@@ -1,191 +1,132 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Data.Sqlite;
-using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Presentation.Enums;
-using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
-using MyExpenses.Sql.Context;
-using Serilog;
-using MessageBoxButton = System.Windows.MessageBoxButton;
-using MessageBoxResult = System.Windows.MessageBoxResult;
+using MyExpenses.Presentation.ViewModel;
+using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditColorWindow
+public partial class AddEditColorWindow : IClosable
 {
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty IsEditColorProperty =
-        DependencyProperty.Register(nameof(IsEditColor), typeof(bool), typeof(AddEditColorWindow),
-            new PropertyMetadata(false));
-
-    // ReSharper disable once HeapView.BoxingAllocation
-    public bool IsEditColor
-    {
-        get => (bool)GetValue(IsEditColorProperty);
-        set => SetValue(IsEditColorProperty, value);
-    }
-
-    private List<TColor> Colors { get; }
-
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TColor Color { get; } = new();
 
     public bool DeleteColor { get; private set; }
 
-    public AddEditColorWindow()
+    private readonly ColorManagementViewModel _colorManagementViewModel;
+
+    public AddEditColorWindow(ColorManagementViewModel vm)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-        Colors = [..context.TColors];
+        _colorManagementViewModel = vm;
 
         InitializeComponent();
+
+        DataContext = _colorManagementViewModel;
     }
 
     #region Action
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(Color.Name))
-        {
-            Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage, MsgBoxImage.Error);
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(Color.HexadecimalColorCode))
-        {
-            Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage, MsgBoxImage.Error);
-            return;
-        }
-
-        var nameAlreadyExist = CheckColorName(Color.Name);
-        if (nameAlreadyExist)
-        {
-            ShowErrorMessageDuplicateName();
-            return;
-        }
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
-        if (colorAlreadyExist is not null)
-        {
-            var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
-                colorAlreadyExist.Name);
-            Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle,
-                message, MsgBoxImage.Error);
-            return;
-        }
-
-        DialogResult = true;
-        Close();
-    }
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-        Close();
+        // if (string.IsNullOrWhiteSpace(Color.Name))
+        // {
+        //     Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
+        //         ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage, MsgBoxImage.Error);
+        //     return;
+        // }
+        //
+        // if (string.IsNullOrWhiteSpace(Color.HexadecimalColorCode))
+        // {
+        //     Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
+        //         ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage, MsgBoxImage.Error);
+        //     return;
+        // }
+        //
+        // var nameAlreadyExist = CheckColorName(Color.Name);
+        // if (nameAlreadyExist)
+        // {
+        //     ShowErrorMessageDuplicateName();
+        //     return;
+        // }
+        //
+        // // ReSharper disable once HeapView.DelegateAllocation
+        // var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
+        // if (colorAlreadyExist is not null)
+        // {
+        //     var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
+        //         colorAlreadyExist.Name);
+        //     Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle,
+        //         message, MsgBoxImage.Error);
+        //     return;
+        // }
+        //
+        // DialogResult = true;
+        // Close();
     }
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var message = string.Format(ColorManagementResources.MessageBoxDeleteColorQuestionMessage, Color.Name);
-        var response = Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorQuestionTitle, message,
-                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
-        if (response is not MessageBoxResult.Yes) return;
-
-        Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", Color.Name);
-        var (success, exception) = Color.Delete();
-
-        if (success)
-        {
-            Log.Information("Color was successfully removed");
-            Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccessTitle,
-                ColorManagementResources.MessageBoxDeleteColorNoUseSuccessMessage, MsgBoxImage.Check);
-
-            DeleteColor = true;
-            DialogResult = true;
-            Close();
-            return;
-        }
-
-        if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestionTitle,
-                ColorManagementResources.MessageBoxDeleteColorUseQuestionMessage,
-                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
-
-            if (response is not MessageBoxResult.Yes) return;
-
-            Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
-                Color.Name);
-            Color.Delete(true);
-            Log.Information("Account and all relative element was successfully removed");
-            Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccessTitle,
-                ColorManagementResources.MessageBoxDeleteColorUseSuccessMessage, MsgBoxImage.Check);
-
-            DeleteColor = true;
-            DialogResult = true;
-            Close();
-
-            return;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorErrorTitle,
-            ColorManagementResources.MessageBoxDeleteColorErrorMessage, MsgBoxImage.Error);
-    }
-
-    private void UIElement_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-
-        var colorName = textBox.Text;
-        if (string.IsNullOrEmpty(colorName)) return;
-
-        var alreadyExist = CheckColorName(colorName);
-        if (alreadyExist) ShowErrorMessageDuplicateName();
+        // var message = string.Format(ColorManagementResources.MessageBoxDeleteColorQuestionMessage, Color.Name);
+        // var response = Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorQuestionTitle, message,
+        //         MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+        // if (response is not MessageBoxResult.Yes) return;
+        //
+        // Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", Color.Name);
+        // var (success, exception) = Color.Delete();
+        //
+        // if (success)
+        // {
+        //     Log.Information("Color was successfully removed");
+        //     Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccessTitle,
+        //         ColorManagementResources.MessageBoxDeleteColorNoUseSuccessMessage, MsgBoxImage.Check);
+        //
+        //     DeleteColor = true;
+        //     DialogResult = true;
+        //     Close();
+        //     return;
+        // }
+        //
+        // if (exception!.InnerException is SqliteException
+        //     {
+        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+        //     })
+        // {
+        //     Log.Error("Foreign key constraint violation");
+        //
+        //     response = Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestionTitle,
+        //         ColorManagementResources.MessageBoxDeleteColorUseQuestionMessage,
+        //         MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+        //
+        //     if (response is not MessageBoxResult.Yes) return;
+        //
+        //     Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
+        //         Color.Name);
+        //     Color.Delete(true);
+        //     Log.Information("Account and all relative element was successfully removed");
+        //     Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccessTitle,
+        //         ColorManagementResources.MessageBoxDeleteColorUseSuccessMessage, MsgBoxImage.Check);
+        //
+        //     DeleteColor = true;
+        //     DialogResult = true;
+        //     Close();
+        //
+        //     return;
+        // }
+        //
+        // Log.Error(exception, "An error occurred please retry");
+        // Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorErrorTitle,
+        //     ColorManagementResources.MessageBoxDeleteColorErrorMessage, MsgBoxImage.Error);
     }
 
     #endregion
 
-    #region Function
-
-    private bool CheckColorName(string colorName)
-        => Colors.Select(s => s.Name).Contains(colorName);
-
-    public void SetTColor(int categoryTypeColorFk)
-    {
-        var colorToEdit = categoryTypeColorFk.ToISql<TColor>();
-        if (colorToEdit is null) return;
-
-        SetTColor(colorToEdit);
-    }
-
-    // ReSharper disable once HeapView.ClosureAllocation
-    public void SetTColor(TColor colorToEdit)
-    {
-        colorToEdit.CopyPropertiesTo(Color);
-        IsEditColor = true;
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var removeItem = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);
-        if (removeItem is not null) Colors.Remove(removeItem);
-    }
-
-    private static void ShowErrorMessageDuplicateName()
-        => Dialogs.MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
-            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
-            MsgBoxImage.Warning);
-
-    #endregion
+    /// <summary>
+    /// Loads the provided <paramref name="colorViewModel"/> into the current color management context.
+    /// </summary>
+    /// <param name="colorViewModel">
+    /// The instance of <see cref="ColorViewModel"/> to load into the color management workflow.
+    /// </param>
+    public void LoadColorViewModel(ColorViewModel colorViewModel)
+        => _colorManagementViewModel.LoadColorViewModel(colorViewModel);
 }

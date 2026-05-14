@@ -1,4 +1,5 @@
 ﻿using Domain.Models.Systems;
+using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
@@ -54,19 +55,58 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         return colors;
     }
 
-    public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
+    public async Task<Result<ColorDomain>> CreateColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
     {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        try
+        {
+            var color = colorDomain.MapToEntity();
 
-        logger.LogInformation("Loading place with id {PlaceId}", placeId);
-        var place = await context.TPlaces
-            .AsNoTracking()
-            .ProjectToDomain()
-            .FirstOrDefaultAsync(s => s.Id == placeId, cancellationToken);
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        logger.LogInformation("Loaded place with id {PlaceId}, name {Name}", placeId, place?.Name);
+            logger.LogInformation("Adding color with name {ColorName}", color.Name);
 
-        return place;
+            context.TColors.Add(color);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Color with name {ColorName} was successfully added", color.Name);
+            return Result<ColorDomain>.Success(colorDomain);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to create color with name {ColorName}", colorDomain.Name);
+            return Result<ColorDomain>.Failure(ErrorCode.DatabaseError, e.Message);
+        }
+    }
+
+    public async Task<Result<ColorDomain>> UpdateColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var color = colorDomain.MapToEntity();
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Updating color with id {ColorId}", color.Id);
+
+            var entity = await context.TColors.FirstOrDefaultAsync(s => s.Id == color.Id, cancellationToken);
+             if (entity is null)
+            {
+                logger.LogWarning("Color with id {ColorId} not found", color.Id);
+                return Result<ColorDomain>.Failure(ErrorCode.NotFound, "Color not found");
+            }
+
+            color.Merge(entity);
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Color with id {ColorId} was successfully updated", color.Id);
+            return Result<ColorDomain>.Success(colorDomain);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update color with id {ColorId}", colorDomain.Id);
+            return Result<ColorDomain>.Failure(ErrorCode.DatabaseError, e.Message);
+        }
     }
 
     public async Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default)
@@ -76,7 +116,7 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         logger.LogInformation("Checking availability of color name {Name}", name);
 
         var available = !await context.TColors
-            .AnyAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase), cancellationToken);
+            .AnyAsync(c => c.Name.ToLower() == name.ToLower(), cancellationToken);
 
         logger.LogInformation("Color name {Name} is {Available}", name, available ? "available" : "taken");
 
@@ -90,10 +130,25 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         logger.LogInformation("Checking availability of color hexadecimal code {HexadecimalCode}", hexadecimalCode);
 
         var available = !await context.TColors
-            .AnyAsync(c => c.HexadecimalColorCode.Equals(hexadecimalCode, StringComparison.OrdinalIgnoreCase), cancellationToken);
+            .AnyAsync(c => c.HexadecimalColorCode.ToLower() == hexadecimalCode.ToLower(), cancellationToken);
 
         logger.LogInformation("Color hexadecimal code {HexadecimalCode} is {Available}", hexadecimalCode, available ? "available" : "taken");
 
         return available;
+    }
+
+    public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading place with id {PlaceId}", placeId);
+        var place = await context.TPlaces
+            .AsNoTracking()
+            .ProjectToDomain()
+            .FirstOrDefaultAsync(s => s.Id == placeId, cancellationToken);
+
+        logger.LogInformation("Loaded place with id {PlaceId}, name {Name}", placeId, place?.Name);
+
+        return place;
     }
 }

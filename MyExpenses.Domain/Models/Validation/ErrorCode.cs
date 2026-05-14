@@ -41,7 +41,8 @@ public enum ErrorCode
 
     UnknownError,
 
-    DatabaseError = 100,
+    ValidationFailed,
+    DatabaseError,
     AccountTypeNotFound,
     CategoryTypeNotFound,
     NotFound,

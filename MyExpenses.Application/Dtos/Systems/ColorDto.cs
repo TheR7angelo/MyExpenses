@@ -8,5 +8,5 @@ public class ColorDto
 
     public string HexadecimalColorCode { get; set; } = string.Empty;
 
-    public DateTime DateAdded { get; init; }
+    public DateTime DateAdded { get; set; } = DateTime.Now;
 }

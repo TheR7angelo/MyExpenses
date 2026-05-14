@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AddEditColorWindow"
+                 x:Name="RootWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,10 +12,12 @@
                  xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
                  xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.SystemResources;assembly=MyExpenses.Presentation"
                  xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
+                 xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  mc:Ignorable="d"
 
                  d:DesignHeight="450"
                  d:DesignWidth="525"
+                 d:DataContext="{d:DesignInstance viewModel:ColorManagementViewModel}"
 
                  MinHeight="450"
                  MinWidth="525"
@@ -34,9 +37,7 @@
                  ResizeMode="CanResizeWithGrip"
 
                  Background="{DynamicResource MaterialDesignPaper}"
-                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-
-                 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+                 TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <mah:MetroWindow.Style>
         <Style TargetType="{x:Type mah:MetroWindow}">
@@ -66,13 +67,12 @@
                  HorizontalContentAlignment="Center"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:SystemResourceManager.TextBoxColorNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Color.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{x:Static systems:ColorDomain.MaxNameLength}"
-                 PreviewLostKeyboardFocus="UIElement_OnPreviewLostKeyboardFocus">
+                 Text="{Binding ColorViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{x:Static systems:ColorDomain.MaxNameLength}">
         </TextBox>
 
         <userControls:ColorPickerControl Grid.Row="1"
-            Color="{Binding Color.HexadecimalColorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexToColorConverter}}">
+            Color="{Binding ColorViewModel.HexadecimalColorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexToColorConverter}}">
         </userControls:ColorPickerControl>
 
         <StackPanel Grid.Row="2"
@@ -82,7 +82,8 @@
 
             <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonValidContentColor}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding ValidCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonDeleteContentColor}}"
@@ -93,7 +94,8 @@
 
             <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonCancelContentColor}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
         </StackPanel>
