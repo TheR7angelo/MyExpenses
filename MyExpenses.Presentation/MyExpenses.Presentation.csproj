@@ -52,6 +52,10 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>ExpenseResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\SystemResources\SystemResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>SystemResources1.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -84,6 +88,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ExpenseResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\SystemResources\SystemResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SystemResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

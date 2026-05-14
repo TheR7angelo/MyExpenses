@@ -18,74 +18,16 @@ public partial class AddEditColorWindow
 {
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty EditColorProperty =
-        DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
+    public static readonly DependencyProperty IsEditColorProperty =
+        DependencyProperty.Register(nameof(IsEditColor), typeof(bool), typeof(AddEditColorWindow),
             new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
-    public bool EditColor
+    public bool IsEditColor
     {
-        get => (bool)GetValue(EditColorProperty);
-        set => SetValue(EditColorProperty, value);
+        get => (bool)GetValue(IsEditColorProperty);
+        set => SetValue(IsEditColorProperty, value);
     }
-
-    #region Resx
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
-        typeof(string), typeof(AddEditColorWindow), new PropertyMetadata(default(string)));
-
-    public string TitleWindow
-    {
-        get => (string)GetValue(TitleWindowProperty);
-        set => SetValue(TitleWindowProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxColorNameProperty =
-        DependencyProperty.Register(nameof(TextBoxColorName), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxColorName
-    {
-        get => (string)GetValue(TextBoxColorNameProperty);
-        set => SetValue(TextBoxColorNameProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonValidContent
-    {
-        get => (string)GetValue(ButtonValidContentProperty);
-        set => SetValue(ButtonValidContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonDeleteContentProperty =
-        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonDeleteContent
-    {
-        get => (string)GetValue(ButtonDeleteContentProperty);
-        set => SetValue(ButtonDeleteContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonCancelContent
-    {
-        get => (string)GetValue(ButtonCancelContentProperty);
-        set => SetValue(ButtonCancelContentProperty, value);
-    }
-
-    #endregion
 
     private List<TColor> Colors { get; }
 
@@ -100,22 +42,7 @@ public partial class AddEditColorWindow
         using var context = new DataBaseContextOld();
         Colors = [..context.TColors];
 
-        UpdateLanguage();
         InitializeComponent();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-    }
-
-    private void UpdateLanguage()
-    {
-        TitleWindow = ColorManagementResources.TitleWindow;
-
-        TextBoxColorName = ColorManagementResources.TextBoxColorName;
-
-        ButtonValidContent = ColorManagementResources.ButtonValidContent;
-        ButtonCancelContent = ColorManagementResources.ButtonCancelContent;
-        ButtonDeleteContent = ColorManagementResources.ButtonDeleteContent;
     }
 
     #region Action
@@ -218,9 +145,6 @@ public partial class AddEditColorWindow
             ColorManagementResources.MessageBoxDeleteColorErrorMessage, MsgBoxImage.Error);
     }
 
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
     private void UIElement_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -251,7 +175,7 @@ public partial class AddEditColorWindow
     public void SetTColor(TColor colorToEdit)
     {
         colorToEdit.CopyPropertiesTo(Color);
-        EditColor = true;
+        IsEditColor = true;
 
         // ReSharper disable once HeapView.DelegateAllocation
         var removeItem = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);

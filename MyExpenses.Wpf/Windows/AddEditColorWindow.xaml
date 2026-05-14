@@ -8,10 +8,10 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+                 xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.SystemResources;assembly=MyExpenses.Presentation"
+                 xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
                  mc:Ignorable="d"
-
-                 Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
                  d:DesignHeight="450"
                  d:DesignWidth="525"
@@ -38,9 +38,20 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Style>
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="Title" Value="{localisations:Tr {x:Static resx:SystemResourceManager.TitleWindowAddColor}}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditColor}" Value="True">
+                    <Setter Property="Title" Value="{localisations:Tr {x:Static resx:SystemResourceManager.TitleWindowEditColor}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </mah:MetroWindow.Style>
+
     <mah:MetroWindow.Resources>
         <colors:HexToColorConverter x:Key="HexToColorConverter" />
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -53,10 +64,10 @@
 
         <TextBox Grid.Row="0"
                  HorizontalContentAlignment="Center"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxColorName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:SystemResourceManager.TextBoxColorNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Color.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding Color, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
+                 MaxLength="{x:Static systems:ColorDomain.MaxNameLength}"
                  PreviewLostKeyboardFocus="UIElement_OnPreviewLostKeyboardFocus">
         </TextBox>
 
@@ -69,18 +80,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonValidContentColor}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonDeleteContentColor}}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
-                    Visibility="{Binding EditColor, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Visibility="{Binding IsEditColor, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonCancelContentColor}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
