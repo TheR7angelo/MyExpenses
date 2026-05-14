@@ -14,8 +14,6 @@ public class SystemActionService(ISystemPresentationService systemPresentationSe
 {
     public async Task<Result<ColorViewModel>> CreateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
     {
-        if (!colorViewModel.IsDirty) return Result<ColorViewModel>.Failure(ErrorCode.None, "No changes to save.");
-
         var valResultColor = await ValidateAsync<ColorViewModelValidator, ColorViewModel>(colorViewModel, cancellationToken);
         if (valResultColor.IsValid)
         {
