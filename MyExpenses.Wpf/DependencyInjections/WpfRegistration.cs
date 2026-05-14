@@ -64,9 +64,6 @@ public static class WpfRegistration
         /// <returns>An updated IServiceCollection instance with the registered WPF services.</returns>
         private IServiceCollection AddWpfSelfServices()
         {
-            services.AddTransient<IAccountActionService, AccountActionService>()
-                .AddTransient<IExpenseActionService, ExpenseActionService>();
-
             services.AddSingleton<NavigationService>();
             services.AddSingleton<INavigationService>(sp => sp.GetRequiredService<NavigationService>());
 

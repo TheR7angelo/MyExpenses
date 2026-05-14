@@ -16,7 +16,6 @@ using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
-using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Repositories;
 using MyExpenses.Sql.Validations;
@@ -79,7 +78,8 @@ public static class ServiceExtensions
         services.AddDbContextFactory<DataBaseContext>(ConfigureDatabase);
 
         services.RegisterViewModels()
-            .RegisterValidationServices();
+            .RegisterValidationServices()
+            .RegisterActionServices();
 
         return services;
     }

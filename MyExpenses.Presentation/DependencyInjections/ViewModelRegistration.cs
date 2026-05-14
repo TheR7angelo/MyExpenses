@@ -1,5 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Services;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModel;
@@ -55,6 +57,15 @@ public static class ViewModelRegistration
             services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>()
                 .AddScoped<IExpensePresentationValidationService, ExpensePresentationValidationService>()
                 .AddScoped<ISystemPresentationValidationService, SystemPresentationValidationService>();
+
+            return services;
+        }
+
+        public IServiceCollection RegisterActionServices()
+        {
+            services.AddTransient<IAccountActionService, AccountActionService>()
+                .AddTransient<IExpenseActionService, ExpenseActionService>()
+                .AddTransient<ISystemActionService, SystemActionService>();
 
             return services;
         }
