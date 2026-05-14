@@ -16,4 +16,12 @@ public class ExpenseResourceManager
     public static string ButtonPrepareCancelContent { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonPrepareCancelContent)}";
     public static string ButtonPreviewValidContent { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonPreviewValidContent)}";
     public static string ButtonPreviewCancelContent { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonPreviewCancelContent)}";
+
+    public static string TitleWindowAddCategoryTypeName { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.TitleWindowAddCategoryTypeName)}";
+    public static string TitleWindowEditCategoryTypeName { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.TitleWindowEditCategoryTypeName)}";
+    public static string TextBoxCategoryTypeNameHintAssist { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.TextBoxCategoryTypeNameHintAssist)}";
+    public static string ComboBoxColorValueHintAssist { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ComboBoxColorValueHintAssist)}";
+    public static string ButtonValidContentCategoryType { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonValidContentCategoryType)}";
+    public static string ButtonCancelContentCategoryType { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonCancelContentCategoryType)}";
+    public static string ButtonDeleteContentCategoryType { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(ExpenseResources.ButtonDeleteContentCategoryType)}";
 }

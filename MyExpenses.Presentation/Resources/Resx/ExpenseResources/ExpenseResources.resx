@@ -46,7 +46,7 @@
         <value>Name must be between 1 and {0} characters long</value>
     </data>
     <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
-        <value>Category Type:</value>
+        <value>The category Type :</value>
     </data>
     <data name="ComboBoxFromAccountHintAssist" xml:space="preserve">
         <value>From the account:</value>
@@ -131,5 +131,20 @@
     </data>
     <data name="MessageBoxValidBankTransferErrorContent" xml:space="preserve">
         <value>An error occurred while recording the bank transfer, please try again</value>
+    </data>
+    <data name="TextBoxCategoryTypeNameHintAssist" xml:space="preserve">
+        <value>The name of the category:</value>
+    </data>
+    <data name="ComboBoxColorValueHintAssist" xml:space="preserve">
+        <value>The category color :</value>
+    </data>
+    <data name="ButtonValidContentCategoryType" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="ButtonDeleteContentCategoryType" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="ButtonCancelContentCategoryType" xml:space="preserve">
+        <value>Cancel</value>
     </data>
 </root>

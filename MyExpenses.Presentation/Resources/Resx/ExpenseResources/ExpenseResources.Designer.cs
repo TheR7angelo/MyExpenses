@@ -125,6 +125,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
+        public static string ButtonCancelContentCategoryType {
+            get {
+                return ResourceManager.GetString("ButtonCancelContentCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteContentCategoryType {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContentCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
         public static string ButtonPrepareCancelContent {
             get {
                 return ResourceManager.GetString("ButtonPrepareCancelContent", resourceCulture);
@@ -155,6 +173,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string ButtonPreviewValidContent {
             get {
                 return ResourceManager.GetString("ButtonPreviewValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidContentCategoryType {
+            get {
+                return ResourceManager.GetString("ButtonValidContentCategoryType", resourceCulture);
             }
         }
         
@@ -195,11 +222,20 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category Type:.
+        ///   Looks up a localized string similar to The category Type :.
         /// </summary>
         public static string ComboBoxCategoryTypeHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxCategoryTypeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The category color :.
+        /// </summary>
+        public static string ComboBoxColorValueHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxColorValueHintAssist", resourceCulture);
             }
         }
         
@@ -353,6 +389,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string TextBoxAddNewCategoryTypeName {
             get {
                 return ResourceManager.GetString("TextBoxAddNewCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the category:.
+        /// </summary>
+        public static string TextBoxCategoryTypeNameHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxCategoryTypeNameHintAssist", resourceCulture);
             }
         }
         
