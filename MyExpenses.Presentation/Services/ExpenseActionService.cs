@@ -6,12 +6,13 @@ using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
-namespace MyExpenses.Wpf.Services;
+namespace MyExpenses.Presentation.Services;
 
 public class ExpenseActionService(IExpensePresentationService expensePresentationService,
     ISystemPresentationService systemPresentationService,
     IDialogService dialogService,
-    ILogger<ExpenseActionService> logger) : AActionService(dialogService, logger), IExpenseActionService
+    ILogger<ExpenseActionService> logger,
+    IServiceProvider serviceProvider) : AActionService(dialogService, logger, serviceProvider), IExpenseActionService
 {
     public async Task<bool> ValidateBankTransfer(BankTransferViewModel bankTransferViewModel,
         HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)

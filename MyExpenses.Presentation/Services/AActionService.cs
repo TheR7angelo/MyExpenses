@@ -10,9 +10,10 @@ using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
 
-namespace MyExpenses.Wpf.Services;
+namespace MyExpenses.Presentation.Services;
 
-public abstract class AActionService(IDialogService dialogService, ILogger<AActionService> logger)
+public abstract class AActionService(IDialogService dialogService, ILogger<AActionService> logger,
+    IServiceProvider serviceProvider)
 {
     /// <summary>
     /// Manages the creation, editing, and deletion of a named entity through a series of user actions.
@@ -299,7 +300,7 @@ public abstract class AActionService(IDialogService dialogService, ILogger<AActi
         CancellationToken cancellationToken)
         where TValidator : AbstractValidator<TEntity>
     {
-        var validator = App.ServiceProvider.GetRequiredService<TValidator>();
+        var validator = serviceProvider.GetRequiredService<TValidator>();
         return validator.ValidateAsync(viewModel, cancellationToken);
     }
 

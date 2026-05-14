@@ -13,7 +13,7 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MessageBoxResult = MyExpenses.Presentation.Enums.MessageBoxResult;
 
-namespace MyExpenses.Wpf.Services;
+namespace MyExpenses.Presentation.Services;
 
 public class AccountActionService(
     IDialogService dialogService,
@@ -22,7 +22,8 @@ public class AccountActionService(
     IExpensePresentationService expensePresentationService,
     IAccountDtoViewModelMapper accountDtoViewModelMapper,
     IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
-    ILogger<AccountActionService> logger) : AActionService(dialogService, logger), IAccountActionService
+    IServiceProvider serviceProvider,
+    ILogger<AccountActionService> logger) : AActionService(dialogService, logger, serviceProvider), IAccountActionService
 {
     private readonly IDialogService _dialogService = dialogService;
 
@@ -343,14 +344,14 @@ public class AccountActionService(
             if (accountResult.IsSuccess) expenseResult = await expensePresentationService.CreateExpense(historyViewModel, cancellationToken);
             else
             {
-                ShowCreateResultMessage(accountResult.IsSuccess, accountResult.Value?.Name);
+                ShowCreateResultMessage(accountResult.IsSuccess, accountResult.Value?.Name ?? string.Empty);
                 return false;
             }
 
             if (!expenseResult.IsSuccess)
             {
                 await accountPresentationService.DeleteAccountAsync(accountResult.Value!, cancellationToken);
-                ShowCreateResultMessage(expenseResult.IsSuccess, expenseResult.Value?.Description);
+                ShowCreateResultMessage(expenseResult.IsSuccess, expenseResult.Value?.Description ?? string.Empty);
                 return false;
             }
 
