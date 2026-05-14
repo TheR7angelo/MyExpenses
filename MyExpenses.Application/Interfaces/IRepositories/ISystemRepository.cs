@@ -27,6 +27,17 @@ public interface ISystemRepository
     public Task<ColorDomain> GetRandomColor(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all available colors from the system.
+    /// </summary>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
+    /// </param>
+    /// <returns>
+    /// A task containing an enumerable collection of colors as <c>ColorDomain</c> objects.
+    /// </returns>
+    public Task<IEnumerable<ColorDomain>> GetAllColors(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves information about a specific place in the system.
     /// </summary>
     /// <param name="placeId">

@@ -1,5 +1,13 @@
 ﻿using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
+using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -15,6 +23,9 @@ public partial class CategoryTypeManagementPage
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        var window = App.ServiceProvider.GetService<AddEditCategoryTypeWindow>()!;
+        window.ShowDialog();
+
         // // ReSharper disable once HeapView.ObjectAllocation.Evident
         // // The instance of AddEditCategoryTypeWindow is created locally within this method and is used temporarily.
         // // Since there are no references to it after this scope and the Garbage Collector will handle
@@ -28,7 +39,7 @@ public partial class CategoryTypeManagementPage
         // var (success, exception) = newCategoryType.AddOrEdit();
         // if (success)
         // {
-        //     CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
+        //     // CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
         //
         //     Log.Information("Account type was successfully added");
         //     var json = newCategoryType.ToJsonString();

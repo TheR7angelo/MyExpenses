@@ -2,6 +2,7 @@ using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Dtos.Expenses;
+using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Application.Interfaces.Mappings;
@@ -9,8 +10,10 @@ using MyExpenses.Application.Interfaces.Mappings;
 namespace MyExpenses.Infrastructure.Services;
 
 public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDomainMapper mapperExpense,
+    ISystemDtoDomainMapper systemDtoDomainMapper,
     ILogger<SystemService> logger,
-    IAccountRepository accountRepository, IExpenseRepository expenseRepository) : ISystemService
+    IAccountRepository accountRepository, IExpenseRepository expenseRepository,
+    ISystemRepository systemRepository) : ISystemService
 {
     public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)
     {
@@ -187,6 +190,31 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
 
         logger.LogInformation("Finished dependency loading for account with {DependencyCount} dependencies", dependencies.Count);
         return dependencies;
+    }
+
+    public async Task<ColorDto> GetRandomColor(CancellationToken cancellationToken)
+    {
+        var colorDomain = await systemRepository.GetRandomColor(cancellationToken);
+        var colorDto = systemDtoDomainMapper.MapToDto(colorDomain);
+
+        return colorDto;
+    }
+
+    public async Task<IEnumerable<ColorDto>> GetAllColors(CancellationToken cancellationToken = default)
+    {
+        var colorDomains = await systemRepository.GetAllColors(cancellationToken);
+        var colorDtos = colorDomains.Select(systemDtoDomainMapper.MapToDto);
+
+        return colorDtos;
+    }
+
+    public async Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken)
+    {
+        var place = await systemRepository.GetPlace(placeId, cancellationToken);
+        if (place is null) return null;
+
+        var placeDto = systemDtoDomainMapper.MapToDto(place);
+        return placeDto;
     }
 
     private IEnumerable<DeletionDependency> GroupDependencies(IEnumerable<DeletionDependency> dependencies)

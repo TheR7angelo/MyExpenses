@@ -30,6 +30,16 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         return randomColor;
     }
 
+    public async Task<IEnumerable<ColorDomain>> GetAllColors(CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        return await context.TColors
+            .AsNoTracking()
+            .ProjectToDomain()
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

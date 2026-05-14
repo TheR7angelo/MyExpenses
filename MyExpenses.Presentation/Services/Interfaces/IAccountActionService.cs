@@ -14,6 +14,15 @@ public interface IAccountActionService
     public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Manages the action to be performed on a category type, optionally using the provided category type view model.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">The view model representing the category type, which may be null if no specific category type is specified.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Creates a category type based on the given input string.
     /// </summary>
     /// <param name="input">The input string representing the data required to create the category type.</param>

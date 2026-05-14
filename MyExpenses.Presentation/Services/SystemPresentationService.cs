@@ -12,8 +12,7 @@ namespace MyExpenses.Presentation.Services;
 
 public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper, ISystemDtoDomainMapper systemDtoDomainMapper,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
-    ISystemService systemService,
-    ISystemRepository systemRepository) : ISystemPresentationService
+    ISystemService systemService) : ISystemPresentationService
 {
     public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeViewModel accountTypeViewModel,
         CancellationToken cancellationToken = default)
@@ -42,21 +41,26 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
 
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
     {
-        var randomColor = await systemRepository.GetRandomColor(cancellationToken);
-        var colorDto = systemDtoDomainMapper.MapToDto(randomColor);
+        var colorDto = await systemService.GetRandomColor(cancellationToken);
         var colorModel = viewModelMapperMapper.MapToViewModel(colorDto);
 
         return colorModel;
     }
 
-    public async Task<PlaceViewModel?> GetPlaceViewModel(int defaultPlaceId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ColorViewModel>> GetAllColorViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var place = await systemRepository.GetPlace(defaultPlaceId, cancellationToken);
-        if (place is null) return null;
+        var colors = await systemService.GetAllColors(cancellationToken);
+        var colorViewModels = colors.Select(viewModelMapperMapper.MapToViewModel);
 
-        var placeDto = systemDtoDomainMapper.MapToDto(place);
+        return colorViewModels;
+    }
+
+    public async Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default)
+    {
+        var placeDto = await systemService.GetPlace(placeId, cancellationToken);
+        if (placeDto is null) return null;
+
         var placeViewModel = viewModelMapperMapper.MapToViewModel(placeDto);
-
         return placeViewModel;
     }
 }

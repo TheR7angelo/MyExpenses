@@ -27,9 +27,12 @@ public class AccountActionService(
     private readonly IDialogService _dialogService = dialogService;
 
     public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+        => ManageCategoryTypeAction(historyViewModel.CategoryTypeViewModel, cancellationToken);
+
+    public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: historyViewModel.CategoryTypeViewModel,
+            currentViewModel: categoryTypeViewModel,
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: CategoryTypeDomain.MaxNameLength,

@@ -49,10 +49,17 @@ public interface ISystemPresentationService
     public Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the place view model associated with the specified default place identifier.
+    /// Retrieves all available color view models.
     /// </summary>
-    /// <param name="defaultPlaceId">The identifier of the default place to retrieve.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A <see cref="PlaceViewModel"/> representing the default place, or null if no place is found.</return>
-    public Task<PlaceViewModel?> GetPlaceViewModel(int defaultPlaceId, CancellationToken cancellationToken = default);
+    /// <return>A collection of <see cref="ColorViewModel"/> representing all available colors.</return>
+    public Task<IEnumerable<ColorViewModel>> GetAllColorViewModelAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the place view model associated with the specified place identifier.
+    /// </summary>
+    /// <param name="placeId">The identifier of the place to retrieve.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A <see cref="PlaceViewModel"/> representing the place, or null if no place is found.</return>
+    public Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default);
 }

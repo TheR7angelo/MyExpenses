@@ -372,56 +372,57 @@ public partial class RecordExpensePage
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of AddEditCategoryTypeWindow is created to handle adding or editing a category type.
-        // The category type is set to null if the category type is not found.
-        var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
-        var categoryType = History.CategoryTypeFk?.ToISql<TCategoryType>();
-        if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
-
-        var result = addEditCategoryTypeWindow.ShowDialog();
-        if (result is not true) return;
-
-        if (addEditCategoryTypeWindow.CategoryTypeDeleted)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == History.CategoryTypeFk);
-            if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
-        }
-        else
-        {
-            var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
-            Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
-
-            // ReSharper disable once HeapView.ClosureAllocation
-            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
-
-            var (success, exception) = editedCategoryType.AddOrEdit();
-            if (success)
-            {
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
-                // Necessary instantiation of DataBaseContext to interact with the database.
-                // This creates a scoped database context for performing queries and modifications in the database.
-                using var context = new DataBaseContextOld();
-                editedCategoryTypeDeepCopy.ColorFkNavigation =
-                    context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
-
-                CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name!);
-
-                Log.Information("Category type was successfully edited");
-                var json = editedCategoryTypeDeepCopy.ToJsonString();
-                Log.Information("{Json}", json);
-
-                MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
-                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
-                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
-            }
-        }
+        // TODO correct
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // An instance of AddEditCategoryTypeWindow is created to handle adding or editing a category type.
+        // // The category type is set to null if the category type is not found.
+        // var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
+        // var categoryType = History.CategoryTypeFk?.ToISql<TCategoryType>();
+        // if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
+        //
+        // var result = addEditCategoryTypeWindow.ShowDialog();
+        // if (result is not true) return;
+        //
+        // if (addEditCategoryTypeWindow.CategoryTypeDeleted)
+        // {
+        //     // ReSharper disable once HeapView.DelegateAllocation
+        //     var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == History.CategoryTypeFk);
+        //     if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
+        // }
+        // else
+        // {
+        //     var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
+        //     Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
+        //
+        //     // ReSharper disable once HeapView.ClosureAllocation
+        //     var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
+        //
+        //     var (success, exception) = editedCategoryType.AddOrEdit();
+        //     if (success)
+        //     {
+        //         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        //         // Necessary instantiation of DataBaseContext to interact with the database.
+        //         // This creates a scoped database context for performing queries and modifications in the database.
+        //         using var context = new DataBaseContextOld();
+        //         editedCategoryTypeDeepCopy.ColorFkNavigation =
+        //             context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
+        //
+        //         CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name!);
+        //
+        //         Log.Information("Category type was successfully edited");
+        //         var json = editedCategoryTypeDeepCopy.ToJsonString();
+        //         Log.Information("{Json}", json);
+        //
+        //         MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+        //             CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
+        //     }
+        //     else
+        //     {
+        //         Log.Error(exception, "An error occurred please retry");
+        //         MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+        //             CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
+        //     }
+        // }
     }
 
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
