@@ -217,6 +217,16 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return placeDto;
     }
 
+    public Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return systemRepository.IsColorNameAvailableAsync(name, cancellationToken);
+    }
+
+    public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default)
+    {
+        return systemRepository.IsColorHexadecimalCodeAvailableAsync(hexadecimalCode, cancellationToken);
+    }
+
     private IEnumerable<DeletionDependency> GroupDependencies(IEnumerable<DeletionDependency> dependencies)
     {
         return dependencies

@@ -60,4 +60,20 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="PlaceDto"/> object with details of the place.</returns>
     public Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if the specified color name is available for use.
+    /// </summary>
+    /// <param name="name">The name of the color to validate for availability.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating whether the color name is available.</returns>z
+    public Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if a given color hexadecimal code is available for use.
+    /// </summary>
+    /// <param name="hexadecimalCode">The hexadecimal code of the color to be validated.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result indicates whether the color hexadecimal code is available.</returns>
+    public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default);
 }

@@ -50,4 +50,32 @@ public interface ISystemRepository
     /// A task containing the place information as a <c>PlaceDomain</c> object, or null if no place exists with the given identifier.
     /// </returns>
     public Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if a given color name is available in the system.
+    /// </summary>
+    /// <param name="name">
+    /// The name of the color to check for availability.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation, containing a boolean value indicating whether the color name is available.
+    /// </returns>
+    public Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if a specific hexadecimal color code is available within the system.
+    /// </summary>
+    /// <param name="hexadecimalCode">
+    /// The hexadecimal color code to be checked for availability.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task containing a boolean indicating whether the specified hexadecimal color code is available.
+    /// </returns>
+    public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default);
 }

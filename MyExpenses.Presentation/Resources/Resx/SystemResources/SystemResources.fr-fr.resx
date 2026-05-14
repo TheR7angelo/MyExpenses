@@ -29,4 +29,22 @@
     <data name="ButtonDeleteContentColor" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="ColorViewModelValidatorNameRequired" xml:space="preserve">
+        <value>Le nom de la couleur ne peut pas être vide</value>
+    </data>
+    <data name="ColorViewModelValidatorNameAlreadyUsed" xml:space="preserve">
+        <value>Le nom de la couleur est déjà utilisé</value>
+    </data>
+    <data name="ColorViewModelValidatorNameTooLong" xml:space="preserve">
+        <value>Le nom de la couleur doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="ColorViewModelValidatorHexadecimalCodeRequired" xml:space="preserve">
+        <value>Le code hexadécimal couleur ne peut pas être vide</value>
+    </data>
+    <data name="ColorViewModelValidatorHexadecimalCodeInvalidFormat" xml:space="preserve">
+        <value>Format de code couleur hexadécimal invalide</value>
+    </data>
+    <data name="ColorViewModelValidatorHexadecimalCodeAlreadyUsed" xml:space="preserve">
+        <value>La couleur avec le code hexadécimal {0} existe déjà</value>
+    </data>
 </root>

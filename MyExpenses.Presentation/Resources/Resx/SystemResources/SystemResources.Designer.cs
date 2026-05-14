@@ -87,6 +87,60 @@ namespace MyExpenses.Presentation.Resources.Resx.SystemResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color with hexadecimal code {0} already exists.
+        /// </summary>
+        public static string ColorViewModelValidatorHexadecimalCodeAlreadyUsed {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorHexadecimalCodeAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid hexadecimal color code format.
+        /// </summary>
+        public static string ColorViewModelValidatorHexadecimalCodeInvalidFormat {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorHexadecimalCodeInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color hexadecimal code cannot be empty.
+        /// </summary>
+        public static string ColorViewModelValidatorHexadecimalCodeRequired {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorHexadecimalCodeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the color is already in use.
+        /// </summary>
+        public static string ColorViewModelValidatorNameAlreadyUsed {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorNameAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color name cannot be empty.
+        /// </summary>
+        public static string ColorViewModelValidatorNameRequired {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The color name must be between 1 and {0} characters long.
+        /// </summary>
+        public static string ColorViewModelValidatorNameTooLong {
+            get {
+                return ResourceManager.GetString("ColorViewModelValidatorNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The color name :.
         /// </summary>
         public static string TextBoxColorNameHintAssist {

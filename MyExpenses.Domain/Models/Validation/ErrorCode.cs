@@ -26,6 +26,8 @@ public enum ErrorCode
     DescriptionTooLong,
     HexadecimalColorCodeTooLong,
     HexadecimalColorCodeRequired,
+    HexadecimalColorCodeInvalidFormat,
+    HexadecimalColorCodeAlreadyExists,
     LatitudeRequired,
     LongitudeRequired,
     NameTooLong,
