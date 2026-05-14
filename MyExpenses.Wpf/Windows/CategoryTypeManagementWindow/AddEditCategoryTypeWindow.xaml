@@ -7,9 +7,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+        xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+        xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
         mc:Ignorable="d"
-
-        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         d:DesignHeight="250"
         d:DesignWidth="400"
@@ -34,6 +34,18 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Style>
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="Title" Value="{localisations:Tr {x:Static resx:ExpenseResourceManager.TitleWindowAddCategoryTypeName}}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditCategoryType}" Value="True">
+                    <Setter Property="Title" Value="{localisations:Tr {x:Static resx:ExpenseResourceManager.TitleWindowEditCategoryTypeName}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </mah:MetroWindow.Style>
 
     <mah:MetroWindow.Resources>
         <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
@@ -121,7 +133,7 @@
 
             <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
-                    Visibility="{Binding EditCategoryType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Visibility="{Binding IsEditCategoryType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
