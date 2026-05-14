@@ -24,12 +24,12 @@ public class CategoryTypeViewModelValidator : AbstractValidator<CategoryTypeView
             .WithMessage(ExpenseResources.CategoryTypeViewModelNameAlreadyExists)
             .WithError(ErrorCode.NameAlreadyExists, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelNameAlreadyExists))
 
-            .When(x => x.IsNameDirty);
+            .When(x => x.IsNameDirty || x.Id is 0);
 
         RuleFor(x => x.Color)
             .NotEmpty().WithMessage(ExpenseResources.CategoryTypeViewModelColorRequired)
             .WithError(ErrorCode.ColorRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.CategoryTypeViewModelColorRequired))
 
-            .When(x => x.IsColorDirty);
+            .When(x => x.IsColorDirty || x.Id is 0);
     }
 }

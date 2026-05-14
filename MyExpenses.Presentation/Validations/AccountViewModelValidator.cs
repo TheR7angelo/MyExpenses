@@ -21,18 +21,18 @@ public class AccountViewModelValidator : AbstractValidator<AccountViewModel>
 
             .MustAsync(async (name, cancellation) => !await repository.IsAccountNameAlreadyExistAsync(name, cancellation))
 
-            .When(x => x.IsNameDirty);
+            .When(x => x.IsNameDirty || x.Id is 0);
 
         RuleFor(x => x.AccountTypeViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorAccountTypeRequired)
             .WithError(ErrorCode.AccountTypeRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorAccountTypeRequired))
-            ;
-            // .When(x => x.IsAccountTypeViewModelDirty);
+
+            .When(x => x.IsAccountTypeViewModelDirty || x.Id is 0);
 
         RuleFor(x => x.CurrencyViewModel)
             .NotNull().WithMessage(AccountResources.AccountViewModelValidatorCurrencyRequired)
             .WithError(ErrorCode.CurrencyRequired, AccountResources.ResourceManager, nameof(AccountResources.AccountViewModelValidatorCurrencyRequired))
-            ;
-            // .When(x => x.IsCurrencyViewModelDirty);
+
+            .When(x => x.IsCurrencyViewModelDirty || x.Id is 0);
     }
 }

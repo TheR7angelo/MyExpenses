@@ -15,24 +15,21 @@ public class BankTransferViewModelValidator : AbstractValidator<BankTransferView
             .NotEmpty().WithMessage(ExpenseResources.BankTransferViewModelValidatorValueRequired)
             .WithError(ErrorCode.ValueRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorValueRequired))
 
-            ;
-            // .When(x => x.IsValueDirty);
+            .When(x => x.IsValueDirty || x.Id is 0);
 
         RuleFor(x => x.FromAccount)
             .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage(ExpenseResources.BankTransferViewModelValidatorFromAccountRequired)
             .WithError(ErrorCode.AccountRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorFromAccountRequired))
 
-            ;
-            // .When(x => x.IsFromAccountDirty);
+            .When(x => x.IsFromAccountDirty || x.Id is 0);
 
         RuleFor(x => x.ToAccount)
             .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage(ExpenseResources.BankTransferViewModelValidatorToAccountRequired)
             .WithError(ErrorCode.AccountRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorToAccountRequired))
 
-            ;
-            // .When(x => x.IsToAccountDirty);
+            .When(x => x.IsToAccountDirty || x.Id is 0);
 
         RuleFor(x => x.MainReason)
             .Cascade(CascadeMode.Stop)
@@ -42,22 +39,19 @@ public class BankTransferViewModelValidator : AbstractValidator<BankTransferView
             .Length(1, BankTransferDomain.MaxMainReasonLength).WithMessage(string.Format(ExpenseResources.BankTransferViewModelValidatorMainReasonTooLong, BankTransferDomain.MaxMainReasonLength))
             .WithError(ErrorCode.DescriptionTooLong, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorMainReasonTooLong), BankTransferDomain.MaxMainReasonLength)
 
-            ;
-            // .When(x => x.IsMainReasonDirty);
+            .When(x => x.IsMainReasonDirty || x.Id is 0);
 
         RuleFor(x => x.AdditionalReason)
             .MaximumLength(BankTransferDomain.MaxAdditionalReasonLength).WithMessage(string.Format(ExpenseResources.BankTransferViewModelValidatorAdditionalReasonTooLong, BankTransferDomain.MaxAdditionalReasonLength))
             .WithError(ErrorCode.DescriptionTooLong, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorAdditionalReasonTooLong), BankTransferDomain.MaxAdditionalReasonLength)
 
-            ;
-            // .When(x => x.IsAdditionalReasonDirty);
+            .When(x => x.IsAdditionalReasonDirty || x.Id is 0);
 
         RuleFor(x => x.Date)
             .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage(ExpenseResources.BankTransferViewModelValidatorDateRequired)
             .WithError(ErrorCode.DateRequired, ExpenseResources.ResourceManager, nameof(ExpenseResources.BankTransferViewModelValidatorDateRequired), ExpenseResources.BankTransferViewModelValidatorDateRequired)
 
-            ;
-            // .When(x => x.IsDateDirty);
+            .When(x => x.IsDateDirty || x.Id is 0);
     }
 }

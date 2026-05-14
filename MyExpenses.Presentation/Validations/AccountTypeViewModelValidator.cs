@@ -23,6 +23,6 @@ public class AccountTypeViewModelValidator : AbstractValidator<AccountTypeViewMo
             .WithMessage(AccountResources.AccountTypeViewModelValidatorNameAlreadyExists)
             .WithError(ErrorCode.NameAlreadyExists, AccountResources.ResourceManager, nameof(AccountResources.AccountTypeViewModelValidatorNameAlreadyExists))
 
-            .When(x => x.IsNameDirty);
+            .When(x => x.IsNameDirty || x.Id is 0);
     }
 }

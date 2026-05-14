@@ -26,6 +26,6 @@ public class CurrencyViewModelValidator : AbstractValidator<CurrencyViewModel>
             .WithMessage(AccountResources.CurrencyViewModelNameAlreadyExists)
             .WithError(ErrorCode.NameAlreadyExists, ExpenseResources.ResourceManager, nameof(AccountResources.CurrencyViewModelNameAlreadyExists))
 
-            .When(x => x.IsSymbolDirty);
+            .When(x => x.IsSymbolDirty || x.Id is 0);
     }
 }
