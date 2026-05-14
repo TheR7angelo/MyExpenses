@@ -51,77 +51,6 @@ public partial class AddEditCategoryTypeWindow
 
     #endregion
 
-    #region Resx
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
-        typeof(string), typeof(AddEditCategoryTypeWindow), new PropertyMetadata(default(string)));
-
-    public string TitleWindow
-    {
-        get => (string)GetValue(TitleWindowProperty);
-        set => SetValue(TitleWindowProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxCategoryTypeNameProperty =
-        DependencyProperty.Register(nameof(TextBoxCategoryTypeName), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxCategoryTypeName
-    {
-        get => (string)GetValue(TextBoxCategoryTypeNameProperty);
-        set => SetValue(TextBoxCategoryTypeNameProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxColorValueProperty =
-        DependencyProperty.Register(nameof(ComboBoxColorValue), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxColorValue
-    {
-        get => (string)GetValue(ComboBoxColorValueProperty);
-        set => SetValue(ComboBoxColorValueProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonValidContent
-    {
-        get => (string)GetValue(ButtonValidContentProperty);
-        set => SetValue(ButtonValidContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonDeleteContentProperty =
-        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonDeleteContent
-    {
-        get => (string)GetValue(ButtonDeleteContentProperty);
-        set => SetValue(ButtonDeleteContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonCancelContent
-    {
-        get => (string)GetValue(ButtonCancelContentProperty);
-        set => SetValue(ButtonCancelContentProperty, value);
-    }
-
-    #endregion
-
-    public string ComboBoxColorSelectedValuePath { get; } = nameof(TColor.Id);
-
     public AddEditCategoryTypeWindow(ISystemPresentationService systemPresentationService,
         IExpensePresentationService expensePresentationService)
     {
@@ -152,17 +81,6 @@ public partial class AddEditCategoryTypeWindow
             Console.WriteLine(exception);
             throw;
         }
-    }
-
-    private void UpdateLanguage()
-    {
-        TitleWindow = CategoryTypesManagementResources.TitleWindow;
-
-        TextBoxCategoryTypeName = CategoryTypesManagementResources.TextBoxCategoryTypeName;
-        ComboBoxColorValue = CategoryTypesManagementResources.ComboBoxColorValue;
-        ButtonValidContent = CategoryTypesManagementResources.ButtonValidText;
-        ButtonDeleteContent = CategoryTypesManagementResources.ButtonDeleteText;
-        ButtonCancelContent = CategoryTypesManagementResources.ButtonCancelText;
     }
 
     #region Action
@@ -257,9 +175,6 @@ public partial class AddEditCategoryTypeWindow
         // DialogResult = true;
         // Close();
     }
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
 
     private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {

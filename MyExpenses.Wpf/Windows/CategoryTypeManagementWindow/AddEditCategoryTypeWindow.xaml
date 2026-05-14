@@ -6,9 +6,9 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
         xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
+        xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
         mc:Ignorable="d"
 
         d:DesignHeight="250"
@@ -47,10 +47,6 @@
         </Style>
     </mah:MetroWindow.Style>
 
-    <mah:MetroWindow.Resources>
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
-    </mah:MetroWindow.Resources>
-
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
@@ -60,10 +56,10 @@
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0"
-                 Text="{Binding CategoryType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding CategoryType, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:ExpenseResourceManager.TextBoxCategoryTypeNameHintAssist}}"
+                 Text="{Binding CategoryTypeViewModel.Name, Mode=TwoWay}"
+                 MaxLength="{x:Static expenses:CategoryTypeDomain.MaxNameLength}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxCategoryType_OnPreviewLostKeyboardFocus">
         </TextBox>
@@ -77,12 +73,12 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox x:Name="ComboBoxColors" Grid.Column="0"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxColorValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      ItemsSource="{Binding Colors}"
+                      materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:ExpenseResourceManager.ComboBoxColorValueHintAssist}}"
+                      ItemsSource="{Binding ColorViewModels}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
-                      SelectedValue="{Binding CategoryType.ColorFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="{Binding ComboBoxColorSelectedValuePath}">
+                      SelectedItem="{Binding CategoryTypeViewModel.Color, Mode=TwoWay}">
+
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel margin:PanelExtensions.MarginForAllChildren="5"
@@ -100,6 +96,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+
             </ComboBox>
 
             <Border Grid.Column="1"
@@ -114,9 +111,11 @@
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                     Click="ButtonAddColor_OnClick">
+
                 <Button.Content>
                     <materialDesign:PackIcon Kind="PencilPlus" />
                 </Button.Content>
+
             </Button>
 
         </Grid>
@@ -126,18 +125,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonValidContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonDeleteContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding IsEditCategoryType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonCancelContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
