@@ -1,4 +1,5 @@
-﻿using Domain.Models.Systems;
+﻿using Domain.Models.Dependencies;
+using Domain.Models.Systems;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using MyExpenses.Sql.Mappings;
 namespace MyExpenses.Sql.Repositories;
 
 public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactory,
+    IExpenseRepository expenseRepository,
     ILogger<SystemRepository> logger) : ISystemRepository
 {
     public async Task<int> GetAllColorCount(CancellationToken cancellationToken = default)
@@ -106,6 +108,72 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         {
             logger.LogError(e, "Failed to update color with id {ColorId}", colorDomain.Id);
             return Result<ColorDomain>.Failure(ErrorCode.DatabaseError, e.Message);
+        }
+    }
+
+    public async Task<DeletionResult> DeleteColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Deleting color with name {ColorName} and id {ColorId}", colorDomain.Name, colorDomain.Id);
+
+        var colorEntity = await context.TColors.FirstOrDefaultAsync(s => s.Id == colorDomain.Id, cancellationToken: cancellationToken);
+
+        if (colorEntity is null && colorDomain.Id is 0)
+        {
+            logger.LogWarning("Color with id {ColorId} was not found", colorDomain.Id);
+            return DeletionResult.Success("Color was not persisted, so nothing had to be deleted");
+        }
+
+        if (colorEntity is null)
+        {
+            logger.LogWarning("Color with id {ColorId} was not found", colorDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The color with id {colorDomain.Id} was not found");
+        }
+
+        try
+        {
+            var categoryTypeEntities = await expenseRepository.GetAllByColorAsync(colorDomain, cancellationToken);
+            if (!categoryTypeEntities.IsSuccess)
+            {
+                logger.LogError("Failed to retrieve category types associated with color id {ColorId}: {ErrorMessage}", colorDomain.Id, categoryTypeEntities.InternalMessage);
+                return DeletionResult.Failure(ErrorCode.DatabaseError, "Failed to retrieve category types associated");
+            }
+
+            var enumerable = categoryTypeEntities.Value!.ToArray();
+            var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(enumerable, cancellationToken);
+            var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(enumerable, cancellationToken);
+            var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(enumerable, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (expenseIds.IsSuccess && expenseIds.Value!.Length > 0) logger.LogWarning("Color has associated expenses {@ExpenseIds}", expenseIds.Value);
+            if (bankTransferIds.IsSuccess && bankTransferIds.Value!.Length > 0) logger.LogWarning("Color has associated bank transfers {@BankTransferIds}", bankTransferIds.Value);
+            if (recurringExpenseIds.IsSuccess && recurringExpenseIds.Value!.Length > 0) logger.LogWarning("Color has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds.Value);
+
+            logger.LogInformation("Deleting color with id {ColorId}", colorDomain.Id);
+
+            context.TColors.Remove(colorEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Color with id {ColorId} was successfully deleted", colorDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.Expense, expenseIds.Value! },
+                { DependencyType.BankTransfer, bankTransferIds.Value! },
+                { DependencyType.RecurringExpense, recurringExpenseIds.Value! }
+            };
+            return DeletionResult.Success("Category type was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete color with id {ColorId}", colorDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete color: {e.Message}");
         }
     }
 

@@ -20,4 +20,13 @@ public interface ISystemActionService
     /// <param name="cancellationToken">An optional token to observe for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object wrapping the updated <see cref="ColorViewModel"/>.</returns>
     public Task<Result<ColorViewModel>> UpdateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes an existing color asynchronously using the specified color view model and cancellation token.
+    /// </summary>
+    /// <param name="colorViewModel">The view model representing the color to be deleted.</param>
+    /// <param name="cancellationToken">An optional token to observe for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> object
+    /// with information on the deletion status and any associated dependencies.</returns>
+    public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
 }

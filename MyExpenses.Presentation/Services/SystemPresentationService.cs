@@ -11,6 +11,7 @@ namespace MyExpenses.Presentation.Services;
 
 public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+    ISystemDtoViewModelMapper systemDtoViewModelMapper,
     ISystemService systemService) : ISystemPresentationService
 {
     public async Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountTypeViewModel accountTypeViewModel,
@@ -36,6 +37,12 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
     {
         var accountDto = accountDtoViewModelMapper.MapToDto(accountViewModel);
         return systemService.GetAllDependenciesAsync(accountDto, cancellationToken);
+    }
+
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
+    {
+        var colorDto = systemDtoViewModelMapper.MapToDto(colorViewModel);
+        return systemService.GetAllDependenciesAsync(colorDto, cancellationToken);
     }
 
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)
@@ -72,6 +79,12 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
         return result.IsSuccess
             ? Result<ColorViewModel>.Success(viewModelMapperMapper.MapToViewModel(result.Value!))
             : Result<ColorViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
+
+    public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
+    {
+        var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
+        return systemService.DeleteColorAsync(colorDto, cancellationToken);
     }
 
     public async Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default)

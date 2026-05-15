@@ -41,6 +41,14 @@ public interface ISystemPresentationService
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all deletion dependencies for the specified color view model.
+    /// </summary>
+    /// <param name="colorViewModel">The color view model for which dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <return>A result containing a collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified color view model.</return>
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a random color view model asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
@@ -70,6 +78,14 @@ public interface ISystemPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Result{ColorViewModel}"/> indicating the outcome of the update operation, including the updated color data if successful.</returns>
     public Task<Result<ColorViewModel>> UpdateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified color asynchronously.
+    /// </summary>
+    /// <param name="colorViewModel">The color view model representing the color to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="DeletionResult"/> indicating the result of the operation, including any dependencies that were deleted.</returns>
+    public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the place view model associated with the specified place identifier.

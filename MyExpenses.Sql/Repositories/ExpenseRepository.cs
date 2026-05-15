@@ -1,6 +1,7 @@
 using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
 using Domain.Models.Expenses;
+using Domain.Models.Systems;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -170,7 +171,11 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
         logger.LogInformation("Loading all bank transfers for accounts with ids {@AccountIds}", accountIds);
 
-        var result = await context.TBankTransfers.Where(e => ((IEnumerable<int>)accountIds).Contains(e.FromAccountFk) || ((IEnumerable<int>)accountIds).Contains(e.ToAccountFk)).Select(e => e.Id).ToArrayAsync(cancellationToken);
+        var result = await context.TBankTransfers.Where(e => ((IEnumerable<int>)accountIds).Contains(e.FromAccountFk) || ((IEnumerable<int>)accountIds)
+            .Contains(e.ToAccountFk))
+            .Select(e => e.Id)
+            .Distinct()
+            .ToArrayAsync(cancellationToken);
 
         logger.LogInformation("Loaded {Count} bank transfers for accounts", result.Length);
 
@@ -470,6 +475,96 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .OrderBy(s => s.Value).ToList();
 
         return Result<(BankTransferDomain, IEnumerable<HistoryDomain>)>.Success((bankTransferDomain, historiesDomain));
+    }
+
+    public async Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllByColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all category types with color {ColorName}", colorDomain.Name);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var categoryTypes = await context.TCategoryTypes
+                .Include(s => s.ColorFkNavigation)
+                .Where(ct => ct.ColorFk == colorDomain.Id)
+                .Select(ct => ct.MapToDomain())
+                .ToListAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} category types with color {ColorName}", categoryTypes.Count, colorDomain.Name);
+
+            return Result<IEnumerable<CategoryTypeDomain>>.Success(categoryTypes);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load category types with color {ColorName}", colorDomain.Name);
+            return Result<IEnumerable<CategoryTypeDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load category types by color");
+        }
+    }
+
+    public async Task<Result<int[]>> GetAllExpenseIdAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all expenses for category types {@CategoryTypes}", categoryTypeDomain);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var expenseIds = await context.THistories
+                .Where(e => categoryTypeDomain.Select(s => s.Id).Contains((int)e.CategoryTypeFk!))
+                .Select(e => e.Id)
+                .ToListAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} expense IDs for category types", expenseIds.Count);
+
+            return Result<int[]>.Success(expenseIds.ToArray());
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load expenses for category types {@CategoryTypes}", categoryTypeDomain);
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, "Failed to load expenses for category types");
+        }
+    }
+
+    public async Task<Result<int[]>> GetAllBankTransferIdsAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all bank transfers for category types {@CategoryTypes}", categoryTypeDomain);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var result = await context.THistories.Where(e => e.BankTransferFk != null && categoryTypeDomain.Select(s => s.Id).Contains((int)e.CategoryTypeFk!))
+                .Select(e => e.Id)
+                .Distinct()
+                .ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} bank transfer IDs for category types", result.Length);
+
+            return Result<int[]>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load bank transfers for category types {@CategoryTypes}", categoryTypeDomain);
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, "Failed to load bank transfers for category types");
+        }
+    }
+
+    public async Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain[] categoryTypeDomain,
+        CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading all recurring expense for category types {@CategoryTypes}", categoryTypeDomain);
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        var result = await context.TRecursiveExpenses.Where(e => categoryTypeDomain.Select(s => s.Id).Contains((int)e.CategoryTypeFk!))
+            .Select(e => e.Id)
+            .Distinct()
+            .ToArrayAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} recurring expense IDs for category types", result.Length);
+
+        return Result<int[]>.Success(result);
     }
 
     private static THistory FormateBankTransferHistory(AccountDomain accountDomain, HistoryDomain historyDomain, int multiplier = 1)

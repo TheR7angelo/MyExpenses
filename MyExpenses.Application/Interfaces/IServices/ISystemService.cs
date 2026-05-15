@@ -41,6 +41,15 @@ public interface ISystemService
     public Task<IEnumerable<DeletionDependency>> GetAllDependenciesAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves a collection of dependencies associated with the specified color.
+    /// Each dependency includes details such as label, count, and category.
+    /// </summary>
+    /// <param name="colorDto">The color data transfer object used to identify dependencies.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object holding an enumerable collection of <see cref="DeletionDependency"/> objects.</returns>
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a randomly selected color, including its name and hexadecimal color code.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
@@ -85,6 +94,14 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{ColorDto}"/> indicating the success or failure of the update operation.</returns>
     public Task<Result<ColorDto>> UpdateColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified color and handles its associated deletion dependencies.
+    /// </summary>
+    /// <param name="colorDto">The data transfer object representing the color to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the delete operation, including details of dependencies removed, if any.</returns>
+    public Task<DeletionResult> DeleteColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves details of a specific place based on the provided identifier.

@@ -193,6 +193,62 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return dependencies;
     }
 
+    public async Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ColorDto colorDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var colorDomain = systemDtoDomainMapper.MapToDomain(colorDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["ColorName"] = colorDomain.Name
+        });
+
+        logger.LogInformation("Starting dependency loading for color {ColorName}", colorDomain.Name);
+
+        var result = await expenseRepository.GetAllByColorAsync(colorDomain, cancellationToken);
+
+        if (!result.IsSuccess)
+        {
+            logger.LogError("Error loading dependencies for color {ColorName}: {ErrorMessage}", colorDomain.Name, result.InternalMessage);
+            return Result<IEnumerable<DeletionDependency>>.Failure(result.ErrorCode, result.InternalMessage!);
+        }
+
+        var enumerable = result.Value!.ToArray();
+        dependencies.Add(new DeletionDependency { Category = DependencyType.CategoryType, Count = enumerable.Length });
+
+        logger.LogInformation("Found {CategoryTypeCount} category types", enumerable.Length);
+
+        foreach (var categoryTypeDomain in enumerable)
+        {
+            logger.LogInformation("Loading dependencies for categoryType {CategoryTypeName}", categoryTypeDomain.Name);
+
+            var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(categoryTypeDomain, cancellationToken);
+            var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(categoryTypeDomain, cancellationToken);
+            var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(categoryTypeDomain, cancellationToken);
+
+            await Task.WhenAll(expenseCountTask, bankTransactionCountTask, recursiveExpenseCountTask);
+
+            var expenseCount = await expenseCountTask;
+            var bankTransactionCount = await bankTransactionCountTask;
+            var recursiveExpenseCount = await recursiveExpenseCountTask;
+
+            dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
+            dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
+            dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+            logger.LogInformation(
+                "Loaded dependencies for categoryType {CategoryTypeName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
+                categoryTypeDomain.Name,
+                expenseCount,
+                bankTransactionCount,
+                recursiveExpenseCount);
+        }
+
+        dependencies = GroupDependencies(dependencies).ToList();
+        logger.LogInformation("Finished dependency loading for account with {DependencyCount} dependencies", dependencies.Count);
+        return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
+    }
+
     public async Task<ColorDto> GetRandomColor(CancellationToken cancellationToken)
     {
         var colorDomain = await systemRepository.GetRandomColor(cancellationToken);
@@ -225,6 +281,12 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return result.IsSuccess
             ? Result<ColorDto>.Success(systemDtoDomainMapper.MapToDto(result.Value!))
             : Result<ColorDto>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
+
+    public Task<DeletionResult> DeleteColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default)
+    {
+        var colorDomain = systemDtoDomainMapper.MapToDomain(colorDto);
+        return systemRepository.DeleteColorAsync(colorDomain, cancellationToken);
     }
 
     public async Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken)

@@ -1,5 +1,6 @@
 using Domain.Models.Accounts;
 using Domain.Models.Expenses;
+using Domain.Models.Systems;
 using Domain.Models.Validation;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
@@ -99,8 +100,7 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type domain for which to retrieve the expense count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of expenses associated with the specified category type.</returns>
-    public Task<int> GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int> GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the total count of all bank transactions associated with a specified category type.
@@ -108,8 +108,7 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type for which to retrieve the bank transaction count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of bank transactions associated with the specified category type.</returns>
-    public Task<int> GetAllBankTransactionCountAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int> GetAllBankTransactionCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the IDs of all bank transfers associated with the specified accounts.
@@ -125,8 +124,7 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type for which to retrieve the recursive expense count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of recursive expenses associated with the specified category type.</returns>
-    public Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the IDs of all recurring transactions associated with the specified account.
@@ -199,4 +197,36 @@ public interface IExpenseRepository
     /// <returns>A result containing the created bank transfer object and a collection of associated historical records.</returns>
     public Task<Result<(BankTransferDomain bankTransfer, IEnumerable<HistoryDomain> historiesDomain)>>
         CreateBankTransferAsync(BankTransferDomain bankTransferDomain, HistoryDomain historyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all category types associated with a specified color.
+    /// </summary>
+    /// <param name="colorDomain">The color domain object used to filter category types.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing an enumerable of category type domain objects associated with the specified color.</returns>
+    public Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllByColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all expense IDs associated with the provided category type domains.
+    /// </summary>
+    /// <param name="categoryTypeDomain">An array of category type domains for which to fetch the expense IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of expense IDs associated with the specified category type domains.</returns>
+    public Task<Result<int[]>> GetAllExpenseIdAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the identifiers of all bank transfer transactions associated with the specified category type domains.
+    /// </summary>
+    /// <param name="categoryTypeDomain">An array of category type domains for which to retrieve the bank transfer transaction identifiers.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of identifiers for the bank transfer transactions associated with the specified category type domains.</returns>
+    public Task<Result<int[]>> GetAllBankTransferIdsAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all recurring transactions associated with the specified category types.
+    /// </summary>
+    /// <param name="categoryTypeDomain">The category types for which to retrieve the recurring transaction IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result object containing the IDs of all recurring transactions associated with the specified category types.</returns>
+    public Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
 }

@@ -93,8 +93,22 @@ public interface ISystemRepository
     /// A task containing the result of the update operation. The result indicates whether the update was successful
     /// and may include the updated color domain model or an error message.
     /// </returns>
-    public Task<Result<ColorDomain>> UpdateColorAsync(ColorDomain colorDomain,
-        CancellationToken cancellationToken = default);
+    public Task<Result<ColorDomain>> UpdateColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified color from the system.
+    /// </summary>
+    /// <param name="colorDomain">
+    /// The color to be deleted, represented as a <see cref="ColorDomain"/> object.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task containing a <see cref="DeletionResult"/> object which indicates the outcome of the deletion,
+    /// including any dependencies affected.
+    /// </returns>
+    public Task<DeletionResult> DeleteColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves information about a specific place in the system.

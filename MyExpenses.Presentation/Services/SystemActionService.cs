@@ -1,6 +1,7 @@
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations;
@@ -12,6 +13,8 @@ public class SystemActionService(ISystemPresentationService systemPresentationSe
     IDialogService dialogService, ILogger<AActionService> logger, IServiceProvider serviceProvider)
     : AActionService(dialogService, logger, serviceProvider), ISystemActionService
 {
+    private readonly IDialogService _dialogService = dialogService;
+
     public async Task<Result<ColorViewModel>> CreateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
     {
         var valResultColor = await ValidateAsync<ColorViewModelValidator, ColorViewModel>(colorViewModel, cancellationToken);
@@ -55,5 +58,31 @@ public class SystemActionService(ISystemPresentationService systemPresentationSe
 
         colorViewModel.ValidateWithFluent(valResultColor);
         return Result<ColorViewModel>.Failure(ErrorCode.ValidationFailed, "Validation failed.");
+    }
+
+    public async Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
+    {
+        var resultDependency = await systemPresentationService.GetAllDependenciesAsync(colorViewModel, cancellationToken);
+        if (!resultDependency.IsSuccess)
+        {
+            ShowDeleteResultMessage(false, colorViewModel.Name);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, "Failed to retrieve dependencies.");
+        }
+
+        var dependenciesArray = resultDependency.Value!.ToArray();
+
+        var response = dependenciesArray.Length is 0
+            ? AskDeleteConfirmation(colorViewModel.Name)
+            : _dialogService.AskConfirmationOfDependenciesRemoval(DependencyType.Color, dependenciesArray);
+
+        if (response is not MessageBoxResult.Yes) return DeletionResult.Failure(ErrorCode.None, "Deletion cancelled.");
+
+        var result = await systemPresentationService.DeleteColorAsync(colorViewModel, cancellationToken);
+        ShowDeleteResultMessage(result.IsSuccess, colorViewModel.Name);
+
+        if (!result.IsSuccess) return result;
+        SendEntityChangedMessage(DependencyType.Color, DataAction.Delete, result.Value);
+
+        return result;
     }
 }
