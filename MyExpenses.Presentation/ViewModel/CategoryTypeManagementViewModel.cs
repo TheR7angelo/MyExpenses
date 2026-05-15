@@ -39,6 +39,7 @@ public class CategoryTypeManagementViewModel : ViewModelBase
     {
         try
         {
+            // TODO correct replace inputbox by real window call
             await _accountActionService.ManageCategoryTypeAction(categoryTypeViewModel);
         }
         catch (Exception exception)
