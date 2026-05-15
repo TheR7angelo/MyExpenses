@@ -90,8 +90,7 @@
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding IsEditColor, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Command="{Binding DeleteCommand}"
-                    CommandParameter="{Binding ElementName=RootWindow}"
-                    Click="ButtonDelete_OnClick">
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Content="{localisations:Tr {x:Static resx:SystemResourceManager.ButtonCancelContentColor}}"
