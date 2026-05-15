@@ -68,4 +68,10 @@
     <data name="DependencyTypeCurrencies" xml:space="preserve">
         <value>Symboles monétaires</value>
     </data>
+    <data name="DependencyTypeColors" xml:space="preserve">
+        <value>Couleurs</value>
+    </data>
+    <data name="DependencyTypeColor" xml:space="preserve">
+        <value>Couleur</value>
+    </data>
 </root>

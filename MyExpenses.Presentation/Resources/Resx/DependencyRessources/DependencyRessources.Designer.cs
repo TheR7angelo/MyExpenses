@@ -177,6 +177,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DependencyRessources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string DependencyTypeColor {
+            get {
+                return ResourceManager.GetString("DependencyTypeColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colors.
+        /// </summary>
+        public static string DependencyTypeColors {
+            get {
+                return ResourceManager.GetString("DependencyTypeColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency symbols.
         /// </summary>
         public static string DependencyTypeCurrencies {
