@@ -11,40 +11,58 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="TitleWindowAddColor" xml:space="preserve">
-        <value>Ajouter une nouvelle couleur</value>
-    </data>
-    <data name="TitleWindowEditColor" xml:space="preserve">
-        <value>Modifier une couleur</value>
-    </data>
-    <data name="TextBoxColorNameHintAssist" xml:space="preserve">
-        <value>Le nom de la couleur :</value>
-    </data>
-    <data name="ButtonValidContentColor" xml:space="preserve">
-        <value>Valider</value>
-    </data>
     <data name="ButtonCancelContentColor" xml:space="preserve">
         <value>Annuler</value>
     </data>
     <data name="ButtonDeleteContentColor" xml:space="preserve">
         <value>Supprimer</value>
     </data>
-    <data name="ColorViewModelValidatorNameRequired" xml:space="preserve">
-        <value>Le nom de la couleur ne peut pas être vide</value>
+    <data name="ButtonValidContentColor" xml:space="preserve">
+        <value>Valider</value>
     </data>
-    <data name="ColorViewModelValidatorNameAlreadyUsed" xml:space="preserve">
-        <value>Le nom de la couleur est déjà utilisé</value>
-    </data>
-    <data name="ColorViewModelValidatorNameTooLong" xml:space="preserve">
-        <value>Le nom de la couleur doit mesurer entre 1 et {0} caractères</value>
-    </data>
-    <data name="ColorViewModelValidatorHexadecimalCodeRequired" xml:space="preserve">
-        <value>Le code hexadécimal couleur ne peut pas être vide</value>
+    <data name="ColorViewModelValidatorHexadecimalCodeAlreadyUsed" xml:space="preserve">
+        <value>La couleur avec le code hexadécimal {0} existe déjà</value>
     </data>
     <data name="ColorViewModelValidatorHexadecimalCodeInvalidFormat" xml:space="preserve">
         <value>Format de code couleur hexadécimal invalide</value>
     </data>
-    <data name="ColorViewModelValidatorHexadecimalCodeAlreadyUsed" xml:space="preserve">
-        <value>La couleur avec le code hexadécimal {0} existe déjà</value>
+    <data name="ColorViewModelValidatorHexadecimalCodeRequired" xml:space="preserve">
+        <value>Le code hexadécimal couleur ne peut pas être vide</value>
+    </data>
+    <data name="ColorViewModelValidatorNameAlreadyUsed" xml:space="preserve">
+        <value>Le nom de la couleur est déjà utilisé</value>
+    </data>
+    <data name="ColorViewModelValidatorNameRequired" xml:space="preserve">
+        <value>Le nom de la couleur ne peut pas être vide</value>
+    </data>
+    <data name="ColorViewModelValidatorNameTooLong" xml:space="preserve">
+        <value>Le nom de la couleur doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="TextBoxColorNameHintAssist" xml:space="preserve">
+        <value>Le nom de la couleur :</value>
+    </data>
+    <data name="TitleWindowAddColor" xml:space="preserve">
+        <value>Ajouter une nouvelle couleur</value>
+    </data>
+    <data name="TitleWindowEditColor" xml:space="preserve">
+        <value>Modifier une couleur</value>
+    </data>
+    <data name="MessageboxColorUpdateErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageboxColorUpdateErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la mise à jour de la couleur. Veuillez réessayer</value>
+    </data>
+    <data name="MessageboxColorCreateErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageboxColorCreateErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la création de la couleur. Veuillez réessayer</value>
+    </data>
+    <data name="MessageboxColorDeleteErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageboxColorDeleteErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la suppression de la couleur. Veuillez réessayer</value>
     </data>
 </root>

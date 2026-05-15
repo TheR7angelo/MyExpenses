@@ -141,6 +141,60 @@ namespace MyExpenses.Presentation.Resources.Resx.SystemResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageboxColorCreateErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxColorCreateErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while creating the color. Please try again.
+        /// </summary>
+        public static string MessageboxColorCreateErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxColorCreateErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageboxColorDeleteErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxColorDeleteErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while deleting the color. Please try again.
+        /// </summary>
+        public static string MessageboxColorDeleteErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxColorDeleteErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageboxColorUpdateErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxColorUpdateErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while updating the color. Please try again.
+        /// </summary>
+        public static string MessageboxColorUpdateErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxColorUpdateErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The color name :.
         /// </summary>
         public static string TextBoxColorNameHintAssist {
