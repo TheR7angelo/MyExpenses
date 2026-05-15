@@ -373,7 +373,7 @@ public abstract class AActionService(IDialogService dialogService, ILogger<AActi
     /// <param name="newNames">An array of the new names or values of the items being updated. Must have the same length as <paramref name="oldNames"/>.</param>
     /// <returns>A boolean indicating whether the user confirmed the update (true) or canceled it (false).</returns>
     /// <exception cref="ArgumentException">Thrown when the lengths of <paramref name="oldNames"/> and <paramref name="newNames"/> are not equal.</exception>
-    internal bool AskUpdateConfirmation(string?[] oldNames, string?[] newNames)
+    private bool AskUpdateConfirmation(string?[] oldNames, string?[] newNames)
     {
         if (oldNames.Length != newNames.Length)
         {

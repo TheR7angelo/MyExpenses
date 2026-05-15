@@ -304,10 +304,7 @@ public class AccountActionService(
         var valResultAccount = await ValidateAsync<AccountViewModelValidator, AccountViewModel>(accountViewModel, cancellationToken);
         if (valResultAccount.IsValid)
         {
-            var pendingChanges = accountViewModel.PendingChanges;
-            var oldValues = pendingChanges.Select(s => s.OldValueDisplay).ToArray();
-            var newValues = pendingChanges.Select(s => s.NewValueDisplay).ToArray();
-            if (!AskUpdateConfirmation(oldValues, newValues)) return false;
+            if (!AskUpdateConfirmation(accountViewModel)) return false;
 
             var result = await accountPresentationService.UpdateAccount(accountViewModel, cancellationToken);
             ShowUpdateResultMessage(result.IsSuccess);
