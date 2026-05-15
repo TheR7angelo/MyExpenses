@@ -32,6 +32,8 @@ public static class DependencyCaptionName
             DependencyType.BankTransfer => "AccountTransfert",
             DependencyType.Expense => "Ticket",
             DependencyType.RecurringExpense => "RecursiveExpense",
+            DependencyType.CategoryType => "Tag",
+            DependencyType.Color => "Colors",
             _ => throw new ArgumentOutOfRangeException(nameof(dependencyType), dependencyType, null)
         };
 }

@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="Colors">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FFD2B48C">
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M12,2C6.48,2 2,6.48 2,12 2,17.52 6.48,22 12,22 13.1,22 14,21.1 14,20 14,19.5 13.8,19.1 13.5,18.7 13.2,18.4 13,18 13,17.5 13,16.4 13.9,15.5 15,15.5L17,15.5C19.76,15.5 22,13.26 22,10.5 22,5.8 17.52,2 12,2z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF2D2D2D">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.5" RadiusY="1.5" Center="7,12" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFE91E63">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.5" RadiusY="1.5" Center="9.5,6" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFF9800">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.5" RadiusY="1.5" Center="14.5,6" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFEB3B">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.5" RadiusY="1.5" Center="18,9" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF4CAF50">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.5" RadiusY="1.5" Center="17.5,12.5" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.Transform>
+          <ScaleTransform ScaleX="4.166667" ScaleY="4.166667" />
+        </DrawingGroup.Transform>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>
