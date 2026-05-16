@@ -15,7 +15,7 @@ public partial class CategoryTypeViewModel : BaseViewModel
     [ObservableProperty]
     public partial string? Name { get; set; }
 
-    [DirtyTrackedProperty]
+    [DirtyTrackedProperty(DisplayMember = nameof(Color.Name))]
     [ObservableProperty]
     public partial ColorViewModel? Color { get; set; }
 
