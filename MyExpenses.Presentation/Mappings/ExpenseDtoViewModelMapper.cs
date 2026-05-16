@@ -87,6 +87,8 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
     [MapProperty(nameof(BankTransferViewModel), nameof(HistoryViewModel.BankTransferViewModel))]
     public partial void Merge(BankTransferViewModel src, HistoryViewModel dst);
 
+    public partial void Merge(CategoryTypeViewModel src, CategoryTypeViewModel dst);
+
     public Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)> MapToViewModel(Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> result)
     {
         var bankTransferDto = MapToViewModel(result.Value.bankTransfer);

@@ -29,13 +29,15 @@
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Click="ButtonAddCategoryType_OnClick">
+                    Command="{Binding ManageCategoryTypeActionCommand}">
+
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
                                              Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
                     </materialDesign:PackIcon>
                 </Button.Content>
+
             </Button>
 
             <ItemsControl ItemsSource="{Binding CategoryTypeViewModels}">
@@ -55,7 +57,8 @@
 
                             <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                                     Style="{StaticResource MaterialDesignPaperButton}"
-                                    Click="ButtonEditCategoryType_OnClick">
+                                    Command="{Binding DataContext.ManageCategoryTypeActionCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                    CommandParameter="{Binding .}">
 
                                 <b:Interaction.Behaviors>
                                     <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"

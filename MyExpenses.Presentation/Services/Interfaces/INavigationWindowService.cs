@@ -1,4 +1,5 @@
 ﻿using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
 
@@ -44,4 +45,13 @@ public interface INavigationWindowService
     /// <param name="item">The account type view model representing the account type to be edited.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task ShowEditAccountTypeAsync(AccountTypeViewModel item);
+
+    /// <summary>
+    /// Displays the "Manage Category Type" window.
+    /// This method allows users to manage the details of a specific category type, such as its name,
+    /// color, and other metadata. It is commonly used for creating, editing, or reviewing category types.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">An instance of <see cref="CategoryTypeViewModel"/> containing
+    /// the category type data to be managed. If null, a new category type may be created.</param>
+    public void ShowManageCategoryType(CategoryTypeViewModel? categoryTypeViewModel);
 }

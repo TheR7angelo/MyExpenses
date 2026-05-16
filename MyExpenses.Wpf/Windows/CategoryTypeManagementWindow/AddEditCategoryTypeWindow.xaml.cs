@@ -6,6 +6,7 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.SharedUtils.Collection;
@@ -22,40 +23,37 @@ namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
 public partial class AddEditCategoryTypeWindow
 {
-    private readonly ISystemPresentationService _systemPresentationService;
-    private readonly IExpensePresentationService _expensePresentationService;
-
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty IsEditCategoryTypeProperty =
-        DependencyProperty.Register(nameof(IsEditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(false));
-
-    // ReSharper disable once HeapView.BoxingAllocation
-    public bool IsEditCategoryType
-    {
-        get => (bool)GetValue(IsEditCategoryTypeProperty);
-        set => SetValue(IsEditCategoryTypeProperty, value);
-    }
+    // // ReSharper disable once HeapView.BoxingAllocation
+    // // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // public static readonly DependencyProperty IsEditCategoryTypeProperty =
+    //     DependencyProperty.Register(nameof(IsEditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
+    //         new PropertyMetadata(false));
+    //
+    // // ReSharper disable once HeapView.BoxingAllocation
+    // public bool IsEditCategoryType
+    // {
+    //     get => (bool)GetValue(IsEditCategoryTypeProperty);
+    //     set => SetValue(IsEditCategoryTypeProperty, value);
+    // }
 
     #region Property
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TCategoryType CategoryType { get; } = new();
 
-    public CategoryTypeViewModel CategoryTypeViewModel { get; } = new();
-
-    public ObservableCollection<ColorViewModel> ColorViewModels { get; } = [];
+    // public CategoryTypeViewModel CategoryTypeViewModel { get; } = new();
+    //
+    // public ObservableCollection<ColorViewModel> ColorViewModels { get; } = [];
 
     public bool CategoryTypeDeleted { get; private set; }
 
     #endregion
 
-    public AddEditCategoryTypeWindow(ISystemPresentationService systemPresentationService,
-        IExpensePresentationService expensePresentationService)
+    private CategoryTypeManagementViewModel ViewModel => (CategoryTypeManagementViewModel)DataContext;
+
+    public AddEditCategoryTypeWindow(CategoryTypeManagementViewModel vm)
     {
-        _systemPresentationService = systemPresentationService;
-        _expensePresentationService = expensePresentationService;
+
 
         // // ReSharper disable once HeapView.ObjectAllocation.Evident
         // // Necessary instantiation of DataBaseContext to interact with the database.
@@ -66,21 +64,8 @@ public partial class AddEditCategoryTypeWindow
 
         InitializeComponent();
 
-        Loaded += OnLoaded;
-    }
-
-    private async void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var colors = await _systemPresentationService.GetAllColorViewModelAsync();
-            ColorViewModels.AddRangeAndSort(colors, s => s.Name!);
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
+        DataContext = vm;
+        Loaded += async (_, _) => await vm.LoadAllColorCommand.ExecuteAsync(null);
     }
 
     #region Action
@@ -193,6 +178,9 @@ public partial class AddEditCategoryTypeWindow
 
     // private bool CheckCategoryTypeName(string accountName)
         // => CategoryTypes.Select(s => s.Name).Contains(accountName);
+
+    public void LoadCategoryTypeViewModel(CategoryTypeViewModel categoryTypeViewModel)
+        => ViewModel.LoadCategoryTypeViewModel(categoryTypeViewModel);
 
     // ReSharper disable once HeapView.ClosureAllocation
     public void SetTCategoryType(TCategoryType categoryType)

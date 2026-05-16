@@ -9,10 +9,12 @@
         xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
         xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
         xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
+        xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
         mc:Ignorable="d"
 
         d:DesignHeight="250"
         d:DesignWidth="400"
+        d:DataContext="{d:DesignInstance viewModel:CategoryTypeManagementViewModel}"
 
         MinHeight="250"
         MinWidth="400"
@@ -31,9 +33,7 @@
         ResizeMode="CanResizeWithGrip"
 
         Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <mah:MetroWindow.Style>
         <Style TargetType="{x:Type mah:MetroWindow}">

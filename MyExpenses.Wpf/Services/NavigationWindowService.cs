@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
 namespace MyExpenses.Wpf.Services;
 
@@ -37,5 +39,12 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
     {
         var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction(item);
+    }
+
+    public void ShowManageCategoryType(CategoryTypeViewModel? categoryTypeViewModel)
+    {
+        var window = provider.GetRequiredService<AddEditCategoryTypeWindow>();
+        if (categoryTypeViewModel is not null) window.LoadCategoryTypeViewModel(categoryTypeViewModel);
+        window.ShowDialog();
     }
 }
