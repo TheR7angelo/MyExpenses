@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
-using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
@@ -36,6 +36,19 @@ public class AccountManagementViewModel : ViewModelBase
     /// data access/presentation operations.
     /// </remarks>
     private readonly IAccountPresentationService _accountService;
+
+    /// <summary>
+    /// Mapper dependency used for transforming between DTO and ViewModel representations of account-related data.
+    /// </summary>
+    /// <remarks>
+    /// The <c>_accountDtoViewModelMapper</c> field is an instance of <see cref="IAccountDtoViewModelMapper"/>
+    /// responsible for handling mapping operations between data transfer objects (DTOs) and their corresponding
+    /// view models. It supports bi-directional conversion operations, allowing the application to
+    /// translate data for UI representation and back for storage or processing logic.
+    /// This mapper is critical in ensuring a clear separation between the business logic layer and the presentation layer
+    /// by abstracting the transformation logic required to bridge these components.
+    /// </remarks>
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
 
     /// <summary>
     /// Service dependency used for handling navigation-related operations within the view model.
@@ -135,11 +148,13 @@ public class AccountManagementViewModel : ViewModelBase
     /// </summary>
     public AccountManagementViewModel(
         IAccountPresentationService accountService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindow,
         IDialogService dialog,
         ILogger<AccountManagementViewModel> logger)
     {
         _accountService = accountService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindow = navigationWindow;
         _dialog = dialog;
         _logger = logger;
@@ -254,8 +269,7 @@ public class AccountManagementViewModel : ViewModelBase
         var item = TotalByAccounts.FirstOrDefault(s => s.Id == vm.Id);
         if (item is null) return;
 
-        item.Name = vm.Name ?? string.Empty;
-        item.Symbol = vm.CurrencyViewModel?.Symbol ?? string.Empty;
+        _accountDtoViewModelMapper.Merge(vm, item);
     }
 
     /// <summary>

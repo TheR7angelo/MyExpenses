@@ -39,6 +39,19 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
 
     public partial void Merge(AccountViewModel src, AccountViewModel dest);
 
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsDeleting))]
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.Total))]
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.TotalPointed))]
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.TotalNotPointed))]
+    [MapperIgnoreSource(nameof(AccountViewModel.HasErrors))]
+    [MapperIgnoreSource(nameof(AccountViewModel.AccountTypeViewModel))]
+    [MapperIgnoreSource(nameof(AccountViewModel.Active))]
+    [MapperIgnoreSource(nameof(AccountViewModel.DateAdded))]
+    [MapProperty(nameof(AccountViewModel.Id), nameof(TotalByAccountViewModel.Id))]
+    [MapProperty(nameof(AccountViewModel.Name), nameof(TotalByAccountViewModel.Name))]
+    [MapProperty(nameof(AccountViewModel.CurrencyViewModel.Symbol), nameof(TotalByAccountViewModel.Symbol))]
+    public partial void Merge(AccountViewModel src, TotalByAccountViewModel dest);
+
     public Result<AccountTypeViewModel> MapToViewModel(Result<AccountTypeDto> src)
         => src.Map(MapToViewModel);
 

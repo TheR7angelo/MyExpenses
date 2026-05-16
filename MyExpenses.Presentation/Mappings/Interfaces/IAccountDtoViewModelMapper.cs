@@ -84,6 +84,13 @@ public interface IAccountDtoViewModelMapper
     public void Merge(AccountViewModel src, AccountViewModel dest);
 
     /// <summary>
+    /// Merges the properties of an AccountViewModel object into an existing TotalByAccountViewModel object.
+    /// </summary>
+    /// <param name="src">The source AccountViewModel object containing the properties to merge.</param>
+    /// <param name="dest">The destination TotalByAccountViewModel object to which properties will be merged.</param>
+    public void Merge(AccountViewModel src, TotalByAccountViewModel dest);
+
+    /// <summary>
     /// Maps a Result of AccountTypeDto to a Result of AccountTypeViewModel.
     /// </summary>
     /// <param name="src">The Result object containing an AccountTypeDto to map.</param>
