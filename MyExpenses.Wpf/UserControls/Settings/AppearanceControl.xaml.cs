@@ -294,8 +294,14 @@ public partial class AppearanceControl
     private static Color GetNewColor(Color defaultColor, string title)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var colorPickerWindow = new ColorPickerWindow { Title = title };
-        colorPickerWindow.ColorPickerControl.InitializeValue(defaultColor);
+        var colorPickerWindow = new ColorPickerWindow
+        {
+            Title = title,
+            ColorPickerControl =
+            {
+                Color = defaultColor
+            }
+        };
         colorPickerWindow.ShowDialog();
 
         if (colorPickerWindow.DialogResult is not true) return defaultColor;
