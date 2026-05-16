@@ -72,6 +72,7 @@ public partial class AddEditAccountWindow
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ISystemPresentationService _systemPresentationService;
     private readonly IDialogService _dialogService;
+    private readonly INavigationWindowService _navigationWindowService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly ILogger<AddEditAccountWindow> _logger;
 
@@ -79,6 +80,7 @@ public partial class AddEditAccountWindow
         IExpensePresentationService expensePresentationService,
         ISystemPresentationService systemPresentationService,
         IDialogService dialogService,
+        INavigationWindowService navigationWindowService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         ILogger<AddEditAccountWindow> logger)
     {
@@ -86,6 +88,7 @@ public partial class AddEditAccountWindow
         _expensePresentationService = expensePresentationService;
         _systemPresentationService = systemPresentationService;
         _dialogService = dialogService;
+        _navigationWindowService = navigationWindowService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _logger = logger;
 
@@ -158,13 +161,11 @@ public partial class AddEditAccountWindow
         }
     }
 
-    // TODO try
-    private async void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         try
         {
-            var expenseActionService = App.ServiceProvider.GetRequiredService<IExpenseActionService>();
-            await expenseActionService.CreateCategoryType(HistoryViewModel.CategoryTypeViewModel!);
+            _navigationWindowService.ShowManageCategoryType(HistoryViewModel.CategoryTypeViewModel);
         }
         catch (Exception exception)
         {
