@@ -108,9 +108,9 @@
             </Border>
 
             <Button Grid.Column="2"
-                    HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    Click="ButtonAddColor_OnClick">
+                    Command="{Binding DataContext.ManageColorCommand, RelativeSource={RelativeSource AncestorType=mah:MetroWindow}}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
 
                 <Button.Content>
                     <materialDesign:PackIcon Kind="PencilPlus" />
@@ -127,7 +127,7 @@
 
             <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonValidContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Command="{Binding CreateCommand}"
+                    Command="{Binding CreateOrUpdateCommand}"
                     CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 

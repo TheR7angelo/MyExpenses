@@ -16,12 +16,13 @@ namespace MyExpenses.Presentation.ViewModel;
 
 public partial class CategoryTypeManagementViewModel : ViewModelBase
 {
+
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ISystemPresentationService _systemPresentationService;
     private readonly IExpenseActionService _expenseActionService;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    private readonly ISystemDtoViewModelMapper _systemDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
-    private readonly ILogger<CategoryTypeManagementViewModel> _logger;
 
     public ObservableCollection<CategoryTypeViewModel> CategoryTypeViewModels { get; } = [];
 
@@ -37,17 +38,21 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     public IAsyncRelayCommand LoadAllCategoryTypeCommand { get; }
     public IAsyncRelayCommand LoadAllColorCommand { get; }
     public IAsyncRelayCommand<CategoryTypeViewModel?> ManageCategoryTypeActionCommand { get; }
+    public IRelayCommand<IClosable?> ManageColorCommand { get; }
 
-    public IAsyncRelayCommand<IClosable?> CreateCommand { get; }
+    public IAsyncRelayCommand<IClosable?> CreateOrUpdateCommand { get; }
     public IAsyncRelayCommand<IClosable?> DeleteCommand { get; }
     public IRelayCommand<CategoryTypeViewModel?> RemoveCommand { get; }
 
     public IRelayCommand<IClosable?> CancelCommand { get; }
 
+    public IClosable? Closeable { get; private set; }
+
     public CategoryTypeManagementViewModel(IExpensePresentationService expensePresentationService,
         ISystemPresentationService systemPresentationService,
         IExpenseActionService expenseActionService,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+        ISystemDtoViewModelMapper systemDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         ILogger<CategoryTypeManagementViewModel> logger)
     {
@@ -55,20 +60,28 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _systemPresentationService = systemPresentationService;
         _expenseActionService = expenseActionService;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
+        _systemDtoViewModelMapper = systemDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
-        _logger = logger;
 
         LoadAllCategoryTypeCommand = new AsyncRelayCommand(LoadAllCategoryTypeAsync);
         LoadAllColorCommand = new AsyncRelayCommand(LoadAllColorAsync);
 
         ManageCategoryTypeActionCommand = new AsyncRelayCommand<CategoryTypeViewModel?>(ManageCategoryTypeAction);
+        ManageColorCommand = new RelayCommand<IClosable?>(ManageColorAction);
+
         CancelCommand = new RelayCommand<IClosable?>(OnCancel);
 
-        CreateCommand = new AsyncRelayCommand<IClosable?>(CreateCategoryType);
+        CreateOrUpdateCommand = new AsyncRelayCommand<IClosable?>(CreateCategoryType);
         DeleteCommand = new AsyncRelayCommand<IClosable?>(DeleteCategoryType);
         RemoveCommand = new RelayCommand<CategoryTypeViewModel?>(RemoveCategoryType);
 
         RegisterMessages();
+    }
+
+    private void ManageColorAction(IClosable? closeable)
+    {
+        Closeable = closeable;
+        _navigationWindowService.ShowColorManagementWindow(CategoryTypeViewModel.Color);
     }
 
     private void RemoveCategoryType(CategoryTypeViewModel? item)
@@ -100,8 +113,42 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// </remarks>
     private void RegisterMessages()
     {
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnDeleteCategoryType);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnDelete);
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, OnCategoryTypeChanged);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<ColorViewModel>>(this, OnColorChanged);
+    }
+
+    // TODO try
+    private void OnColorChanged(object recipient, EntityChangedMessage<ColorViewModel> message)
+    {
+        if (message.Value.EntityType != DependencyType.CategoryType) return;
+
+        switch (message.Value.DataAction)
+        {
+            case DataAction.Update:
+                ApplyUpdate(message.Value.Content);
+                break;
+
+            case DataAction.Add:
+                ApplyAddAsync(message.Value.Content);
+                break;
+        }
+    }
+
+    // TODO try
+    private void ApplyAddAsync(ColorViewModel item)
+    {
+        ColorViewModels.AddAndSort(item, vm => vm.Name!);
+        CategoryTypeViewModel.Color = item;
+    }
+
+    // TODO try
+    private void ApplyUpdate(ColorViewModel vm)
+    {
+        var item = ColorViewModels.FirstOrDefault(s => s.Id == vm.Id);
+        if (item is null) return;
+
+        _systemDtoViewModelMapper.Merge(vm, item);
     }
 
     private void OnCategoryTypeChanged(object recipient, EntityChangedMessage<CategoryTypeViewModel> message)
@@ -131,15 +178,26 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _expenseDtoViewModelMapper.Merge(vm, item);
     }
 
-    private void OnDeleteCategoryType(object recipient, EntityChangedMessage<int[]> message)
+    private void OnDelete(object recipient, EntityChangedMessage<int[]> message)
     {
-        if (message.Value.EntityType != DependencyType.CategoryType ||
-            message.Value.DataAction != DataAction.Delete)
-            return;
+        if (message.Value.DataAction is not DataAction.Delete) return;
 
-        foreach (var item in CategoryTypeViewModels.Where(s => message.Value.Content.Contains(s.Id)))
+        if (message.Value.EntityType is DependencyType.CategoryType)
         {
-            item.IsDeleting = true;
+            foreach (var item in CategoryTypeViewModels.Where(s => message.Value.Content.Contains(s.Id)))
+            {
+                item.IsDeleting = true;
+            }
+        }
+        else if (message.Value.EntityType is DependencyType.Color)
+        {
+            foreach (var colorId in message.Value.Content)
+            {
+                var color = ColorViewModels.FirstOrDefault(c => c.Id == colorId);
+                if (color is not null) ColorViewModels.Remove(color);
+            }
+            Closeable?.DialogResult = false;
+            Closeable?.Close();
         }
     }
 

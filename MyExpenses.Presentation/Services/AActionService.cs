@@ -481,16 +481,22 @@ public abstract class AActionService(IDialogService dialogService, ILogger<AActi
     }
 
     /// <summary>
-    /// Sends a message to notify subscribers about the deletion of accounts if the provided
-    /// dictionary includes entries for the Account dependency type.
+    /// Sends a notification message for each entity type and its associated identifiers
+    /// when deletion actions are performed, ensuring that other parts of the system are
+    /// informed about the changes. This method is called only when there are deleted items.
     /// </summary>
-    /// <param name="deletedItems">A dictionary where the key represents the dependency type
-    /// and the value is an array of IDs of the deleted entities.</param>
-    internal static void SendDeletedAccountsMessageIfNeeded(Dictionary<DependencyType, int[]>? deletedItems)
+    /// <param name="deletedItems">
+    /// A dictionary containing the types of entities that were deleted as keys,
+    /// and arrays of the corresponding identifiers of the deleted items as values.
+    /// If null, the method does nothing.
+    /// </param>
+    internal static void SendDeletedMessageIfNeeded(Dictionary<DependencyType, int[]>? deletedItems)
     {
-        if (deletedItems?.TryGetValue(DependencyType.Account, out var accountIds) is not true) return;
-
-        SendEntityChangedMessage(DependencyType.Account, DataAction.Delete, accountIds);
+        if (deletedItems is null) return;
+        foreach (var key in deletedItems.Keys)
+        {
+            SendEntityChangedMessage(key, DataAction.Delete, deletedItems[key]);
+        }
     }
 
     /// <summary>

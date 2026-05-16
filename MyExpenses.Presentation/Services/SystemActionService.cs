@@ -77,12 +77,14 @@ public class SystemActionService(ISystemPresentationService systemPresentationSe
 
         if (response is not MessageBoxResult.Yes) return DeletionResult.Failure(ErrorCode.None, "Deletion cancelled.");
 
-        var result = await systemPresentationService.DeleteColorAsync(colorViewModel, cancellationToken);
-        ShowDeleteResultMessage(result.IsSuccess, colorViewModel.Name);
+        var deleteResult = await systemPresentationService.DeleteColorAsync(colorViewModel, cancellationToken);
+        ShowDeleteResultMessage(deleteResult.IsSuccess, colorViewModel.Name);
 
-        if (!result.IsSuccess) return result;
-        SendEntityChangedMessage(DependencyType.Color, DataAction.Delete, result.Value);
+        if (!deleteResult.IsSuccess) return deleteResult;
 
-        return result;
+        SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
+        SendEntityChangedMessage(DependencyType.Color, DataAction.Delete, new[] { colorViewModel.Id });
+
+        return deleteResult;
     }
 }

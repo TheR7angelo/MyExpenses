@@ -141,6 +141,8 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
             }
 
             var enumerable = categoryTypeEntities.Value!.ToArray();
+
+            var categoryTypeIds = enumerable.Select(c => c.Id).ToArray();
             var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(enumerable, cancellationToken);
             var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(enumerable, cancellationToken);
             var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(enumerable, cancellationToken);
@@ -151,6 +153,7 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
             var bankTransferIds = bankTransferIdsTask.Result;
             var recurringExpenseIds = recurringExpenseIdsTask.Result;
 
+            if (categoryTypeIds.Length > 0) logger.LogWarning("Color has associated category types {@CategoryTypes}", categoryTypeIds);
             if (expenseIds.IsSuccess && expenseIds.Value!.Length > 0) logger.LogWarning("Color has associated expenses {@ExpenseIds}", expenseIds.Value);
             if (bankTransferIds.IsSuccess && bankTransferIds.Value!.Length > 0) logger.LogWarning("Color has associated bank transfers {@BankTransferIds}", bankTransferIds.Value);
             if (recurringExpenseIds.IsSuccess && recurringExpenseIds.Value!.Length > 0) logger.LogWarning("Color has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds.Value);
@@ -164,11 +167,12 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
 
             var result = new Dictionary<DependencyType, int[]>
             {
+                { DependencyType.CategoryType, categoryTypeIds },
                 { DependencyType.Expense, expenseIds.Value! },
                 { DependencyType.BankTransfer, bankTransferIds.Value! },
                 { DependencyType.RecurringExpense, recurringExpenseIds.Value! }
             };
-            return DeletionResult.Success("Category type was successfully deleted", result);
+            return DeletionResult.Success("Color was successfully deleted", result);
         }
         catch (Exception e)
         {

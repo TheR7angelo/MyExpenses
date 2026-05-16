@@ -126,7 +126,7 @@ public class AccountActionService(
 
         if (deleteResult.IsSuccess)
         {
-            SendDeletedAccountsMessageIfNeeded(deleteResult.DeletedItems);
+            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
             SendEntityChangedMessage(DependencyType.AccountType, DataAction.Delete, accountTypeViewModel.Id);
         }
 
@@ -203,7 +203,7 @@ public class AccountActionService(
 
         if (deleteResult.IsSuccess)
         {
-            SendDeletedAccountsMessageIfNeeded(deleteResult.DeletedItems);
+            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
             SendEntityChangedMessage(DependencyType.Currency, DataAction.Delete, currencyViewModel.Id);
         }
 
@@ -227,7 +227,7 @@ public class AccountActionService(
 
         if (deleteResult.IsSuccess)
         {
-            SendDeletedAccountsMessageIfNeeded(deleteResult.DeletedItems);
+            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
             SendEntityChangedMessage(DependencyType.Account, DataAction.Delete, accountViewModel.Id);
         }
 

@@ -1,5 +1,6 @@
 ﻿using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
 
@@ -47,4 +48,11 @@ public interface INavigationWindowService
     /// <param name="categoryTypeViewModel">An instance of <see cref="CategoryTypeViewModel"/> containing
     /// the category type data to be managed. If null, a new category type may be created.</param>
     public void ShowManageCategoryType(CategoryTypeViewModel? categoryTypeViewModel);
+
+    /// <summary>
+    /// Displays the "Color Management" window as a dialog.
+    /// This method is used to navigate to the interface where users can view, modify, or manage color-related settings or details.
+    /// </summary>
+    /// <param name="color">The view model representing the color to be managed. This contains details such as the color name and hexadecimal code.</param>
+    public void ShowColorManagementWindow(ColorViewModel? color);
 }

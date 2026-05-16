@@ -7,11 +7,11 @@ namespace MyExpenses.Wpf.Windows;
 /// <summary>
 /// Represents a window that facilitates the addition or modification of color configurations
 /// in the application. This window interacts with the color management workflow by binding
-/// to the <see cref="ColorManagementViewModel"/>.
+/// to the <see cref="Presentation.ViewModel.ColorManagementViewModel"/>.
 /// </summary>
 /// <remarks>
 /// The <see cref="AddEditColorWindow"/> is designed for managing the UI logic
-/// for creating or editing colors, leveraging the <see cref="ColorManagementViewModel"/>
+/// for creating or editing colors, leveraging the <see cref="Presentation.ViewModel.ColorManagementViewModel"/>
 /// for the underlying data operations and workflows. It implements the <see cref="IClosable"/>
 /// interface, allowing it to interact seamlessly with commands that require closing or returning
 /// dialog results.
@@ -23,7 +23,7 @@ public partial class AddEditColorWindow : IClosable
     /// AddEditColorWindow. This field provides data-binding to the window and facilitates
     /// operations such as loading, editing, validating, and deleting color-related data.
     /// </summary>
-    private readonly ColorManagementViewModel _colorManagementViewModel;
+    private ColorManagementViewModel ColorManagementViewModel => (ColorManagementViewModel)DataContext;
 
     /// <summary>
     /// Represents a window for adding or editing color configurations within the application.
@@ -32,11 +32,9 @@ public partial class AddEditColorWindow : IClosable
     /// </summary>
     public AddEditColorWindow(ColorManagementViewModel vm)
     {
-        _colorManagementViewModel = vm;
-
         InitializeComponent();
 
-        DataContext = _colorManagementViewModel;
+        DataContext = vm;
     }
 
     /// <summary>
@@ -46,5 +44,5 @@ public partial class AddEditColorWindow : IClosable
     /// The instance of <see cref="ColorViewModel"/> to load into the color management workflow.
     /// </param>
     public void LoadColorViewModel(ColorViewModel colorViewModel)
-        => _colorManagementViewModel.LoadColorViewModel(colorViewModel);
+        => ColorManagementViewModel.LoadColorViewModel(colorViewModel);
 }

@@ -2,6 +2,7 @@
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
@@ -39,6 +40,13 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
     {
         var window = provider.GetRequiredService<AddEditCategoryTypeWindow>();
         if (categoryTypeViewModel is not null) window.LoadCategoryTypeViewModel(categoryTypeViewModel);
+        window.ShowDialog();
+    }
+
+    public void ShowColorManagementWindow(ColorViewModel? color)
+    {
+        var window = App.ServiceProvider.GetRequiredService<AddEditColorWindow>();
+        if (color is not null) window.LoadColorViewModel(color);
         window.ShowDialog();
     }
 }
