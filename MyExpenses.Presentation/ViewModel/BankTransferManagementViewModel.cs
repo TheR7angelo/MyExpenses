@@ -351,7 +351,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     private void AddAccountAsync(AccountViewModel? accountViewModel, AccountSource source)
     {
         _currentAccountSource = source;
-        _navigationWindowService.ShowEditAccount(accountViewModel);
+        _navigationWindowService.ShowManageAccount(accountViewModel);
     }
 
     /// <summary>

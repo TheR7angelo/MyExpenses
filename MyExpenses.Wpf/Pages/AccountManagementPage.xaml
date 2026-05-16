@@ -35,7 +35,7 @@
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Command="{Binding DataContext.AddAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}">
+                    Command="{Binding DataContext.ManageAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}">
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
@@ -61,7 +61,7 @@
 
                             <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                                 Style="{StaticResource MaterialDesignPaperButton}"
-                                Command="{Binding DataContext.ViewAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                Command="{Binding DataContext.ManageAccountCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                 CommandParameter="{Binding .}">
 
                                 <b:Interaction.Behaviors>

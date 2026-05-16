@@ -11,25 +11,18 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 public interface INavigationWindowService
 {
     /// <summary>
-    /// Displays the "Add Account" window as a dialog.
-    /// This method is used to navigate to the interface where users can add a new account.
+    /// Displays the "Manage Account" window as a dialog.
+    /// This method is used to navigate to the interface where users can view or manage the details of an account.
     /// </summary>
-    public void ShowAddAccount();
-
-    /// <summary>
-    /// Displays the "Edit Account" window as a dialog.
-    /// This method allows users to edit the details of an existing account.
-    /// </summary>
-    /// <param name="vm">The view model containing the account details to be edited.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    public Task ShowEditAccountAsync(TotalByAccountViewModel vm);
+    /// <param name="item">The view model representing the account to be managed. This contains the account's current details or configuration.</param>
+    public Task ShowManageAccount(TotalByAccountViewModel? item);
 
     /// <summary>
     /// Displays the "Edit Account" window as a dialog.
     /// This method is used to navigate to the interface where users can edit an existing account's details.
     /// </summary>
     /// <param name="vm">The view model representing the account to be edited. This contains the account's current data.</param>
-    public void ShowEditAccount(AccountViewModel? vm);
+    public void ShowManageAccount(AccountViewModel? vm);
 
     /// <summary>
     /// Displays the "Add Account Type" window as a dialog.

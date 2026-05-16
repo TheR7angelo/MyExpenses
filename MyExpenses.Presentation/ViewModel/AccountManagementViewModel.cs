@@ -117,29 +117,18 @@ public class AccountManagementViewModel : ViewModelBase
     public IRelayCommand<TotalByAccountViewModel> DeleteCommand { get; }
 
     /// <summary>
-    /// Command responsible for handling the action of viewing account details within the accounts management feature.
+    /// Command used for managing or modifying account details in the view model.
     /// </summary>
     /// <remarks>
-    /// The <c>ViewAccountCommand</c> is an asynchronous command of type <see cref="IAsyncRelayCommand{T}"/>
-    /// where <typeparamref name="T"/> is a <see cref="TotalByAccountViewModel"/> instance.
-    /// This command facilitates the navigation or display of details for a specific account
-    /// when triggered, typically in response to user interaction in the UI.
-    /// It is bound to UI elements in views such as <c>AccountManagementPage.xaml</c>
-    /// and relies on the <see cref="AccountManagementViewModel"/> to provide the necessary logic for its execution.
+    /// The <c>ManageAccountCommand</c> property is an instance of <see cref="IRelayCommand{T}"/>
+    /// where the generic parameter is <see cref="TotalByAccountViewModel"/>. It provides the functionality
+    /// to handle user interactions related to managing an individual account, such as opening an account
+    /// management dialog or navigating to an account details page.
+    /// This command is typically bound to a UI element in the view to trigger account-related operations
+    /// when users interact with the corresponding functionality.
+    /// It leverages MVVM principles to separate command execution logic from the view.
     /// </remarks>
-    public IAsyncRelayCommand<TotalByAccountViewModel> ViewAccountCommand { get; }
-
-    /// <summary>
-    /// Command used to initiate the process of adding a new account.
-    /// </summary>
-    /// <remarks>
-    /// The <c>AddAccountCommand</c> is an instance of <see cref="IRelayCommand"/> that encapsulates
-    /// the logic for handling user interactions related to adding accounts. It is bound to a user interface
-    /// element, such as a button, in the view corresponding to the <c>AccountManagementViewModel</c>.
-    /// Executing this command triggers the <c>AddAccount</c> method within the view model, allowing
-    /// users to add accounts through the associated functionality.
-    /// </remarks>
-    public IRelayCommand AddAccountCommand { get; }
+    public IRelayCommand<TotalByAccountViewModel?> ManageAccountCommand { get; }
 
     /// <summary>
     /// Represents the ViewModel responsible for managing data and commands related to account management in the application.
@@ -157,8 +146,7 @@ public class AccountManagementViewModel : ViewModelBase
 
         LoadCommand = new AsyncRelayCommand(LoadAsync);
         DeleteCommand = new RelayCommand<TotalByAccountViewModel>(Delete);
-        ViewAccountCommand = new AsyncRelayCommand<TotalByAccountViewModel>(ViewAccountAsync);
-        AddAccountCommand = new RelayCommand(AddAccount);
+        ManageAccountCommand = new RelayCommand<TotalByAccountViewModel?>(ShowManageAccount);
 
         RegisterMessages();
     }
@@ -296,32 +284,11 @@ public class AccountManagementViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Asynchronously initiates the process to view the details of a specified account.
+    /// Opens the manage account view with the specified account information.
     /// </summary>
-    /// <param name="item">The account to view, represented as a <c>TotalByAccountViewModel</c>. Pass <c>null</c> to do nothing.</param>
-    /// <returns>A <c>Task</c> representing the asynchronous operation.</returns>
-    private async Task ViewAccountAsync(TotalByAccountViewModel? item)
+    /// <param name="item">The account details to manage, or null if no specific account is provided.</param>
+    private void ShowManageAccount(TotalByAccountViewModel? item)
     {
-        try
-        {
-            if (item is null) return;
-            await _navigationWindow.ShowEditAccountAsync(item);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error viewing account");
-            _dialog.ShowError(AccountResources.MessageBoxViewAccountErrorContent);
-        }
-    }
-
-    /// <summary>
-    /// Initiates the process to navigate to the view for adding a new account.
-    /// </summary>
-    /// <remarks>
-    /// This method uses the navigation service to display the interface for adding a new account.
-    /// </remarks>
-    private void AddAccount()
-    {
-        _navigationWindow.ShowAddAccount();
+        _navigationWindow.ShowManageAccount(item);
     }
 }

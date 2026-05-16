@@ -9,20 +9,14 @@ namespace MyExpenses.Wpf.Services;
 
 public class NavigationWindowService(IServiceProvider provider) : INavigationWindowService
 {
-    public void ShowAddAccount()
+    public async Task ShowManageAccount(TotalByAccountViewModel? item)
     {
         var window = provider.GetRequiredService<AddEditAccountWindow>();
+        if (item is not null) await window.LoadAsync(item);
         window.ShowDialog();
     }
 
-    public async Task ShowEditAccountAsync(TotalByAccountViewModel vm)
-    {
-        var window = provider.GetRequiredService<AddEditAccountWindow>();
-        await window.LoadAsync(vm);
-        window.ShowDialog();
-    }
-
-    public void ShowEditAccount(AccountViewModel? vm)
+    public void ShowManageAccount(AccountViewModel? vm)
     {
         var window = provider.GetRequiredService<AddEditAccountWindow>();
         window.Load(vm);
