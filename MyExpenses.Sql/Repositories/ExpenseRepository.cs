@@ -231,13 +231,19 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
     public async Task<IEnumerable<CategoryTypeDomain>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogInformation("Loading all category types");
+
         await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        return await dataBaseContext.TCategoryTypes
+        var results = await dataBaseContext.TCategoryTypes
             .AsNoTracking()
             .Include(s => s.ColorFkNavigation)
             .ProjectToDomain()
             .ToListAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} category types", results.Count);
+
+        return results;
     }
 
     public async Task<Result<CategoryTypeDomain>> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)

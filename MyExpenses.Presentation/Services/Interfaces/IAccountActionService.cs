@@ -5,51 +5,13 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 
 public interface IAccountActionService
 {
-    /// <summary>
-    /// Manages the action to perform on a category type based on the given historical view model data.
-    /// </summary>
-    /// <param name="historyViewModel">The view model containing historical data, including details about the category type and associated entities.</param>
-    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Manages the action to be performed on a category type, optionally using the provided category type view model.
-    /// </summary>
-    /// <param name="categoryTypeViewModel">The view model representing the category type, which may be null if no specific category type is specified.</param>
-    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel = null,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Creates a category type based on the given input string.
-    /// </summary>
-    /// <param name="input">The input string representing the data required to create the category type.</param>
-    /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    public Task CreateCategoryType(string input, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Updates a category type based on the data provided in the view model and additional input.
-    /// </summary>
-    /// <param name="categoryTypeViewModel">The view model containing the details of the category type to be updated, including name, color, and other attributes.</param>
-    /// <param name="input">Additional input or metadata required to process the update operation.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests during the asynchronous operation.</param>
-    /// <returns>A task representing the asynchronous update operation.</returns>
-    public Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Deletes a category type based on the provided category type view model.
-    /// </summary>
-    /// <param name="categoryTypeViewModel">
-    /// The view model containing details of the category type to be deleted.
-    /// </param>
-    /// <param name="cancellationToken">
-    /// A token to observe for cancellation requests during the asynchronous operation.
-    /// </param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    public Task DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default);
+    // /// <summary>
+    // /// Manages the action to perform on a category type based on the given historical view model data.
+    // /// </summary>
+    // /// <param name="historyViewModel">The view model containing historical data, including details about the category type and associated entities.</param>
+    // /// <param name="cancellationToken">A token to observe for cancellation requests during the asynchronous operation.</param>
+    // /// <returns>A task representing the asynchronous operation.</returns>
+    // public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Manages the action to perform on an account type based on the given account view model state.

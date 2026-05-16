@@ -158,12 +158,13 @@ public partial class AddEditAccountWindow
         }
     }
 
+    // TODO try
     private async void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         try
         {
-            var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
-            await accountActionService.ManageCategoryTypeAction(HistoryViewModel);
+            var expenseActionService = App.ServiceProvider.GetRequiredService<IExpenseActionService>();
+            await expenseActionService.CreateCategoryType(HistoryViewModel.CategoryTypeViewModel!);
         }
         catch (Exception exception)
         {

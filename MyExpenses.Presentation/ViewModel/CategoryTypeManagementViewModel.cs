@@ -18,8 +18,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
 {
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ISystemPresentationService _systemPresentationService;
+    private readonly IExpenseActionService _expenseActionService;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
-    private readonly IDialogService _dialogService;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly ILogger<CategoryTypeManagementViewModel> _logger;
 
@@ -30,29 +30,31 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     [ObservableProperty]
     public partial bool IsEditCategoryType { get; private set; }
 
-    public CategoryTypeViewModel CategoryTypeViewModel { get; private set; } = new();
+    public CategoryTypeViewModel CategoryTypeViewModel { get; } = new();
 
     private CategoryTypeViewModel? _categoryTypeViewModelToLoad;
 
     public IAsyncRelayCommand LoadAllCategoryTypeCommand { get; }
     public IAsyncRelayCommand LoadAllColorCommand { get; }
-    public AsyncRelayCommand<CategoryTypeViewModel?> ManageCategoryTypeActionCommand { get; }
+    public IAsyncRelayCommand<CategoryTypeViewModel?> ManageCategoryTypeActionCommand { get; }
 
-    public IRelayCommand<CategoryTypeViewModel> DeleteCommand { get; }
+    public IAsyncRelayCommand<IClosable?> CreateCommand { get; }
+    public IAsyncRelayCommand<IClosable?> DeleteCommand { get; }
+    public IRelayCommand<CategoryTypeViewModel?> RemoveCommand { get; }
 
     public IRelayCommand<IClosable?> CancelCommand { get; }
 
     public CategoryTypeManagementViewModel(IExpensePresentationService expensePresentationService,
         ISystemPresentationService systemPresentationService,
+        IExpenseActionService expenseActionService,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
-        IDialogService dialogService,
         INavigationWindowService navigationWindowService,
         ILogger<CategoryTypeManagementViewModel> logger)
     {
         _expensePresentationService = expensePresentationService;
         _systemPresentationService = systemPresentationService;
+        _expenseActionService = expenseActionService;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
-        _dialogService = dialogService;
         _navigationWindowService = navigationWindowService;
         _logger = logger;
 
@@ -60,17 +62,33 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         LoadAllColorCommand = new AsyncRelayCommand(LoadAllColorAsync);
 
         ManageCategoryTypeActionCommand = new AsyncRelayCommand<CategoryTypeViewModel?>(ManageCategoryTypeAction);
-        DeleteCommand = new RelayCommand<CategoryTypeViewModel>(DeleteCategoryType);
         CancelCommand = new RelayCommand<IClosable?>(OnCancel);
+
+        CreateCommand = new AsyncRelayCommand<IClosable?>(CreateCategoryType);
+        DeleteCommand = new AsyncRelayCommand<IClosable?>(DeleteCategoryType);
+        RemoveCommand = new RelayCommand<CategoryTypeViewModel?>(RemoveCategoryType);
 
         RegisterMessages();
     }
 
-    private void OnCancel(IClosable? dialog)
+    private void RemoveCategoryType(CategoryTypeViewModel? item)
     {
-        dialog?.DialogResult = false;
-        dialog?.Close();
+        if (item is null) return;
+
+        CategoryTypeViewModels.Remove(item);
     }
+
+    private async Task CreateCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
+    {
+        var result = IsEditCategoryType
+            ? await _expenseActionService.UpdateCategoryType(CategoryTypeViewModel, cancellationToken)
+            : await _expenseActionService.CreateCategoryType(CategoryTypeViewModel, cancellationToken);
+
+        if (result) dialog?.Close();
+    }
+
+    private void OnCancel(IClosable? dialog)
+        => dialog?.Close();
 
     /// <summary>
     /// Registers messages that the ViewModel listens for using the messaging system.
@@ -86,7 +104,6 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, OnCategoryTypeChanged);
     }
 
-    // TODO try
     private void OnCategoryTypeChanged(object recipient, EntityChangedMessage<CategoryTypeViewModel> message)
     {
         if (message.Value.EntityType != DependencyType.CategoryType) return;
@@ -103,13 +120,9 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         }
     }
 
-    // TODO try
     private void ApplyAddAsync(CategoryTypeViewModel item)
-    {
-        CategoryTypeViewModels.AddAndSort(item, vm => vm.Name!);
-    }
+        => CategoryTypeViewModels.AddAndSort(item, vm => vm.Name!);
 
-    // TODO try
     private void ApplyUpdate(CategoryTypeViewModel vm)
     {
         var item = CategoryTypeViewModels.FirstOrDefault(s => s.Id == vm.Id);
@@ -118,7 +131,6 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _expenseDtoViewModelMapper.Merge(vm, item);
     }
 
-    // TODO try
     private void OnDeleteCategoryType(object recipient, EntityChangedMessage<int[]> message)
     {
         if (message.Value.EntityType != DependencyType.CategoryType ||
@@ -131,11 +143,10 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         }
     }
 
-    private void DeleteCategoryType(CategoryTypeViewModel? item)
+    private async Task DeleteCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
     {
-        if (item is null) return;
-
-        CategoryTypeViewModels.Remove(item);
+        var result = await _expenseActionService.DeleteCategoryType(CategoryTypeViewModel, cancellationToken);
+        if (result) dialog?.Close();
     }
 
     private Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel)
@@ -170,6 +181,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         var color = ColorViewModels.FirstOrDefault(c => c.Id == _categoryTypeViewModelToLoad.Color?.Id);
         if (color is not null) CategoryTypeViewModel.Color = color;
 
+        CategoryTypeViewModel.AcceptChanges();
         IsEditCategoryType = true;
     }
 }

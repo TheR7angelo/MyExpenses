@@ -27,93 +27,30 @@ public class AccountActionService(
 {
     private readonly IDialogService _dialogService = dialogService;
 
-    public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
-        => ManageCategoryTypeAction(historyViewModel.CategoryTypeViewModel, cancellationToken);
-
-    public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel, CancellationToken cancellationToken = default)
-    {
-        return ManageNamedEntityAction(
-            currentViewModel: categoryTypeViewModel,
-            getName: viewModel => viewModel.Name,
-            setName: (viewModel, name) => viewModel.Name = name,
-            maxNameLength: CategoryTypeDomain.MaxNameLength,
-            addTitle: ExpenseResources.TitleWindowAddCategoryTypeName,
-            editTitle: ExpenseResources.TitleWindowEditCategoryTypeName,
-            addPlaceholder: ExpenseResources.TextBoxAddNewCategoryTypeName,
-            editPlaceholder: ExpenseResources.TextBoxEditCategoryTypeName,
-            createValidationViewModel: () => new CategoryTypeViewModel(),
-            cloneValidationViewModel: expenseDtoViewModelMapper.Clone,
-            beforeValidationAsync: async viewModel => { viewModel.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken); },
-            validateAsync: ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>,
-            logValidationError: error => LogDomainValidationError("category type", error),
-            deleteAsync: DeleteCategoryType,
-            createAsync: CreateCategoryType,
-            updateAsync: UpdateCategoryType,
-            cancellationToken: cancellationToken);
-    }
-
-    public async Task CreateCategoryType(string input, CancellationToken cancellationToken = default)
-    {
-        if (!AskCreateConfirmation(input)) return;
-
-        var newCategoryTypeViewModel = new CategoryTypeViewModel
-        {
-            Name = input, Color = await systemPresentationService.GetRandomColorViewModel(cancellationToken)
-        };
-
-        var result = await expensePresentationService.CreateCategoryType(newCategoryTypeViewModel, cancellationToken);
-
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.CategoryType, DataAction.Add, newCategoryTypeViewModel);
-        }
-
-        ShowCreateResultMessage(result.IsSuccess, newCategoryTypeViewModel.Name);
-    }
-
-    public async Task UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, string input, CancellationToken cancellationToken = default)
-    {
-        if (!AskUpdateConfirmation(categoryTypeViewModel.Name, input)) return;
-
-        categoryTypeViewModel.Name = input;
-
-        var result = await expensePresentationService.UpdateCategoryTypeName(categoryTypeViewModel, cancellationToken);
-
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.CategoryType, DataAction.Update, categoryTypeViewModel);
-        }
-
-        ShowUpdateResultMessage(result.IsSuccess);
-    }
-
-    public async Task DeleteCategoryType(
-        CategoryTypeViewModel categoryTypeViewModel,
-        CancellationToken cancellationToken = default)
-    {
-        var dependencies = await systemPresentationService.GetAllDependenciesAsync(
-            categoryTypeViewModel,
-            cancellationToken);
-
-        var dependenciesArray = dependencies.ToArray();
-
-        var response = dependenciesArray.Length is 0
-            ? AskDeleteConfirmation(categoryTypeViewModel.Name)
-            : _dialogService.AskConfirmationOfDependenciesRemoval(
-                DependencyType.CategoryType,
-                dependenciesArray);
-
-        if (response is not MessageBoxResult.Yes) return;
-
-        var deleteResult = await expensePresentationService.DeleteCategoryTypeAsync(categoryTypeViewModel, cancellationToken);
-
-        if (deleteResult.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.CategoryType, DataAction.Delete, categoryTypeViewModel.Id);
-        }
-
-        ShowDeleteResultMessage(deleteResult.IsSuccess, categoryTypeViewModel.Name);
-    }
+    // public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    //     => ManageCategoryTypeAction(historyViewModel.CategoryTypeViewModel, cancellationToken);
+    //
+    // public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel, CancellationToken cancellationToken = default)
+    // {
+    //     return ManageNamedEntityAction(
+    //         currentViewModel: categoryTypeViewModel,
+    //         getName: viewModel => viewModel.Name,
+    //         setName: (viewModel, name) => viewModel.Name = name,
+    //         maxNameLength: CategoryTypeDomain.MaxNameLength,
+    //         addTitle: ExpenseResources.TitleWindowAddCategoryTypeName,
+    //         editTitle: ExpenseResources.TitleWindowEditCategoryTypeName,
+    //         addPlaceholder: ExpenseResources.TextBoxAddNewCategoryTypeName,
+    //         editPlaceholder: ExpenseResources.TextBoxEditCategoryTypeName,
+    //         createValidationViewModel: () => new CategoryTypeViewModel(),
+    //         cloneValidationViewModel: expenseDtoViewModelMapper.Clone,
+    //         beforeValidationAsync: async viewModel => { viewModel.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken); },
+    //         validateAsync: ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>,
+    //         logValidationError: error => LogDomainValidationError("category type", error),
+    //         deleteAsync: DeleteCategoryType,
+    //         createAsync: CreateCategoryType,
+    //         updateAsync: UpdateCategoryType,
+    //         cancellationToken: cancellationToken);
+    // }
 
     public Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
         => ManageAccountTypeAction(accountViewModel.AccountTypeViewModel, cancellationToken);

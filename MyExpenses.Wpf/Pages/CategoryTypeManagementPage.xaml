@@ -63,7 +63,7 @@
                                 <b:Interaction.Behaviors>
                                     <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
                                                                    Duration="0:0:1"
-                                                                   DeleteCommand="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                   DeleteCommand="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                                    DeleteCommandParameter="{Binding .}">
                                     </utils:DeleteAnimationBehavior>
                                 </b:Interaction.Behaviors>

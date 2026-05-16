@@ -64,11 +64,6 @@ public class DialogService : IDialogService
         MsgBox.MsgBox.Show(MessageBoxRessources.MessageBoxCaptionError, errorMessage, System.Windows.MessageBoxButton.OK, MsgBoxImage.Error);
     }
 
-    public void CloseDialog(IClosable dialog)
-    {
-        dialog.Close();
-    }
-
     private static System.Windows.MessageBoxButton ConvertButton(MessageBoxButton button)
     {
         return button switch

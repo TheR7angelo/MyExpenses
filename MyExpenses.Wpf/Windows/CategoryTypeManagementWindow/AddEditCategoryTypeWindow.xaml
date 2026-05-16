@@ -127,13 +127,15 @@
 
             <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonValidContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding CreateCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonDeleteContentCategoryType}}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding IsEditCategoryType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Click="ButtonDelete_OnClick">
+                    Command="{Binding DeleteCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Content="{localisations:Tr {x:Static resx:ExpenseResourceManager.ButtonCancelContentCategoryType}}"
