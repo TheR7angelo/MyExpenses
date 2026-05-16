@@ -1,8 +1,12 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
@@ -36,6 +40,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
 
     public IRelayCommand<CategoryTypeViewModel> DeleteCommand { get; }
 
+    public IRelayCommand<IClosable?> CancelCommand { get; }
+
     public CategoryTypeManagementViewModel(IExpensePresentationService expensePresentationService,
         ISystemPresentationService systemPresentationService,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
@@ -55,6 +61,74 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
 
         ManageCategoryTypeActionCommand = new AsyncRelayCommand<CategoryTypeViewModel?>(ManageCategoryTypeAction);
         DeleteCommand = new RelayCommand<CategoryTypeViewModel>(DeleteCategoryType);
+        CancelCommand = new RelayCommand<IClosable?>(OnCancel);
+
+        RegisterMessages();
+    }
+
+    private void OnCancel(IClosable? dialog)
+    {
+        dialog?.DialogResult = false;
+        dialog?.Close();
+    }
+
+    /// <summary>
+    /// Registers messages that the ViewModel listens for using the messaging system.
+    /// </summary>
+    /// <remarks>
+    /// This method is responsible for subscribing to messages related to account changes
+    /// and deletions. It enables the ViewModel to respond to these events and update its
+    /// state accordingly when other components in the application signal changes in account data.
+    /// </remarks>
+    private void RegisterMessages()
+    {
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnDeleteCategoryType);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, OnCategoryTypeChanged);
+    }
+
+    // TODO try
+    private void OnCategoryTypeChanged(object recipient, EntityChangedMessage<CategoryTypeViewModel> message)
+    {
+        if (message.Value.EntityType != DependencyType.CategoryType) return;
+
+        switch (message.Value.DataAction)
+        {
+            case DataAction.Update:
+                ApplyUpdate(message.Value.Content);
+                break;
+
+            case DataAction.Add:
+                ApplyAddAsync(message.Value.Content);
+                break;
+        }
+    }
+
+    // TODO try
+    private void ApplyAddAsync(CategoryTypeViewModel item)
+    {
+        CategoryTypeViewModels.AddAndSort(item, vm => vm.Name!);
+    }
+
+    // TODO try
+    private void ApplyUpdate(CategoryTypeViewModel vm)
+    {
+        var item = CategoryTypeViewModels.FirstOrDefault(s => s.Id == vm.Id);
+        if (item is null) return;
+
+        _expenseDtoViewModelMapper.Merge(vm, item);
+    }
+
+    // TODO try
+    private void OnDeleteCategoryType(object recipient, EntityChangedMessage<int[]> message)
+    {
+        if (message.Value.EntityType != DependencyType.CategoryType ||
+            message.Value.DataAction != DataAction.Delete)
+            return;
+
+        foreach (var item in CategoryTypeViewModels.Where(s => message.Value.Content.Contains(s.Id)))
+        {
+            item.IsDeleting = true;
+        }
     }
 
     private void DeleteCategoryType(CategoryTypeViewModel? item)

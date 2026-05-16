@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -21,7 +22,7 @@ using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
-public partial class AddEditCategoryTypeWindow
+public partial class AddEditCategoryTypeWindow : IClosable
 {
     // // ReSharper disable once HeapView.BoxingAllocation
     // // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -159,17 +160,6 @@ public partial class AddEditCategoryTypeWindow
         //
         // DialogResult = true;
         // Close();
-    }
-
-    private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-    {
-        // var textBox = (TextBox)sender;
-        //
-        // var categoryTypeName = textBox.Text;
-        // if (string.IsNullOrEmpty(categoryTypeName)) return;
-        //
-        // // var alreadyExist = CheckCategoryTypeName(categoryTypeName);
-        // // if (alreadyExist) ShowErrorMessage();
     }
 
     #endregion
