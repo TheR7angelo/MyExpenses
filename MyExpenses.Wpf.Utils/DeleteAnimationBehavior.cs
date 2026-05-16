@@ -57,7 +57,7 @@ public class DeleteAnimationBehavior : Behavior<FrameworkElement>
 
     private void StartAnimation()
     {
-        if (_isAnimationRunning || AssociatedObject == null) return;
+        if (_isAnimationRunning || AssociatedObject is null) return;
         _isAnimationRunning = true;
 
         var element = AssociatedObject;
@@ -88,7 +88,7 @@ public class DeleteAnimationBehavior : Behavior<FrameworkElement>
 
         sb.Completed += (_, _) =>
         {
-            if (_isAnimationRunning || AssociatedObject == null) return;
+            if (_isAnimationRunning || AssociatedObject is null) return;
             _isAnimationRunning = true;
 
             var cmd = DeleteCommand;
