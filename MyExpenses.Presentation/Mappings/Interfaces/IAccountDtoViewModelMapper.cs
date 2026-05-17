@@ -91,6 +91,13 @@ public interface IAccountDtoViewModelMapper
     public void Merge(AccountViewModel src, TotalByAccountViewModel dest);
 
     /// <summary>
+    /// Merges the data from the source CurrencyViewModel into the destination CurrencyViewModel.
+    /// </summary>
+    /// <param name="src">The source CurrencyViewModel containing the data to be merged.</param>
+    /// <param name="dest">The destination CurrencyViewModel into which the data will be merged.</param>
+    public void Merge(CurrencyViewModel src, CurrencyViewModel dest);
+
+    /// <summary>
     /// Maps a Result of AccountTypeDto to a Result of AccountTypeViewModel.
     /// </summary>
     /// <param name="src">The Result object containing an AccountTypeDto to map.</param>

@@ -132,9 +132,12 @@ public class AccountActionService(
     }
 
     public Task ManageCurrencyAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+        => ManageCurrencyAction(accountViewModel.CurrencyViewModel, cancellationToken);
+
+    public Task ManageCurrencyAction(CurrencyViewModel? currencyViewModel, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: accountViewModel.CurrencyViewModel,
+            currentViewModel: currencyViewModel,
             getName: viewModel => viewModel.Symbol,
             setName: (viewModel, name) => viewModel.Symbol = name,
             maxNameLength: CurrencyDomain.MaxSymbolLength,
@@ -199,12 +202,7 @@ public class AccountActionService(
 
         var deleteResult = await accountPresentationService.DeleteCurrencyAsync(currencyViewModel, cancellationToken);
 
-        if (deleteResult.IsSuccess)
-        {
-            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
-            SendEntityChangedMessage(DependencyType.Currency, DataAction.Delete, currencyViewModel.Id);
-        }
-
+        if (deleteResult.IsSuccess) SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
         ShowDeleteResultMessage(deleteResult.IsSuccess, currencyViewModel.Symbol);
     }
 

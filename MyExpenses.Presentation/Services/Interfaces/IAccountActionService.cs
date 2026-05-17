@@ -64,6 +64,14 @@ public interface IAccountActionService
     public Task ManageCurrencyAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Manages the action to perform on a currency based on the given currency view model state.
+    /// </summary>
+    /// <param name="currencyViewModel">The view model representing the currency data and its current state.</param>
+    /// <param name="cancellationToken">A token to observe for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public Task ManageCurrencyAction(CurrencyViewModel? currencyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Creates a new currency based on the provided input data.
     /// </summary>
     /// <param name="input">The input string containing the information required to create the currency.</param>

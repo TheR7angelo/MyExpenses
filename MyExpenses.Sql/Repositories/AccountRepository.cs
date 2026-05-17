@@ -356,6 +356,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
 
             var result = new Dictionary<DependencyType, int[]>
             {
+                { DependencyType.Currency, [currencyDomain.Id] },
                 { DependencyType.Account, accountIds },
                 { DependencyType.Expense, expenseIds },
                 { DependencyType.BankTransfer, bankTransferIds },

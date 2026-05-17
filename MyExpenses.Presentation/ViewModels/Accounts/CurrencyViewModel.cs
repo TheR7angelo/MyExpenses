@@ -1,26 +1,24 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Domain.Models.Accounts;
-using Domain.Models.Validation;
-using MyExpenses.Presentation.Validations.Attributes;
+using FluentValidation.Results;
+using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Accounts;
 
 [DirtyTracking]
-public partial class CurrencyViewModel : ObservableValidator
+public partial class CurrencyViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    public partial int Id { get; set; }
+    public int Id { get; set; }
 
     [DirtyTrackedProperty]
     [ObservableProperty]
-    [NotifyDataErrorInfo]
-    [RequiredWithCode(ErrorCode.NameRequired, ErrorMessage = "Currency name is required")]
-    [MaxLengthWithCode(CurrencyDomain.MaxSymbolLength, ErrorCode.NameTooLong, ErrorMessage = "Currency symbol cannot exceed 55 characters")]
     public partial string? Symbol { get; set; } = string.Empty;
 
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
-    public IEnumerable<DomainValidationResult> GetErrorCodes()
-        => GetErrors().OfType<DomainValidationResult>();
+    [ObservableProperty]
+    public partial bool IsDeleting { get; set; }
+
+    public new void ValidateWithFluent(ValidationResult result)
+        => base.ValidateWithFluent(result);
 }

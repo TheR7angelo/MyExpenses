@@ -52,6 +52,8 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     [MapProperty(nameof(AccountViewModel.CurrencyViewModel.Symbol), nameof(TotalByAccountViewModel.Symbol))]
     public partial void Merge(AccountViewModel src, TotalByAccountViewModel dest);
 
+    public partial void Merge(CurrencyViewModel src, CurrencyViewModel dest);
+
     public Result<AccountTypeViewModel> MapToViewModel(Result<AccountTypeDto> src)
         => src.Map(MapToViewModel);
 
