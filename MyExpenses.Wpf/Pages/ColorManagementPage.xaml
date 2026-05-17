@@ -6,17 +6,18 @@
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
 
       Title="ColorManagementPage"
 
       d:DesignHeight="450"
       d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:ColorManagementViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Grid>
 
@@ -32,7 +33,7 @@
                 <Button Height="56"
                         Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                        Click="ButtonAddColor_OnClick">
+                        Command="{Binding ManageColorCommand}">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="Plus"
                                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
@@ -41,7 +42,7 @@
                     </Button.Content>
                 </Button>
 
-                <ItemsControl ItemsSource="{Binding Colors}"
+                <ItemsControl ItemsSource="{Binding ColorViewModels}"
                               utils:ItemsControlExtensions.UniformSize="True"
                               utils:ItemsControlExtensions.IsLiveUpdate="True">
 
@@ -56,30 +57,42 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
-                            <Button
-                                Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonEditColor_OnClick">
+                            <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Duration=0:0:0.5, Kind=ExpandIn}">
 
-                                <Button.Content>
-                                    <StackPanel margin:PanelExtensions.MarginForAllChildren="3"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal">
+                                <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                        Style="{StaticResource MaterialDesignPaperButton}"
+                                        Command="{Binding DataContext.ManageColorCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding .}">
 
-                                        <TextBlock HorizontalAlignment="Left"
-                                                   Text="{Binding Name}">
-                                        </TextBlock>
+                                    <b:Interaction.Behaviors>
+                                        <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
+                                                                       Duration="0:0:1"
+                                                                       DeleteCommand="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                       DeleteCommandParameter="{Binding .}">
+                                        </utils:DeleteAnimationBehavior>
+                                    </b:Interaction.Behaviors>
 
-                                        <!-- Fill.FallbackValue = Colors.Transparent -->
-                                        <Ellipse HorizontalAlignment="Right"
-                                                 Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="1"
-                                                 Height="24" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                                                 Fill="{Binding HexadecimalColorCode, FallbackValue='#00FFFFFF'}">
-                                        </Ellipse>
+                                    <Button.Content>
+                                        <StackPanel margin:PanelExtensions.MarginForAllChildren="3"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Horizontal">
 
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
+                                            <TextBlock HorizontalAlignment="Left"
+                                                       Text="{Binding Name}">
+                                            </TextBlock>
+
+                                            <!-- Fill.FallbackValue = Colors.Transparent -->
+                                            <Ellipse HorizontalAlignment="Right"
+                                                     Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="1"
+                                                     Height="24" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                                     Fill="{Binding HexadecimalColorCode, FallbackValue='#00FFFFFF'}">
+                                            </Ellipse>
+
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+
+                            </materialDesign:TransitioningContent>
 
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

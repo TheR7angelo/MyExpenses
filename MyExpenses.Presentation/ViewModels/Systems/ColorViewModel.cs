@@ -20,6 +20,9 @@ public partial class ColorViewModel : BaseViewModel
 
     public DateTime? DateAdded { get; set; }
 
+    [ObservableProperty]
+    public partial bool IsDeleting { get; set; }
+
     public new void ValidateWithFluent(ValidationResult result)
         => base.ValidateWithFluent(result);
 }

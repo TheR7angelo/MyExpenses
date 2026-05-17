@@ -1,19 +1,8 @@
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Presentation.Enums;
-using MyExpenses.Presentation.ViewModels.Systems;
-using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Windows;
-using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -21,7 +10,7 @@ public partial class ColorManagementPage
 {
     public ObservableCollection<TColor> Colors { get; }
 
-    public ColorManagementPage()
+    public ColorManagementPage(ColorManagementViewModel vm)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
@@ -30,6 +19,9 @@ public partial class ColorManagementPage
         Colors = [..context.TColors.OrderBy(s => s.Name)];
 
         InitializeComponent();
+
+        DataContext = vm;
+        Loaded += async (_, _) => await vm.LoadCommand.ExecuteAsync(null);
     }
 
     #region Action
