@@ -19,36 +19,10 @@ public class AccountActionService(
     ISystemPresentationService systemPresentationService,
     IExpensePresentationService expensePresentationService,
     IAccountDtoViewModelMapper accountDtoViewModelMapper,
-    IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
     IServiceProvider serviceProvider,
     ILogger<AccountActionService> logger) : AActionService(dialogService, logger, serviceProvider), IAccountActionService
 {
     private readonly IDialogService _dialogService = dialogService;
-
-    // public Task ManageCategoryTypeAction(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
-    //     => ManageCategoryTypeAction(historyViewModel.CategoryTypeViewModel, cancellationToken);
-    //
-    // public Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel, CancellationToken cancellationToken = default)
-    // {
-    //     return ManageNamedEntityAction(
-    //         currentViewModel: categoryTypeViewModel,
-    //         getName: viewModel => viewModel.Name,
-    //         setName: (viewModel, name) => viewModel.Name = name,
-    //         maxNameLength: CategoryTypeDomain.MaxNameLength,
-    //         addTitle: ExpenseResources.TitleWindowAddCategoryTypeName,
-    //         editTitle: ExpenseResources.TitleWindowEditCategoryTypeName,
-    //         addPlaceholder: ExpenseResources.TextBoxAddNewCategoryTypeName,
-    //         editPlaceholder: ExpenseResources.TextBoxEditCategoryTypeName,
-    //         createValidationViewModel: () => new CategoryTypeViewModel(),
-    //         cloneValidationViewModel: expenseDtoViewModelMapper.Clone,
-    //         beforeValidationAsync: async viewModel => { viewModel.Color ??= await systemPresentationService.GetRandomColorViewModel(cancellationToken); },
-    //         validateAsync: ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>,
-    //         logValidationError: error => LogDomainValidationError("category type", error),
-    //         deleteAsync: DeleteCategoryType,
-    //         createAsync: CreateCategoryType,
-    //         updateAsync: UpdateCategoryType,
-    //         cancellationToken: cancellationToken);
-    // }
 
     public Task ManageAccountTypeAction(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
         => ManageAccountTypeAction(accountViewModel.AccountTypeViewModel, cancellationToken);
@@ -82,10 +56,7 @@ public class AccountActionService(
         var newAccountType = new AccountTypeViewModel { Name = input };
         var result = await accountPresentationService.AddAccountType(newAccountType, cancellationToken);
 
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.AccountType, DataAction.Add, result.Value);
-        }
+        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.AccountType, DataAction.Add, result.Value);
 
         ShowCreateResultMessage(result.IsSuccess, newAccountType.Name);
     }
@@ -99,10 +70,7 @@ public class AccountActionService(
 
         var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
 
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.AccountType, DataAction.Update, accountTypeViewModel);
-        }
+        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.AccountType, DataAction.Update, accountTypeViewModel);
 
         ShowUpdateResultMessage(result.IsSuccess);
     }
@@ -122,11 +90,7 @@ public class AccountActionService(
 
         var deleteResult = await accountPresentationService.DeleteAccountTypeAsync(accountTypeViewModel, cancellationToken);
 
-        if (deleteResult.IsSuccess)
-        {
-            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
-            SendEntityChangedMessage(DependencyType.AccountType, DataAction.Delete, accountTypeViewModel.Id);
-        }
+        if (deleteResult.IsSuccess) SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
 
         ShowDeleteResultMessage(deleteResult.IsSuccess, accountTypeViewModel.Name);
     }
