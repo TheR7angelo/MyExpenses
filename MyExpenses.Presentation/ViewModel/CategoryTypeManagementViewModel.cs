@@ -118,10 +118,9 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<ColorViewModel>>(this, OnColorChanged);
     }
 
-    // TODO try
     private void OnColorChanged(object recipient, EntityChangedMessage<ColorViewModel> message)
     {
-        if (message.Value.EntityType != DependencyType.CategoryType) return;
+        if (message.Value.EntityType is not DependencyType.Color) return;
 
         switch (message.Value.DataAction)
         {
@@ -135,14 +134,12 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         }
     }
 
-    // TODO try
     private void ApplyAddAsync(ColorViewModel item)
     {
         ColorViewModels.AddAndSort(item, vm => vm.Name!);
         CategoryTypeViewModel.Color = item;
     }
 
-    // TODO try
     private void ApplyUpdate(ColorViewModel vm)
     {
         var item = ColorViewModels.FirstOrDefault(s => s.Id == vm.Id);

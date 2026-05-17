@@ -20,7 +20,7 @@ public class SystemActionService(ISystemPresentationService systemPresentationSe
         var valResultColor = await ValidateAsync<ColorViewModelValidator, ColorViewModel>(colorViewModel, cancellationToken);
         if (valResultColor.IsValid)
         {
-            if (AskCreateConfirmation(colorViewModel.Name!)) return Result<ColorViewModel>.Failure(ErrorCode.None, "Create cancelled.");
+            if (!AskCreateConfirmation(colorViewModel.Name!)) return Result<ColorViewModel>.Failure(ErrorCode.None, "Create cancelled.");
 
             var result = await systemPresentationService.CreateColorAsync(colorViewModel, cancellationToken);
             ShowCreateResultMessage(result.IsSuccess, colorViewModel.Name!);
