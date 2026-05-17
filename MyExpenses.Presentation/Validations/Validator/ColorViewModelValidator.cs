@@ -5,7 +5,7 @@ using MyExpenses.Presentation.Resources.Resx.SystemResources;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Systems;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 public class ColorViewModelValidator() : AbstractValidator<ColorViewModel>
 {

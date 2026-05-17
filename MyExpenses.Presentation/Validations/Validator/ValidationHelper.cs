@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 public static class ValidationHelper
 {

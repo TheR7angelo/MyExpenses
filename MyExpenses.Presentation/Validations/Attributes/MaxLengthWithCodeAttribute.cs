@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Domain.Models.Validation;
+using MyExpenses.Presentation.Validations.Validator;
 
 namespace MyExpenses.Presentation.Validations.Attributes;
 

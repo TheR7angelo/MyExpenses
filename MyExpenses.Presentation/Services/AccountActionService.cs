@@ -1,14 +1,12 @@
 using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
-using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
-using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
+using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MessageBoxResult = MyExpenses.Presentation.Enums.MessageBoxResult;

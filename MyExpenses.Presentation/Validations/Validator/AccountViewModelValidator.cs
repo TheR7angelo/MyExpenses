@@ -5,7 +5,7 @@ using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 public class AccountViewModelValidator : AbstractValidator<AccountViewModel>
 {

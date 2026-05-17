@@ -7,7 +7,7 @@ using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 public class CurrencyViewModelValidator : AbstractValidator<CurrencyViewModel>
 {

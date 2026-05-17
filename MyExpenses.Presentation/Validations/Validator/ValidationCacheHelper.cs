@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 /// <summary>
 /// Provides caching mechanisms for retrieving localized validation messages associated with

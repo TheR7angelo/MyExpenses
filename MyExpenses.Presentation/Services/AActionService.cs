@@ -8,7 +8,7 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
+using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.Services;

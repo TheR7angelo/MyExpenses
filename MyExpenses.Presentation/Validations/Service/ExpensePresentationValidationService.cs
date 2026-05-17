@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Presentation.Validations.Interfaces;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Service;
 
 public class ExpensePresentationValidationService(ILogger<ExpensePresentationValidationService> logger,
     IExpenseValidationRepository expenseValidationRepository) : IExpensePresentationValidationService

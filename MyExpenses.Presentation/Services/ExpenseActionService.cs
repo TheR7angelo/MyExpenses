@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
+using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services;

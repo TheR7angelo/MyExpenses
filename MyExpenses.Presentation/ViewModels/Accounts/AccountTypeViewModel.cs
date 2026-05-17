@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using MyExpenses.Presentation.Validations;
+using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Accounts;

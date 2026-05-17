@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Validations.Interfaces;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Service;
 
 public class SystemPresentationValidationService(ISystemService systemService,
     ILogger<SystemPresentationValidationService> logger) : ISystemPresentationValidationService

@@ -3,7 +3,7 @@ using System.Resources;
 using Domain.Models.Validation;
 using FluentValidation;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Validator;
 
 /// <summary>
 /// Provides extension methods for validation rules within the application.

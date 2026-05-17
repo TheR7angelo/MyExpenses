@@ -3,7 +3,7 @@ using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 
-namespace MyExpenses.Presentation.Validations;
+namespace MyExpenses.Presentation.Validations.Service;
 
 public class AccountPresentationValidationService(IAccountValidationRepository accountValidationRepository,
     ILogger<AccountPresentationValidationService> logger)

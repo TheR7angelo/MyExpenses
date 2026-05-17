@@ -2,8 +2,9 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
-using MyExpenses.Presentation.Validations;
 using MyExpenses.Presentation.Validations.Interfaces;
+using MyExpenses.Presentation.Validations.Service;
+using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModel;
 
 namespace MyExpenses.Presentation.DependencyInjections;
