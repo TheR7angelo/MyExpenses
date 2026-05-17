@@ -14,41 +14,178 @@ using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Presentation.ViewModel;
 
+/// <summary>
+/// Represents the view model for managing category types within the application.
+/// </summary>
+/// <remarks>
+/// This view model serves as the data context for the associated UI page and provides
+/// properties, commands, and logic for managing category types and their associated actions.
+/// Key responsibilities include handling CRUD operations for category types, managing related
+/// color configurations, and facilitating interaction between the presentation layer and
+/// service layers.
+/// </remarks>
 [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers, Reason = "Instantiated dynamically by the dependency injection container and bound to the View via DataContext.")]
 public partial class CategoryTypeManagementViewModel : ViewModelBase
 {
-
+    /// <summary>
+    /// Provides access to a service responsible for handling presentation-related logic for expenses.
+    /// This service is used to interact with and retrieve expense-related data to support view models
+    /// and presentation logic in the application.
+    /// </summary>
     private readonly IExpensePresentationService _expensePresentationService;
+
+    /// <summary>
+    /// Provides access to a service responsible for handling system-related presentation logic.
+    /// This service is used to manage and retrieve data necessary for presenting information
+    /// about various system components, such as colors or other system-level configurations.
+    /// </summary>
     private readonly ISystemPresentationService _systemPresentationService;
+
+    /// <summary>
+    /// Provides access to a service responsible for executing business actions related to expense management.
+    /// This service is used for creating, updating, and deleting expense-related entities, ensuring
+    /// the application maintains a consistent state during these operations.
+    /// </summary>
     private readonly IExpenseActionService _expenseActionService;
+
+    /// <summary>
+    /// Provides functionality to map and merge data between expense-related DTOs and ViewModels.
+    /// This mapper is used to ensure synchronization and cohesive data representation
+    /// between different layers within the application.
+    /// </summary>
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+
+    /// <summary>
+    /// Provides functionality for mapping and merging data between system DTOs and view models.
+    /// This mapper is used to synchronize data between the application's data transfer objects (DTOs)
+    /// and its presentation layer, ensuring consistency and reducing duplication across the ViewModel layer.
+    /// </summary>
     private readonly ISystemDtoViewModelMapper _systemDtoViewModelMapper;
+
+    /// <summary>
+    /// Provides access to a service responsible for handling navigation and window management
+    /// within the application. This service is utilized for opening and managing specific windows
+    /// or views, ensuring seamless navigation across different parts of the user interface.
+    /// </summary>
     private readonly INavigationWindowService _navigationWindowService;
 
+    /// <summary>
+    /// Represents a collection of category type view models used for managing and organizing category types.
+    /// Provides data binding support for category type-related operations in the view, enabling manipulation
+    /// and display of category type information within the application.
+    /// </summary>
     public ObservableCollection<CategoryTypeViewModel> CategoryTypeViewModels { get; } = [];
 
+    /// <summary>
+    /// Represents a collection of available color view models used for managing and assigning
+    /// colors within the application. This property is dynamically populated and interacts
+    /// with various components, such as dropdowns or selection elements, to provide color options.
+    /// </summary>
     public ObservableCollection<ColorViewModel> ColorViewModels { get; } = [];
 
+    /// <summary>
+    /// Indicates whether the current operation is to edit an existing category type.
+    /// This property is used to determine the application's behavior or UI presentation related to
+    /// category type management, such as enabling or disabling controls for modification or display purposes.
+    /// </summary>
     [ObservableProperty]
     public partial bool IsEditCategoryType { get; private set; }
 
+    /// <summary>
+    /// Represents the view model for a specific category type.
+    /// This view model includes properties and logic that describe and support the binding
+    /// of category type-related data within the application's user interface.
+    /// </summary>
     public CategoryTypeViewModel CategoryTypeViewModel { get; } = new();
 
+    /// <summary>
+    /// Represents the instance of <see cref="CategoryTypeViewModel"/> to be loaded and merged
+    /// into the current view model during data initialization or update.
+    /// This variable is dynamically set when specific category type data needs to be processed
+    /// or edited within the view model context.
+    /// </summary>
     private CategoryTypeViewModel? _categoryTypeViewModelToLoad;
 
+    /// <summary>
+    /// Represents an asynchronous command responsible for loading all category types in the application.
+    /// This command interacts with the underlying services to retrieve and populate the list of available category types
+    /// within the associated view model. Typically used during initialization or when refreshing category type data.
+    /// </summary>
     public IAsyncRelayCommand LoadAllCategoryTypeCommand { get; }
+
+    /// <summary>
+    /// Represents an asynchronous command responsible for loading all available colors
+    /// into the ViewModel. This command retrieves color data and populates
+    /// the ColorViewModels collection to support UI elements that depend on color data.
+    /// </summary>
     public IAsyncRelayCommand LoadAllColorCommand { get; }
+
+    /// <summary>
+    /// Represents an asynchronous command for managing actions related to a specific category type.
+    /// This command is typically invoked from UI interactions, such as button clicks, to handle
+    /// the creation, editing, or removal of category types. It requires a parameter of type
+    /// <see cref="CategoryTypeViewModel"/> to specify the category type to be managed.
+    /// </summary>
     public IAsyncRelayCommand<CategoryTypeViewModel?> ManageCategoryTypeActionCommand { get; }
+
+    /// <summary>
+    /// Represents a command that manages the logic for handling color-related actions
+    /// within the context of category type management. This command is invoked
+    /// to perform operations or modifications associated with colors, and is
+    /// typically executed from the user interface.
+    /// </summary>
     public IRelayCommand<IClosable?> ManageColorCommand { get; }
 
+    /// <summary>
+    /// Represents a command to create or update a category type.
+    /// This command is used in the context of category type management to handle operations
+    /// that either create a new category type or update an existing one.
+    /// Bound to the UI for execution, typically receiving an <see cref="IClosable"/> parameter
+    /// representing the corresponding view or dialog to manage its state after the operation completes.
+    /// </summary>
     public IAsyncRelayCommand<IClosable?> CreateOrUpdateCommand { get; }
+
+    /// <summary>
+    /// Represents an asynchronous command used to delete a category type from the system.
+    /// This command is typically bound to a UI element to handle the deletion logic when invoked.
+    /// The command expects an implementation of <see cref="IClosable"/> as its parameter,
+    /// which is used to manage the closing behavior of the associated window or view.
+    /// </summary>
     public IAsyncRelayCommand<IClosable?> DeleteCommand { get; }
+
+    /// <summary>
+    /// Represents a command responsible for removing a specific category type from the view model.
+    /// This command is typically bound to the UI to enable removal functionality and is triggered
+    /// with a parameter of type <see cref="CategoryTypeViewModel"/>.
+    /// </summary>
     public IRelayCommand<CategoryTypeViewModel?> RemoveCommand { get; }
 
+    /// <summary>
+    /// Represents a command that allows the cancellation of an ongoing operation
+    /// and interacts with a closable element, such as a dialog or a window.
+    /// Executing this command typically signals that the current process or
+    /// workflow should be discontinued, and the associated UI element should be closed.
+    /// </summary>
     public IRelayCommand<IClosable?> CancelCommand { get; }
 
-    public IClosable? Closeable { get; private set; }
+    /// <summary>
+    /// Represents an entity that facilitates the management of a closeable resource or dialog
+    /// within the context of category type management.
+    /// This property is used to interact with and control the lifecycle of a dialog-like
+    /// resource, allowing for actions such as closing or setting dialog results.
+    /// </summary>
+    private IClosable? _closeable;
 
+    /// <summary>
+    /// Represents the ViewModel responsible for managing category types and related operations
+    /// within the application. This ViewModel is dynamically instantiated and bound to the View via DataContext.
+    /// </summary>
+    /// <remarks>
+    /// The CategoryTypeManagementViewModel handles the interaction with the services and commands
+    /// necessary for loading, managing, creating, updating, and deleting category types as well as managing colors.
+    /// It serves as the mediator between the UI and the core business logic, leveraging dependency injection
+    /// to access required operations and mappings.
+    /// </remarks>
     public CategoryTypeManagementViewModel(IExpensePresentationService expensePresentationService,
         ISystemPresentationService systemPresentationService,
         IExpenseActionService expenseActionService,
@@ -78,12 +215,29 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         RegisterMessages();
     }
 
+    /// <summary>
+    /// Executes the action to manage color settings associated with a category type by opening
+    /// the color management window. The method also tracks the provided closable context for
+    /// future operations.
+    /// </summary>
+    /// <param name="closeable">
+    /// An optional instance of an object implementing the <see cref="IClosable"/> interface,
+    /// used to manage the close operation of the invoking context.
+    /// </param>
     private void ManageColorAction(IClosable? closeable)
     {
-        Closeable = closeable;
+        _closeable = closeable;
         _navigationWindowService.ShowColorManagementWindow(CategoryTypeViewModel.Color);
     }
 
+    /// <summary>
+    /// Removes the specified category type from the collection of category types,
+    /// if it exists within the collection.
+    /// </summary>
+    /// <param name="item">
+    /// The <see cref="CategoryTypeViewModel"/> instance to be removed. If the value is null,
+    /// the method will exit without modifying the collection.
+    /// </param>
     private void RemoveCategoryType(CategoryTypeViewModel? item)
     {
         if (item is null) return;
@@ -91,6 +245,13 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         CategoryTypeViewModels.Remove(item);
     }
 
+    /// <summary>
+    /// Handles the creation or updating of a category type based on the current operation state
+    /// (create or edit). If the operation is successful, the provided dialog is closed.
+    /// </summary>
+    /// <param name="dialog">An instance of a closable dialog that will be closed upon successful operation.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     private async Task CreateCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         var result = IsEditCategoryType
@@ -118,10 +279,17 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<ColorViewModel>>(this, OnColorChanged);
     }
 
+    /// <summary>
+    /// Handles the event triggered when a color entity changes. This method processes the
+    /// action (add or update) and applies the necessary updates to the current state of color-related data.
+    /// </summary>
+    /// <param name="recipient">The recipient object that registered for the message. Typically, this is the ViewModel instance.</param>
+    /// <param name="message">The message containing information about the changed <see cref="ColorViewModel"/> entity, including the action type and associated data.</param>
     private void OnColorChanged(object recipient, EntityChangedMessage<ColorViewModel> message)
     {
         if (message.Value.EntityType is not DependencyType.Color) return;
 
+        // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
         switch (message.Value.DataAction)
         {
             case DataAction.Update:
@@ -134,12 +302,31 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Adds a new <see cref="ColorViewModel"/> item to the collection of colors and updates the color property
+    /// in the associated category type view model.
+    /// </summary>
+    /// <param name="item">
+    /// The <see cref="ColorViewModel"/> instance to be added to the collection.
+    /// </param>
     private void ApplyAddAsync(ColorViewModel item)
     {
         ColorViewModels.AddAndSort(item, vm => vm.Name!);
         CategoryTypeViewModel.Color = item;
     }
 
+    /// <summary>
+    /// Updates an existing <see cref="ColorViewModel"/> in the collection with new data from the specified source.
+    /// </summary>
+    /// <param name="vm">
+    /// The <see cref="ColorViewModel"/> containing updated data that will be
+    /// merged into the corresponding model in the <see cref="CategoryTypeManagementViewModel.ColorViewModels"/> collection.
+    /// </param>
+    /// <remarks>
+    /// This method locates the target <see cref="ColorViewModel"/> in the collection based on its <see cref="ColorViewModel.Id"/>.
+    /// If a match is found, the mapped data is merged into the existing model using the <see cref="ISystemDtoViewModelMapper.Merge"/> method.
+    /// If no matching model is found, the method terminates without any changes.
+    /// </remarks>
     private void ApplyUpdate(ColorViewModel vm)
     {
         var item = ColorViewModels.FirstOrDefault(s => s.Id == vm.Id);
@@ -148,6 +335,19 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _systemDtoViewModelMapper.Merge(vm, item);
     }
 
+    /// <summary>
+    /// Handles the changes in the category type by processing incoming messages
+    /// containing information about the data action (add or update) and applying
+    /// the corresponding updates to the list of category types.
+    /// </summary>
+    /// <param name="recipient">
+    /// The recipient object that registered to listen for category type change messages. Typically, this will
+    /// be the instance of the view model itself.
+    /// </param>
+    /// <param name="message">
+    /// The message containing details of the category type change. This includes the entity type, the action
+    /// performed (add or update), and the content that is either being added or updated.
+    /// </param>
     private void OnCategoryTypeChanged(object recipient, EntityChangedMessage<CategoryTypeViewModel> message)
     {
         if (message.Value.EntityType != DependencyType.CategoryType) return;
@@ -164,9 +364,27 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Adds a new <see cref="CategoryTypeViewModel"/> to the collection of category type view models and ensures
+    /// the collection remains sorted based on the category type name.
+    /// </summary>
+    /// <param name="item">The <see cref="CategoryTypeViewModel"/> instance to be added to the collection.</param>
     private void ApplyAddAsync(CategoryTypeViewModel item)
         => CategoryTypeViewModels.AddAndSort(item, vm => vm.Name!);
 
+    /// <summary>
+    /// Updates an existing category type in the collection using the provided ViewModel.
+    /// </summary>
+    /// <remarks>
+    /// This method finds the corresponding category type in the CategoryTypeViewModels collection
+    /// based on the Id of the specified ViewModel. If the matching category type exists,
+    /// it merges the changes from the given ViewModel into the existing item using the
+    /// IExpenseDtoViewModelMapper implementation.
+    /// </remarks>
+    /// <param name="vm">
+    /// The ViewModel containing the updated category type data. The `Id` property of this
+    /// ViewModel is used to locate the corresponding category type in the collection.
+    /// </param>
     private void ApplyUpdate(CategoryTypeViewModel vm)
     {
         var item = CategoryTypeViewModels.FirstOrDefault(s => s.Id == vm.Id);
@@ -175,6 +393,17 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _expenseDtoViewModelMapper.Merge(vm, item);
     }
 
+    /// <summary>
+    /// Handles the deletion of entities based on the received message, updating or removing the corresponding
+    /// items in the respective collections within the ViewModel.
+    /// </summary>
+    /// <param name="recipient">
+    /// The recipient of the message, typically the instance of the ViewModel subscribing to the notification.
+    /// </param>
+    /// <param name="message">
+    /// The message containing details about the deletion, including the entity type, the action performed,
+    /// and the list of affected entity IDs.
+    /// </param>
     private void OnDelete(object recipient, EntityChangedMessage<int[]> message)
     {
         if (message.Value.DataAction is not DataAction.Delete) return;
@@ -193,29 +422,56 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
                 var color = ColorViewModels.FirstOrDefault(c => c.Id == colorId);
                 if (color is not null) ColorViewModels.Remove(color);
             }
-            Closeable?.DialogResult = false;
-            Closeable?.Close();
+            _closeable?.DialogResult = false;
+            _closeable?.Close();
         }
     }
 
+    /// <summary>
+    /// Deletes the currently selected category type and handles the associated dialog closure upon success.
+    /// </summary>
+    /// <param name="dialog">The dialog interface instance allowing for closure after the delete operation completes successfully.</param>
+    /// <param name="cancellationToken">An optional cancellation token to observe for canceling the operation.</param>
     private async Task DeleteCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         var result = await _expenseActionService.DeleteCategoryType(CategoryTypeViewModel, cancellationToken);
         if (result) dialog?.Close();
     }
 
+    /// <summary>
+    /// Opens the category type management window, allowing the user to create or update a category type.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">
+    /// The <see cref="CategoryTypeViewModel"/> instance representing the category type to be managed.
+    /// If null, a new category type is created.
+    /// </param>
+    /// <returns>
+    /// A <see cref="Task"/> that represents the asynchronous operation.
+    /// </returns>
     private Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel)
     {
         _navigationWindowService.ShowManageCategoryType(categoryTypeViewModel);
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Asynchronously loads all category types and populates the <see cref="CategoryTypeViewModels"/> collection.
+    /// Sorts the category types by their names after loading.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     private async Task LoadAllCategoryTypeAsync(CancellationToken cancellationToken = default)
     {
         var categoryType = await _expensePresentationService.GetAllCategoryTypeViewModelAsync(cancellationToken);
         CategoryTypeViewModels.AddRangeAndSort(categoryType, vm => vm.Name!);
     }
 
+    /// <summary>
+    /// Asynchronously loads all color ViewModels and adds them to the ColorViewModels collection.
+    /// The collection is then sorted based on the Name property of each color ViewModel.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation if needed.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     private async Task LoadAllColorAsync(CancellationToken cancellationToken = default)
     {
         var colors = await _systemPresentationService.GetAllColorViewModelAsync(cancellationToken);
@@ -224,9 +480,27 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         if (_categoryTypeViewModelToLoad is not null) LoadCategoryTypeViewModel();
     }
 
+    /// <summary>
+    /// Loads a specific CategoryTypeViewModel into the CategoryTypeManagementViewModel
+    /// to be used for further operations, such as editing or viewing.
+    /// </summary>
+    /// <param name="categoryTypeViewModel">
+    /// An instance of CategoryTypeViewModel to be loaded and managed within the context
+    /// of the CategoryTypeManagementViewModel. This parameter provides the data and state
+    /// required for subsequent operations.
+    /// </param>
     public void LoadCategoryTypeViewModel(CategoryTypeViewModel categoryTypeViewModel)
         => _categoryTypeViewModelToLoad = categoryTypeViewModel;
 
+    /// <summary>
+    /// Loads and maps the details of a specific category type into the ViewModel for editing purposes.
+    /// </summary>
+    /// <remarks>
+    /// This method is responsible for transferring and merging data from a source CategoryTypeViewModel
+    /// into the main ViewModel. Upon execution, it synchronizes the associated color from the available
+    /// colors collection, ensuring the color is correctly selected in the ViewModel. Additionally, it
+    /// marks the ViewModel as being in an editing state.
+    /// </remarks>
     private void LoadCategoryTypeViewModel()
     {
         if (_categoryTypeViewModelToLoad is null) return;
