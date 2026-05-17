@@ -13,7 +13,7 @@ using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.Services;
 
-public abstract class AActionService(IDialogService dialogService, ILogger<AActionService> logger,
+public abstract class AActionService(IDialogService dialogService, ILogger logger,
     IServiceProvider serviceProvider)
 {
     /// <summary>
@@ -297,12 +297,20 @@ public abstract class AActionService(IDialogService dialogService, ILogger<AActi
     /// <param name="viewModel">The view model or entity instance to validate. Must not be null.</param>
     /// <param name="cancellationToken">A cancellation token to observe cancellation requests.</param>
     /// <returns>A task representing the asynchronous validation operation. The result contains the validation result with details about any validation failures.</returns>
-    internal Task<ValidationResult> ValidateAsync<TValidator, TEntity>(TEntity viewModel,
+    internal async Task<ValidationResult> ValidateAsync<TValidator, TEntity>(TEntity viewModel,
         CancellationToken cancellationToken)
         where TValidator : AbstractValidator<TEntity>
     {
         var validator = serviceProvider.GetRequiredService<TValidator>();
-        return validator.ValidateAsync(viewModel, cancellationToken);
+        var validationResult = await validator.ValidateAsync(viewModel, cancellationToken);
+
+        if (validationResult.IsValid) logger.LogInformation("Validation successful for {EntityName}", typeof(TEntity).Name);
+        else
+        {
+            logger.LogError("Validation failed for {EntityName} with result {@Errors}", typeof(TEntity).Name, validationResult.Errors);
+        }
+
+        return validationResult;
     }
 
     /// <summary>
