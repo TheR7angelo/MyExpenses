@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
-using Microsoft.Extensions.Logging;
+using JetBrains.Annotations;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
@@ -14,6 +14,7 @@ using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Presentation.ViewModel;
 
+[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers, Reason = "Instantiated dynamically by the dependency injection container and bound to the View via DataContext.")]
 public partial class CategoryTypeManagementViewModel : ViewModelBase
 {
 
@@ -53,8 +54,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         IExpenseActionService expenseActionService,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         ISystemDtoViewModelMapper systemDtoViewModelMapper,
-        INavigationWindowService navigationWindowService,
-        ILogger<CategoryTypeManagementViewModel> logger)
+        INavigationWindowService navigationWindowService)
     {
         _expensePresentationService = expensePresentationService;
         _systemPresentationService = systemPresentationService;
