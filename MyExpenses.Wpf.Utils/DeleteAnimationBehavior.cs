@@ -44,7 +44,6 @@ public class DeleteAnimationBehavior : Behavior<FrameworkElement>
         }
     }
 
-
     public static readonly DependencyProperty DurationProperty =
         DependencyProperty.Register(nameof(Duration), typeof(TimeSpan), typeof(DeleteAnimationBehavior),
             new PropertyMetadata(TimeSpan.FromSeconds(0.3)));
@@ -63,10 +62,10 @@ public class DeleteAnimationBehavior : Behavior<FrameworkElement>
         var element = AssociatedObject;
         if (element is null) return;
 
-        if (element.LayoutTransform is not ScaleTransform) element.LayoutTransform = new ScaleTransform(1, 1);
+        var scaleTransform = new ScaleTransform(1, 1);
+        element.LayoutTransform = scaleTransform;
 
         var sb = new Storyboard();
-
         var duration = new Duration(Duration);
         var easing = new CubicEase { EasingMode = EasingMode.EaseIn };
 
@@ -88,7 +87,7 @@ public class DeleteAnimationBehavior : Behavior<FrameworkElement>
 
         sb.Completed += (_, _) =>
         {
-            if (_isAnimationRunning || AssociatedObject is null) return;
+            // if (_isAnimationRunning || AssociatedObject is null) return;
             _isAnimationRunning = true;
 
             var cmd = DeleteCommand;
