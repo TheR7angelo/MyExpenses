@@ -75,6 +75,8 @@
             <ComboBox x:Name="ComboBoxColors" Grid.Column="0"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:ExpenseResourceManager.ComboBoxColorValueHintAssist}}"
+                      IsTextSearchEnabled="True"
+                      TextSearch.TextPath="{x:Static viewModel:CategoryTypeManagementViewModel.TextSearchColorName}"
                       ItemsSource="{Binding ColorViewModels}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       SelectedItem="{Binding CategoryTypeViewModel.Color, Mode=TwoWay}">

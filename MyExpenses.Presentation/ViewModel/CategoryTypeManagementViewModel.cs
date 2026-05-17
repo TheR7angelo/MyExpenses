@@ -176,6 +176,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// </summary>
     private IClosable? _closeable;
 
+    public static string TextSearchColorName { get; } = nameof(ColorViewModel.Name);
+
     /// <summary>
     /// Represents the ViewModel responsible for managing category types and related operations
     /// within the application. This ViewModel is dynamically instantiated and bound to the View via DataContext.
