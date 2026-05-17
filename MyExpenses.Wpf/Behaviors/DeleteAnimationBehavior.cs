@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Microsoft.Xaml.Behaviors;
 
-namespace MyExpenses.Wpf.Utils;
+namespace MyExpenses.Wpf.Behaviors;
 
 public class DeleteAnimationBehavior : Behavior<FrameworkElement>
 {

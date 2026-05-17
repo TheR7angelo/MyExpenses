@@ -2,12 +2,13 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 // ReSharper disable HeapView.ObjectAllocation.Possible
 // ReSharper disable HeapView.BoxingAllocation
 // ReSharper disable HeapView.ObjectAllocation.Evident
 // ReSharper disable UnusedMember.Global
 
-namespace MyExpenses.Wpf.Behaviors;
+namespace MyExpenses.Wpf.ControlAssist;
 
 /// <summary>
 /// Provides attached properties and behaviors for enhancing TextBox controls with numeric input features.

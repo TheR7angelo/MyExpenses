@@ -8,6 +8,7 @@
       xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behaviors="clr-namespace:MyExpenses.Wpf.Behaviors"
       mc:Ignorable="d"
 
       Title="ColorManagementPage"
@@ -65,11 +66,11 @@
                                         CommandParameter="{Binding .}">
 
                                     <b:Interaction.Behaviors>
-                                        <utils:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
+                                        <behaviors:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
                                                                        Duration="0:0:1"
                                                                        DeleteCommand="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                                        DeleteCommandParameter="{Binding .}">
-                                        </utils:DeleteAnimationBehavior>
+                                        </behaviors:DeleteAnimationBehavior>
                                     </b:Interaction.Behaviors>
 
                                     <Button.Content>
