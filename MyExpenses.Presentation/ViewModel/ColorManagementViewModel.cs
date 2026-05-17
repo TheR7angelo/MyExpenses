@@ -203,7 +203,7 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// to perform operations or modifications associated with colors, and is
     /// typically executed from the user interface.
     /// </summary>
-    public IRelayCommand ManageColorCommand { get; }
+    public IRelayCommand<ColorViewModel?> ManageColorCommand { get; }
 
     /// <summary>
     /// Represents the ViewModel for managing color records. This class provides
