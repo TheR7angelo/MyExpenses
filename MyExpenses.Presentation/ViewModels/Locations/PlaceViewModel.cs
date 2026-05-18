@@ -1,14 +1,11 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Domain.Models.Expenses;
 using Domain.Models.Systems;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 using TheR7angelo.DirtyTracking.Abstractions;
 
-namespace MyExpenses.Presentation.ViewModels.Systems;
+namespace MyExpenses.Presentation.ViewModels.Locations;
 
 [DirtyTracking]
 public partial class PlaceViewModel : ObservableValidator
@@ -114,7 +111,7 @@ public partial class PlaceViewModel : ObservableValidator
         // This method achieves the best balance between simplicity, performance,
         // and maintainability.
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var partAddress = new List<string>();
+        var partAddress = new List<string>(5);
         if (!string.IsNullOrEmpty(Number)) partAddress.Add(Number);
         if (!string.IsNullOrEmpty(Street)) partAddress.Add(Street);
         if (!string.IsNullOrEmpty(Postal)) partAddress.Add(Postal);

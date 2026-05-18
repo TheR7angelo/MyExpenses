@@ -6,6 +6,7 @@ using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
+using PlaceViewModel = MyExpenses.Presentation.ViewModels.Locations.PlaceViewModel;
 
 namespace MyExpenses.Presentation.Services;
 
@@ -85,14 +86,5 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
     {
         var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
         return systemService.DeleteColorAsync(colorDto, cancellationToken);
-    }
-
-    public async Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default)
-    {
-        var placeDto = await systemService.GetPlace(placeId, cancellationToken);
-        if (placeDto is null) return null;
-
-        var placeViewModel = viewModelMapperMapper.MapToViewModel(placeDto);
-        return placeViewModel;
     }
 }

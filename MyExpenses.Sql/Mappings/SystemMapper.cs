@@ -9,7 +9,6 @@ public static partial class SystemMapper
 {
     public static partial IQueryable<ColorDomain> ProjectToDomain(this IQueryable<TColor> src);
 
-    public static partial IQueryable<PlaceDomain> ProjectToDomain(this IQueryable<TPlace> src);
     public static partial IQueryable<RecursiveFrequencyDomain> ProjectToDomain(this IQueryable<TRecursiveFrequency> src);
 
     [MapperIgnoreSource(nameof(TColor.TCategoryTypes))]
@@ -19,16 +18,6 @@ public static partial class SystemMapper
     public static partial TColor MapToEntity(this ColorDomain src);
 
     public static partial void Merge(this TColor src, TColor dst);
-
-    [MapperIgnoreSource(nameof(TPlace.THistories))]
-    [MapperIgnoreSource(nameof(TPlace.TRecursiveExpenses))]
-    [MapperIgnoreSource(nameof(TPlace.Geometry))]
-    public static partial PlaceDomain MapToDomain(this TPlace src);
-
-    [MapperIgnoreTarget(nameof(TPlace.THistories))]
-    [MapperIgnoreTarget(nameof(TPlace.TRecursiveExpenses))]
-    [MapperIgnoreTarget(nameof(TPlace.Geometry))]
-    public static partial TPlace MapToEntity(this PlaceDomain src);
 
     [MapperIgnoreSource(nameof(TRecursiveFrequency.TRecursiveExpenses))]
     [MapperIgnoreSource(nameof(TRecursiveFrequency.ERecursiveFrequency))]

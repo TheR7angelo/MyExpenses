@@ -12,6 +12,7 @@ namespace MyExpenses.Infrastructure.Mapping;
 
 [Mapper]
 public partial class ExpenseDtoDomainMapper(ISystemDtoDomainMapper systemDtoDomainMapper,
+    ILocationDtoDomainMapper locationDtoDomainMapper,
     IAccountDtoDomainMapper accountDtoDomainMapper) : IExpenseDtoDomainMapper
 {
     public partial CategoryTypeDto MapToDto(CategoryTypeDomain src);
@@ -38,10 +39,10 @@ public partial class ExpenseDtoDomainMapper(ISystemDtoDomainMapper systemDtoDoma
         => result.Map(MapToDto);
 
     private PlaceDomain MapToDomain(PlaceDto src)
-        => systemDtoDomainMapper.MapToDomain(src);
+        => locationDtoDomainMapper.MapToDomain(src);
 
     private PlaceDto MapToDto(PlaceDomain src)
-        => systemDtoDomainMapper.MapToDto(src);
+        => locationDtoDomainMapper.MapToDto(src);
 
     private RecursiveFrequencyDto MapToDto(RecursiveFrequencyDomain src)
         => systemDtoDomainMapper.MapToDto(src);

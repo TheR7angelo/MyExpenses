@@ -11,6 +11,7 @@ namespace MyExpenses.Presentation.Services;
 
 public class ExpenseActionService(IExpensePresentationService expensePresentationService,
     ISystemPresentationService systemPresentationService,
+    ILocationPresentationService locationPresentationService,
     IDialogService dialogService,
     ILogger<ExpenseActionService> logger,
     IServiceProvider serviceProvider) : AActionService(dialogService, logger, serviceProvider), IExpenseActionService
@@ -21,7 +22,7 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
         HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {
         expensePresentationService.Merge(bankTransferViewModel, historyViewModel);
-        historyViewModel.PlaceViewModel ??= await systemPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId, cancellationToken);
+        historyViewModel.PlaceViewModel ??= await locationPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId, cancellationToken);
 
         var bankTransferValidationTask = ValidateAsync<BankTransferViewModelValidator, BankTransferViewModel>(bankTransferViewModel, cancellationToken);
         var historyValidationTask = ValidateAsync<HistoryViewModelValidator, HistoryViewModel>(historyViewModel, cancellationToken);

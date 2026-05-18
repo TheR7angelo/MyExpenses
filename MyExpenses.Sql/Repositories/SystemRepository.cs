@@ -208,19 +208,4 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
 
         return available;
     }
-
-    public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
-    {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-
-        logger.LogInformation("Loading place with id {PlaceId}", placeId);
-        var place = await context.TPlaces
-            .AsNoTracking()
-            .ProjectToDomain()
-            .FirstOrDefaultAsync(s => s.Id == placeId, cancellationToken);
-
-        logger.LogInformation("Loaded place with id {PlaceId}, name {Name}", placeId, place?.Name);
-
-        return place;
-    }
 }

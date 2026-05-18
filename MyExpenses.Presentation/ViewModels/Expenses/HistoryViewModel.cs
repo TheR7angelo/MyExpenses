@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using FluentValidation.Results;
 using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Accounts;
-using MyExpenses.Presentation.ViewModels.Systems;
+using MyExpenses.Presentation.ViewModels.Locations;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Expenses;

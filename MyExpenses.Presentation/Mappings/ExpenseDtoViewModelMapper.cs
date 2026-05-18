@@ -7,12 +7,13 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
 using Riok.Mapperly.Abstractions;
+using PlaceViewModel = MyExpenses.Presentation.ViewModels.Locations.PlaceViewModel;
 
 namespace MyExpenses.Presentation.Mappings;
 
 [Mapper(UseDeepCloning = true)]
 public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accountDtoViewModelMapper,
-    ISystemDtoViewModelMapper mapper) : IExpenseDtoViewModelMapper
+    ISystemDtoViewModelMapper mapper, ILocationDtoViewModelMapper locationDtoViewModelMapper) : IExpenseDtoViewModelMapper
 {
     public partial CategoryTypeViewModel MapToViewModel(CategoryTypeDto src);
 
@@ -100,10 +101,10 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
     }
 
     private PlaceDto MapToDto(PlaceViewModel source)
-        => mapper.MapToDto(source);
+        => locationDtoViewModelMapper.MapToDto(source);
 
     private PlaceViewModel MapToViewModel(PlaceDto source)
-        => mapper.MapToViewModel(source);
+        => locationDtoViewModelMapper.MapToViewModel(source);
 
     private AccountDto MapToDto(AccountViewModel source)
         => accountDtoViewModelMapper.MapToDto(source);

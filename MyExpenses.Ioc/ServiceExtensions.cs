@@ -39,28 +39,33 @@ public static class ServiceExtensions
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
             .AddScoped<IExpenseRepository, ExpenseRepository>()
-            .AddScoped<ISystemRepository, SystemRepository>();
+            .AddScoped<ISystemRepository, SystemRepository>()
+            .AddScoped<ILocationRepository, LocationRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>()
             .AddScoped<IExpenseValidationRepository, ExpenseValidationRepository>();
 
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<IExpenseService, ExpenseService>()
-            .AddScoped<ISystemService, SystemService>();
+            .AddScoped<ISystemService, SystemService>()
+            .AddScoped<ILocationService, LocationService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
             .AddScoped<IExpensePresentationService, ExpensePresentationService>()
-            .AddScoped<ISystemPresentationService, SystemPresentationService>();
+            .AddScoped<ISystemPresentationService, SystemPresentationService>()
+            .AddScoped<ILocationPresentationService, LocationPresentationService>();
 
         services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
             .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()
-            .AddSingleton<ISystemDtoDomainMapper, SystemDtoDomainMapper>();
+            .AddSingleton<ISystemDtoDomainMapper, SystemDtoDomainMapper>()
+            .AddSingleton<ILocationDtoDomainMapper, LocationDtoDomainMapper>();
 
         services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
             .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
-            .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>();
+            .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>()
+            .AddSingleton<ILocationDtoViewModelMapper, LocationDtoViewModelMapper>();
 
         services.AddServiceLogging(logEventLevel);
 

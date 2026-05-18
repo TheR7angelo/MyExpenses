@@ -102,12 +102,4 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the delete operation, including details of dependencies removed, if any.</returns>
     public Task<DeletionResult> DeleteColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves details of a specific place based on the provided identifier.
-    /// </summary>
-    /// <param name="placeId">The unique identifier of the place to retrieve.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="PlaceDto"/> object with details of the place.</returns>
-    public Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken = default);
 }

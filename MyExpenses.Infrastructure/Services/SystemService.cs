@@ -289,15 +289,6 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return systemRepository.DeleteColorAsync(colorDomain, cancellationToken);
     }
 
-    public async Task<PlaceDto?> GetPlace(int placeId, CancellationToken cancellationToken)
-    {
-        var place = await systemRepository.GetPlace(placeId, cancellationToken);
-        if (place is null) return null;
-
-        var placeDto = systemDtoDomainMapper.MapToDto(place);
-        return placeDto;
-    }
-
     public Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default)
     {
         return systemRepository.IsColorNameAvailableAsync(name, cancellationToken);

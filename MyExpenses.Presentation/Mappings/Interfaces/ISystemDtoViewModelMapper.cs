@@ -27,20 +27,6 @@ public interface ISystemDtoViewModelMapper
     public ColorViewModel Clone(ColorViewModel src);
 
     /// <summary>
-    /// Maps a PlaceViewModel instance to a PlaceDto instance.
-    /// </summary>
-    /// <param name="src">The PlaceViewModel to map from.</param>
-    /// <returns>A PlaceDto containing the mapped data.</returns>
-    public PlaceDto MapToDto(PlaceViewModel src);
-
-    /// <summary>
-    /// Maps a place DTO to a place view model.
-    /// </summary>
-    /// <param name="src">The place DTO to map from.</param>
-    /// <returns>A place view model containing the mapped data.</returns>
-    public PlaceViewModel MapToViewModel(PlaceDto src);
-
-    /// <summary>
     /// Maps a RecursiveFrequencyViewModel instance to a RecursiveFrequencyDto instance.
     /// </summary>
     /// <param name="src">The RecursiveFrequencyViewModel instance to map from.</param>

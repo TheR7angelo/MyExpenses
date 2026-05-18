@@ -2,6 +2,7 @@ using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -86,12 +87,4 @@ public interface ISystemPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="DeletionResult"/> indicating the result of the operation, including any dependencies that were deleted.</returns>
     public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves the place view model associated with the specified place identifier.
-    /// </summary>
-    /// <param name="placeId">The identifier of the place to retrieve.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A <see cref="PlaceViewModel"/> representing the place, or null if no place is found.</return>
-    public Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default);
 }

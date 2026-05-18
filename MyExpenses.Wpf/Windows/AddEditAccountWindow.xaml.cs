@@ -70,7 +70,7 @@ public partial class AddEditAccountWindow
 
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
-    private readonly ISystemPresentationService _systemPresentationService;
+    private readonly ILocationPresentationService _locationPresentationService;
     private readonly IDialogService _dialogService;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
@@ -78,7 +78,7 @@ public partial class AddEditAccountWindow
 
     public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
-        ISystemPresentationService systemPresentationService,
+        ILocationPresentationService locationPresentationService,
         IDialogService dialogService,
         INavigationWindowService navigationWindowService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
@@ -86,7 +86,7 @@ public partial class AddEditAccountWindow
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
-        _systemPresentationService = systemPresentationService;
+        _locationPresentationService = locationPresentationService;
         _dialogService = dialogService;
         _navigationWindowService = navigationWindowService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
@@ -220,7 +220,7 @@ public partial class AddEditAccountWindow
         {
             if (EnableStartingBalance && HistoryViewModel.PlaceViewModel is null)
             {
-                HistoryViewModel.PlaceViewModel = await _systemPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId);
+                HistoryViewModel.PlaceViewModel = await _locationPresentationService.GetPlaceViewModel(PlaceDomain.DefaultPlaceId);
             }
 
             if (EnableStartingBalance && HistoryViewModel.ModePaymentViewModel is null)

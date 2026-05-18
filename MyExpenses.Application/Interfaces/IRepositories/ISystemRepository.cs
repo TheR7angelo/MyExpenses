@@ -109,18 +109,4 @@ public interface ISystemRepository
     /// including any dependencies affected.
     /// </returns>
     public Task<DeletionResult> DeleteColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves information about a specific place in the system.
-    /// </summary>
-    /// <param name="placeId">
-    /// The unique identifier of the place to retrieve.
-    /// </param>
-    /// <param name="cancellationToken">
-    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
-    /// </param>
-    /// <returns>
-    /// A task containing the place information as a <c>PlaceDomain</c> object, or null if no place exists with the given identifier.
-    /// </returns>
-    public Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default);
 }
