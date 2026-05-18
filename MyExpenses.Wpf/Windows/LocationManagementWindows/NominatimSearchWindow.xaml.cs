@@ -3,9 +3,9 @@ using Mapsui.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Converters;
 using MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 

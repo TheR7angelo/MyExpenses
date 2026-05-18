@@ -7,9 +7,9 @@ using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
+using MyExpenses.Presentation.Converters;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
@@ -18,6 +18,7 @@ using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
+using TemporaryPointFeature = MyExpenses.Models.Mapsui.PointFeatures.TemporaryPointFeature;
 
 namespace MyExpenses.Smartphones.ContentPages.LocationManagement;
 

@@ -9,9 +9,9 @@ using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
+using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
@@ -23,6 +23,7 @@ using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
 using Point = NetTopologySuite.Geometries.Point;
+using TemporaryPointFeature = MyExpenses.Models.Mapsui.PointFeatures.TemporaryPointFeature;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 

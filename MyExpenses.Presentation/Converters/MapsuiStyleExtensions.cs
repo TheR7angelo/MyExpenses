@@ -1,7 +1,7 @@
 ﻿using Mapsui.Styles;
 using MyExpenses.SharedUtils.GlobalInfos;
 
-namespace MyExpenses.Utils.Maps;
+namespace MyExpenses.Presentation.Converters;
 
 public static class MapsuiStyleExtensions
 {
