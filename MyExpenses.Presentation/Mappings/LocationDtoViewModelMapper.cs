@@ -49,13 +49,10 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
         => pointFeature[nameof(PlaceViewModel)] as PlaceViewModel;
 
     public partial PointFeature MapToPointFeature((double x, double y) coordinates);
-
-    public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceDto> placeDtos)
+    public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceViewModel> placeViewModels)
     {
-        var viewModels = placeDtos.Select(MapToViewModel);
-
         // ReSharper disable HeapView.ObjectAllocation.Evident
-        var groupedPlacesByCountryCity = viewModels
+        var groupedPlacesByCountryCity = placeViewModels
             .GroupBy(country => country.Country)
             .Select(country => new CountryGroupViewModel
             {

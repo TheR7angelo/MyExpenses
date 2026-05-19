@@ -52,9 +52,9 @@ public interface ILocationDtoViewModelMapper
     public PointFeature MapToPointFeature((double x, double y) coordinates);
 
     /// <summary>
-    /// Maps a collection of PlaceDto instances to a collection of CountryGroupViewModel instances.
+    /// Maps a collection of PlaceViewModel instances to a collection of CountryGroupViewModel instances.
     /// </summary>
-    /// <param name="resultValue">The collection of PlaceDto objects to map from.</param>
+    /// <param name="placeViewModels">The collection of PlaceViewModel objects to map from.</param>
     /// <returns>A collection of CountryGroupViewModel objects containing the grouped and mapped data.</returns>
-    public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceDto> resultValue);
+    public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceViewModel> placeViewModels);
 }

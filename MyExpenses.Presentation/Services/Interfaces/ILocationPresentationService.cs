@@ -40,14 +40,30 @@ public interface ILocationPresentationService
     public Task<PlaceViewModel?> GetPlaceViewModel(int placeId, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a collection of all place groups available for mapping purposes.
+    /// Retrieves a collection of all places as view models.
     /// </summary>
     /// <param name="cancellationToken">
-    /// A token to monitor for cancellation requests during the operation.
+    /// A cancellation token that can be used to signal the operation should be canceled.
     /// </param>
     /// <returns>
-    /// A <see cref="Task{TResult}"/> containing a <see cref="Result{T}"/> with an enumerable of
-    /// <see cref="CountryGroupViewModel"/> if successful, or an error code and message otherwise.
+    /// A <see cref="Task{TResult}"/> representing the asynchronous operation, containing a <see cref="Result{T}"/>
+    /// with an enumerable of <see cref="PlaceViewModel"/> if successful, or an error code and message otherwise.
     /// </returns>
-    public Task<Result<IEnumerable<CountryGroupViewModel>>> GetAllPlaceGroup(CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<PlaceViewModel>>> GetAllPlaces(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Groups a collection of places into country-specific groupings.
+    /// </summary>
+    /// <param name="placeViewModels">
+    /// A collection of <see cref="PlaceViewModel"/> instances representing the places to be grouped.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A <see cref="CancellationToken"/> that can be used to cancel the asynchronous operation.
+    /// </param>
+    /// <returns>
+    /// A task representing the asynchronous operation, containing an enumerable of <see cref="CountryGroupViewModel"/>
+    /// with grouped place data.
+    /// </returns>
+    public IEnumerable<CountryGroupViewModel> GetAllPlaceGroup(IEnumerable<PlaceViewModel> placeViewModels,
+        CancellationToken cancellationToken = default);
 }

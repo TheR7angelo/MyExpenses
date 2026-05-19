@@ -41,16 +41,14 @@ public partial class LocationManagementViewModel : ViewModelBase
         var titleSource = _locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
 
-        var resultPlaces = await _locationPresentationService.GetAllPlaceGroup(cancellationToken);
+        var resultPlaces = await _locationPresentationService.GetAllPlaces(cancellationToken);
         if (!resultPlaces.IsSuccess)
         {
             _logger.LogWarning("Failed to load place group: {Error}", resultPlaces.InternalMessage!);
             return;
         }
 
-        CountryGroups.AddRangeAndSort(resultPlaces.Value!, s => s.Country!);
-
-        var pointFeatures = resultPlaces.Value!.SelectMany(s => s.CityGroups!.SelectMany(c => c.Places!))
+        var pointFeatures = resultPlaces.Value!
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
                         s.Longitude is not 0)
             .Select(s => s.IsOpen
@@ -58,5 +56,8 @@ public partial class LocationManagementViewModel : ViewModelBase
                 : _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
 
         PlaceLayer.AddRange(pointFeatures);
+
+        var group = _locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
+        CountryGroups.AddRangeAndSort(group, s => s.Country!);
     }
 }

@@ -81,12 +81,27 @@ public class LocationPresentationService(ILocationDtoViewModelMapper locationDto
         return placeViewModel;
     }
 
-    public async Task<Result<IEnumerable<CountryGroupViewModel>>> GetAllPlaceGroup(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<PlaceViewModel>>> GetAllPlaces(CancellationToken cancellationToken = default)
     {
         var result = await locationService.GetAllPlaces(cancellationToken);
-        if (!result.IsSuccess) return Result<IEnumerable<CountryGroupViewModel>>.Failure(result.ErrorCode, result.InternalMessage!);
+        if (!result.IsSuccess) return Result<IEnumerable<PlaceViewModel>>.Failure(result.ErrorCode, result.InternalMessage!);
 
-        var group = locationDtoViewModelMapper.MapToGroup(result.Value!);
-        return Result<IEnumerable<CountryGroupViewModel>>.Success(group);
+        var placeViewModels = result.Value!.Select(locationDtoViewModelMapper.MapToViewModel);
+        return Result<IEnumerable<PlaceViewModel>>.Success(placeViewModels);
     }
+
+    public IEnumerable<CountryGroupViewModel> GetAllPlaceGroup(IEnumerable<PlaceViewModel> placeViewModels, CancellationToken cancellationToken = default)
+    {
+        var group = locationDtoViewModelMapper.MapToGroup(placeViewModels);
+        return group;
+    }
+
+    // public async Task<Result<IEnumerable<CountryGroupViewModel>>> GetAllPlaceGroup(CancellationToken cancellationToken = default)
+    // {
+    //     var result = await locationService.GetAllPlaces(cancellationToken);
+    //     if (!result.IsSuccess) return Result<IEnumerable<CountryGroupViewModel>>.Failure(result.ErrorCode, result.InternalMessage!);
+    //
+    //     var group = locationDtoViewModelMapper.MapToGroup(result.Value!);
+    //     return Result<IEnumerable<CountryGroupViewModel>>.Success(group);
+    // }
 }
