@@ -35,26 +35,13 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         if (!mapResult.IsSuccess) return;
 
         Map = mapResult.Value!;
+        Map.Layers.AddOnTop(PlaceLayer);
         mapControl.Map = Map;
 
         OnUpdateTileSource();
 
         var resolution = mapControl.Map.Navigator.Resolutions[2];
         mapControl.Map.Navigator.ZoomTo(resolution);
-
-        Task.Run(async () =>
-        {
-            while (true)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(5));
-
-                var random = new Random();
-                var index = random.Next(KnownTileSources.Count);
-                var item = KnownTileSources[index];
-
-                OnUpdateTileSource(item);
-            }
-        });
     }
 
     [RelayCommand]
@@ -71,7 +58,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         var layers = Map?.Layers.FindLayer(backgroundLayer).ToArray();
         if (layers?.Length > 0) Map?.Layers.Remove(layers);
 
-        Map?.Layers.Insert(0, tileLayer);
+        Map?.Layers.AddOnBottom(tileLayer);
         Map?.RefreshGraphics();
     }
 
