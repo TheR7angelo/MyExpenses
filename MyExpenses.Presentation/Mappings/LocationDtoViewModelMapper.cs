@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
@@ -69,6 +70,25 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
 
         return groupedPlacesByCountryCity;
     }
+
+    public MRect MapToMRect(MPoint[] points, double margin = 10d)
+    {
+        double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
+        double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
+
+        var width = maxX - minX;
+        var height = maxY - minY;
+
+        var marginX = width * margin / 100;
+        var marginY = height * margin / 100;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The mRect instance is used to store the coordinates of the rectangle to zoom to.
+        return new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
+    }
+
+    public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d)
+        => MapToMRect(points.ToArray(), margin);
 
     [MapperIgnoreSource(nameof(PlaceViewModel.HasErrors))]
     public partial PlaceDto MapToDto(PlaceViewModel src);

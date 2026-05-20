@@ -1,3 +1,4 @@
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Application.Dtos.Systems;
@@ -57,4 +58,20 @@ public interface ILocationDtoViewModelMapper
     /// <param name="placeViewModels">The collection of PlaceViewModel objects to map from.</param>
     /// <returns>A collection of CountryGroupViewModel objects containing the grouped and mapped data.</returns>
     public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceViewModel> placeViewModels);
+
+    /// <summary>
+    /// Calculates the bounding rectangle (MRect) that encloses the given points, with an optional margin added to each side.
+    /// </summary>
+    /// <param name="points">An array of MPoint instances to calculate the bounding rectangle from.</param>
+    /// <param name="margin">An optional margin to add around the bounding rectangle. Default is 10.</param>
+    /// <returns>An MRect instance representing the bounding rectangle that contains the points, including the specified margin.</returns>
+    public MRect MapToMRect(MPoint[] points, double margin = 10d);
+
+    /// <summary>
+    /// Creates an MRect instance that fits the provided collection of points, with an optional margin.
+    /// </summary>
+    /// <param name="points">The collection of MPoint instances to calculate the bounding rectangle for.</param>
+    /// <param name="margin">An optional margin to expand the calculated rectangle by. Defaults to 10.</param>
+    /// <returns>An MRect instance that encompasses the given points with the specified margin applied.</returns>
+    public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d);
 }

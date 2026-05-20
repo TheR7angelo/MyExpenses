@@ -40,8 +40,12 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         OnUpdateTileSource();
 
-        var resolution = mapControl.Map.Navigator.Resolutions[2];
-        mapControl.Map.Navigator.ZoomTo(resolution);
+        if (PlaceLayer.GetFeatures().Any()) mapControl.Map.Navigator.SetZoom(PlaceLayer);
+        else
+        {
+            var resolution = mapControl.Map.Navigator.Resolutions[2];
+            mapControl.Map.Navigator.ZoomTo(resolution);
+        }
     }
 
     [RelayCommand]
