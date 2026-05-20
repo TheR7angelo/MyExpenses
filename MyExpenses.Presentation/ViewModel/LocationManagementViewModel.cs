@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Mapsui;
 using Mapsui.Layers;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Converters;
@@ -22,6 +24,9 @@ public partial class LocationManagementViewModel : ViewModelBase
 
     public ObservableCollection<KnownTileSource> KnownTileSources { get; } = [];
     public ObservableCollection<CountryGroupViewModel> CountryGroups { get; } = [];
+
+    [ObservableProperty]
+    public partial Map Map { get; set; } = new();
 
     public IAsyncRelayCommand LoadCommand { get; }
 
@@ -59,5 +64,8 @@ public partial class LocationManagementViewModel : ViewModelBase
 
         var group = _locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
         CountryGroups.AddRangeAndSort(group, s => s.Country!);
+
+        var mapResult = _locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
+        if (mapResult.IsSuccess) Map = mapResult.Value!;
     }
 }
