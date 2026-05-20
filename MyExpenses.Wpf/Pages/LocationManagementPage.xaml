@@ -9,16 +9,23 @@
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
       d:DesignHeight="450"
       d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:LocationManagementViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <Page.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
@@ -90,8 +97,18 @@
                         Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                         Background="{DynamicResource MaterialDesignPaper}"
                         Info="MapControl_OnInfo"
+                        Map="{Binding Map}"
                         ContextMenuOpening="MapControl_OnContextMenuOpening"
                         Loaded="MapControl_OnLoaded">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="Loaded">
+                    <b:InvokeCommandAction Command="{Binding MapControlLoadedCommand}"
+                                           CommandParameter="{Binding ., ElementName=MapControl}">
+                    </b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
                     

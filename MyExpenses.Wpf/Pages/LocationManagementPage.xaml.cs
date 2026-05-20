@@ -140,7 +140,7 @@ public partial class LocationManagementPage
         InitializeComponent();
 
         DataContext = vm;
-        Loaded += async (_, _) => await vm.LoadCommand.ExecuteAsync(null);
+        // Loaded += async (_, _) => await vm.LoadCommand.ExecuteAsync(null);
 
         // KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
         // InfoLayers = [PlaceLayer];

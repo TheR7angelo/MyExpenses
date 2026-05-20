@@ -1,6 +1,6 @@
 using Mapsui;
 
-namespace MyExpenses.Utils.Maps;
+namespace MyExpenses.Presentation;
 
 public static class Utils
 {

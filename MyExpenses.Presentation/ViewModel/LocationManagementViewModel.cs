@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mapsui;
 using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
+using Mapsui.UI;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
@@ -13,12 +15,10 @@ using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Presentation.ViewModel;
 
-public partial class LocationManagementViewModel : ViewModelBase
+public partial class LocationManagementViewModel(ILocationPresentationService locationPresentationService,
+    ILocationDtoViewModelMapper locationDtoViewModelMapper,
+    ILogger<LocationManagementViewModel> logger) : ViewModelBase
 {
-    private readonly ILocationPresentationService _locationPresentationService;
-    private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
-    private readonly ILogger<LocationManagementViewModel> _logger;
-
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
     private IEnumerable<ILayer> PlaceLayers => [PlaceLayer];
 
@@ -26,30 +26,65 @@ public partial class LocationManagementViewModel : ViewModelBase
     public ObservableCollection<CountryGroupViewModel> CountryGroups { get; } = [];
 
     [ObservableProperty]
-    public partial Map Map { get; set; } = new();
+    public partial Map? Map { get; set; }
 
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    public LocationManagementViewModel(ILocationPresentationService locationPresentationService,
-        ILocationDtoViewModelMapper locationDtoViewModelMapper,
-        ILogger<LocationManagementViewModel> logger)
+    [RelayCommand]
+    private void OnMapControlLoaded(IMapControl mapControl)
     {
-        _locationPresentationService = locationPresentationService;
-        _locationDtoViewModelMapper = locationDtoViewModelMapper;
-        _logger = logger;
+        var mapResult = locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
+        if (!mapResult.IsSuccess) return;
 
-        LoadCommand = new AsyncRelayCommand(OnLoadAsync);
+        Map = mapResult.Value!;
+        mapControl.Map = Map;
+
+        OnUpdateTileSource();
+
+        var resolution = mapControl.Map.Navigator.Resolutions[2];
+        mapControl.Map.Navigator.ZoomTo(resolution);
+
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5));
+
+                var random = new Random();
+                var index = random.Next(KnownTileSources.Count);
+                var item = KnownTileSources[index];
+
+                OnUpdateTileSource(item);
+            }
+        });
     }
 
+    [RelayCommand]
+    private void OnUpdateTileSource(KnownTileSource? knownTileSource = null)
+    {
+        const string backgroundLayer = "Background";
+
+        knownTileSource ??= KnownTileSource.OpenStreetMap;
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create((KnownTileSource)knownTileSource);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = backgroundLayer;
+
+        var layers = Map?.Layers.FindLayer(backgroundLayer).ToArray();
+        if (layers?.Length > 0) Map?.Layers.Remove(layers);
+
+        Map?.Layers.Insert(0, tileLayer);
+        Map?.RefreshGraphics();
+    }
+
+    [RelayCommand]
     private async Task OnLoadAsync(CancellationToken cancellationToken = default)
     {
-        var titleSource = _locationPresentationService.GetAllKnowTitleSource();
+        var titleSource = locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
 
-        var resultPlaces = await _locationPresentationService.GetAllPlaces(cancellationToken);
+        var resultPlaces = await locationPresentationService.GetAllPlaces(cancellationToken);
         if (!resultPlaces.IsSuccess)
         {
-            _logger.LogWarning("Failed to load place group: {Error}", resultPlaces.InternalMessage!);
+            logger.LogWarning("Failed to load place group: {Error}", resultPlaces.InternalMessage!);
             return;
         }
 
@@ -57,15 +92,12 @@ public partial class LocationManagementViewModel : ViewModelBase
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
                         s.Longitude is not 0)
             .Select(s => s.IsOpen
-                ? _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.RedMarkerStyle)
-                : _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
+                ? locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.RedMarkerStyle)
+                : locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
 
         PlaceLayer.AddRange(pointFeatures);
 
-        var group = _locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
+        var group = locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
         CountryGroups.AddRangeAndSort(group, s => s.Country!);
-
-        var mapResult = _locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
-        if (mapResult.IsSuccess) Map = mapResult.Value!;
     }
 }

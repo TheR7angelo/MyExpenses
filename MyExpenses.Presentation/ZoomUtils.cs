@@ -2,7 +2,7 @@ using Mapsui;
 using Mapsui.Animations;
 using Mapsui.Layers;
 
-namespace MyExpenses.Utils.Maps;
+namespace MyExpenses.Presentation;
 
 public static class ZoomUtils
 {
