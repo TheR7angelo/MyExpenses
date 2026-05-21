@@ -67,8 +67,13 @@
         </ComboBox>
 
         <TreeView Grid.Row="1" Grid.Column="0"
-                  ItemsSource="{Binding CountryGroups, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItemChanged="TreeView_OnSelectedItemChanged">
+                  ItemsSource="{Binding CountryGroups, UpdateSourceTrigger=PropertyChanged}">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectedItemChanged">
+                    <b:InvokeCommandAction Command="{Binding SelectedTreeViewItemCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=TreeView}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
 
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type groups:CountryGroup}"

@@ -74,4 +74,6 @@ public interface ILocationDtoViewModelMapper
     /// <param name="margin">An optional margin to expand the calculated rectangle by. Defaults to 10.</param>
     /// <returns>An MRect instance that encompasses the given points with the specified margin applied.</returns>
     public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d);
+
+    public MPoint MapToMPoint(PlaceViewModel place);
 }

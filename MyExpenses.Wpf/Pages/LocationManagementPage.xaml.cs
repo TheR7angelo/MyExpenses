@@ -352,29 +352,6 @@ public partial class LocationManagementPage
         // Log.Information("{Uri}", uri);
     }
 
-    private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-    {
-        // if (sender is not TreeView treeView) return;
-        //
-        // var points = treeView.SelectedItem switch
-        // {
-        //     CountryGroup countryGroup => countryGroup.CityGroups?
-        //         .SelectMany(cityGroup => GetPoints(cityGroup.Places)) ?? [],
-        //     CityGroup cityGroup => GetPoints(cityGroup.Places),
-        //     _ => []
-        // };
-        //
-        // SetZoom(points.ToArray());
-        // return;
-        //
-        // IEnumerable<MPoint> GetPoints(IEnumerable<TPlace>? places)
-        // {
-        //     return places?
-        //         .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
-        //         .Select(s => s.ToMPoint()) ?? [];
-        // }
-    }
-
     #endregion
 
     #region Function

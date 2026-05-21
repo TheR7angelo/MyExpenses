@@ -32,6 +32,30 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     public partial KnownTileSource? KnownTileSourceSelected { get; set; }
 
     [RelayCommand]
+    private void OnSelectedTreeViewItem(object? item)
+    {
+        var points = item switch
+        {
+            CountryGroupViewModel countryGroup => countryGroup.CityGroups?
+                .SelectMany(cityGroup => GetPoints(cityGroup.Places)) ?? [],
+            CityGroupViewModel cityGroup => GetPoints(cityGroup.Places),
+            PlaceViewModel placeViewModel => [locationDtoViewModelMapper.MapToMPoint(placeViewModel)],
+            _ => []
+        };
+
+        Map?.Navigator.SetZoom(points.ToArray());
+
+        return;
+
+        IEnumerable<MPoint> GetPoints(IEnumerable<PlaceViewModel>? places)
+        {
+            return places?
+                .Where(s =>s.Latitude is not 0 && s.Longitude is not 0)
+                .Select(locationDtoViewModelMapper.MapToMPoint) ?? [];
+        }
+    }
+
+    [RelayCommand]
     private void OnMapControlLoaded(IMapControl mapControl)
     {
         var mapResult = locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
