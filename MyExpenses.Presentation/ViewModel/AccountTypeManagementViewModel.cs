@@ -15,7 +15,7 @@ namespace MyExpenses.Presentation.ViewModel;
 /// <summary>
 /// ViewModel responsible for managing the list of account types, including viewing, creating, editing, and deleting account types.
 /// </summary>
-public class AccountTypeManagementViewModel : ViewModelBase
+public partial class AccountTypeManagementViewModel : ViewModelBase
 {
     private readonly IAccountPresentationService _accountService;
     private readonly INavigationWindowService _navigationWindow;
@@ -26,26 +26,6 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// Gets the collection of account types displayed in the management view.
     /// </summary>
     public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
-
-    /// <summary>
-    /// Gets the asynchronous command to load all account types from the service.
-    /// </summary>
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    /// <summary>
-    /// Gets the command to delete a selected account type.
-    /// </summary>
-    public IRelayCommand<AccountTypeViewModel> DeleteCommand { get; }
-
-    /// <summary>
-    /// Gets the asynchronous command to view or edit a selected account type.
-    /// </summary>
-    public IAsyncRelayCommand<AccountTypeViewModel> ViewAccountTypeCommand { get; }
-
-    /// <summary>
-    /// Gets the command to add a new account type.
-    /// </summary>
-    public IRelayCommand AddAccountTypeCommand { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AccountTypeManagementViewModel"/> class.
@@ -63,11 +43,6 @@ public class AccountTypeManagementViewModel : ViewModelBase
         _navigationWindow = navigationWindow;
         _dialog = dialog;
         _logger = logger;
-
-        LoadCommand = new AsyncRelayCommand(LoadAsync);
-        DeleteCommand = new RelayCommand<AccountTypeViewModel>(Delete);
-        ViewAccountTypeCommand = new AsyncRelayCommand<AccountTypeViewModel>(ViewAccountTypeAsync);
-        AddAccountTypeCommand = new RelayCommand(AddAccountType);
 
         RegisterMessages();
     }
@@ -139,7 +114,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// <summary>
     /// Navigates to the add account type view.
     /// </summary>
-    private void AddAccountType()
+    [RelayCommand]
+    private void OnAddAccountType()
     {
         _navigationWindow.ShowAddAccountType();
     }
@@ -149,7 +125,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="item">The account type to view or edit.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    private async Task ViewAccountTypeAsync(AccountTypeViewModel? item, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnViewAccountTypeAsync(AccountTypeViewModel? item, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -167,7 +144,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// Removes the specified account type from the collection.
     /// </summary>
     /// <param name="item">The account type to delete.</param>
-    private void Delete(AccountTypeViewModel? item)
+    [RelayCommand]
+    private void OnDelete(AccountTypeViewModel? item)
     {
         if (item is null) return;
 
@@ -177,7 +155,8 @@ public class AccountTypeManagementViewModel : ViewModelBase
     /// <summary>
     /// Asynchronously loads all account types from the service and populates the collection.
     /// </summary>
-    private async Task LoadAsync()
+    [RelayCommand]
+    private async Task OnLoadAsync()
     {
         try
         {
