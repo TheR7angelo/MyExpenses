@@ -15,7 +15,7 @@ namespace MyExpenses.Presentation.ViewModel;
 /// for the application. Provides functionalities such as loading the list of currencies,
 /// removing specific currencies from the list, and managing individual currency records.
 /// </summary>
-public class CurrencyManagementViewModel : ViewModelBase
+public partial class CurrencyManagementViewModel : ViewModelBase
 {
     /// <summary>
     /// Handles the retrieval and management of data related to accounts, account types,
@@ -51,29 +51,6 @@ public class CurrencyManagementViewModel : ViewModelBase
     public ObservableCollection<CurrencyViewModel> CurrencyViewModels { get; } = [];
 
     /// <summary>
-    /// Gets the command responsible for managing operations on a specific currency within the collection of currencies.
-    /// This command is typically bound to user interface elements and is executed to perform actions such as editing or
-    /// updating details of an instance of <see cref="CurrencyViewModel"/>. It facilitates modifications to both the
-    /// application's data model and the visual representation, ensuring consistency across the application.
-    /// </summary>
-    public IRelayCommand<CurrencyViewModel?> ManageCurrencyCommand { get; }
-
-    /// <summary>
-    /// Gets the command responsible for removing a specific currency from the collection of currencies.
-    /// This command is executed to handle deletion actions for instances of <see cref="CurrencyViewModel"/>.
-    /// It typically updates both the underlying data model and the user interface, ensuring that the
-    /// removal is properly reflected in the application's state.
-    /// </summary>
-    public IRelayCommand<CurrencyViewModel?> RemoveCommand { get; }
-
-    /// <summary>
-    /// Gets the asynchronous command responsible for loading the collection of currencies
-    /// and initializing necessary data for the view model. This command is typically executed
-    /// during the component's loading phase to ensure data is ready for display and interaction.
-    /// </summary>
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    /// <summary>
     /// Represents the view model responsible for managing a collection of currencies
     /// and their respective operations within the application. It provides commands
     /// for managing, removing, and loading currencies, while using services for
@@ -87,10 +64,6 @@ public class CurrencyManagementViewModel : ViewModelBase
         _accountActionService = accountActionService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
 
-        ManageCurrencyCommand = new RelayCommand<CurrencyViewModel?>(ManageCurrencyAction);
-        RemoveCommand = new RelayCommand<CurrencyViewModel?>(OnRemove);
-        LoadCommand = new AsyncRelayCommand(OnLoadAsync);
-
         RegisterMessages();
     }
 
@@ -99,7 +72,8 @@ public class CurrencyManagementViewModel : ViewModelBase
     /// modifications, or other relevant operations on the currency.
     /// </summary>
     /// <param name="item">The currency view model representing the currency to be managed. Can be null.</param>
-    private void ManageCurrencyAction(CurrencyViewModel? item)
+    [RelayCommand]
+    private void OnManageCurrency(CurrencyViewModel? item)
         => _accountActionService.ManageCurrencyAction(item);
 
     /// <summary>
@@ -178,6 +152,7 @@ public class CurrencyManagementViewModel : ViewModelBase
     /// Removes the specified currency from the collection of currency view models.
     /// </summary>
     /// <param name="item">The currency view model to be removed. If null, the method does nothing.</param>
+    [RelayCommand]
     private void OnRemove(CurrencyViewModel? item)
     {
         if (item is null) return;
@@ -190,7 +165,8 @@ public class CurrencyManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous load operation.</returns>
-    private async Task OnLoadAsync(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         var currencies = await _accountPresentationService.GetAllCurrencyViewModelAsync(cancellationToken);
         CurrencyViewModels.AddRangeAndSort(currencies, s => s.Symbol!);

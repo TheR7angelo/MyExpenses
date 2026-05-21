@@ -129,82 +129,6 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// - Serving as the primary source of color-related data for the user interface.
     public ObservableCollection<ColorViewModel> ColorViewModels { get; } = [];
 
-    /// Represents a command that cancels any ongoing color modification process
-    /// in the color management view model. This command is typically invoked
-    /// when the user chooses to discard changes and exit the context of editing
-    /// or creating a color configuration.
-    /// The command uses the IClosable parameter, enabling interaction with
-    /// window-like components such as dialogs or other closable views. When executed,
-    /// it is expected to perform the following actions:
-    /// - Discard unsaved color changes or edits.
-    /// - Optionally close the associated UI component, such as a dialog, to exit
-    /// the editing context.
-    /// - Reset the current state of the color management view model if needed to
-    /// prepare it for later operations.
-    /// This command is fundamental to ensuring that users can abandon their changes
-    /// safely and return to prior states without risk of unintended data persistence,
-    /// enhancing the usability and workflow consistency within the application.
-    public IRelayCommand<IClosable?> CancelCommand { get; }
-
-    /// Represents an asynchronous command that validates the current changes to a color within the color management context.
-    /// This property is typically bound to a UI control, such as a validation button, and is executed when the user
-    /// confirms their intent to save or apply the changes.
-    /// The command uses the IClosable parameter, enabling interaction with window-like components such as dialogs
-    /// or other closable views. When executed, it is expected to perform the following actions:
-    /// - Validate the current state of the color configuration.
-    /// - Persist the validated color settings, interacting with underlying services or data stores as necessary.
-    /// - Optionally close the associated UI, indicating successful validation.
-    /// This command is essential for ensuring users can commit changes to a color configuration, following the MVVM pattern
-    /// and maintaining a seamless user experience.
-    public IAsyncRelayCommand<IClosable?> ValidCommand { get; }
-
-    /// Represents an asynchronous command that handles the deletion of a color within the color management context.
-    /// This property is typically bound to a UI control, such as a delete button, and is executed when the user
-    /// initiates the delete action.
-    /// The command uses the IClosable parameter, allowing interaction with window-like elements
-    /// such as dialogs or other closable views. When executed, it is expected to perform the following steps:
-    /// - Initiate the deletion of the specified color.
-    /// - Interact with additional services (e.g., dialog or messaging services) to confirm the action if needed.
-    /// - Optionally close the associated UI component.
-    /// This command is critical for enabling users to remove a color, while ensuring the
-    /// interaction follows the MVVM pattern and adheres to the application's user experience design.
-    public IAsyncRelayCommand<IClosable?> DeleteCommand { get; }
-
-    /// Represents the command responsible for asynchronously loading
-    /// data required for the `ColorManagementPage` and initializing
-    /// the necessary state in the `ColorManagementViewModel`.
-    /// This command is typically executed during the page's loaded
-    /// event to ensure that all related color data is fetched from
-    /// the database and is ready for user interaction. It integrates
-    /// with the application's data layer to query and populate color
-    /// configurations within the ViewModel.
-    /// Key responsibilities include:
-    /// - Fetching and populating the list of available color models
-    /// from the database.
-    /// - Ensuring UI consistency by synchronizing state across the
-    /// ViewModel and View upon execution.
-    /// - Providing error handling and logging for any failures
-    /// during data retrieval.
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    /// Represents a command that removes a color record from the collection of color view models.
-    /// This command is bound to the user action of initiating the removal of a specific color entry,
-    /// typically triggered by interactions in the user interface, such as clicking a delete button.
-    /// Key responsibilities include:
-    /// - Identifying the targeted color record to be removed based on the provided parameter.
-    /// - Updating the collection of color view models to reflect the removal.
-    /// - Ensuring any associated resources or references tied to the removed color are managed correctly.
-    /// This command is essential for maintaining an up-to-date and accurate management of colors within the application.
-    public IRelayCommand<ColorViewModel?> RemoveCommand { get; }
-
-    /// <summary>
-    /// Represents a command that manages the logic for handling color-related actions
-    /// within the context of category type management. This command is invoked
-    /// to perform operations or modifications associated with colors, and is
-    /// typically executed from the user interface.
-    /// </summary>
-    public IRelayCommand<ColorViewModel?> ManageColorCommand { get; }
-
     /// <summary>
     /// Represents the ViewModel for managing color records. This class provides
     /// commands and methods to handle color data, including adding, editing, deleting,
@@ -224,15 +148,6 @@ public partial class ColorManagementViewModel : ViewModelBase
         _dialogService = dialogService;
         _systemDtoViewModelMapper = systemDtoViewModelMapper;
         _logger = logger;
-
-        ManageColorCommand = new RelayCommand<ColorViewModel?>(ManageColorAction);
-
-        CancelCommand = new RelayCommand<IClosable?>(OnCancel);
-        ValidCommand = new AsyncRelayCommand<IClosable?>(OnValidAsync);
-        DeleteCommand = new AsyncRelayCommand<IClosable?>(OnDeleteAsync);
-        RemoveCommand = new RelayCommand<ColorViewModel?>(RemoveColor);
-
-        LoadCommand = new AsyncRelayCommand(OnLoadAsync);
 
         RegisterMessages();
     }
@@ -328,7 +243,8 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="vm">The instance of <see cref="ColorViewModel"/> representing the color to be managed.
     /// If null, the action may initialize with a default or empty state for creating a new color.</param>
-    private void ManageColorAction(ColorViewModel? vm)
+    [RelayCommand]
+    private void OnManageColor(ColorViewModel? vm)
         => _navigationWindowService.ShowColorManagementWindow(vm);
 
     /// <summary>
@@ -336,7 +252,8 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="item">The <see cref="ColorViewModel"/> instance to be removed from the collection.
     /// If the item is null, the method execution is skipped.</param>
-    private void RemoveColor(ColorViewModel? item)
+    [RelayCommand]
+    private void OnRemove(ColorViewModel? item)
     {
         if (item is null) return;
 
@@ -350,7 +267,8 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    private async Task OnLoadAsync(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         var colors = await _systemPresentationService.GetAllColorViewModelAsync(cancellationToken);
         ColorViewModels.AddRangeAndSort(colors, s => s.Name!);
@@ -370,7 +288,8 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// <returns>
     /// A <see cref="Task"/> that represents the asynchronous delete operation.
     /// </returns>
-    private async Task OnDeleteAsync(IClosable? dialog, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnDelete(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -402,7 +321,8 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous validation operation.
     /// </returns>
-    private async Task OnValidAsync(IClosable? dialog, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnValid(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -441,6 +361,7 @@ public partial class ColorManagementViewModel : ViewModelBase
     /// The instance of <see cref="IClosable"/> representing the dialog to be closed.
     /// If null, no action is performed.
     /// </param>
+    [RelayCommand]
     private void OnCancel(IClosable? dialog)
     {
         dialog?.DialogResult = false;

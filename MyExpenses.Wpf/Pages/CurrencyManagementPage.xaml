@@ -19,6 +19,12 @@
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
     <Grid>
 
         <StackPanel margin:PanelExtensions.MarginForAllChildren="5"
