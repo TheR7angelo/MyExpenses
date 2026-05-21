@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
-using JetBrains.Annotations;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
@@ -24,7 +23,6 @@ namespace MyExpenses.Presentation.ViewModel;
 /// color configurations, and facilitating interaction between the presentation layer and
 /// service layers.
 /// </remarks>
-[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers, Reason = "Instantiated dynamically by the dependency injection container and bound to the View via DataContext.")]
 public partial class CategoryTypeManagementViewModel : ViewModelBase
 {
     /// <summary>
@@ -107,68 +105,6 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     private CategoryTypeViewModel? _categoryTypeViewModelToLoad;
 
     /// <summary>
-    /// Represents an asynchronous command responsible for loading all category types in the application.
-    /// This command interacts with the underlying services to retrieve and populate the list of available category types
-    /// within the associated view model. Typically used during initialization or when refreshing category type data.
-    /// </summary>
-    public IAsyncRelayCommand LoadAllCategoryTypeCommand { get; }
-
-    /// <summary>
-    /// Represents an asynchronous command responsible for loading all available colors
-    /// into the ViewModel. This command retrieves color data and populates
-    /// the ColorViewModels collection to support UI elements that depend on color data.
-    /// </summary>
-    public IAsyncRelayCommand LoadAllColorCommand { get; }
-
-    /// <summary>
-    /// Represents an asynchronous command for managing actions related to a specific category type.
-    /// This command is typically invoked from UI interactions, such as button clicks, to handle
-    /// the creation, editing, or removal of category types. It requires a parameter of type
-    /// <see cref="CategoryTypeViewModel"/> to specify the category type to be managed.
-    /// </summary>
-    public IAsyncRelayCommand<CategoryTypeViewModel?> ManageCategoryTypeActionCommand { get; }
-
-    /// <summary>
-    /// Represents a command that manages the logic for handling color-related actions
-    /// within the context of category type management. This command is invoked
-    /// to perform operations or modifications associated with colors, and is
-    /// typically executed from the user interface.
-    /// </summary>
-    public IRelayCommand<IClosable?> ManageColorCommand { get; }
-
-    /// <summary>
-    /// Represents a command to create or update a category type.
-    /// This command is used in the context of category type management to handle operations
-    /// that either create a new category type or update an existing one.
-    /// Bound to the UI for execution, typically receiving an <see cref="IClosable"/> parameter
-    /// representing the corresponding view or dialog to manage its state after the operation completes.
-    /// </summary>
-    public IAsyncRelayCommand<IClosable?> CreateOrUpdateCommand { get; }
-
-    /// <summary>
-    /// Represents an asynchronous command used to delete a category type from the system.
-    /// This command is typically bound to a UI element to handle the deletion logic when invoked.
-    /// The command expects an implementation of <see cref="IClosable"/> as its parameter,
-    /// which is used to manage the closing behavior of the associated window or view.
-    /// </summary>
-    public IAsyncRelayCommand<IClosable?> DeleteCommand { get; }
-
-    /// <summary>
-    /// Represents a command responsible for removing a specific category type from the view model.
-    /// This command is typically bound to the UI to enable removal functionality and is triggered
-    /// with a parameter of type <see cref="CategoryTypeViewModel"/>.
-    /// </summary>
-    public IRelayCommand<CategoryTypeViewModel?> RemoveCommand { get; }
-
-    /// <summary>
-    /// Represents a command that allows the cancellation of an ongoing operation
-    /// and interacts with a closable element, such as a dialog or a window.
-    /// Executing this command typically signals that the current process or
-    /// workflow should be discontinued, and the associated UI element should be closed.
-    /// </summary>
-    public IRelayCommand<IClosable?> CancelCommand { get; }
-
-    /// <summary>
     /// Represents an entity that facilitates the management of a closeable resource or dialog
     /// within the context of category type management.
     /// This property is used to interact with and control the lifecycle of a dialog-like
@@ -202,18 +138,6 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _systemDtoViewModelMapper = systemDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
 
-        LoadAllCategoryTypeCommand = new AsyncRelayCommand(LoadAllCategoryTypeAsync);
-        LoadAllColorCommand = new AsyncRelayCommand(LoadAllColorAsync);
-
-        ManageCategoryTypeActionCommand = new AsyncRelayCommand<CategoryTypeViewModel?>(ManageCategoryTypeAction);
-        ManageColorCommand = new RelayCommand<IClosable?>(ManageColorAction);
-
-        CancelCommand = new RelayCommand<IClosable?>(OnCancel);
-
-        CreateOrUpdateCommand = new AsyncRelayCommand<IClosable?>(CreateCategoryType);
-        DeleteCommand = new AsyncRelayCommand<IClosable?>(DeleteCategoryType);
-        RemoveCommand = new RelayCommand<CategoryTypeViewModel?>(RemoveCategoryType);
-
         RegisterMessages();
     }
 
@@ -226,7 +150,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// An optional instance of an object implementing the <see cref="IClosable"/> interface,
     /// used to manage the close operation of the invoking context.
     /// </param>
-    private void ManageColorAction(IClosable? closeable)
+    [RelayCommand]
+    private void OnManageColor(IClosable? closeable)
     {
         _closeable = closeable;
         _navigationWindowService.ShowColorManagementWindow(CategoryTypeViewModel.Color);
@@ -240,7 +165,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// The <see cref="CategoryTypeViewModel"/> instance to be removed. If the value is null,
     /// the method will exit without modifying the collection.
     /// </param>
-    private void RemoveCategoryType(CategoryTypeViewModel? item)
+    [RelayCommand]
+    private void OnRemove(CategoryTypeViewModel? item)
     {
         if (item is null) return;
 
@@ -254,7 +180,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// <param name="dialog">An instance of a closable dialog that will be closed upon successful operation.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task CreateCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnCreateOrUpdate(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         var result = IsEditCategoryType
             ? await _expenseActionService.UpdateCategoryType(CategoryTypeViewModel, cancellationToken)
@@ -263,6 +190,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         if (result) dialog?.Close();
     }
 
+    [RelayCommand]
     private void OnCancel(IClosable? dialog)
         => dialog?.Close();
 
@@ -434,7 +362,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="dialog">The dialog interface instance allowing for closure after the delete operation completes successfully.</param>
     /// <param name="cancellationToken">An optional cancellation token to observe for canceling the operation.</param>
-    private async Task DeleteCategoryType(IClosable? dialog, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnDelete(IClosable? dialog, CancellationToken cancellationToken = default)
     {
         var result = await _expenseActionService.DeleteCategoryType(CategoryTypeViewModel, cancellationToken);
         if (result) dialog?.Close();
@@ -450,6 +379,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// <returns>
     /// A <see cref="Task"/> that represents the asynchronous operation.
     /// </returns>
+    [RelayCommand]
     private Task ManageCategoryTypeAction(CategoryTypeViewModel? categoryTypeViewModel)
     {
         _navigationWindowService.ShowManageCategoryType(categoryTypeViewModel);
@@ -462,7 +392,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    private async Task LoadAllCategoryTypeAsync(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnLoadAllCategoryTypeAsync(CancellationToken cancellationToken = default)
     {
         var categoryType = await _expensePresentationService.GetAllCategoryTypeViewModelAsync(cancellationToken);
         CategoryTypeViewModels.AddRangeAndSort(categoryType, vm => vm.Name!);
@@ -474,7 +405,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation if needed.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task LoadAllColorAsync(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnLoadAllColorAsync(CancellationToken cancellationToken = default)
     {
         var colors = await _systemPresentationService.GetAllColorViewModelAsync(cancellationToken);
         ColorViewModels.AddRangeAndSort(colors, vm => vm.Name!);

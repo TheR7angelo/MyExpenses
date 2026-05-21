@@ -26,6 +26,5 @@ public partial class CategoryTypeManagementPage
         InitializeComponent();
 
         DataContext = categoryTypeManagementViewModel;
-        Loaded += async (_, _) => await categoryTypeManagementViewModel.LoadAllCategoryTypeCommand.ExecuteAsync(null);
     }
 }
