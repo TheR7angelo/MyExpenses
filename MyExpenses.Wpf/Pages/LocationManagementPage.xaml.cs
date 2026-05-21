@@ -516,19 +516,19 @@ public partial class LocationManagementPage
     // private void SetZoom(params MPoint[] points)
     //     => MapControl.Map.Navigator.SetZoom(points);
 
-    // private void UpdateLanguage()
-    // {
-    //     ComboBoxBasemapHintAssist = LocationManagementResources.ComboBoxBasemapHintAssist;
-    //
-    //     MenuItemHeaderAddPoint = LocationManagementResources.MenuItemHeaderAddPoint;
-    //     MenuItemHeaderEditFeature = LocationManagementResources.MenuItemHeaderEditFeature;
-    //     MenuItemHeaderDeleteFeature = LocationManagementResources.MenuItemHeaderDeleteFeature;
-    //
-    //     MenuItemHeaderMaps = LocationManagementResources.MenuItemHeaderMaps;
-    //     MenuItemHeaderGoogleEarthWeb = LocationManagementResources.MenuItemHeaderGoogleEarthWeb;
-    //     MenuItemHeaderGoogleMaps = LocationManagementResources.MenuItemHeaderGoogleMaps;
-    //     MenuItemHeaderGoogleStreetView = LocationManagementResources.MenuItemHeaderGoogleStreetView;
-    // }
+    private void UpdateLanguage()
+    {
+        ComboBoxBasemapHintAssist = LocationManagementResources.ComboBoxBasemapHintAssist;
+
+        MenuItemHeaderAddPoint = LocationManagementResources.MenuItemHeaderAddPoint;
+        MenuItemHeaderEditFeature = LocationManagementResources.MenuItemHeaderEditFeature;
+        MenuItemHeaderDeleteFeature = LocationManagementResources.MenuItemHeaderDeleteFeature;
+
+        MenuItemHeaderMaps = LocationManagementResources.MenuItemHeaderMaps;
+        MenuItemHeaderGoogleEarthWeb = LocationManagementResources.MenuItemHeaderGoogleEarthWeb;
+        MenuItemHeaderGoogleMaps = LocationManagementResources.MenuItemHeaderGoogleMaps;
+        MenuItemHeaderGoogleStreetView = LocationManagementResources.MenuItemHeaderGoogleStreetView;
+    }
 
     // private void UpdateMapBackColor()
     // {

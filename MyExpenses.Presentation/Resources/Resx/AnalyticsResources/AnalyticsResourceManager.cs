@@ -4,10 +4,12 @@ public class AnalyticsResourceManager
 {
     private static string RessourceManagerName => nameof(AnalyticsResources);
 
-    public static string TabItemCumulativeSumChartControlHeader { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemCumulativeSumChartControlHeader)}";
-    public static string TabItemAccountTotalEllipseControlHeader { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountTotalEllipseControlHeader)}";
-    public static string TabItemAccountsModePaymentMonthlySumControlHeader { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsModePaymentMonthlySumControlHeader)}";
-    public static string TabItemAccountsCategorySumControlHeader { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsCategorySumControlHeader)}";
-    public static string TabItemAccountsCategorySumPositiveNegativeControl { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsCategorySumPositiveNegativeControl)}";
-    public static string TabItemBudgetsControlHeader { get; } = $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemBudgetsControlHeader)}";
+    public static string TabItemCumulativeSumChartControlHeader => $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemCumulativeSumChartControlHeader)}";
+    public static string TabItemAccountTotalEllipseControlHeader => $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountTotalEllipseControlHeader)}";
+    public static string TabItemAccountsModePaymentMonthlySumControlHeader => $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsModePaymentMonthlySumControlHeader)}";
+    public static string TabItemAccountsCategorySumControlHeader => $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsCategorySumControlHeader)}";
+    public static string TabItemAccountsCategorySumPositiveNegativeControl => $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemAccountsCategorySumPositiveNegativeControl)}";
+
+    public static string TabItemBudgetsControlHeader =>
+        $"{RessourceManagerName}:{nameof(AnalyticsResources.TabItemBudgetsControlHeader)}";
 }

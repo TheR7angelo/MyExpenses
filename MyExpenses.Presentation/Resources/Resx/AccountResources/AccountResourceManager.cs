@@ -4,5 +4,5 @@ public static class AccountResourceManager
 {
     private static string RessourceManagerName => nameof(AccountResources);
 
-    public static string RessourceAccountTextBoxAddNewAccountTypeName { get; } = $"{RessourceManagerName}:{nameof(AccountResources.TextBoxAddNewAccountTypeName)}";
+    public static string RessourceAccountTextBoxAddNewAccountTypeName => $"{RessourceManagerName}:{nameof(AccountResources.TextBoxAddNewAccountTypeName)}";
 }

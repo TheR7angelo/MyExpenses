@@ -4,10 +4,10 @@ public static class DependencyResourceManager
 {
     private static string RessourceManagerNameDependencyRessources => nameof(DependencyRessources);
 
-    public static string RessourceTitleWindow { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DependenciesWindowTitle)}";
-    public static string ConfirmDeleteTitle { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.ConfirmDeleteTitle)}";
-    public static string DeleteEverything { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DeleteEverything)}";
+    public static string RessourceTitleWindow => $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DependenciesWindowTitle)}";
+    public static string ConfirmDeleteTitle => $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.ConfirmDeleteTitle)}";
+    public static string DeleteEverything => $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DeleteEverything)}";
 
-    public static string CancelButton { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.CancelButton)}";
-    public static string DeleteQuestion { get; } = $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DeleteQuestion)}";
+    public static string CancelButton => $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.CancelButton)}";
+    public static string DeleteQuestion => $"{RessourceManagerNameDependencyRessources}:{nameof(DependencyRessources.DeleteQuestion)}";
 }
