@@ -48,13 +48,20 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding KnownTileSources}"
-                  SelectedItem="{Binding KnownTileSourceSelected}"
-                  SelectionChanged="Selector_OnSelectionChanged">
+                  SelectedItem="{Binding KnownTileSourceSelected}">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateTileSourceCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <TreeView Grid.Row="1" Grid.Column="0"
