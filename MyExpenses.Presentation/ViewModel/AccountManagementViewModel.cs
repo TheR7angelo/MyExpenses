@@ -22,7 +22,7 @@ namespace MyExpenses.Presentation.ViewModel;
 /// This class is typically used as the data context for a corresponding view in the MVVM pattern
 /// and provides binding support for account-related operations.
 /// </remarks>
-public class AccountManagementViewModel : ViewModelBase
+public partial class AccountManagementViewModel : ViewModelBase
 {
     /// <summary>
     /// Service dependency used for handling account-related presentation logic.
@@ -106,44 +106,6 @@ public class AccountManagementViewModel : ViewModelBase
     public ObservableCollection<TotalByAccountViewModel> TotalByAccounts { get; } = [];
 
     /// <summary>
-    /// Command responsible for asynchronously loading account-related data into the view model.
-    /// </summary>
-    /// <remarks>
-    /// The <c>LoadCommand</c> property encapsulates the asynchronous operation to retrieve
-    /// and prepare account data for display in the UI. It is typically executed during the
-    /// initialization of the page or when a refresh of the account data is required.
-    /// This command ensures proper handling of task execution and UI thread interaction,
-    /// providing a responsive and consistent user experience.
-    /// </remarks>
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    /// <summary>
-    /// Command invoked to delete a specific account represented by a <see cref="TotalByAccountViewModel"/> instance.
-    /// </summary>
-    /// <remarks>
-    /// The <c>DeleteCommand</c> property is an implementation of <see cref="IRelayCommand{T}"/>
-    /// that encapsulates the logic for deleting an account. It accepts a <see cref="TotalByAccountViewModel"/>
-    /// object as a parameter, representing the account to be deleted. This command is typically
-    /// bound to UI elements to handle user-initiated deletion actions, ensuring synchronization
-    /// between the user interface and underlying application state.
-    /// </remarks>
-    public IRelayCommand<TotalByAccountViewModel> DeleteCommand { get; }
-
-    /// <summary>
-    /// Command used for managing or modifying account details in the view model.
-    /// </summary>
-    /// <remarks>
-    /// The <c>ManageAccountCommand</c> property is an instance of <see cref="IRelayCommand{T}"/>
-    /// where the generic parameter is <see cref="TotalByAccountViewModel"/>. It provides the functionality
-    /// to handle user interactions related to managing an individual account, such as opening an account
-    /// management dialog or navigating to an account details page.
-    /// This command is typically bound to a UI element in the view to trigger account-related operations
-    /// when users interact with the corresponding functionality.
-    /// It leverages MVVM principles to separate command execution logic from the view.
-    /// </remarks>
-    public IRelayCommand<TotalByAccountViewModel?> ManageAccountCommand { get; }
-
-    /// <summary>
     /// Represents the ViewModel responsible for managing data and commands related to account management in the application.
     /// </summary>
     public AccountManagementViewModel(
@@ -158,10 +120,6 @@ public class AccountManagementViewModel : ViewModelBase
         _navigationWindow = navigationWindow;
         _dialog = dialog;
         _logger = logger;
-
-        LoadCommand = new AsyncRelayCommand(LoadAsync);
-        DeleteCommand = new RelayCommand<TotalByAccountViewModel>(Delete);
-        ManageAccountCommand = new RelayCommand<TotalByAccountViewModel?>(ShowManageAccount);
 
         RegisterMessages();
     }
@@ -187,7 +145,8 @@ public class AccountManagementViewModel : ViewModelBase
     /// A task representing the asynchronous load operation.
     /// If successful, the account data will be populated in the view model.
     /// </returns>
-    private async Task LoadAsync()
+    [RelayCommand]
+    private async Task OnLoadAsync()
     {
         try
         {
@@ -290,7 +249,8 @@ public class AccountManagementViewModel : ViewModelBase
     /// Removes the specified account from the collection of total accounts.
     /// </summary>
     /// <param name="item">The account to be removed from the collection. If null, the method has no effect.</param>
-    private void Delete(TotalByAccountViewModel? item)
+    [RelayCommand]
+    private void OnDelete(TotalByAccountViewModel? item)
     {
         if (item is null) return;
 
@@ -301,7 +261,8 @@ public class AccountManagementViewModel : ViewModelBase
     /// Opens the manage account view with the specified account information.
     /// </summary>
     /// <param name="item">The account details to manage, or null if no specific account is provided.</param>
-    private void ShowManageAccount(TotalByAccountViewModel? item)
+    [RelayCommand]
+    private void OnManageAccount(TotalByAccountViewModel? item)
     {
         _navigationWindow.ShowManageAccount(item);
     }

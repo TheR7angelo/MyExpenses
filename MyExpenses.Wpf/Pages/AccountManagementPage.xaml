@@ -21,6 +21,12 @@
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
     </Page.Resources>
