@@ -21,7 +21,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class LocationResources {
+    public class LocationResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -35,7 +35,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Presentation.Resources.Resx.LocationResources.LocationResources", typeof(LocationResources).Assembly);
@@ -50,7 +50,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,16 +62,25 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
-        internal static string City {
+        public static string City {
             get {
                 return ResourceManager.GetString("City", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basemap :.
+        /// </summary>
+        public static string ComboBoxBaseMapHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxBaseMapHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
-        internal static string Country {
+        public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
             }
@@ -80,7 +89,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Latitude.
         /// </summary>
-        internal static string Latitude {
+        public static string Latitude {
             get {
                 return ResourceManager.GetString("Latitude", resourceCulture);
             }
@@ -89,7 +98,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Longitude.
         /// </summary>
-        internal static string Longitude {
+        public static string Longitude {
             get {
                 return ResourceManager.GetString("Longitude", resourceCulture);
             }
@@ -98,7 +107,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        internal static string Name {
+        public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
             }
@@ -107,7 +116,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Number.
         /// </summary>
-        internal static string Number {
+        public static string Number {
             get {
                 return ResourceManager.GetString("Number", resourceCulture);
             }
@@ -116,7 +125,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        internal static string Open {
+        public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
             }
@@ -125,7 +134,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Posstal code.
         /// </summary>
-        internal static string Postal {
+        public static string Postal {
             get {
                 return ResourceManager.GetString("Postal", resourceCulture);
             }
@@ -134,7 +143,7 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Street.
         /// </summary>
-        internal static string Street {
+        public static string Street {
             get {
                 return ResourceManager.GetString("Street", resourceCulture);
             }

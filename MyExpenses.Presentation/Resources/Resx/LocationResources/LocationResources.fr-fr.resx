@@ -38,4 +38,7 @@
     <data name="Open" xml:space="preserve">
         <value>Ouvert</value>
     </data>
+    <data name="ComboBoxBaseMapHintAssist" xml:space="preserve">
+        <value>Fond de carte :</value>
+    </data>
 </root>

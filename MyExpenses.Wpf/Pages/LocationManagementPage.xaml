@@ -9,8 +9,10 @@
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -46,7 +48,7 @@
 
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{loc:Tr {x:Static locationResources:LocationResourceManager.ComboBoxBaseMapHintAssist}}"
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}">
 

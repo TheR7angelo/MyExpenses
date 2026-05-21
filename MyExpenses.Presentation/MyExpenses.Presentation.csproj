@@ -61,7 +61,7 @@
         <LastGenOutput>SystemResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\LocationResources\LocationResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>LocationResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
