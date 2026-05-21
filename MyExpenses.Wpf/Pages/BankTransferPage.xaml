@@ -13,6 +13,7 @@
       xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       Title="BankTransferPage"
 
@@ -25,6 +26,12 @@
       Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />

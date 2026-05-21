@@ -123,16 +123,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     public partial double ToTotalAccountNewValue { get; private set; }
 
     /// <summary>
-    /// Gets the command to load all necessary data for the bank transfer management.
-    /// </summary>
-    public IAsyncRelayCommand LoadCommand { get; }
-
-    /// <summary>
-    /// Gets the command to prepare or cancel the bank transfer preparation state.
-    /// </summary>
-    public IRelayCommand<bool> PrepareBankTransferCommand { get; }
-
-    /// <summary>
     /// Gets the command to add or edit a "From" account.
     /// </summary>
     public IRelayCommand<AccountViewModel?> AddFromAccountCommand { get; }
@@ -141,9 +131,6 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// Gets the command to add or edit a "To" account.
     /// </summary>
     public IRelayCommand<AccountViewModel?> AddToAccountCommand { get; }
-
-    public IRelayCommand CancelBankTransferCommand { get; }
-    public IAsyncRelayCommand ValidBankTransferCommand { get; }
 
     private readonly IExpenseActionService _expenseActionService;
 
@@ -173,12 +160,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         _dialog = dialog;
         _logger = logger;
 
-        CancelBankTransferCommand = new RelayCommand(CancelBankTransfer);
-        PrepareBankTransferCommand = new AsyncRelayCommand<bool>(PrepareBankTransfer);
         AddFromAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.From));
         AddToAccountCommand = new RelayCommand<AccountViewModel?>(account => AddAccountAsync(account, AccountSource.To));
-        ValidBankTransferCommand = new AsyncRelayCommand(ValidBankTransfer);
-        LoadCommand = new AsyncRelayCommand(LoadAsync);
 
         BankTransferViewModel.PropertyChanged += OnBankTransferViewModelPropertyChanged;
 
@@ -203,7 +186,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">Optional cancellation token to observe while the operation is performed.</param>
     /// <returns>A task that represents the asynchronous operation of validating and processing the bank transfer.</returns>
-    private async Task ValidBankTransfer(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnValidBankTransfer(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -359,6 +343,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// Utilizes the navigation service to revert the UI state to the previous screen or context.
     /// Typically invoked when the user chooses to abort the bank transfer operation.
     /// </summary>
+    [RelayCommand]
     private void CancelBankTransfer()
         => _navigationService.GoBack();
 
@@ -368,7 +353,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// <param name="isPrepared">Specifies whether the preparation process should validate the transfer details.</param>
     /// <param name="cancellationToken">Token to monitor for cancellation requests during the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task PrepareBankTransfer(bool isPrepared, CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnPrepareBankTransfer(bool isPrepared, CancellationToken cancellationToken = default)
     {
         if (isPrepared) BankTransferPrepared = await _expenseActionService.ValidateBankTransfer(BankTransferViewModel, FromHistoryViewModel, cancellationToken);
         else BankTransferPrepared = isPrepared;
@@ -417,7 +403,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task LoadAsync(CancellationToken cancellationToken = default)
+    [RelayCommand]
+    private async Task OnLoadAsync(CancellationToken cancellationToken = default)
     {
         var categoryTypeTask = _expensePresentationService.GetAllCategoryTypeViewModelAsync(cancellationToken);
         var modePaymentTask = _expensePresentationService.GetAllModePaymentViewModelAsync(cancellationToken);

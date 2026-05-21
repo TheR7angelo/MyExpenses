@@ -31,6 +31,5 @@ public partial class BankTransferPage
         InitializeComponent();
 
         DataContext = vm;
-        Loaded += async (_, _) => await vm.LoadCommand.ExecuteAsync(null);
     }
 }
