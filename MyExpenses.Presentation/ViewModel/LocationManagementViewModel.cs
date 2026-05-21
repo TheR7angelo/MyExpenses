@@ -67,7 +67,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     }
 
     [RelayCommand]
-    private async Task OnLoadAsync(CancellationToken cancellationToken = default)
+    private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         var titleSource = locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
