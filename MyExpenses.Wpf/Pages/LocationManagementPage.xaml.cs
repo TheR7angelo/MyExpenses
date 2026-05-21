@@ -352,11 +352,6 @@ public partial class LocationManagementPage
         // Log.Information("{Uri}", uri);
     }
 
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        // UpdateTileLayer();
-    }
-
     private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
         // if (sender is not TreeView treeView) return;

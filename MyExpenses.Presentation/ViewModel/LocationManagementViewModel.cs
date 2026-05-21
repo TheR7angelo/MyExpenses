@@ -28,6 +28,9 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     [ObservableProperty]
     public partial Map? Map { get; set; }
 
+    [ObservableProperty]
+    public partial KnownTileSource? KnownTileSourceSelected { get; set; }
+
     [RelayCommand]
     private void OnMapControlLoaded(IMapControl mapControl)
     {
@@ -53,7 +56,11 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     {
         const string backgroundLayer = "Background";
 
-        knownTileSource ??= KnownTileSource.OpenStreetMap;
+        if (knownTileSource is null)
+        {
+            knownTileSource ??= KnownTileSource.OpenStreetMap;
+            KnownTileSourceSelected = knownTileSource;
+        }
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create((KnownTileSource)knownTileSource);
         var tileLayer = new TileLayer(httpTileSource);
