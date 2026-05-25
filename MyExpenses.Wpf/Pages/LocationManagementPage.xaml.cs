@@ -182,19 +182,6 @@ public partial class LocationManagementPage
 
     #region Action
 
-    private void CheckBoxPlaceIsOpen_OnClick(object sender, RoutedEventArgs e)
-    {
-        // if (sender is not ToggleButton checkBox) return;
-        // if (checkBox.DataContext is not TPlace place) return;
-        //
-        // e.Handled = true;
-        //
-        // if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
-        //
-        // var pointFeature = place.ToFeature().Point;
-        // SetZoom(pointFeature);
-    }
-
     // private void Interface_OnLanguageChanged()
     //     => UpdateLanguage();
 

@@ -76,6 +76,16 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     }
 
     [RelayCommand]
+    private void OnPlaceViewModelSelected(PlaceViewModel? placeViewModel)
+    {
+        if (placeViewModel is null) return;
+        var feature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel);
+        var point = feature.Point;
+
+        Map?.Navigator.CenterOnAndZoomTo(point);
+    }
+
+    [RelayCommand]
     private void OnUpdateTileSource(KnownTileSource? knownTileSource = null)
     {
         const string backgroundLayer = "Background";
