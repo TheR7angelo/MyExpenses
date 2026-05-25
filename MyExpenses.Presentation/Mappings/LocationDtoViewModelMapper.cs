@@ -4,6 +4,7 @@ using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
 using MyExpenses.Application.Dtos.Systems;
+using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.ViewModels.Locations;
 using Riok.Mapperly.Abstractions;
@@ -100,4 +101,40 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
     public partial PlaceDto MapToDto(PlaceViewModel src);
 
     public partial PlaceViewModel MapToViewModel(PlaceDto src);
+
+    public string GetGoogleHearthMapUri(PlaceViewModel placeViewModel, int altitudeLevel = 200)
+    {
+        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
+        return GetGoogleHearthMapUri(coordinates, altitudeLevel);
+    }
+
+    public string GetGoogleHearthMapUri((double Longitude, double Latitude) coordinate, int altitudeLevel = 200)
+    {
+        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        return $"https://earth.google.com/web/@{invarianteCoordinate.YInvariant},{invarianteCoordinate.XInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
+    }
+
+    public string GetGoogleMapsUri(PlaceViewModel placeViewModel)
+    {
+        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
+        return GetGoogleMapsUri(coordinates);
+    }
+
+    public string GetGoogleMapsUri((double Longitude, double Latitude) coordinate)
+    {
+        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        return $"https://maps.google.com/maps?q={invarianteCoordinate.YInvariant}, {invarianteCoordinate.XInvariant}";
+    }
+
+    public string GetGoogleStreetViewUri(PlaceViewModel placeViewModel, int zoomLevel = 0)
+    {
+        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
+        return GetGoogleStreetViewUri(coordinates, zoomLevel);
+    }
+
+    public string GetGoogleStreetViewUri((double Longitude, double Latitude) coordinate, int zoomLevel = 0)
+    {
+        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        return $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={invarianteCoordinate.YInvariant}, {invarianteCoordinate.XInvariant}&zoom={zoomLevel}";
+    }
 }

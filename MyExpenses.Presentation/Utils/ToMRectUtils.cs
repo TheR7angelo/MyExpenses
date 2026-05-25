@@ -1,8 +1,8 @@
 using Mapsui;
 
-namespace MyExpenses.Presentation;
+namespace MyExpenses.Presentation.Utils;
 
-public static class Utils
+public static class ToMRectUtils
 {
     /// <summary>
     /// Converts an array of points into an MRect structure, representing a rectangle

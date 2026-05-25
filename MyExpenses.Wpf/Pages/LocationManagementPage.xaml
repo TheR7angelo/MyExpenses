@@ -135,7 +135,7 @@
 
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
-                    
+
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderAddPoint}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Not}"
                               Click="MenuItemAddFeature_OnClick">
@@ -154,15 +154,15 @@
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderMaps}}">
 
                         <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleEarthWeb}}"
-                                  Click="MenuItemToGoogleEarthWeb_OnClick">
+                                  Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleEarthWebCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                         </MenuItem>
 
                         <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleMaps}}"
-                                  Click="MenuItemToGoogleMaps_OnClick">
+                                  Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleMapsCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                         </MenuItem>
 
                         <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleStreetView}}"
-                                  Click="MenuItemToGoogleStreetView_OnClick">
+                                  Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleStreetViewCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                         </MenuItem>
 
                     </MenuItem>
