@@ -143,53 +143,9 @@ public partial class LocationManagementPage
         InitializeComponent();
 
         DataContext = vm;
-        // Loaded += async (_, _) => await vm.LoadCommand.ExecuteAsync(null);
-
-        // KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-        // InfoLayers = [PlaceLayer];
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // Necessary instantiation of DataBaseContext to interact with the database.
-        // // This creates a scoped database context for performing queries and modifications in the database.
-        // using var context = new DataBaseContextOld();
-        // var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
-        // var groups = places.GetGroups();
-        //
-        // CountryGroups = [..groups];
-        //
-        // var features = places
-        //     .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
-        //                 s.Longitude is not 0)
-        //     .Select(feature => feature.IsOpen
-        //         ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
-        //         : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
-        //
-        // PlaceLayer.AddRange(features);
-        //
-        // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        // var map = MapsuiMapExtensions.GetMap(true, backColor);
-        // map.Layers.Add(PlaceLayer);
-        //
-        // UpdateLanguage();
-        //
-        // InitializeComponent();
-        //
-        // MapControl.Map = map;
-        // MapControl.Map.Navigator.SetZoom(PlaceLayer);
-        //
-        // // ReSharper disable HeapView.DelegateAllocation
-        // Interface.ThemeChanged += Interface_OnThemeChanged;
-        // Interface.LanguageChanged += Interface_OnLanguageChanged;
-        // // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action
-
-    // private void Interface_OnLanguageChanged()
-    //     => UpdateLanguage();
-
-    // private void Interface_OnThemeChanged()
-    //     => UpdateMapBackColor();
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
@@ -431,32 +387,6 @@ public partial class LocationManagementPage
     //     if (cityToRemove?.Places?.Count == 0) countryToRemove?.CityGroups?.Remove(cityToRemove);
     //
     //     if (countryToRemove?.CityGroups?.Count == 0) CountryGroups.Remove(countryToRemove);
-    // }
-
-    // private void SetClickTPlace(MapInfo mapInfo)
-    // {
-    //     var feature = mapInfo.Feature as PointFeature;
-    //     var layer = mapInfo.Layer;
-    //
-    //     if (feature is null || layer is null)
-    //     {
-    //         MenuItemAddFeature.Visibility = Visibility.Visible;
-    //         MenuItemEditFeature.Visibility = Visibility.Collapsed;
-    //         MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
-    //         ClickTPlace = null;
-    //         return;
-    //     }
-    //
-    //     MenuItemAddFeature.Visibility = Visibility.Collapsed;
-    //     MenuItemEditFeature.Visibility = Visibility.Visible;
-    //     MenuItemDeleteFeature.Visibility = Visibility.Visible;
-    //
-    //     var type = (Type)layer.Tag!;
-    //     if (type != typeof(TPlace)) return;
-    //
-    //     PointFeature = feature;
-    //     var place = feature.ToTPlace();
-    //     ClickTPlace = place;
     // }
 
     // private void SetZoom(params MPoint[] points)
