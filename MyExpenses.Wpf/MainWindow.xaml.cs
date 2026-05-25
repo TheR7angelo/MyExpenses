@@ -6,6 +6,8 @@ using MyExpenses.Core;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
@@ -141,7 +143,9 @@ public partial class MainWindow
 
     #endregion
 
-    public MainWindow(NavigationService navigationService)
+    private readonly INavigationWindowService _navigationWindowService;
+
+    public MainWindow(NavigationService navigationService, INavigationWindowService navigationWindowService)
     {
         var assembly = Assembly.GetEntryAssembly()!;
         ApplicationName = assembly.GetName().Name!;
@@ -152,6 +156,8 @@ public partial class MainWindow
 
         navigationService.Initialize(FrameBody);
         navigationService.Navigate(nameof(WelcomePage));
+
+        _navigationWindowService = navigationWindowService;
 
         // FrameBody.Content = welcomePage;
 
@@ -166,7 +172,7 @@ public partial class MainWindow
     #region Action
 
     private void ButtonGithubPage_OnClick(object sender, RoutedEventArgs e)
-        => WebUtils.OpenGithubPage();
+        => _navigationWindowService.OpenGithubPage();
 
     private void FrameBody_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {

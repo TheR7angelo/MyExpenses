@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
@@ -48,5 +49,16 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
         var window = App.ServiceProvider.GetRequiredService<AddEditColorWindow>();
         if (color is not null) window.LoadColorViewModel(color);
         window.ShowDialog();
+    }
+
+    public void OpenGithubPage()
+    {
+        const string url = "https://github.com/TheR7angelo/MyExpenses";
+        url.StartProcess();
+    }
+
+    public void OpenUri(string uri)
+    {
+        uri.StartProcess();
     }
 }

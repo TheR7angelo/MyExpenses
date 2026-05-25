@@ -55,4 +55,17 @@ public interface INavigationWindowService
     /// </summary>
     /// <param name="color">The view model representing the color to be managed. This contains details such as the color name and hexadecimal code.</param>
     public void ShowColorManagementWindow(ColorViewModel? color);
+
+    /// <summary>
+    /// Opens the official GitHub page associated with the application.
+    /// This method is typically used to navigate users to the repository or documentation hosted on GitHub for further information or assistance.
+    /// </summary>
+    public void OpenGithubPage();
+
+    /// <summary>
+    /// Opens a specified URI in the default web browser or associated application.
+    /// This method is used to navigate to external resources or links from within the application.
+    /// </summary>
+    /// <param name="uri">The URI to be opened. This should be a properly formatted string representing a valid URI.</param>
+    public void OpenUri(string uri);
 }

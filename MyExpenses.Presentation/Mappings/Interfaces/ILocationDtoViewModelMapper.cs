@@ -76,4 +76,16 @@ public interface ILocationDtoViewModelMapper
     public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d);
 
     public MPoint MapToMPoint(PlaceViewModel place);
+
+    public string GetGoogleHearthMapUri(PlaceViewModel placeViewModel, int altitudeLevel = 200);
+
+    public string GetGoogleHearthMapUri((double Longitude, double Latitude) valueTuple, int altitudeLevel = 200);
+
+    public string GetGoogleMapsUri(PlaceViewModel placeViewModel);
+
+    public string GetGoogleMapsUri((double Longitude, double Latitude) coordinate);
+
+    public string GetGoogleStreetViewUri(PlaceViewModel placeViewModel, int zoomLevel = 0);
+
+    public string GetGoogleStreetViewUri((double Longitude, double Latitude) coordinate, int zoomLevel = 0);
 }

@@ -20,6 +20,7 @@ namespace MyExpenses.Presentation.ViewModel;
 
 public partial class LocationManagementViewModel(ILocationPresentationService locationPresentationService,
     ILocationDtoViewModelMapper locationDtoViewModelMapper,
+    INavigationWindowService navigationWindowService,
     ILogger<LocationManagementViewModel> logger) : ViewModelBase
 {
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
@@ -48,6 +49,33 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         var mapInfo = mapControl.GetMapInfo(new ScreenPosition(position.Longitude, position.Latitude), PlaceLayers);
         SetSelectedPlaceViewModel(mapInfo);
+    }
+
+    [RelayCommand]
+    private void OnGoToGoogleEarthWeb()
+    {
+        var uri = locationDtoViewModelMapper.GetGoogleHearthMapUri(SelectedPlacePoint);
+        OpenWebUriWithLog(uri, "Google Earth");
+    }
+
+    [RelayCommand]
+    private void OnGoToGoogleMaps()
+    {
+        var uri = locationDtoViewModelMapper.GetGoogleMapsUri(SelectedPlacePoint);
+        OpenWebUriWithLog(uri, "Google Maps");
+    }
+
+    [RelayCommand]
+    private void OnGoToGoogleStreetView()
+    {
+        var uri = locationDtoViewModelMapper.GetGoogleStreetViewUri(SelectedPlacePoint);
+        OpenWebUriWithLog(uri, "Google Street View");
+    }
+
+    private void OpenWebUriWithLog(string uri, string webPageTitle)
+    {
+        logger.LogInformation("Opening for {WebPageTitle} with the following url: {Uri}", webPageTitle, uri);
+        navigationWindowService.OpenUri(uri);
     }
 
     [RelayCommand]

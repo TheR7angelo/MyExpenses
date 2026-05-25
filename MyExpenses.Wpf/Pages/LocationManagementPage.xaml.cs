@@ -161,15 +161,6 @@ public partial class LocationManagementPage
         // AddPlaceTreeViewCountryGroup(editedPlace);
     }
 
-    private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
-    {
-        // var log = ClickTPlace.GetLogForGoogleEarthWeb(ClickPoint);
-        //
-        // Log.Information("{Log}", log);
-        // var uri = ClickPoint.ToGoogleEarthWeb(ProjectSystem.Wpf);
-        // Log.Information("{Uri}", uri);
-    }
-
 
     private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
     {
