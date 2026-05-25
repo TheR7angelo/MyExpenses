@@ -13,6 +13,7 @@
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
+      xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -95,6 +96,7 @@
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type tables:TPlace}">
                                         <CheckBox IsThreeState="False"
+                                                  controlAssist:ReadOnlyCheckboxAssist.IsReadOnly="True"
                                                   IsChecked="{Binding IsOpen, Mode=OneWay}"
                                                   Content="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}"
                                                   PreviewMouseDown="CheckBoxPlaceIsOpen_OnClick">
