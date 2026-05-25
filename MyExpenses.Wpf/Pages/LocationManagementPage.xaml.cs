@@ -34,94 +34,6 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
-    public static readonly DependencyProperty ComboBoxBasemapHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxBasemapHintAssist), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public object ComboBoxBasemapHintAssist
-    {
-        get => (string)GetValue(ComboBoxBasemapHintAssistProperty);
-        set => SetValue(ComboBoxBasemapHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderAddPointProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderAddPoint), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderAddPoint
-    {
-        get => (string)GetValue(MenuItemHeaderAddPointProperty);
-        set => SetValue(MenuItemHeaderAddPointProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderEditFeatureProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderEditFeature), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderEditFeature
-    {
-        get => (string)GetValue(MenuItemHeaderEditFeatureProperty);
-        set => SetValue(MenuItemHeaderEditFeatureProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderDeleteFeatureProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderDeleteFeature), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderDeleteFeature
-    {
-        get => (string)GetValue(MenuItemHeaderDeleteFeatureProperty);
-        set => SetValue(MenuItemHeaderDeleteFeatureProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderMapsProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderMaps), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderMaps
-    {
-        get => (string)GetValue(MenuItemHeaderMapsProperty);
-        set => SetValue(MenuItemHeaderMapsProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderGoogleEarthWebProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderGoogleEarthWeb), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(LocationManagementPage), new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderGoogleEarthWeb
-    {
-        get => (string)GetValue(MenuItemHeaderGoogleEarthWebProperty);
-        set => SetValue(MenuItemHeaderGoogleEarthWebProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderGoogleMapsProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderGoogleMaps), typeof(string), typeof(LocationManagementPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderGoogleMaps
-    {
-        get => (string)GetValue(MenuItemHeaderGoogleMapsProperty);
-        set => SetValue(MenuItemHeaderGoogleMapsProperty, value);
-    }
-
-    public static readonly DependencyProperty MenuItemHeaderGoogleStreetViewProperty =
-        DependencyProperty.Register(nameof(MenuItemHeaderGoogleStreetView), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(LocationManagementPage), new PropertyMetadata(default(string)));
-
-    public string MenuItemHeaderGoogleStreetView
-    {
-        get => (string)GetValue(MenuItemHeaderGoogleStreetViewProperty);
-        set => SetValue(MenuItemHeaderGoogleStreetViewProperty, value);
-    }
-
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -391,20 +303,6 @@ public partial class LocationManagementPage
 
     // private void SetZoom(params MPoint[] points)
     //     => MapControl.Map.Navigator.SetZoom(points);
-
-    private void UpdateLanguage()
-    {
-        ComboBoxBasemapHintAssist = LocationManagementResources.ComboBoxBasemapHintAssist;
-
-        MenuItemHeaderAddPoint = LocationManagementResources.MenuItemHeaderAddPoint;
-        MenuItemHeaderEditFeature = LocationManagementResources.MenuItemHeaderEditFeature;
-        MenuItemHeaderDeleteFeature = LocationManagementResources.MenuItemHeaderDeleteFeature;
-
-        MenuItemHeaderMaps = LocationManagementResources.MenuItemHeaderMaps;
-        MenuItemHeaderGoogleEarthWeb = LocationManagementResources.MenuItemHeaderGoogleEarthWeb;
-        MenuItemHeaderGoogleMaps = LocationManagementResources.MenuItemHeaderGoogleMaps;
-        MenuItemHeaderGoogleStreetView = LocationManagementResources.MenuItemHeaderGoogleStreetView;
-    }
 
     // private void UpdateMapBackColor()
     // {

@@ -63,8 +63,6 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         SelectedPlaceViewModel = mapInfo?.Feature is not PointFeature pointFeature
             ? null
             : locationDtoViewModelMapper.MapToPlaceViewModel(pointFeature);
-
-        Console.WriteLine(SelectedPlaceViewModel);
     }
 
     [RelayCommand]

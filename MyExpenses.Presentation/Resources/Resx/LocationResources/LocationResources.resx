@@ -48,4 +48,25 @@
     <data name="ComboBoxBaseMapHintAssist" xml:space="preserve">
         <value>Basemap :</value>
     </data>
+    <data name="MenuItemHeaderAddPoint" xml:space="preserve">
+        <value>Add new place</value>
+    </data>
+    <data name="MenuItemHeaderEditFeature" xml:space="preserve">
+        <value>Edit point</value>
+    </data>
+    <data name="MenuItemHeaderDeleteFeature" xml:space="preserve">
+        <value>Delete place</value>
+    </data>
+    <data name="MenuItemHeaderMaps" xml:space="preserve">
+        <value>Maps</value>
+    </data>
+    <data name="MenuItemHeaderGoogleEarthWeb" xml:space="preserve">
+        <value>Go to Google Earth</value>
+    </data>
+    <data name="MenuItemHeaderGoogleMaps" xml:space="preserve">
+        <value>Go to Google Maps</value>
+    </data>
+    <data name="MenuItemHeaderGoogleStreetView" xml:space="preserve">
+        <value>Go to Google Street View</value>
+    </data>
 </root>

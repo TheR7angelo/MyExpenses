@@ -105,6 +105,69 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new place.
+        /// </summary>
+        public static string MenuItemHeaderAddPoint {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderAddPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete place.
+        /// </summary>
+        public static string MenuItemHeaderDeleteFeature {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderDeleteFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit point.
+        /// </summary>
+        public static string MenuItemHeaderEditFeature {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderEditFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Earth.
+        /// </summary>
+        public static string MenuItemHeaderGoogleEarthWeb {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleEarthWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Maps.
+        /// </summary>
+        public static string MenuItemHeaderGoogleMaps {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleMaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Street View.
+        /// </summary>
+        public static string MenuItemHeaderGoogleStreetView {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleStreetView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maps.
+        /// </summary>
+        public static string MenuItemHeaderMaps {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderMaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {

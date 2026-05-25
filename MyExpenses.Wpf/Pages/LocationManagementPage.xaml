@@ -136,32 +136,32 @@
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
                     
-                    <MenuItem Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderAddPoint}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Not}"
                               Click="MenuItemAddFeature_OnClick">
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderEditFeature}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}}"
                               Click="MenuItemEditFeature_OnClick">
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderDeleteFeature}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}}"
                               Click="MenuItemDeleteFeature_OnClick">
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderMaps}}">
 
-                        <MenuItem Header="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleEarthWeb}}"
                                   Click="MenuItemToGoogleEarthWeb_OnClick">
                         </MenuItem>
 
-                        <MenuItem Header="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleMaps}}"
                                   Click="MenuItemToGoogleMaps_OnClick">
                         </MenuItem>
 
-                        <MenuItem Header="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderGoogleStreetView}}"
                                   Click="MenuItemToGoogleStreetView_OnClick">
                         </MenuItem>
 
