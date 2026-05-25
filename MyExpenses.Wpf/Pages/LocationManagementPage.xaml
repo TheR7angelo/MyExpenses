@@ -116,8 +116,7 @@
                         Background="{DynamicResource MaterialDesignPaper}"
                         Info="MapControl_OnInfo"
                         Map="{Binding Map}"
-                        ContextMenuOpening="MapControl_OnContextMenuOpening"
-                        Loaded="MapControl_OnLoaded">
+                        ContextMenuOpening="MapControl_OnContextMenuOpening">
 
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Loaded">

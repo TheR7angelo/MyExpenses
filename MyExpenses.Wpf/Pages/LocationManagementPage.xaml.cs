@@ -188,11 +188,6 @@ public partial class LocationManagementPage
     // private void Interface_OnThemeChanged()
     //     => UpdateMapBackColor();
 
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        // UpdateTileLayer();
-    }
-
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
         // var position = Mouse.GetPosition(MapControl);
