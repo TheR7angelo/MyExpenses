@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:groups="clr-namespace:MyExpenses.Models.Sql.Bases.Groups;assembly=MyExpenses.Models"
       xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
@@ -77,7 +76,7 @@
             </b:Interaction.Triggers>
 
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type groups:CountryGroup}"
+                <HierarchicalDataTemplate DataType="{x:Type locations:CountryGroupViewModel}"
                                           ItemsSource="{Binding CityGroups}">
                     <TextBlock>
                         <Run Text="{Binding Country, Converter={StaticResource EmptyStringTreeViewConverter}}" />
@@ -85,7 +84,7 @@
                     </TextBlock>
 
                     <HierarchicalDataTemplate.ItemTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type groups:CityGroup}"
+                        <HierarchicalDataTemplate DataType="{x:Type locations:CityGroupViewModel}"
                                                   ItemsSource="{Binding Places}">
 
                             <TextBlock>
