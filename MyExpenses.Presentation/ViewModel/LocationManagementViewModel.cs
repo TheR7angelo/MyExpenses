@@ -3,7 +3,10 @@ using BruTile.Predefined;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mapsui;
+using Mapsui.Extensions;
 using Mapsui.Layers;
+using Mapsui.Manipulations;
+using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Mapsui.UI;
 using Microsoft.Extensions.Logging;
@@ -29,7 +32,40 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     public partial Map? Map { get; set; }
 
     [ObservableProperty]
+    public partial PlaceViewModel? SelectedPlaceViewModel { get; set; }
+
+    private (double Longitude, double Latitude) SelectedPlacePoint { get; set; }
+
+    [ObservableProperty]
     public partial KnownTileSource? KnownTileSourceSelected { get; set; }
+
+    public void OnPositionChanged((double Longitude, double Latitude) position, IMapControl mapControl)
+    {
+        if (Map is null) return;
+
+        var worldPosition = Map.Navigator.Viewport.ScreenToWorld(position.Longitude, position.Latitude);
+        SelectedPlacePoint = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+
+        var mapInfo = mapControl.GetMapInfo(new ScreenPosition(position.Longitude, position.Latitude), PlaceLayers);
+        SetSelectedPlaceViewModel(mapInfo);
+    }
+
+    [RelayCommand]
+    private void OnMapInfo(MapInfoEventArgs? mapInfoEventArgs)
+    {
+        var mapInfo = mapInfoEventArgs?.GetMapInfo(PlaceLayers);
+
+        SetSelectedPlaceViewModel(mapInfo);
+    }
+
+    private void SetSelectedPlaceViewModel(MapInfo? mapInfo)
+    {
+        SelectedPlaceViewModel = mapInfo?.Feature is not PointFeature pointFeature
+            ? null
+            : locationDtoViewModelMapper.MapToPlaceViewModel(pointFeature);
+
+        Console.WriteLine(SelectedPlaceViewModel);
+    }
 
     [RelayCommand]
     private void OnSelectedTreeViewItem(object? item)

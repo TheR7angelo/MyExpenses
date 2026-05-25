@@ -32,6 +32,7 @@
     <Page.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
         <converters:EmptyStringTreeViewConverter x:Key="EmptyStringTreeViewConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -113,33 +114,40 @@
         <wpf:MapControl x:Name="MapControl"
                         Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                         Background="{DynamicResource MaterialDesignPaper}"
-                        Info="MapControl_OnInfo"
                         Map="{Binding Map}"
                         ContextMenuOpening="MapControl_OnContextMenuOpening">
 
             <b:Interaction.Triggers>
+
                 <b:EventTrigger EventName="Loaded">
                     <b:InvokeCommandAction Command="{Binding MapControlLoadedCommand}"
                                            CommandParameter="{Binding ., ElementName=MapControl}">
                     </b:InvokeCommandAction>
                 </b:EventTrigger>
+
+                <b:EventTrigger EventName="Info">
+                    <b:InvokeCommandAction Command="{Binding MapInfoCommand}"
+                                           PassEventArgsToCommand="True">
+                    </b:InvokeCommandAction>
+                </b:EventTrigger>
+
             </b:Interaction.Triggers>
 
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
                     
-                    <MenuItem x:Name="MenuItemAddFeature"
-                              Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Not}"
                               Click="MenuItemAddFeature_OnClick">
                     </MenuItem>
 
-                    <MenuItem x:Name="MenuItemEditFeature"
-                              Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}}"
                               Click="MenuItemEditFeature_OnClick">
                     </MenuItem>
 
-                    <MenuItem x:Name="MenuItemDeleteFeature"
-                              Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <MenuItem Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}}"
                               Click="MenuItemDeleteFeature_OnClick">
                     </MenuItem>
 

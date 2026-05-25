@@ -135,6 +135,9 @@ public partial class LocationManagementPage
     private Point ClickPoint { get; set; } = Point.Empty;
     private PointFeature? PointFeature { get; set; }
 
+    private LocationManagementViewModel LocationManagementViewModel
+        => (LocationManagementViewModel)DataContext;
+
     public LocationManagementPage(LocationManagementViewModel vm)
     {
         InitializeComponent();
@@ -190,24 +193,8 @@ public partial class LocationManagementPage
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
-        // var position = Mouse.GetPosition(MapControl);
-        // var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(position.X, position.Y);
-        //
-        // var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
-        // ClickPoint = new Point(lonLat.lon, lonLat.lat);
-        //
-        // var screenPosition = new ScreenPosition(position.X, position.Y);
-        // var mapInfo = MapControl.GetMapInfo(screenPosition, InfoLayers);
-        // SetClickTPlace(mapInfo);
-    }
-
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
-    {
-        // var mapInfo = e.GetMapInfo(InfoLayers);
-        // SetClickTPlace(mapInfo);
+        var position = Mouse.GetPosition(MapControl);
+        LocationManagementViewModel.OnPositionChanged((position.X, position.Y), MapControl);
     }
 
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
