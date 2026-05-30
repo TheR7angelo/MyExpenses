@@ -1,6 +1,5 @@
-using Domain.Models.Nominatium;
+using Domain.Models.Nominatim;
 using Domain.Models.Validation;
-using MyExpenses.Application.Dtos.Nominatium;
 
 namespace MyExpenses.Application.Interfaces.IRepositories;
 

@@ -6,7 +6,7 @@ namespace MyExpenses.Application.Interfaces.IServices;
 /// <summary>
 /// Represents a service for interacting with the Nominatim geocoding API.
 /// </summary>
-public interface INominatiumService
+public interface INominatimService
 {
     /// <summary>
     /// Searches for locations near the given latitude and longitude.

@@ -52,7 +52,7 @@ public static class ServiceExtensions
             .AddScoped<IExpenseService, ExpenseService>()
             .AddScoped<ISystemService, SystemService>()
             .AddScoped<ILocationService, LocationService>()
-            .AddScoped<INominatiumService, NominatiumService>();
+            .AddScoped<INominatimService, NominatimService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
@@ -61,15 +61,16 @@ public static class ServiceExtensions
             .AddScoped<ISystemPresentationService, SystemPresentationService>()
             .AddScoped<ILocationPresentationService, LocationPresentationService>();
 
-        services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
-            .AddSingleton<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()
-            .AddSingleton<ISystemDtoDomainMapper, SystemDtoDomainMapper>()
-            .AddSingleton<ILocationDtoDomainMapper, LocationDtoDomainMapper>();
+        services.AddScoped<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
+            .AddScoped<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()
+            .AddScoped<ISystemDtoDomainMapper, SystemDtoDomainMapper>()
+            .AddScoped<ILocationDtoDomainMapper, LocationDtoDomainMapper>()
+            .AddScoped<INominatimDtoDomainMapper, NominatimDtoDomainMapper>();
 
-        services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
-            .AddSingleton<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
-            .AddSingleton<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>()
-            .AddSingleton<ILocationDtoViewModelMapper, LocationDtoViewModelMapper>();
+        services.AddScoped<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
+            .AddScoped<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
+            .AddScoped<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>()
+            .AddScoped<ILocationDtoViewModelMapper, LocationDtoViewModelMapper>();
 
         services.AddServiceLogging(logEventLevel);
 
