@@ -1,11 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Mapsui;
+using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 namespace MyExpenses.Wpf.Services;
 
@@ -42,6 +46,19 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
         var window = provider.GetRequiredService<AddEditCategoryTypeWindow>();
         if (categoryTypeViewModel is not null) window.LoadCategoryTypeViewModel(categoryTypeViewModel);
         window.ShowDialog();
+    }
+
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel)
+    {
+        var window = provider.GetRequiredService<AddEditLocationWindow>();
+        if (placeViewModel is not null) window.LoadPlaceViewModel(placeViewModel);
+        window.ShowDialog();
+    }
+
+    public async Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
+    {
+        var nominatiumService = provider.GetRequiredService<INominatiumService>();
+        var results = await nominatiumService.SearchAsync(point.Y, point.X, cancellationToken);
     }
 
     public void ShowColorManagementWindow(ColorViewModel? color)

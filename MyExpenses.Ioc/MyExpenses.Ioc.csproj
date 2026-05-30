@@ -13,6 +13,7 @@
       </ProjectReference>
       <ProjectReference Include="..\MyExpenses.Presentation\MyExpenses.Presentation.csproj" />
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
+      <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
     </ItemGroup>
 
 </Project>

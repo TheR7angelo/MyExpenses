@@ -37,7 +37,7 @@ public enum ErrorCode
     PostalTooLong,
     StreetTooLong,
 
-    InvalidCharacters,
+    HttpClientRequestFailed,
 
     UnknownError,
 

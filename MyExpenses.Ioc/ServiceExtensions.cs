@@ -18,6 +18,8 @@ using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Repositories;
 using MyExpenses.Sql.Validations;
+using MyExpenses.WebApi.DependencyInjections;
+using MyExpenses.WebApi.Repositories;
 using Serilog.Events;
 
 namespace MyExpenses.Ioc;
@@ -40,7 +42,8 @@ public static class ServiceExtensions
         services.AddScoped<IAccountRepository, AccountRepository>()
             .AddScoped<IExpenseRepository, ExpenseRepository>()
             .AddScoped<ISystemRepository, SystemRepository>()
-            .AddScoped<ILocationRepository, LocationRepository>();
+            .AddScoped<ILocationRepository, LocationRepository>()
+            .AddScoped<INominatimRepository, NominatimRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>()
             .AddScoped<IExpenseValidationRepository, ExpenseValidationRepository>();
@@ -48,7 +51,8 @@ public static class ServiceExtensions
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<IExpenseService, ExpenseService>()
             .AddScoped<ISystemService, SystemService>()
-            .AddScoped<ILocationService, LocationService>();
+            .AddScoped<ILocationService, LocationService>()
+            .AddScoped<INominatiumService, NominatiumService>();
 
         services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
@@ -73,6 +77,8 @@ public static class ServiceExtensions
 
         services.AddDbContext<DataBaseContext>(ConfigureDatabase, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Singleton);
         services.AddDbContextFactory<DataBaseContext>(ConfigureDatabase);
+
+        services.AddHttpClientBuilder();
 
         services.RegisterViewModels()
             .RegisterValidationServices()
