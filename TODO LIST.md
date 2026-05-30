@@ -1,9 +1,22 @@
 # TODO LIST
 
+- [Refactor](#refactor)
 - [C# WPF](#c-wpf)
 - [C# MAUI](#c-maui)
 - [Other](#other-1)
 
+
+# Refactor
+> - [ ] Refactoring code ![20%](https://geps.dev/progress/20)<!-- [1/5] -->
+>   - [ ] Refactoring database / make table view more stable ![50%](https://geps.dev/progress/50)<!-- [1/2] -->
+>     - [X] Make table more stable (NOT NULL / constraint)
+>     - [ ] Make view really typed
+>   - [ ] Replace manual validation with FluentValidation
+>   - [ ] Make all view in wpf using MVVM pattern with dependency injection
+>   - [ ] Make all view in maui using MVVM pattern with dependency injection
+>   - [ ] Replace obsolete nuggets ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
+>     - [ ] Replace AutoMapper by Mapperly
+>     - [ ] Replace Newtonsoft.Json by System.Text.Json
 
 # C# WPF
 
