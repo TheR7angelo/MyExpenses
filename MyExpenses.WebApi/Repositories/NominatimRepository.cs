@@ -1,6 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
-using Domain.Models.Nominatium;
+using Domain.Models.Nominatim;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;

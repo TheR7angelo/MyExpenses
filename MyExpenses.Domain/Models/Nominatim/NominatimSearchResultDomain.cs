@@ -1,4 +1,4 @@
-namespace Domain.Models.Nominatium;
+namespace Domain.Models.Nominatim;
 
 public class NominatimSearchResultDomain
 {

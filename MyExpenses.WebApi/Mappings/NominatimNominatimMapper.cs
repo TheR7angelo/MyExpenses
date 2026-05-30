@@ -1,5 +1,4 @@
-using Domain.Models.Nominatium;
-using MyExpenses.Application.Dtos.Nominatium;
+using Domain.Models.Nominatim;
 using MyExpenses.WebApi.Entities;
 using Riok.Mapperly.Abstractions;
 
