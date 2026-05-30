@@ -14,4 +14,7 @@ public static class LocationResourceManager
     public static string MenuItemHeaderGoogleEarthWeb => $"{RessourceManagerName}:{nameof(LocationResources.MenuItemHeaderGoogleEarthWeb)}";
     public static string MenuItemHeaderGoogleMaps => $"{RessourceManagerName}:{nameof(LocationResources.MenuItemHeaderGoogleMaps)}";
     public static string MenuItemHeaderGoogleStreetView => $"{RessourceManagerName}:{nameof(LocationResources.MenuItemHeaderGoogleStreetView)}";
+
+    public static string AddLocationWindowTitle => $"{RessourceManagerName}:{nameof(LocationResources.AddLocationWindowTitle)}";
+    public static string EditLocationWindowTitle => $"{RessourceManagerName}:{nameof(LocationResources.EditLocationWindowTitle)}";
 }

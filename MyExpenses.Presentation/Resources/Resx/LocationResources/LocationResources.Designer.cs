@@ -60,6 +60,15 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding a new location.
+        /// </summary>
+        public static string AddLocationWindowTitle {
+            get {
+                return ResourceManager.GetString("AddLocationWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -83,6 +92,15 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing a location.
+        /// </summary>
+        public static string EditLocationWindowTitle {
+            get {
+                return ResourceManager.GetString("EditLocationWindowTitle", resourceCulture);
             }
         }
         

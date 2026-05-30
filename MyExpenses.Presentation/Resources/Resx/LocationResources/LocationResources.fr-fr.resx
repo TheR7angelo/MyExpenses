@@ -62,4 +62,10 @@
     <data name="MenuItemHeaderGoogleStreetView" xml:space="preserve">
         <value>Aller sur Google Street View</value>
     </data>
+    <data name="AddLocationWindowTitle" xml:space="preserve">
+        <value>Ajout d’un nouvel emplacement</value>
+    </data>
+    <data name="EditLocationWindowTitle" xml:space="preserve">
+        <value>Modification d’un lieu</value>
+    </data>
 </root>
