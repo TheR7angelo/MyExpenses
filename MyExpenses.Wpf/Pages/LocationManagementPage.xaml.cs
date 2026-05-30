@@ -65,23 +65,6 @@ public partial class LocationManagementPage
         LocationManagementViewModel.OnPositionChanged((position.X, position.Y), MapControl);
     }
 
-    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // The AddEditLocationWindow instance is created to allow the user to add or edit a location.
-        // // The SetPlace method is called with the current ClickPoint to initialize the dialog with the relevant location data.
-        // // ShowDialog() displays the window modally, pausing execution until the user has interacted with and closed the dialog.
-        // var addEditLocationWindow = new AddEditLocationWindow();
-        // addEditLocationWindow.SetPlace(ClickPoint);
-        // addEditLocationWindow.ShowDialog();
-        //
-        // if (addEditLocationWindow.DialogResult is not true) return;
-        //
-        // var newPlace = addEditLocationWindow.Place;
-        // var success = ProcessNewPlace(newPlace, add: true);
-        // if (success) AddPlaceTreeViewCountryGroup(newPlace);
-    }
-
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
     {
         // var feature = PointFeature;

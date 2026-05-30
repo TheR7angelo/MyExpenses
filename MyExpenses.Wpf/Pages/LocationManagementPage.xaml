@@ -138,7 +138,7 @@
 
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderAddPoint}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Not}"
-                              Click="MenuItemAddFeature_OnClick">
+                              Command="{Binding ManagePlaceViewModelCommand}">
                     </MenuItem>
 
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderEditFeature}}"

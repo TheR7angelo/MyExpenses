@@ -35,17 +35,42 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     [ObservableProperty]
     public partial PlaceViewModel? SelectedPlaceViewModel { get; set; }
 
-    private (double Longitude, double Latitude) SelectedPlacePoint { get; set; }
+    private MPoint SelectedPlacePoint { get; set; } = new(0, 0);
 
     [ObservableProperty]
     public partial KnownTileSource? KnownTileSourceSelected { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsEditLocation { get; set; }
+
+    [RelayCommand]
+    private void OnManagePlaceViewModel(PlaceViewModel? placeViewModel)
+    {
+        if (SelectedPlaceViewModel is null)
+        {
+            navigationWindowService.ShowLocationManagementWindow(SelectedPlacePoint);
+        }
+        else
+        {
+            navigationWindowService.ShowLocationManagementWindow(placeViewModel);
+        }
+    }
+
+    public void LoadPlaceViewModel(PlaceViewModel placeViewModel)
+    {
+        SelectedPlaceViewModel ??= new PlaceViewModel();
+        locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
+
+        IsEditLocation = true;
+    }
 
     public void OnPositionChanged((double Longitude, double Latitude) position, IMapControl mapControl)
     {
         if (Map is null) return;
 
         var worldPosition = Map.Navigator.Viewport.ScreenToWorld(position.Longitude, position.Latitude);
-        SelectedPlacePoint = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+        SelectedPlacePoint = locationDtoViewModelMapper.MapToMPoint(lonLat);
 
         var mapInfo = mapControl.GetMapInfo(new ScreenPosition(position.Longitude, position.Latitude), PlaceLayers);
         SetSelectedPlaceViewModel(mapInfo);

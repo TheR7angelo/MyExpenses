@@ -75,17 +75,67 @@ public interface ILocationDtoViewModelMapper
     /// <returns>An MRect instance that encompasses the given points with the specified margin applied.</returns>
     public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d);
 
+    /// <summary>
+    /// Converts a PlaceViewModel instance into an MPoint instance.
+    /// </summary>
+    /// <param name="place">The PlaceViewModel object to be converted.</param>
+    /// <returns>An MPoint object representing the geographical coordinates of the provided PlaceViewModel.</returns>
     public MPoint MapToMPoint(PlaceViewModel place);
 
+    public MPoint MapToMPoint((double lon, double lat) coordinates);
+
+    /// <summary>
+    /// Merges properties from one PlaceViewModel instance into another.
+    /// </summary>
+    /// <param name="src">The source PlaceViewModel containing the data to merge.</param>
+    /// <param name="dst">The destination PlaceViewModel which will receive the merged data.</param>
+    public void Merge(PlaceViewModel src, PlaceViewModel dst);
+
+
+    /// <summary>
+    /// Generates a Google Earth Map URI based on the provided PlaceViewModel and altitude level.
+    /// </summary>
+    /// <param name="placeViewModel">The PlaceViewModel containing location data.</param>
+    /// <param name="altitudeLevel">Optional parameter for the altitude level of the map, default is 200.</param>
+    /// <returns>A string representing the Google Earth Map URI.</returns>
     public string GetGoogleHearthMapUri(PlaceViewModel placeViewModel, int altitudeLevel = 200);
 
-    public string GetGoogleHearthMapUri((double Longitude, double Latitude) valueTuple, int altitudeLevel = 200);
+    /// <summary>
+    /// Generates a Google Earth URI for the specified point and altitude level.
+    /// </summary>
+    /// <param name="point">The geographic coordinates to generate the URI for.</param>
+    /// <param name="altitudeLevel">The altitude level at which the map should be centered. Default is 200 meters.</param>
+    /// <returns>A string representing the Google Earth URI.</returns>
+    public string GetGoogleHearthMapUri(MPoint point, int altitudeLevel = 200);
 
+
+    /// <summary>
+    /// Generates a Google Maps URI for the given PlaceViewModel.
+    /// </summary>
+    /// <param name="placeViewModel">The PlaceViewModel representing the location.</param>
+    /// <returns>A string containing the Google Maps URI.</returns>
     public string GetGoogleMapsUri(PlaceViewModel placeViewModel);
 
-    public string GetGoogleMapsUri((double Longitude, double Latitude) coordinate);
+    /// <summary>
+    /// Gets the Google Maps URI for a given point.
+    /// </summary>
+    /// <param name="point">The point to get the URI for.</param>
+    /// <returns>A string representing the Google Maps URI.</returns>
+    public string GetGoogleMapsUri(MPoint point);
 
+    /// <summary>
+    /// Generates a Google Street View URI for a given PlaceViewModel.
+    /// </summary>
+    /// <param name="placeViewModel">The PlaceViewModel representing the location.</param>
+    /// <param name="zoomLevel">The zoom level of the Street View image, default is 0.</param>
+    /// <returns>A string containing the Google Street View URI.</returns>
     public string GetGoogleStreetViewUri(PlaceViewModel placeViewModel, int zoomLevel = 0);
 
-    public string GetGoogleStreetViewUri((double Longitude, double Latitude) coordinate, int zoomLevel = 0);
+    /// <summary>
+    /// Generates a URI for Google Street View based on the provided coordinates and zoom level.
+    /// </summary>
+    /// <param name="point">The MPoint containing the geographic coordinates.</param>
+    /// <param name="zoomLevel">The zoom level for the Google Street View. Default is 0.</param>
+    /// <returns>A string representing the URI for accessing Google Street View at the specified location and zoom level.</returns>
+    public string GetGoogleStreetViewUri(MPoint point, int zoomLevel = 0);
 }

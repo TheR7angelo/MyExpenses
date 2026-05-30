@@ -1,6 +1,7 @@
 ﻿using Mapsui;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Application.Interfaces.IServices;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -13,7 +14,7 @@ using MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 namespace MyExpenses.Wpf.Services;
 
-public class NavigationWindowService(IServiceProvider provider) : INavigationWindowService
+public class NavigationWindowService(IServiceProvider provider, IDialogService dialogService) : INavigationWindowService
 {
     public async Task ShowManageAccount(TotalByAccountViewModel? item)
     {
@@ -57,8 +58,24 @@ public class NavigationWindowService(IServiceProvider provider) : INavigationWin
 
     public async Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
     {
-        var nominatiumService = provider.GetRequiredService<INominatiumService>();
-        var results = await nominatiumService.SearchAsync(point.Y, point.X, cancellationToken);
+        var nominatimService = provider.GetRequiredService<INominatimService>();
+        var results = await nominatimService.SearchAsync(point.Y, point.X, cancellationToken);
+        if (!results.IsSuccess)
+        {
+            dialogService.ShowMessageBox("Error", results.InternalMessage!, MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
+        else if (!results.Value!.Any())
+        {
+            dialogService.ShowMessageBox("Info", "No location found!", MessageBoxButton.Ok, MsgBoxImage.Information);
+        }
+        else if (results.Value!.Count() is 1)
+        {
+            // TODO map nominatim to placeviewmodel
+        }
+        else
+        {
+            // TODO show multiple locations choice
+        }
     }
 
     public void ShowColorManagementWindow(ColorViewModel? color)

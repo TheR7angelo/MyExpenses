@@ -97,6 +97,12 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
         return pointFeature.Point;
     }
 
+    [MapProperty(nameof(coordinates.lon), nameof(MPoint.X))]
+    [MapProperty(nameof(coordinates.lat), nameof(MPoint.Y))]
+    public partial MPoint MapToMPoint((double lon, double lat) coordinates);
+
+    public partial void Merge(PlaceViewModel src, PlaceViewModel dst);
+
     [MapperIgnoreSource(nameof(PlaceViewModel.HasErrors))]
     public partial PlaceDto MapToDto(PlaceViewModel src);
 
@@ -104,37 +110,37 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
 
     public string GetGoogleHearthMapUri(PlaceViewModel placeViewModel, int altitudeLevel = 200)
     {
-        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
-        return GetGoogleHearthMapUri(coordinates, altitudeLevel);
+        var point = MapToMPoint((placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0));
+        return GetGoogleHearthMapUri(point, altitudeLevel);
     }
 
-    public string GetGoogleHearthMapUri((double Longitude, double Latitude) coordinate, int altitudeLevel = 200)
+    public string GetGoogleHearthMapUri(MPoint point, int altitudeLevel = 200)
     {
-        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        var invarianteCoordinate = point.ToInvariantCoordinate();
         return $"https://earth.google.com/web/@{invarianteCoordinate.YInvariant},{invarianteCoordinate.XInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
     }
 
     public string GetGoogleMapsUri(PlaceViewModel placeViewModel)
     {
-        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
-        return GetGoogleMapsUri(coordinates);
+        var point = MapToMPoint((placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0));
+        return GetGoogleMapsUri(point);
     }
 
-    public string GetGoogleMapsUri((double Longitude, double Latitude) coordinate)
+    public string GetGoogleMapsUri(MPoint point)
     {
-        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        var invarianteCoordinate = point.ToInvariantCoordinate();
         return $"https://maps.google.com/maps?q={invarianteCoordinate.YInvariant}, {invarianteCoordinate.XInvariant}";
     }
 
     public string GetGoogleStreetViewUri(PlaceViewModel placeViewModel, int zoomLevel = 0)
     {
-        var coordinates = (placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
-        return GetGoogleStreetViewUri(coordinates, zoomLevel);
+        var point = MapToMPoint((placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0));
+        return GetGoogleStreetViewUri(point, zoomLevel);
     }
 
-    public string GetGoogleStreetViewUri((double Longitude, double Latitude) coordinate, int zoomLevel = 0)
+    public string GetGoogleStreetViewUri(MPoint point, int zoomLevel = 0)
     {
-        var invarianteCoordinate = coordinate.ToInvariantCoordinate();
+        var invarianteCoordinate = point.ToInvariantCoordinate();
         return $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={invarianteCoordinate.YInvariant}, {invarianteCoordinate.XInvariant}&zoom={zoomLevel}";
     }
 }

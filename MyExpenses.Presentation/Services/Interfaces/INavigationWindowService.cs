@@ -1,5 +1,7 @@
-﻿using MyExpenses.Presentation.ViewModels.Accounts;
+﻿using Mapsui;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -48,6 +50,23 @@ public interface INavigationWindowService
     /// <param name="categoryTypeViewModel">An instance of <see cref="CategoryTypeViewModel"/> containing
     /// the category type data to be managed. If null, a new category type may be created.</param>
     public void ShowManageCategoryType(CategoryTypeViewModel? categoryTypeViewModel);
+
+    /// <summary>
+    /// Displays the "Location Management" window as a dialog.
+    /// This method is used to manage location-related entities within the application
+    /// by providing a user interface for interacting with place details.
+    /// </summary>
+    /// <param name="placeViewModel">The view model representing the location data to be managed.
+    /// It encapsulates the properties and behaviors related to a specific place.</param>
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel);
+
+    /// <summary>
+    /// Displays the "Location Management" window as a dialog.
+    /// This method is used to navigate to the interface where users can view or manage details of a location.
+    /// </summary>
+    /// <param name="point">The geographic point representing the location. Used for fetching detailed information about the place.</param>
+    /// <param name="cancellationToken">A token that allows the operation to be canceled.</param>
+    public Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Displays the "Color Management" window as a dialog.
