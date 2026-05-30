@@ -7,6 +7,7 @@ using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -14,6 +15,8 @@ using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Presentation;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.ViewModel;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
@@ -28,7 +31,7 @@ using TemporaryPointFeature = MyExpenses.Models.Mapsui.PointFeatures.TemporaryPo
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
-public partial class AddEditLocationWindow
+public partial class AddEditLocationWindow : IClosable
 {
     #region Properties
 
@@ -253,7 +256,9 @@ public partial class AddEditLocationWindow
 
     #endregion
 
-    public AddEditLocationWindow()
+    private LocationManagementViewModel ViewModel => (LocationManagementViewModel)DataContext;
+
+    public AddEditLocationWindow(LocationManagementViewModel viewModel)
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
@@ -271,6 +276,8 @@ public partial class AddEditLocationWindow
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
+
+        DataContext = viewModel;
     }
 
     private void Interface_OnLanguageChanged()
@@ -278,8 +285,6 @@ public partial class AddEditLocationWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditLocationResources.TitleWindow;
-
         TextBoxCityHintAssist = AddEditLocationResources.TextBoxCityHintAssist;
         TextBoxCountryHintAssist = AddEditLocationResources.TextBoxCountryHintAssist;
         TextBoxLatitudeHintAssist = AddEditLocationResources.TextBoxLatitudeHintAssist;
@@ -307,37 +312,39 @@ public partial class AddEditLocationWindow
 
     private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
     {
-        var address = Place.ToString();
-        Log.Information("Using the nominatim API to search via an address : \"{Address}\"", address);
-
-        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
-        HandleNominatimResult(nominatimSearchResults);
+        // TODO correct
+        // var address = Place.ToString();
+        // Log.Information("Using the nominatim API to search via an address : \"{Address}\"", address);
+        //
+        // var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+        // HandleNominatimResult(nominatimSearchResults);
     }
 
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
-        var point = Place.Geometry as Point;
-        Log.Information("Using the nominatim API to search via a point : {Point}", point);
-
-        var nominatimSearchResult = point?.ToNominatim();
-
-        var mapper = Mapping.Mapper;
-        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
-        if (newPlace is null)
-        {
-            Log.Information("The API returned no result(s)");
-
-            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
-                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
-                MsgBoxImage.Error);
-            return;
-        }
-
-        Log.Information("The API returned one result");
-
-        newPlace.Id = Place.Id;
-        newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
-        SetPlace(newPlace, true);
+        // TODO correct
+        // var point = Place.Geometry as Point;
+        // Log.Information("Using the nominatim API to search via a point : {Point}", point);
+        //
+        // var nominatimSearchResult = point?.ToNominatim();
+        //
+        // var mapper = Mapping.Mapper;
+        // var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
+        // if (newPlace is null)
+        // {
+        //     Log.Information("The API returned no result(s)");
+        //
+        //     Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
+        //         AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
+        //         MsgBoxImage.Error);
+        //     return;
+        // }
+        //
+        // Log.Information("The API returned one result");
+        //
+        // newPlace.Id = Place.Id;
+        // newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
+        // SetPlace(newPlace, true);
     }
 
     private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
@@ -537,19 +544,20 @@ public partial class AddEditLocationWindow
 
     public void SetPlace(Point point)
     {
-        var nominatim = point.ToNominatim();
-        if (nominatim is not null)
-        {
-            var mapper = Mapping.Mapper;
-            var place = mapper.Map<TPlace>(nominatim);
-            place.CopyPropertiesTo(Place);
-        }
-        else
-        {
-            Place.Geometry = point;
-        }
-
-        UpdateMiniMap();
+        // TODO correct
+        // var nominatim = point.ToNominatim();
+        // if (nominatim is not null)
+        // {
+        //     var mapper = Mapping.Mapper;
+        //     var place = mapper.Map<TPlace>(nominatim);
+        //     place.CopyPropertiesTo(Place);
+        // }
+        // else
+        // {
+        //     Place.Geometry = point;
+        // }
+        //
+        // UpdateMiniMap();
     }
 
     private void UpdateMiniMap()
@@ -588,4 +596,7 @@ public partial class AddEditLocationWindow
 
         e.Handled = !txt.IsOnlyDecimal();
     }
+
+    public void LoadPlaceViewModel(PlaceViewModel placeViewModel)
+        => ViewModel.LoadPlaceViewModel(placeViewModel);
 }

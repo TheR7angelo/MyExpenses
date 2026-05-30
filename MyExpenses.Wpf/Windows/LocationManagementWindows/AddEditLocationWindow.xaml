@@ -8,9 +8,10 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+                 xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
+                 xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  mc:Ignorable="d"
-
-                 Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
@@ -25,6 +26,7 @@
 
                  d:DesignHeight="656"
                  d:DesignWidth="780"
+                 d:DataContext="{d:DesignInstance viewModel:LocationManagementViewModel}"
 
                  MinHeight="656"
                  MinWidth="780"
@@ -35,6 +37,18 @@
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Style>
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="Title" Value="{localisations:Tr {x:Static resx:LocationResourceManager.AddLocationWindowTitle}}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditLocation}" Value="True">
+                    <Setter Property="Title" Value="{localisations:Tr {x:Static resx:LocationResourceManager.EditLocationWindowTitle}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </mah:MetroWindow.Style>
 
     <mah:MetroWindow.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
