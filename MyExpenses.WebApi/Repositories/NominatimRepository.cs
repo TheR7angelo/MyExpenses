@@ -44,7 +44,7 @@ public partial class NominatimRepository(IHttpClientFactory httpClientFactory, I
 
             List<NominatimSearchResult> resultEntities;
             using var jsonDocument = JsonDocument.Parse(rawJson);
-            if (jsonDocument.RootElement.ValueKind == JsonValueKind.Array)
+            if (jsonDocument.RootElement.ValueKind is JsonValueKind.Array)
             {
                 resultEntities = JsonSerializer.Deserialize<List<NominatimSearchResult>>(rawJson) ?? [];
             }
