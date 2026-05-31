@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.LocationManagementWindows.NominatimSearchWindow"
+                 x:Name="RootWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -157,7 +158,8 @@
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static locationResources:LocationResourceManager.NominatimButtonCancel}}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
         </StackPanel>
@@ -222,7 +224,8 @@
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{localisations:Tr {x:Static locationResources:LocationResourceManager.NominatimButtonValid}}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding ValidCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
         </StackPanel>

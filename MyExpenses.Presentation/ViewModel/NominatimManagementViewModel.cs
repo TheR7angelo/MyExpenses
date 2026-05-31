@@ -8,6 +8,7 @@ using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Mapsui.UI;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
@@ -105,7 +106,21 @@ public partial class NominatimManagementViewModel(
     }
 
     [RelayCommand]
-    private void OnLoad(CancellationToken cancellationToken = default)
+    private void OnValid(IClosable? closable)
+    {
+        closable?.DialogResult = true;
+        closable?.Close();
+    }
+
+    [RelayCommand]
+    private void OnCancel(IClosable? closable)
+    {
+        closable?.DialogResult = false;
+        closable?.Close();
+    }
+
+    [RelayCommand]
+    private void OnLoad()
     {
         var titleSource = locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
