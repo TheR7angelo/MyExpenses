@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Mapsui.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
@@ -141,6 +143,21 @@ public partial class NominatimSearchWindow
         Close();
     }
 
+    /// <summary>
+    /// Handles the ContextMenuOpening event for the MapControl, notifying the ViewModel of the current mouse position.
+    /// </summary>
+    /// <param name="sender">The sender of the event.</param>
+    /// <param name="e">The event arguments containing information about the event.</param>
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var position = Mouse.GetPosition(MapControl);
+        ViewModel.OnPositionChanged((position.X, position.Y), MapControl);
+    }
+
+    /// <summary>
+    /// Loads the nominatim search results into the ViewModel.
+    /// </summary>
+    /// <param name="nominatimSearchResultViewModels">The collection of Nominatim search result view models to load.</param>
     public void LoadNominatimSearchResults(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels)
         => ViewModel.LoadNominatimSearchResults(nominatimSearchResultViewModels);
 }

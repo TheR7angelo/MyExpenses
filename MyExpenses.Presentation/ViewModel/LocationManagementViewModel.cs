@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.SharedUtils.Collection;
 
@@ -21,7 +22,8 @@ namespace MyExpenses.Presentation.ViewModel;
 public partial class LocationManagementViewModel(ILocationPresentationService locationPresentationService,
     ILocationDtoViewModelMapper locationDtoViewModelMapper,
     INavigationWindowService navigationWindowService,
-    ILogger<LocationManagementViewModel> logger) : ViewModelBase
+    ILogger<LocationManagementViewModel> logger,
+    MapsUtils mapsUtils) : ViewModelBase
 {
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
     private IEnumerable<ILayer> PlaceLayers => [PlaceLayer];
@@ -78,24 +80,15 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
     [RelayCommand]
     private void OnGoToGoogleEarthWeb()
-    {
-        var uri = locationDtoViewModelMapper.GetGoogleHearthMapUri(SelectedPlacePoint);
-        OpenWebUriWithLog(uri, "Google Earth");
-    }
+        => mapsUtils.GoToGoogleEarthWeb(SelectedPlacePoint);
 
     [RelayCommand]
     private void OnGoToGoogleMaps()
-    {
-        var uri = locationDtoViewModelMapper.GetGoogleMapsUri(SelectedPlacePoint);
-        OpenWebUriWithLog(uri, "Google Maps");
-    }
+        => mapsUtils.GoToGoogleMaps(SelectedPlacePoint);
 
     [RelayCommand]
     private void OnGoToGoogleStreetView()
-    {
-        var uri = locationDtoViewModelMapper.GetGoogleStreetViewUri(SelectedPlacePoint);
-        OpenWebUriWithLog(uri, "Google Street View");
-    }
+        => mapsUtils.GoToGoogleStreetView(SelectedPlacePoint);
 
     private void OpenWebUriWithLog(string uri, string webPageTitle)
     {

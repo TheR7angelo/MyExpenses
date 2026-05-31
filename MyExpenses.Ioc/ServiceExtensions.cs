@@ -85,7 +85,8 @@ public static class ServiceExtensions
         services.RegisterViewModels()
             .RegisterValidationServices()
             .RegisterActionServices()
-            .RegisterValidator();
+            .RegisterValidator()
+            .RegisterHelper();
 
         return services;
     }

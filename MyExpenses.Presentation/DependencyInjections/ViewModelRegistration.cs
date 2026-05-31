@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Presentation.Services;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.Validations.Service;
 using MyExpenses.Presentation.Validations.Validator;
@@ -81,6 +82,13 @@ public static class ViewModelRegistration
                 .AddScoped<BankTransferViewModelValidator>()
                 .AddScoped<CurrencyViewModelValidator>()
                 .AddScoped<ColorViewModelValidator>();
+
+            return services;
+        }
+
+        public IServiceCollection RegisterHelper()
+        {
+            services.AddScoped<MapsUtils>();
 
             return services;
         }
