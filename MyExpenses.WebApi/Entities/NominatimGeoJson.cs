@@ -13,21 +13,18 @@ public class NominatimGeoJson
 public class NominatimPoint : NominatimGeoJson
 {
     [JsonPropertyName("coordinates")]
-    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
     public List<double>? Coordinates { get; set; }
 }
 
 public class NominatimLineString : NominatimGeoJson
 {
     [JsonPropertyName("coordinates")]
-    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
     public List<List<double>>? Coordinates { get; set; }
 }
 
 public class NominatimPolygon : NominatimGeoJson
 {
     [JsonPropertyName("coordinates")]
-    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
     public List<List<List<double>>>? Coordinates { get; set; }
 }
 
