@@ -489,48 +489,49 @@ public partial class AddEditLocationWindow : IClosable
 
     private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
-        TPlace? place = null;
-
-        switch (nominatimSearchResults.Count)
-        {
-            case 0:
-                Log.Information("The API returned no result(s)");
-                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
-                    MessageBoxButton.OK, MsgBoxImage.Exclamation);
-                break;
-            case 1:
-                Log.Information("The API returned one result");
-                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
-                    MessageBoxButton.OK, MsgBoxImage.Check);
-
-                var nominatimSearchResult = nominatimSearchResults.First();
-                place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
-                break;
-            case > 1:
-                Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
-                Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
-
-                Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
-                    MessageBoxButton.OK, MsgBoxImage.Information);
-
-                var places = nominatimSearchResults
-                    .Select(s => Mapping.Mapper.Map<TPlace>(s));
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
-                var nominatimSearchWindows = new NominatimSearchWindow();
-                nominatimSearchWindows.AddRange(places);
-                nominatimSearchWindows.ShowDialog();
-
-                if (nominatimSearchWindows.DialogResult is not true) return;
-
-                place = nominatimSearchWindows.CurrentPlace;
-                break;
-        }
-
-        if (place is null) return;
-        SetPlace(place, true);
+        // TODO correct
+        // TPlace? place = null;
+        //
+        // switch (nominatimSearchResults.Count)
+        // {
+        //     case 0:
+        //         Log.Information("The API returned no result(s)");
+        //         Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
+        //             AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
+        //             MessageBoxButton.OK, MsgBoxImage.Exclamation);
+        //         break;
+        //     case 1:
+        //         Log.Information("The API returned one result");
+        //         Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
+        //             AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
+        //             MessageBoxButton.OK, MsgBoxImage.Check);
+        //
+        //         var nominatimSearchResult = nominatimSearchResults.First();
+        //         place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
+        //         break;
+        //     case > 1:
+        //         Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
+        //         Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
+        //
+        //         Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
+        //             AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
+        //             MessageBoxButton.OK, MsgBoxImage.Information);
+        //
+        //         var places = nominatimSearchResults
+        //             .Select(s => Mapping.Mapper.Map<TPlace>(s));
+        //         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        //         var nominatimSearchWindows = new NominatimSearchWindow();
+        //         nominatimSearchWindows.AddRange(places);
+        //         nominatimSearchWindows.ShowDialog();
+        //
+        //         if (nominatimSearchWindows.DialogResult is not true) return;
+        //
+        //         place = nominatimSearchWindows.CurrentPlace;
+        //         break;
+        // }
+        //
+        // if (place is null) return;
+        // SetPlace(place, true);
     }
 
     public void SetPlace(TPlace newTPlace, bool clear)

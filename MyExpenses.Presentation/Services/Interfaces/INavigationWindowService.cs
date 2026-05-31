@@ -69,6 +69,14 @@ public interface INavigationWindowService
     public Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Shows the "Location Management" window as a dialog.
+    /// This method is used to navigate to the interface where users can manage location details.
+    /// </summary>
+    /// <param name="nominatimSearchResultViewModels">The collection of view models representing the locations to be managed.</param>
+    /// <returns>The selected location's detailed view model, or null if no selection was made.</returns>
+    public NominatimSearchResultViewModel? ShowLocationManagementWindow(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels);
+
+    /// <summary>
     /// Displays the "Color Management" window as a dialog.
     /// This method is used to navigate to the interface where users can view, modify, or manage color-related settings or details.
     /// </summary>

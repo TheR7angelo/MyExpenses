@@ -5,6 +5,8 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation;
 using MyExpenses.Presentation.Converters;
+using MyExpenses.Presentation.ViewModel;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement;
 using MyExpenses.Utils.Maps;
 
@@ -52,20 +54,26 @@ public partial class NominatimSearchWindow
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer WritableLayer { get; } = new() { Style = null };
 
-    public NominatimSearchWindow()
-    {
-        var map = MapsuiMapExtensions.GetMap(false);
-        map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
-        map.Layers.Add(WritableLayer);
+    private NominatimManagementViewModel ViewModel => (NominatimManagementViewModel)DataContext;
 
-        UpdateLanguage();
+    public NominatimSearchResultViewModel CurrentSearchResult => ViewModel.CurrentSearchResult;
+
+    public NominatimSearchWindow(NominatimManagementViewModel viewModel)
+    {
+        // var map = MapsuiMapExtensions.GetMap(false);
+        // map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
+        // map.Layers.Add(WritableLayer);
+        //
+        // UpdateLanguage();
 
         InitializeComponent();
 
-        MapControl.Map = map;
+        DataContext = viewModel;
 
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // MapControl.Map = map;
+        //
+        // // ReSharper disable once HeapView.DelegateAllocation
+        // Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged()
@@ -132,4 +140,7 @@ public partial class NominatimSearchWindow
         DialogResult = true;
         Close();
     }
+
+    public void LoadNominatimSearchResults(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels)
+        => ViewModel.LoadNominatimSearchResults(nominatimSearchResultViewModels);
 }

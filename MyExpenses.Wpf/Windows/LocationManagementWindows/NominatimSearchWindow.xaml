@@ -17,6 +17,8 @@
                  d:DesignWidth="530"
                  d:DataContext="{d:DesignInstance viewModel:NominatimManagementViewModel}"
 
+                 Title="{Binding WindowTitle, Mode=OneWay}"
+
                  MinHeight="655"
                  MinWidth="530"
 
@@ -59,42 +61,42 @@
         <TextBox Grid.Row="0" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Name, Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNameLength}">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNumberHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Address.HouseNumber, Mode=TwoWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNumberLength}">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceStreetHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Address.Road, Mode=TwoWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxStreetLength}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlacePostalHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Address.Postcode, Mode=TwoWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxPostalLength}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCityHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Address.CityName, Mode=TwoWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCityLength}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCountryHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding CurrentSearchResult.Address.Country, Mode=TwoWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
         </TextBox>
 
