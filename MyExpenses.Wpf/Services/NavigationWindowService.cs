@@ -61,7 +61,8 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
     public async Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
     {
         var nominatimService = provider.GetRequiredService<INominatimService>();
-        var results = await nominatimService.SearchAsync(point.Y, point.X, cancellationToken);
+        // var results = await nominatimService.SearchAsync(point.Y, point.X, cancellationToken);
+        var results = await nominatimService.SearchAsync("meriadeck", cancellationToken);
         if (!results.IsSuccess)
         {
             dialogService.ShowMessageBox("Error", results.InternalMessage!, MessageBoxButton.Ok, MsgBoxImage.Error);

@@ -119,18 +119,6 @@ public partial class NominatimSearchWindow
     private void UpdateTitle()
         => Title = $"{Index}/{Total} - {CurrentPlace}";
 
-    private void ButtonGoBack_OnClick(object sender, RoutedEventArgs e)
-    {
-        Index--;
-        UpdateCurrentPlace();
-    }
-
-    private void ButtonGoNext_OnClick(object sender, RoutedEventArgs e)
-    {
-        Index++;
-        UpdateCurrentPlace();
-    }
-
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
         DialogResult = false;

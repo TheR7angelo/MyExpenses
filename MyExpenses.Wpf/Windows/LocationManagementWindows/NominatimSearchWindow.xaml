@@ -13,6 +13,7 @@
                  xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:system="clr-namespace:System;assembly=System.Runtime"
                  mc:Ignorable="d"
 
                  d:DesignHeight="655"
@@ -141,10 +142,16 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonGoBack_OnClick">
+                    Command="{Binding MoveNominatimCommand}">
+
+                <Button.CommandParameter>
+                    <system:Int32>-1</system:Int32>
+                </Button.CommandParameter>
+
                 <Button.Content>
                     <materialDesign:PackIcon Kind="ArrowLeftBold" />
                 </Button.Content>
+
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
@@ -165,9 +172,7 @@
                 <b:Interaction.Triggers>
 
                     <b:EventTrigger EventName="Loaded">
-                        <b:InvokeCommandAction Command="{Binding MapControlLoadedCommand}"
-                                               CommandParameter="{Binding ., ElementName=MapControl}">
-                        </b:InvokeCommandAction>
+                        <b:InvokeCommandAction Command="{Binding MapControlLoadedCommand}" />
                     </b:EventTrigger>
 
                 </b:Interaction.Triggers>
@@ -202,10 +207,16 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonGoNext_OnClick">
+                    Command="{Binding MoveNominatimCommand}">
+
+                <Button.CommandParameter>
+                    <system:Int32>1</system:Int32>
+                </Button.CommandParameter>
+
                 <Button.Content>
                     <materialDesign:PackIcon Kind="ArrowRightBold" />
                 </Button.Content>
+
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"

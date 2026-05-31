@@ -13,4 +13,10 @@ public class NominatimService(INominatimRepository nominatimRepository, INominat
         var result = await nominatimRepository.SearchAsync(latitude, longitude, cancellationToken);
         return result.MapSequence(mapper.MapToDto);
     }
+
+    public async Task<Result<IEnumerable<NominatimSearchResultDto>>> SearchAsync(string address, CancellationToken cancellationToken = default)
+    {
+        var result = await nominatimRepository.SearchAsync(address, cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
+    }
 }
