@@ -2,6 +2,8 @@ using BruTile.Predefined;
 using Domain.Models.Validation;
 using Mapsui;
 using Mapsui.Extensions;
+using Mapsui.Layers;
+using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using Mapsui.Widgets;
@@ -9,9 +11,11 @@ using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.InfoWidgets;
 using Mapsui.Widgets.ScaleBar;
 using MyExpenses.Application.Interfaces.IServices;
+using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Locations;
+using NetTopologySuite.Geometries;
 
 namespace MyExpenses.Presentation.Services;
 
@@ -94,6 +98,19 @@ public class LocationPresentationService(ILocationDtoViewModelMapper locationDto
     {
         var group = locationDtoViewModelMapper.MapToGroup(placeViewModels);
         return group;
+    }
+
+    public PointFeature MapToPointFeature(NominatimSearchResultViewModel currentSearchResult)
+    {
+        var centerPoint = currentSearchResult.GeoJson?.CenterPoint ?? Point.Empty;
+
+        var point = SphericalMercator.FromLonLat(centerPoint.X, centerPoint.Y);
+        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(point);
+
+        pointFeature.Styles.Clear();
+        pointFeature.Styles.Add(MapsuiStyleExtensions.RedMarkerStyle);
+
+        return pointFeature;
     }
 
     // public async Task<Result<IEnumerable<CountryGroupViewModel>>> GetAllPlaceGroup(CancellationToken cancellationToken = default)

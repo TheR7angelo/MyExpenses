@@ -1,6 +1,7 @@
 using BruTile.Predefined;
 using Domain.Models.Validation;
 using Mapsui;
+using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Presentation.ViewModels.Locations;
 
@@ -66,4 +67,6 @@ public interface ILocationPresentationService
     /// </returns>
     public IEnumerable<CountryGroupViewModel> GetAllPlaceGroup(IEnumerable<PlaceViewModel> placeViewModels,
         CancellationToken cancellationToken = default);
+
+    public PointFeature MapToPointFeature(NominatimSearchResultViewModel currentSearchResult);
 }

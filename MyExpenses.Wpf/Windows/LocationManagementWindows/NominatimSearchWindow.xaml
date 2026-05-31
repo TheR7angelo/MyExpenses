@@ -11,6 +11,8 @@
                  xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
                  xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
+                 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  d:DesignHeight="655"
@@ -39,9 +41,20 @@
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <mah:MetroWindow.Resources>
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -100,7 +113,27 @@
                  MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
         </TextBox>
 
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.RowSpan="2"
+        <ComboBox Grid.Row="6" Grid.Column="1"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.ComboBoxBaseMapHintAssist}}"
+                  ItemsSource="{Binding KnownTileSources}"
+                  SelectedItem="{Binding KnownTileSourceSelected}">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateTileSourceCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+        </ComboBox>
+
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.RowSpan="2"
                     margin:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Vertical"
                     VerticalAlignment="Bottom"
@@ -122,14 +155,26 @@
 
         </StackPanel>
 
-        <Border Grid.Row="6" Grid.Column="1" Grid.RowSpan="2"
+        <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="2"
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="2"
                 CornerRadius="5">
-            <wpf:MapControl x:Name="MapControl" />
+
+            <wpf:MapControl x:Name="MapControl" Map="{Binding Map}">
+                <b:Interaction.Triggers>
+
+                    <b:EventTrigger EventName="Loaded">
+                        <b:InvokeCommandAction Command="{Binding MapControlLoadedCommand}"
+                                               CommandParameter="{Binding ., ElementName=MapControl}">
+                        </b:InvokeCommandAction>
+                    </b:EventTrigger>
+
+                </b:Interaction.Triggers>
+            </wpf:MapControl>
+
         </Border>
 
-        <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="2"
+        <StackPanel Grid.Row="7" Grid.Column="2" Grid.RowSpan="2"
                     margin:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Vertical"
                     VerticalAlignment="Bottom"
