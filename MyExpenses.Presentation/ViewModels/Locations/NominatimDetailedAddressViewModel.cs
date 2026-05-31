@@ -18,6 +18,8 @@ public class NominatimDetailedAddressViewModel
 
     public string? City { get; set; }
 
+    public string? Town { get; set; }
+
     public string? Village { get; set; }
 
     public string? Municipality { get; set; }
@@ -37,4 +39,22 @@ public class NominatimDetailedAddressViewModel
     public string? Country { get; set; }
 
     public string? CountryCode { get; set; }
+
+    public string? CityName
+    {
+        get => !string.IsNullOrWhiteSpace(Hamlet) ? Hamlet :
+            !string.IsNullOrWhiteSpace(Village) ? Village :
+            !string.IsNullOrWhiteSpace(Town) ? Town :
+            !string.IsNullOrWhiteSpace(City) ? City :
+            Municipality;
+        set
+        {
+            City = value;
+
+            Hamlet = null;
+            Village = null;
+            Town = null;
+            Municipality = null;
+        }
+    }
 }

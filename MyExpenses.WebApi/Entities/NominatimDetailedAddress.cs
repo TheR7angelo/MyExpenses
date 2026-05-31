@@ -28,6 +28,9 @@ public class NominatimDetailedAddress
     [JsonPropertyName("city")]
     public string? City { get; set; }
 
+    [JsonPropertyName("town")]
+    public string? Town { get; set; }
+
     [JsonPropertyName("village")]
     public string? Village { get; set; }
 
