@@ -1,6 +1,6 @@
-namespace MyExpenses.Application.Dtos.Nominatium;
+namespace MyExpenses.Presentation.ViewModels.Locations;
 
-public class NominatimSearchResultDto
+public class NominatimSearchResultViewModel
 {
     public long? PlaceId { get; set; }
 
@@ -28,9 +28,9 @@ public class NominatimSearchResultDto
 
     public string? DisplayName { get; set; }
 
-    public NominatimDetailedAddressDto? Address { get; set; }
+    public NominatimDetailedAddressViewModel? Address { get; set; }
 
     public IEnumerable<float>? BoundingBox { get; set; }
 
-    public NominatimGeoJsonDto? GeoJson { get; set; }
+    public NominatimGeoJsonViewModel? GeoJson { get; set; }
 }

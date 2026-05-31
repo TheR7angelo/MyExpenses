@@ -12,5 +12,8 @@ public partial class NominatimDtoDomainMapper : INominatimDtoDomainMapper
 
     public partial NominatimDetailedAddressDto MapToDto(NominatimDetailedAddressDomain domain);
 
-    public partial NominatiumGeoJsonDto MapToDto(NominatimGeoJsonDomain domain);
+    [MapDerivedType(typeof(NominatimPointDomain), typeof(NominatimPointDto))]
+    [MapDerivedType(typeof(NominatimLineStringDomain), typeof(NominatimLineStringDto))]
+    [MapDerivedType(typeof(NominatimPolygonDomain), typeof(NominatimPolygonDto))]
+    public partial NominatimGeoJsonDto MapToDto(NominatimGeoJsonDomain domain);
 }

@@ -70,7 +70,8 @@ public static class ServiceExtensions
         services.AddScoped<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
             .AddScoped<IExpenseDtoViewModelMapper, ExpenseDtoViewModelMapper>()
             .AddScoped<ISystemDtoViewModelMapper, SystemDtoViewModelMapper>()
-            .AddScoped<ILocationDtoViewModelMapper, LocationDtoViewModelMapper>();
+            .AddScoped<ILocationDtoViewModelMapper, LocationDtoViewModelMapper>()
+            .AddScoped<INominatimDtoViewModelMapper, NominatimDtoViewModelMapper>();
 
         services.AddServiceLogging(logEventLevel);
 

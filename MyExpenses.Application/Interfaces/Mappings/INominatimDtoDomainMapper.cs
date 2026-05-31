@@ -24,5 +24,5 @@ public interface INominatimDtoDomainMapper
     /// </summary>
     /// <param name="domain">The domain object to map.</param>
     /// <returns>A DTO representing the mapped data.</returns>
-    public NominatiumGeoJsonDto MapToDto(NominatimGeoJsonDomain domain);
+    public NominatimGeoJsonDto MapToDto(NominatimGeoJsonDomain domain);
 }
