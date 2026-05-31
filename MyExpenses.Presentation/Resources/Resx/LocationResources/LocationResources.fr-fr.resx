@@ -68,4 +68,10 @@
     <data name="EditLocationWindowTitle" xml:space="preserve">
         <value>Modification d’un lieu</value>
     </data>
+    <data name="NominatimButtonCancel" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="NominatimButtonValid" xml:space="preserve">
+        <value>Valider</value>
+    </data>
 </root>

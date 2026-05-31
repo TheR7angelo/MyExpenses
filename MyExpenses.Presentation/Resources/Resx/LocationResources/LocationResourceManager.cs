@@ -24,4 +24,6 @@ public static class LocationResourceManager
     public static string PlacePostalHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlacePostalHintAssist)}";
     public static string PlaceCityHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceCityHintAssist)}";
     public static string PlaceCountryHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceCountryHintAssist)}";
+    public static string NominatimButtonCancel => $"{RessourceManagerName}:{nameof(LocationResources.NominatimButtonCancel)}";
+    public static string NominatimButtonValid => $"{RessourceManagerName}:{nameof(LocationResources.NominatimButtonValid)}";
 }

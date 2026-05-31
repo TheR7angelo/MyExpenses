@@ -75,42 +75,42 @@
         <TextBox Grid.Row="0" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Name, Mode=TwoWay}"
+                 Text="{Binding CurrentSearchResult.Name, Mode=OneWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNameLength}">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNumberHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.HouseNumber, Mode=TwoWay, FallbackValue=''}"
+                 Text="{Binding CurrentSearchResult.Address.HouseNumber, Mode=OneWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNumberLength}">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceStreetHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Road, Mode=TwoWay, FallbackValue=''}"
+                 Text="{Binding CurrentSearchResult.Address.Road, Mode=OneWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxStreetLength}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlacePostalHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Postcode, Mode=TwoWay, FallbackValue=''}"
+                 Text="{Binding CurrentSearchResult.Address.Postcode, Mode=OneWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxPostalLength}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCityHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.CityName, Mode=TwoWay, FallbackValue=''}"
+                 Text="{Binding CurrentSearchResult.Address.CityName, Mode=OneWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCityLength}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCountryHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Country, Mode=TwoWay, FallbackValue=''}"
+                 Text="{Binding CurrentSearchResult.Address.Country, Mode=OneWay, FallbackValue=''}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
         </TextBox>
 
@@ -156,7 +156,7 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static locationResources:LocationResourceManager.NominatimButtonCancel}}"
                     Click="ButtonCancel_OnClick">
             </Button>
 
@@ -221,7 +221,7 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static locationResources:LocationResourceManager.NominatimButtonValid}}"
                     Click="ButtonValid_OnClick">
             </Button>
 
