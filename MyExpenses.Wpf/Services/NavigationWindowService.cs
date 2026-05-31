@@ -1,8 +1,12 @@
-﻿using Mapsui;
+﻿using Domain.Models.Validation;
+using Mapsui;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MyExpenses.Application.Dtos.Nominatium;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.Resources.Resx.LocationResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -16,6 +20,7 @@ using MyExpenses.Wpf.Windows.LocationManagementWindows;
 namespace MyExpenses.Wpf.Services;
 
 public class NavigationWindowService(IServiceProvider provider, IDialogService dialogService,
+    ILogger<NavigationWindowService> logger,
     INominatimDtoViewModelMapper nominatimDtoViewModelMapper) : INavigationWindowService
 {
     public async Task ShowManageAccount(TotalByAccountViewModel? item)
@@ -61,29 +66,38 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
     public async Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
     {
         var nominatimService = provider.GetRequiredService<INominatimService>();
-        // var results = await nominatimService.SearchAsync(point.Y, point.X, cancellationToken);
-        var results = await nominatimService.SearchAsync("meriadeck", cancellationToken);
+        var results = await nominatimService.SearchAsync(point.Y, point.X, cancellationToken);
+
+        ManageLocationWindowAction(results);
+    }
+
+    private void ManageLocationWindowAction(Result<IEnumerable<NominatimSearchResultDto>> results)
+    {
         if (!results.IsSuccess)
         {
-            dialogService.ShowMessageBox("Error", results.InternalMessage!, MessageBoxButton.Ok, MsgBoxImage.Error);
+            logger.LogError("Error while searching locations: {Message}", results.InternalMessage);
+            var message = string.Format(LocationResources.NominatimServiceSearchErrorContent, results.ErrorCode);
+            dialogService.ShowMessageBox(LocationResources.NominatimServiceSearchErrorTitle,
+                message, MessageBoxButton.Ok, MsgBoxImage.Error);
             return;
         }
 
         if (!results.Value!.Any())
         {
-            dialogService.ShowMessageBox("Info", "No location found!", MessageBoxButton.Ok, MsgBoxImage.Information);
+            dialogService.ShowMessageBox(LocationResources.NominatimServiceSearchErrorAnyValueTitle,
+                LocationResources.NominatimServiceSearchErrorAnyValueContent, MessageBoxButton.Ok, MsgBoxImage.Information);
             return;
         }
 
         var values = results.Value!.Select(nominatimDtoViewModelMapper.MapToViewModel);
 
-        // var selectedNominatim = results.Value!.Count() > 1
-        //     ? ShowLocationManagementWindow(values)
-        //     : values.First();
+        var selectedNominatim = results.Value!.Count() > 1
+            ? ShowLocationManagementWindow(values)
+            : values.First();
+        if (selectedNominatim is null) return;
 
-        var selectedNominatim = ShowLocationManagementWindow(values);
-
-        // TODO map nominatim to placeviewmodel
+        var placeViewModel = nominatimDtoViewModelMapper.MapToPlaceViewModel(selectedNominatim);
+        ShowLocationManagementWindow(placeViewModel);
     }
 
     public NominatimSearchResultViewModel? ShowLocationManagementWindow(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels)

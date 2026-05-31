@@ -186,6 +186,42 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No location found!.
+        /// </summary>
+        public static string NominatimServiceSearchErrorAnyValueContent {
+            get {
+                return ResourceManager.GetString("NominatimServiceSearchErrorAnyValueContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string NominatimServiceSearchErrorAnyValueTitle {
+            get {
+                return ResourceManager.GetString("NominatimServiceSearchErrorAnyValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string NominatimServiceSearchErrorContent {
+            get {
+                return ResourceManager.GetString("NominatimServiceSearchErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred, please try again, Error code:{0}.
+        /// </summary>
+        public static string NominatimServiceSearchErrorTitle {
+            get {
+                return ResourceManager.GetString("NominatimServiceSearchErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {

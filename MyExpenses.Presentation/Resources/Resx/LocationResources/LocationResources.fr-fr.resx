@@ -74,4 +74,16 @@
     <data name="NominatimButtonValid" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="NominatimServiceSearchErrorContent" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="NominatimServiceSearchErrorTitle" xml:space="preserve">
+        <value>Une erreur s’est produite, veuillez réessayer, code d’erreur :{0}</value>
+    </data>
+    <data name="NominatimServiceSearchErrorAnyValueTitle" xml:space="preserve">
+        <value>Informations</value>
+    </data>
+    <data name="NominatimServiceSearchErrorAnyValueContent" xml:space="preserve">
+        <value>Aucun emplacement trouvé !</value>
+    </data>
 </root>

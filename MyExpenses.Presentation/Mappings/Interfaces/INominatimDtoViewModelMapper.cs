@@ -33,4 +33,12 @@ public interface INominatimDtoViewModelMapper
     /// <param name="src">The source Nominatim GeoJSON DTO to be mapped.</param>
     /// <returns>A new instance of NominatimGeoJsonViewModel populated with the data from the source DTO.</returns>
     public NominatimGeoJsonViewModel MapToViewModel(NominatimGeoJsonDto src);
+
+    /// <summary>
+    /// Maps a Nominatim search result ViewModel to its corresponding Place ViewModel.
+    /// Transforms the data from the NominatimSearchResultViewModel into a PlaceViewModel format suitable for further processing in the application.
+    /// </summary>
+    /// <param name="nominatimSearchResultViewModel">The source Nominatim search result ViewModel to be mapped.</param>
+    /// <returns>A new instance of PlaceViewModel populated with the data from the source ViewModel.</returns>
+    public PlaceViewModel MapToPlaceViewModel(NominatimSearchResultViewModel nominatimSearchResultViewModel);
 }

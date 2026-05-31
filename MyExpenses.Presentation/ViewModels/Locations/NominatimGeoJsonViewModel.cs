@@ -8,7 +8,14 @@ public abstract class NominatimGeoJsonViewModel
 
     protected abstract Geometry ToGeometry();
 
-    public Point? CenterPoint => ToGeometry().Centroid;
+    public Point? CenterPoint
+    {
+        get
+        {
+            field ??= ToGeometry().Centroid;
+            return field;
+        }
+    }
 }
 
 public class NominatimPointViewModel : NominatimGeoJsonViewModel
