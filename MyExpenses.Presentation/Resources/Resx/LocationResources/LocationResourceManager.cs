@@ -17,4 +17,11 @@ public static class LocationResourceManager
 
     public static string AddLocationWindowTitle => $"{RessourceManagerName}:{nameof(LocationResources.AddLocationWindowTitle)}";
     public static string EditLocationWindowTitle => $"{RessourceManagerName}:{nameof(LocationResources.EditLocationWindowTitle)}";
+
+    public static string PlaceNameHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceNameHintAssist)}";
+    public static string PlaceNumberHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceNumberHintAssist)}";
+    public static string PlaceStreetHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceStreetHintAssist)}";
+    public static string PlacePostalHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlacePostalHintAssist)}";
+    public static string PlaceCityHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceCityHintAssist)}";
+    public static string PlaceCountryHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceCountryHintAssist)}";
 }

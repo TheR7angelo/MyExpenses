@@ -69,29 +69,11 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
-        /// </summary>
-        public static string City {
-            get {
-                return ResourceManager.GetString("City", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Basemap :.
         /// </summary>
         public static string ComboBoxBaseMapHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxBaseMapHintAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Country.
-        /// </summary>
-        public static string Country {
-            get {
-                return ResourceManager.GetString("Country", resourceCulture);
             }
         }
         
@@ -186,24 +168,6 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string Name {
-            get {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number.
-        /// </summary>
-        public static string Number {
-            get {
-                return ResourceManager.GetString("Number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {
@@ -213,20 +177,56 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posstal code.
+        ///   Looks up a localized string similar to City Name.
         /// </summary>
-        public static string Postal {
+        public static string PlaceCityHintAssist {
             get {
-                return ResourceManager.GetString("Postal", resourceCulture);
+                return ResourceManager.GetString("PlaceCityHintAssist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Street.
+        ///   Looks up a localized string similar to Country Name.
         /// </summary>
-        public static string Street {
+        public static string PlaceCountryHintAssist {
             get {
-                return ResourceManager.GetString("Street", resourceCulture);
+                return ResourceManager.GetString("PlaceCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location Name.
+        /// </summary>
+        public static string PlaceNameHintAssist {
+            get {
+                return ResourceManager.GetString("PlaceNameHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street Number.
+        /// </summary>
+        public static string PlaceNumberHintAssist {
+            get {
+                return ResourceManager.GetString("PlaceNumberHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal code.
+        /// </summary>
+        public static string PlacePostalHintAssist {
+            get {
+                return ResourceManager.GetString("PlacePostalHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street Name.
+        /// </summary>
+        public static string PlaceStreetHintAssist {
+            get {
+                return ResourceManager.GetString("PlaceStreetHintAssist", resourceCulture);
             }
         }
     }

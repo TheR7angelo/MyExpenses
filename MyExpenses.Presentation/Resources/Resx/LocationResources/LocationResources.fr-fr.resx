@@ -11,23 +11,23 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Name" xml:space="preserve">
-        <value>Nom</value>
+    <data name="PlaceNameHintAssist" xml:space="preserve">
+        <value>Nom de l'emplacement</value>
     </data>
-    <data name="Number" xml:space="preserve">
-        <value>Nombre</value>
+    <data name="PlaceNumberHintAssist" xml:space="preserve">
+        <value>Numéro de rue</value>
     </data>
-    <data name="Street" xml:space="preserve">
-        <value>Rue</value>
+    <data name="PlaceStreetHintAssist" xml:space="preserve">
+        <value>Nom de la rue</value>
     </data>
-    <data name="Postal" xml:space="preserve">
+    <data name="PlacePostalHintAssist" xml:space="preserve">
         <value>Code postal</value>
     </data>
-    <data name="City" xml:space="preserve">
-        <value>Ville</value>
+    <data name="PlaceCityHintAssist" xml:space="preserve">
+        <value>Nom de la ville</value>
     </data>
-    <data name="Country" xml:space="preserve">
-        <value>Pays</value>
+    <data name="PlaceCountryHintAssist" xml:space="preserve">
+        <value>Nom du pays</value>
     </data>
     <data name="Latitude" xml:space="preserve">
         <value>Latitude</value>

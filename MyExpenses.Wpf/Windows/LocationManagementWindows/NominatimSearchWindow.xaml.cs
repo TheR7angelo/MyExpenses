@@ -13,28 +13,6 @@ namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 public partial class NominatimSearchWindow
 {
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlaceNameHintAssistProperty = DependencyProperty.Register(
-        nameof(PlaceNameHintAssist),
-        typeof(string), typeof(NominatimSearchWindow), new PropertyMetadata(default(string)));
-
-    public string PlaceNameHintAssist
-    {
-        get => (string)GetValue(PlaceNameHintAssistProperty);
-        set => SetValue(PlaceNameHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlaceNumberHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceNumberHintAssist), typeof(string), typeof(NominatimSearchWindow),
-            new PropertyMetadata(default(string)));
-
-    public string PlaceNumberHintAssist
-    {
-        get => (string)GetValue(PlaceNumberHintAssistProperty);
-        set => SetValue(PlaceNumberHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CurrentPlaceProperty = DependencyProperty.Register(nameof(CurrentPlace),
         typeof(TPlace), typeof(NominatimSearchWindow), new PropertyMetadata(default(TPlace)));
 
@@ -42,50 +20,6 @@ public partial class NominatimSearchWindow
     {
         get => (TPlace)GetValue(CurrentPlaceProperty);
         set => SetValue(CurrentPlaceProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlaceStreetHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceStreetHintAssist), typeof(string), typeof(NominatimSearchWindow),
-            new PropertyMetadata(default(string)));
-
-    public string PlaceStreetHintAssist
-    {
-        get => (string)GetValue(PlaceStreetHintAssistProperty);
-        set => SetValue(PlaceStreetHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlacePostalHintAssistProperty =
-        DependencyProperty.Register(nameof(PlacePostalHintAssist), typeof(string), typeof(NominatimSearchWindow),
-            new PropertyMetadata(default(string)));
-
-    public string PlacePostalHintAssist
-    {
-        get => (string)GetValue(PlacePostalHintAssistProperty);
-        set => SetValue(PlacePostalHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlaceCityHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceCityHintAssist), typeof(string), typeof(NominatimSearchWindow),
-            new PropertyMetadata(default(string)));
-
-    public string PlaceCityHintAssist
-    {
-        get => (string)GetValue(PlaceCityHintAssistProperty);
-        set => SetValue(PlaceCityHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty PlaceCountryHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceCountryHintAssist), typeof(string), typeof(NominatimSearchWindow),
-            new PropertyMetadata(default(string)));
-
-    public string PlaceCountryHintAssist
-    {
-        get => (string)GetValue(PlaceCountryHintAssistProperty);
-        set => SetValue(PlaceCountryHintAssistProperty, value);
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -139,13 +73,6 @@ public partial class NominatimSearchWindow
 
     private void UpdateLanguage()
     {
-        PlaceNameHintAssist = NominatimSearchManagementResources.PlaceNameHintAssist;
-        PlaceNumberHintAssist = NominatimSearchManagementResources.PlaceNumberHintAssist;
-        PlaceStreetHintAssist = NominatimSearchManagementResources.PlaceStreetHintAssist;
-        PlacePostalHintAssist = NominatimSearchManagementResources.PlacePostalHintAssist;
-        PlaceCityHintAssist = NominatimSearchManagementResources.PlaceCityHintAssist;
-        PlaceCountryHintAssist = NominatimSearchManagementResources.PlaceCountryHintAssist;
-
         ButtonCancelContent = NominatimSearchManagementResources.ButtonCancelContent;
         ButtonValidContent = NominatimSearchManagementResources.ButtonValidContent;
     }

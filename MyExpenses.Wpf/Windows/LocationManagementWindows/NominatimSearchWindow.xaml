@@ -8,10 +8,14 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
+                 xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+                 xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+                 xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
                  mc:Ignorable="d"
 
                  d:DesignHeight="655"
                  d:DesignWidth="530"
+                 d:DataContext="{d:DesignInstance viewModel:NominatimManagementViewModel}"
 
                  MinHeight="655"
                  MinWidth="530"
@@ -31,8 +35,7 @@
                  ResizeMode="CanResizeWithGrip"
 
                  Background="{DynamicResource MaterialDesignPaper}"
-                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+                 TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
@@ -54,42 +57,42 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Row="0" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlaceNameHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNameLength}">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlaceNumberHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNumberHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNumberLength}">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlaceStreetHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceStreetHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxStreetLength}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlacePostalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlacePostalHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxPostalLength}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCityHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCityLength}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding PlaceCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCountryHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
