@@ -23,9 +23,9 @@ public class RecursiveExpenseDto
 
     public DateOnly StartDate { get; set; }
 
-    public int? RecursiveTotal { get; set; }
+    public int RecursiveTotal { get; set; }
 
-    public int RecursiveCount { get; set; }
+    public int? RecursiveCount { get; set; }
 
     public RecursiveFrequencyDto RecursiveFrequency { get; set; }
 

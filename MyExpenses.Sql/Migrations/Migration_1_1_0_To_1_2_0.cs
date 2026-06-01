@@ -183,7 +183,7 @@ CREATE TABLE t_recursive_expense_dg_tmp
             REFERENCES t_place
                     ON DELETE CASCADE ON UPDATE CASCADE,
     start_date       DATE                               NOT NULL,
-    recursive_total  INTEGER  default 0                 NOT NULL,
+    recursive_total  INTEGER                                    ,
     recursive_count  INTEGER  default 0                 NOT NULL,
     frequency_fk     INTEGER                            NOT NULL
         CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
@@ -208,7 +208,7 @@ SELECT id,
        COALESCE(value, 0),
        COALESCE(place_fk, 1),
        COALESCE(start_date, DATETIME( 'now', 'localtime')),
-       COALESCE(recursive_total, 0),
+       recursive_total,
        COALESCE(recursive_count, 0),
        COALESCE(frequency_fk, 1),
        COALESCE(next_due_date, DATETIME( 'now', 'localtime')),

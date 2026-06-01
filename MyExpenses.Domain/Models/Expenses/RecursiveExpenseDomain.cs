@@ -26,9 +26,9 @@ public class RecursiveExpenseDomain
 
     public DateOnly StartDate { get; set; }
 
-    public int? RecursiveTotal { get; set; }
+    public int RecursiveTotal { get; set; }
 
-    public int RecursiveCount { get; set; }
+    public int? RecursiveCount { get; set; }
 
     public RecursiveFrequencyDomain RecursiveFrequency { get; set; }
 
