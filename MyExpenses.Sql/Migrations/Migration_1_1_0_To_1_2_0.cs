@@ -954,10 +954,11 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                         ap.currency_fk,
                         ap.currency,
                         ap.period,
-                        COALESCE(SUM(h.value), 0) as monthly_value
+                        COALESCE(SUM(h.value), 0) AS monthly_value
                  FROM all_periods ap
-                          INNER JOIN t_history h
-                                     ON h.account_fk = ap.account_fk AND ap.period = strftime('%Y-%m', h.date)
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk
+                                        AND ap.period = strftime('%Y-%m', h.date)
                  GROUP BY ap.account_fk, ap.period),
      ranked AS (SELECT *,
                        ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
@@ -1036,10 +1037,10 @@ WITH all_periods AS (SELECT a.id                      AS account_fk,
                         COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0)  AS monthly_negative_value,
                         COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
                  FROM all_periods ap
-                          INNER JOIN t_history h
-                                     ON h.account_fk = ap.account_fk
-                                         AND h.category_type_fk = ap.category_type_fk
-                                         AND ap.period = strftime('%Y-%m', h.date)
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk
+                                        AND h.category_type_fk = ap.category_type_fk
+                                        AND ap.period = strftime('%Y-%m', h.date)
                  GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
 SELECT account_fk,
        account,
@@ -1124,11 +1125,11 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                         COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
                         COALESCE(SUM(h.value), 0)                                       AS monthly_value
                  FROM all_periods ap
-                          INNER JOIN t_history h
-                                     ON h.account_fk = ap.account_fk
-                                         AND h.mode_payment_fk = ap.mode_payment_fk
-                                         AND h.category_type_fk = ap.category_fk
-                                         AND ap.period = strftime('%Y-%m', h.date)
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk
+                                        AND h.mode_payment_fk = ap.mode_payment_fk
+                                        AND h.category_type_fk = ap.category_fk
+                                        AND ap.period = strftime('%Y-%m', h.date)
                  GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period, ap.category_fk)
 SELECT account_fk,
        account,
@@ -1178,16 +1179,15 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                                   am.symbol_fk,
                                   am.symbol,
                                   am.period,
-                                  COALESCE(
-                                          (SELECT SUM(mv2.total_value)
-                                           FROM monthly_values mv2
-                                           WHERE mv2.account_fk = am.account_fk
-                                             AND mv2.period <= am.period),
-                                          0
-                                  ) AS cumulative_total_value
-                           FROM account_months am
-                                    INNER JOIN monthly_values mv
-                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
+                                  (SELECT SUM(COALESCE(mv2.total_value, 0))
+                                   FROM account_months am2
+                                            LEFT JOIN monthly_values mv2
+                                                      ON am2.account_fk = mv2.account_fk
+                                                          AND am2.period = mv2.period
+                                   WHERE am2.account_fk = am.account_fk
+                                     AND am2.period <= am.period) AS cumulative_total_value
+                           FROM account_months am)
+
 
 SELECT cv.account_fk,
        cv.account_name,
@@ -1219,9 +1219,9 @@ SELECT cv.account_fk,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         INNER JOIN cumulative_values pre_cv
-                    ON cv.account_fk = pre_cv.account_fk
-                        AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
+         LEFT JOIN cumulative_values pre_cv
+                   ON cv.account_fk = pre_cv.account_fk
+                       AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
 ORDER BY cv.account_fk, cv.period;
 
 CREATE VIEW analysis_v_budget_period_annual AS
@@ -1270,16 +1270,16 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                                   am.symbol_fk,
                                   am.symbol,
                                   am.period,
-                                  STRFTIME('%m', am.period)                   AS month_of_year,
-                                  STRFTIME('%Y', am.period)                   AS year,
-                                  COALESCE(
-                                          (SELECT SUM(mv2.total_value)
-                                           FROM monthly_values mv2
-                                           WHERE mv2.account_fk = am.account_fk
-                                             AND mv2.period <= am.period), 0) AS cumulative_total_value
-                           FROM account_months am
-                                    INNER JOIN monthly_values mv
-                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
+                                  STRFTIME('%m', am.period)       AS month_of_year,
+                                  STRFTIME('%Y', am.period)       AS year,
+                                  (SELECT SUM(COALESCE(mv2.total_value, 0))
+                                   FROM account_months am2
+                                            LEFT JOIN monthly_values mv2
+                                                      ON mv2.account_fk = am2.account_fk
+                                                          AND mv2.period = am2.period
+                                   WHERE am2.account_fk = am.account_fk
+                                     AND am2.period <= am.period) AS cumulative_total_value
+                           FROM account_months am)
 
 SELECT cv.account_fk,
        cv.account_name,
@@ -1512,8 +1512,8 @@ SELECT cv.period,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         INNER JOIN cumulative_values pre_cv
-                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
+         LEFT JOIN cumulative_values pre_cv
+                   ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
 ORDER BY cv.period;
 
 CREATE VIEW analysis_v_budget_period_annual_global AS
@@ -1531,7 +1531,9 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
      complete_monthly_values AS (SELECT m.period,
                                         COALESCE(mv.total_value, 0) AS total_value
                                  FROM months m
-                                          INNER JOIN monthly_values mv ON m.period = mv.period),
+                                          LEFT JOIN monthly_values mv
+                                                    ON m.period = mv.period),
+
      cumulative_values AS (SELECT cmv.period,
                                   STRFTIME('%m', cmv.period)        AS month_of_year,
                                   STRFTIME('%Y', cmv.period)        AS year,
@@ -1564,8 +1566,8 @@ SELECT cv.period,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
-         INNER JOIN cumulative_values pre_cv
-                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
+         LEFT JOIN cumulative_values pre_cv
+                   ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
 ORDER BY cv.period;
 
 CREATE VIEW analysis_v_budget_total_annual_global AS
@@ -1581,8 +1583,8 @@ WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_
      annual_values AS (SELECT yc.year,
                               COALESCE(SUM(h.value), 0) AS total_value
                        FROM years yc
-                                INNER JOIN t_history h
-                                           ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
+                                LEFT JOIN t_history h
+                                          ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
                        GROUP BY yc.year),
      cumulative_values AS (SELECT av.year,
                                   (SELECT SUM(av2.total_value)
@@ -1615,8 +1617,8 @@ SELECT cv.year                                                                  
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
-         INNER JOIN cumulative_values pre_cv
-                    ON cv.year - 1 = pre_cv.year;
+         LEFT JOIN cumulative_values pre_cv
+                   ON cv.year - 1 = pre_cv.year;
 
 CREATE VIEW analysis_v_budget_total_annual AS
 WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
@@ -1640,15 +1642,14 @@ WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_
                               ay.year,
                               COALESCE(SUM(h.value), 0) AS total_value
                        FROM account_years ay
-                                INNER JOIN t_history h
-                                           ON ay.account_fk = h.account_fk AND
-                                              STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
+                                LEFT JOIN t_history h
+                                          ON ay.account_fk = h.account_fk
+                                              AND STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
                                 INNER JOIN t_account a
                                            ON ay.account_fk = a.id
                                 INNER JOIN t_currency tc
                                            ON tc.id = a.currency_fk
-                       GROUP BY ay.account_fk, ay.year
-                       ORDER BY ay.account_fk, ay.year),
+                       GROUP BY ay.account_fk, ay.year),
      cumulative_values AS (SELECT av.account_fk,
                                   av.account_name,
                                   av.symbol_fk,
@@ -1685,9 +1686,9 @@ SELECT cv.account_fk,
                    END, 2)                                                                AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         INNER JOIN cumulative_values pre_cv
-                    ON cv.account_fk = pre_cv.account_fk
-                        AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+         LEFT JOIN cumulative_values pre_cv
+                   ON cv.account_fk = pre_cv.account_fk
+                       AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
 
 CREATE VIEW export_v_account_type AS
 SELECT tat.id,
