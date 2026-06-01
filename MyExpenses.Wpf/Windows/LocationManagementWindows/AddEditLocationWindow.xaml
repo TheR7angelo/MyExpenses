@@ -78,7 +78,7 @@
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SelectedPlaceViewModel.Name, FallbackValue='', Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxNameLength}">
         </TextBox>
 
@@ -93,14 +93,14 @@
             <TextBox Grid.Column="0"
                      materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceNumberHintAssist}}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding SelectedPlaceViewModel.Number, FallbackValue='', Mode=TwoWay}"
                      MaxLength="{x:Static systems:PlaceDomain.MaxNumberLength}">
             </TextBox>
 
             <CheckBox Grid.Column="1"
                       controlAssist:CheckboxAssist.ContentAlignment="Left"
                       IsThreeState="False"
-                      IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsChecked="{Binding SelectedPlaceViewModel.IsOpen, FallbackValue='', Mode=TwoWay}"
                       Content="{localisations:Tr {x:Static resx:LocationResourceManager.CheckBoxContentIsOpen}}"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
@@ -110,36 +110,36 @@
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceStreetHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SelectedPlaceViewModel.Street, FallbackValue='', Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxStreetLength}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlacePostalHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SelectedPlaceViewModel.Postal, FallbackValue='', Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxPostalLength}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceCityHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SelectedPlaceViewModel.City, FallbackValue='', Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCityLength}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceCountryHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SelectedPlaceViewModel.Country, FallbackValue='', Mode=TwoWay}"
                  MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
         </TextBox>
 
         <TextBox Grid.Row="6" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceLongitudeHintAssist}}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceLatitudeHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Longitude, Mode=TwoWay}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput">
+                 Text="{Binding SelectedPlaceViewModel.Latitude, FallbackValue='', Mode=TwoWay}"
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True">
         </TextBox>
 
         <StackPanel Grid.Row="6" Grid.Column="1"
@@ -163,10 +163,10 @@
         </StackPanel>
 
         <TextBox Grid.Row="7" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceLatitudeHintAssist}}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.PlaceLongitudeHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Latitude, Mode=TwoWay}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput">
+                 Text="{Binding SelectedPlaceViewModel.Longitude, FallbackValue='', Mode=TwoWay}"
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True">
         </TextBox>
 
         <Grid Grid.Row="8" Grid.Column="0"

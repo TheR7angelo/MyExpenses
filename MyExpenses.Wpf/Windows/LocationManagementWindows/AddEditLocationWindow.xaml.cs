@@ -48,105 +48,6 @@ public partial class AddEditLocationWindow : IClosable
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxNameHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxNameHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxNameHintAssist
-    {
-        get => (string)GetValue(TextBoxNameHintAssistProperty);
-        set => SetValue(TextBoxNameHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxNumberHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxNumberHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxNumberHintAssist
-    {
-        get => (string)GetValue(TextBoxNumberHintAssistProperty);
-        set => SetValue(TextBoxNumberHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty CheckBoxContentIsOpenProperty =
-        DependencyProperty.Register(nameof(CheckBoxContentIsOpen), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string CheckBoxContentIsOpen
-    {
-        get => (string)GetValue(CheckBoxContentIsOpenProperty);
-        set => SetValue(CheckBoxContentIsOpenProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxStreetHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxStreetHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxStreetHintAssist
-    {
-        get => (string)GetValue(TextBoxStreetHintAssistProperty);
-        set => SetValue(TextBoxStreetHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxPostalCodeHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxPostalCodeHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxPostalCodeHintAssist
-    {
-        get => (string)GetValue(TextBoxPostalCodeHintAssistProperty);
-        set => SetValue(TextBoxPostalCodeHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxCityHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxCityHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxCityHintAssist
-    {
-        get => (string)GetValue(TextBoxCityHintAssistProperty);
-        set => SetValue(TextBoxCityHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxCountryHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxCountryHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxCountryHintAssist
-    {
-        get => (string)GetValue(TextBoxCountryHintAssistProperty);
-        set => SetValue(TextBoxCountryHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxLatitudeHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxLatitudeHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxLatitudeHintAssist
-    {
-        get => (string)GetValue(TextBoxLatitudeHintAssistProperty);
-        set => SetValue(TextBoxLatitudeHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentValidNewPointProperty =
-        DependencyProperty.Register(nameof(ButtonContentValidNewPoint), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentValidNewPoint
-    {
-        get => (string)GetValue(ButtonContentValidNewPointProperty);
-        set => SetValue(ButtonContentValidNewPointProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonContentZoomToPointProperty =
         DependencyProperty.Register(nameof(ButtonContentZoomToPoint), typeof(string), typeof(AddEditLocationWindow),
             new PropertyMetadata(default(string)));
@@ -155,28 +56,6 @@ public partial class AddEditLocationWindow : IClosable
     {
         get => (string)GetValue(ButtonContentZoomToPointProperty);
         set => SetValue(ButtonContentZoomToPointProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxLongitudeHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxLongitudeHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxLongitudeHintAssist
-    {
-        get => (string)GetValue(TextBoxLongitudeHintAssistProperty);
-        set => SetValue(TextBoxLongitudeHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxBackgroundHintAssist
-    {
-        get => (string)GetValue(ComboBoxBackgroundHintAssistProperty);
-        set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -235,16 +114,6 @@ public partial class AddEditLocationWindow : IClosable
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
-        typeof(string), typeof(AddEditLocationWindow), new PropertyMetadata(default(string)));
-
-    public string TitleWindow
-    {
-        get => (string)GetValue(TitleWindowProperty);
-        set => SetValue(TitleWindowProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TPlace Place { get; } = new();
     public bool PlaceDeleted { get; private set; }
 
@@ -285,15 +154,6 @@ public partial class AddEditLocationWindow : IClosable
 
     private void UpdateLanguage()
     {
-        TextBoxCityHintAssist = AddEditLocationResources.TextBoxCityHintAssist;
-        TextBoxCountryHintAssist = AddEditLocationResources.TextBoxCountryHintAssist;
-        TextBoxLatitudeHintAssist = AddEditLocationResources.TextBoxLatitudeHintAssist;
-        TextBoxLongitudeHintAssist = AddEditLocationResources.TextBoxLongitudeHintAssist;
-        TextBoxNameHintAssist = AddEditLocationResources.TextBoxNameHintAssist;
-        TextBoxNumberHintAssist = AddEditLocationResources.TextBoxNumberHintAssist;
-        TextBoxPostalCodeHintAssist = AddEditLocationResources.TextBoxPostalCodeHintAssist;
-        TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
-        ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
         ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
         ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
 
@@ -302,8 +162,6 @@ public partial class AddEditLocationWindow : IClosable
         ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
         ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
         ButtonContentValid = AddEditLocationResources.ButtonContentValid;
-
-        CheckBoxContentIsOpen = AddEditLocationResources.CheckBoxContentIsOpen;
     }
 
     #region Action
@@ -589,14 +447,6 @@ public partial class AddEditLocationWindow : IClosable
     }
 
     #endregion
-
-    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        e.Handled = !txt.IsOnlyDecimal();
-    }
 
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel)
         => ViewModel.LoadPlaceViewModel(placeViewModel);
