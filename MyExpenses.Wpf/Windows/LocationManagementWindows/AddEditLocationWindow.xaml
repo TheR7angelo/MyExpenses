@@ -12,6 +12,7 @@
                  xmlns:resx="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
                  xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
+                 xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
                  mc:Ignorable="d"
 
                  TitleCharacterCasing="Normal"
@@ -97,7 +98,7 @@
             </TextBox>
 
             <CheckBox Grid.Column="1"
-                      FlowDirection="RightToLeft"
+                      controlAssist:CheckboxAssist.ContentAlignment="Left"
                       IsThreeState="False"
                       IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Content="{Binding CheckBoxContentIsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
