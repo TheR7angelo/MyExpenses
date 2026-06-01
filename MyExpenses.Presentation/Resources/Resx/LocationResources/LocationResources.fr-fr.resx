@@ -86,4 +86,13 @@
     <data name="NominatimServiceSearchErrorAnyValueContent" xml:space="preserve">
         <value>Aucun emplacement trouvé !</value>
     </data>
+    <data name="CheckBoxContentIsOpen" xml:space="preserve">
+        <value>L’endroit est ouvert :</value>
+    </data>
+    <data name="PlaceLongitudeHintAssist" xml:space="preserve">
+        <value>Longitude :</value>
+    </data>
+    <data name="PlaceLatitudeHintAssist" xml:space="preserve">
+        <value>Latitude :</value>
+    </data>
 </root>
