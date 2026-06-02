@@ -14,9 +14,10 @@
 >   - [ ] Replace manual validation with FluentValidation
 >   - [ ] Make all view in wpf using MVVM pattern with dependency injection
 >   - [ ] Make all view in maui using MVVM pattern with dependency injection
->   - [ ] Replace obsolete nuggets ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
->     - [ ] Replace AutoMapper by Mapperly
->     - [ ] Replace Newtonsoft.Json by System.Text.Json
+>   - [ ] Replace obsolete nugets ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
+>     - [ ] Replace AutoMapper by [Mapperly](https://github.com/riok/mapperly)
+>     - [ ] Replace Newtonsoft.Json by System.Text.Json (Microsoft)
+>     - [ ] Replace EPPlus by [ClosedXML](https://github.com/ClosedXML/ClosedXML)
 
 # C# WPF
 
