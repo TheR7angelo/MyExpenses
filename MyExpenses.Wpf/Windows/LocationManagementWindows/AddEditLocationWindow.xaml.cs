@@ -448,6 +448,6 @@ public partial class AddEditLocationWindow : IClosable
 
     #endregion
 
-    public void LoadPlaceViewModel(PlaceViewModel placeViewModel)
-        => ViewModel.LoadPlaceViewModel(placeViewModel);
+    public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
+        => ViewModel.LoadPlaceViewModel(placeViewModel, isEdit);
 }

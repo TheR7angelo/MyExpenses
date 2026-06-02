@@ -52,13 +52,12 @@ public interface INavigationWindowService
     public void ShowManageCategoryType(CategoryTypeViewModel? categoryTypeViewModel);
 
     /// <summary>
-    /// Displays the "Location Management" window as a dialog.
-    /// This method is used to manage location-related entities within the application
-    /// by providing a user interface for interacting with place details.
+    /// Displays the "Location Management" window.
+    /// This method is used to navigate to the interface where users can view or manage location-related details.
     /// </summary>
-    /// <param name="placeViewModel">The view model representing the location data to be managed.
-    /// It encapsulates the properties and behaviors related to a specific place.</param>
-    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel);
+    /// <param name="placeViewModel">The view model representing the place to be managed. This contains the place's current details.</param>
+    /// <param name="isEdit">A boolean indicating whether the window should be opened in edit mode (default is true).</param>
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit = false);
 
     /// <summary>
     /// Displays the "Location Management" window as a dialog.

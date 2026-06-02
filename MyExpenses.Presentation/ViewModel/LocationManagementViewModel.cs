@@ -58,12 +58,12 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         }
     }
 
-    public void LoadPlaceViewModel(PlaceViewModel placeViewModel)
+    public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
     {
         SelectedPlaceViewModel ??= new PlaceViewModel();
         locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
 
-        IsEditLocation = true;
+        IsEditLocation = isEdit;
     }
 
     public void OnPositionChanged((double Longitude, double Latitude) position, IMapControl mapControl)

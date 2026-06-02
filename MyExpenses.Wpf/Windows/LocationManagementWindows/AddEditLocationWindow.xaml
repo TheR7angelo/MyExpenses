@@ -220,7 +220,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonValid_OnClick">
             </Button>
 
@@ -228,7 +228,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{Binding ButtonContentDelete, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
@@ -236,7 +236,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonCancel_OnClick">
             </Button>
 
@@ -244,7 +244,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Click="ButtonValid_OnClick">
             </Button>
 
@@ -252,7 +252,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Click="ButtonCancel_OnClick">
             </Button>
 

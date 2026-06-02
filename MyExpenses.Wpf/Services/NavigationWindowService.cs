@@ -56,10 +56,10 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         window.ShowDialog();
     }
 
-    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel)
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit = true)
     {
         var window = provider.GetRequiredService<AddEditLocationWindow>();
-        if (placeViewModel is not null) window.LoadPlaceViewModel(placeViewModel);
+        if (placeViewModel is not null) window.LoadPlaceViewModel(placeViewModel, isEdit);
         window.ShowDialog();
     }
 
@@ -97,7 +97,8 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         if (selectedNominatim is null) return;
 
         var placeViewModel = nominatimDtoViewModelMapper.MapToPlaceViewModel(selectedNominatim);
-        ShowLocationManagementWindow(placeViewModel);
+        placeViewModel.AcceptChanges();
+        ShowLocationManagementWindow(placeViewModel, false);
     }
 
     public NominatimSearchResultViewModel? ShowLocationManagementWindow(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels)
