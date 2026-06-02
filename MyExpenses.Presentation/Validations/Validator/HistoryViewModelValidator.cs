@@ -20,7 +20,7 @@ public class HistoryViewModelValidator : AbstractValidator<HistoryViewModel>
         RuleFor(x => x.Description)
             .Cascade(CascadeMode.Stop)
             .NotNull()
-            .Length(1, HistoryDomain.MaxDescriptionLength).WithMessage(ExpenseResources.HistoryViewModelValidatorDescriptionLength)
+            .Length(1, HistoryDomain.MaxDescriptionLength).WithMessage(string.Format(ExpenseResources.HistoryViewModelValidatorDescriptionLength, HistoryDomain.MaxDescriptionLength))
             .WithError(ErrorCode.DescriptionTooLong, ExpenseResources.ResourceManager, nameof(ExpenseResources.HistoryViewModelValidatorDescriptionLength))
 
             .When(x => x.IsDescriptionDirty || x.Id is 0);

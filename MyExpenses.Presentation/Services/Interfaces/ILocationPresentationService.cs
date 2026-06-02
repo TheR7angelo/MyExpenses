@@ -65,8 +65,22 @@ public interface ILocationPresentationService
     /// A task representing the asynchronous operation, containing an enumerable of <see cref="CountryGroupViewModel"/>
     /// with grouped place data.
     /// </returns>
-    public IEnumerable<CountryGroupViewModel> GetAllPlaceGroup(IEnumerable<PlaceViewModel> placeViewModels,
-        CancellationToken cancellationToken = default);
+    public IEnumerable<CountryGroupViewModel> GetAllPlaceGroup(IEnumerable<PlaceViewModel> placeViewModels, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Maps a Nominatim search result to a PointFeature.
+    /// </summary>
+    /// <param name="currentSearchResult">The current search result from Nominatim.</param>
+    /// <returns>
+    /// A <see cref="PointFeature"/> representing the mapped point or an empty point if the GeoJson center is null.
+    /// </returns>
     public PointFeature MapToPointFeature(NominatimSearchResultViewModel currentSearchResult);
+
+    /// <summary>
+    /// Creates a new place asynchronously using the provided place view model.
+    /// </summary>
+    /// <param name="placeViewModel">The view model containing the details of the place to be created.</param>
+    /// <param name="cancellationToken">A token that allows for cancellation of the operation.</param>
+    /// <returns>A <see cref="Result{PlaceViewModel}"/> indicating the success or failure of the operation, along with the newly created place if successful.</returns>
+    public Task<Result<PlaceViewModel>> CreatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
 }

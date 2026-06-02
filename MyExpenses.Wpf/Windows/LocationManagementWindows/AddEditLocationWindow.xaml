@@ -235,7 +235,8 @@
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValid}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding ValidCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
@@ -260,7 +261,8 @@
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValid}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding ValidCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"

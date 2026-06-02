@@ -26,4 +26,13 @@ public class LocationService(ILocationRepository locationRepository,
         var placeDtos = result.Value!.Select(locationDtoDomainMapper.MapToDto);
         return Result<IEnumerable<PlaceDto>>.Success(placeDtos);
     }
+
+    public async Task<Result<PlaceDto>> CreatePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken = default)
+    {
+        var placeDomain = locationDtoDomainMapper.MapToDomain(placeDto);
+        var result = await locationRepository.CreatePlaceAsync(placeDomain, cancellationToken);
+        return result.IsSuccess
+            ? Result<PlaceDto>.Success(locationDtoDomainMapper.MapToDto(result.Value!))
+            : Result<PlaceDto>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
 }

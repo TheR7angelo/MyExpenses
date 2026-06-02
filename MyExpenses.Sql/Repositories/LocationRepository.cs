@@ -49,4 +49,28 @@ public class LocationRepository(IDbContextFactory<DataBaseContext> dbContextFact
             return Result<IEnumerable<PlaceDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load places");
         }
     }
+
+    public async Task<Result<PlaceDomain>> CreatePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Adding place with name {PlaceName}", placeDomain.Name);
+
+            var placeEntity = placeDomain.MapToEntity();
+            context.TPlaces.Add(placeEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Place with name {PlaceName} was successfully added", placeDomain.Name);
+
+            var placeDomainResult = placeEntity.MapToDomain();
+            return Result<PlaceDomain>.Success(placeDomainResult, "Place was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add place");
+            return Result<PlaceDomain>.Failure(ErrorCode.DatabaseError, "Failed to add place");
+        }
+    }
 }

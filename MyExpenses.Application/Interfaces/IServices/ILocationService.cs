@@ -19,4 +19,12 @@ public interface ILocationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object with an enumerable collection of <see cref="PlaceDto"/> objects.</returns>
     public Task<Result<IEnumerable<PlaceDto>>> GetAllPlaces(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new place asynchronously.
+    /// </summary>
+    /// <param name="placeDto">The data transfer object containing details of the place to create.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{PlaceDto}"/> object with the created place or an error if the creation fails.</returns>
+    public Task<Result<PlaceDto>> CreatePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken = default);
 }

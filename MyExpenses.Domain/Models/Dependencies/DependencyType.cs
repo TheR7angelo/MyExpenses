@@ -12,7 +12,8 @@ public enum DependencyType
     RecurringExpense,
     AccountType,
     Currency,
-    Color
+    Color,
+    Place
 }
 
 public static class DependencyCaptionName

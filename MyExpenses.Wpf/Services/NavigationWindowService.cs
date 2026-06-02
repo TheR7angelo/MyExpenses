@@ -55,7 +55,7 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         window.ShowDialog();
     }
 
-    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit = true)
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit)
     {
         var window = provider.GetRequiredService<AddEditLocationWindow>();
         if (placeViewModel is not null) window.LoadPlaceViewModel(placeViewModel, isEdit);
@@ -68,7 +68,7 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         var placeViewModel = ManageLocationWindowAction(results);
 
         if (placeViewModel is null) return;
-        ShowLocationManagementWindow(placeViewModel);
+        ShowLocationManagementWindow(placeViewModel, false);
     }
 
     public PlaceViewModel? ManageLocationWindowAction(Result<IEnumerable<NominatimSearchResultViewModel>> results)

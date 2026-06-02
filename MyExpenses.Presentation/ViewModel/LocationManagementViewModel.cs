@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using BruTile.Predefined;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Mapsui;
 using Mapsui.Extensions;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Locations;
@@ -21,15 +24,98 @@ using MyExpenses.SharedUtils.Collection;
 
 namespace MyExpenses.Presentation.ViewModel;
 
-public partial class LocationManagementViewModel(ILocationPresentationService locationPresentationService,
-    INominatimPresentationService nominatimPresentationService,
-    ILocationDtoViewModelMapper locationDtoViewModelMapper,
-    INavigationWindowService navigationWindowService,
-    ILogger<LocationManagementViewModel> logger,
-    MapsUtils mapsUtils) : ViewModelBase
+public partial class LocationManagementViewModel : ViewModelBase
 {
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
     private IEnumerable<ILayer> PlaceLayers => [PlaceLayer];
+
+    private readonly ILocationPresentationService _locationPresentationService;
+    private readonly INominatimPresentationService _nominatimPresentationService;
+    private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
+    private readonly INavigationWindowService _navigationWindowService;
+    private readonly ILogger<LocationManagementViewModel> _logger;
+    private readonly ILocationActionService _locationActionService;
+    private readonly MapsUtils _mapsUtils;
+
+    public LocationManagementViewModel(ILocationPresentationService locationPresentationService,
+        INominatimPresentationService nominatimPresentationService,
+        ILocationDtoViewModelMapper locationDtoViewModelMapper,
+        INavigationWindowService navigationWindowService,
+        ILogger<LocationManagementViewModel> logger,
+        ILocationActionService locationActionService,
+        MapsUtils mapsUtils)
+    {
+        _locationPresentationService = locationPresentationService;
+        _nominatimPresentationService = nominatimPresentationService;
+        _locationDtoViewModelMapper = locationDtoViewModelMapper;
+        _navigationWindowService = navigationWindowService;
+        _logger = logger;
+        _locationActionService = locationActionService;
+        _mapsUtils = mapsUtils;
+
+        RegisterMessage();
+    }
+
+    private void RegisterMessage()
+    {
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnPlaceDeleted);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<PlaceViewModel>>(this, OnPlaceChanged);
+    }
+
+    private async void OnPlaceChanged(object recipient, EntityChangedMessage<PlaceViewModel> message)
+    {
+        if (message.Value.EntityType != DependencyType.Place) return;
+
+        switch (message.Value.DataAction)
+        {
+            case DataAction.Update:
+                ApplyUpdate(message.Value.Content);
+                break;
+
+            case DataAction.Add:
+                await ApplyAddAsync(message.Value.Content);
+                break;
+        }
+    }
+
+    private async Task ApplyAddAsync(PlaceViewModel placeViewModel)
+    {
+        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle);
+        PlaceLayer.Add(pointFeature);
+        Map?.Refresh();
+
+        var countryGroup = CountryGroups.FirstOrDefault(g => g.Country == placeViewModel.Country);
+        if (countryGroup is null)
+        {
+            countryGroup = new CountryGroupViewModel { Country = placeViewModel.Country };
+            CountryGroups.Add(countryGroup);
+        }
+        else
+        {
+            var placeGroup = countryGroup.CityGroups?.FirstOrDefault(g => g.City == placeViewModel.City);
+            if (placeGroup is null)
+            {
+                placeGroup = new CityGroupViewModel { City = placeViewModel.City };
+                countryGroup.CityGroups ??= [];
+                countryGroup.CityGroups.Add(placeGroup);
+            }
+            else
+            {
+                placeGroup.Places ??= [];
+                placeGroup.Places?.AddAndSort(placeViewModel, s => s.Name!);
+            }
+        }
+    }
+
+    private void ApplyUpdate(PlaceViewModel placeViewModel)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnPlaceDeleted(object recipient, EntityChangedMessage<int[]> message)
+    {
+        throw new NotImplementedException();
+    }
 
     public ObservableCollection<KnownTileSource> KnownTileSources { get; } = [];
     public ObservableCollection<CountryGroupViewModel> CountryGroups { get; } = [];
@@ -53,11 +139,11 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     {
         if (SelectedPlaceViewModel is null)
         {
-            navigationWindowService.ShowLocationManagementWindow(SelectedPlacePoint);
+            _navigationWindowService.ShowLocationManagementWindow(SelectedPlacePoint);
         }
         else
         {
-            navigationWindowService.ShowLocationManagementWindow(placeViewModel);
+            _navigationWindowService.ShowLocationManagementWindow(placeViewModel, true);
         }
     }
 
@@ -75,7 +161,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         SelectedPlaceViewModel?.Longitude = point.X;
 
         point = SphericalMercator.FromLonLat(point);
-        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(point, MapsuiStyleExtensions.RedMarkerStyle);
+        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(point, MapsuiStyleExtensions.RedMarkerStyle);
 
         PlaceLayer.Add(pointFeature);
 
@@ -85,11 +171,11 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
     {
         SelectedPlaceViewModel ??= new PlaceViewModel();
-        locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
+        _locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
 
         IsEditLocation = isEdit;
 
-        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle, false);
+        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle, false);
         PlaceLayer.Clear();
         PlaceLayer.Add(pointFeature);
     }
@@ -100,7 +186,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         var worldPosition = Map.Navigator.Viewport.ScreenToWorld(screenX, screenY);
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-        SelectedPlacePoint = locationDtoViewModelMapper.MapToMPoint(lonLat);
+        SelectedPlacePoint = _locationDtoViewModelMapper.MapToMPoint(lonLat);
 
         if (!updateInfo) return;
 
@@ -110,15 +196,15 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
     [RelayCommand]
     private void OnGoToGoogleEarthWeb()
-        => mapsUtils.GoToGoogleEarthWeb(SelectedPlacePoint);
+        => _mapsUtils.GoToGoogleEarthWeb(SelectedPlacePoint);
 
     [RelayCommand]
     private void OnGoToGoogleMaps()
-        => mapsUtils.GoToGoogleMaps(SelectedPlacePoint);
+        => _mapsUtils.GoToGoogleMaps(SelectedPlacePoint);
 
     [RelayCommand]
     private void OnGoToGoogleStreetView()
-        => mapsUtils.GoToGoogleStreetView(SelectedPlacePoint);
+        => _mapsUtils.GoToGoogleStreetView(SelectedPlacePoint);
 
     [RelayCommand]
     private void OnMapInfo(MapInfoEventArgs? mapInfoEventArgs)
@@ -133,7 +219,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     {
         if (SelectedPlaceViewModel is null) return;
 
-        var results = await nominatimPresentationService.SearchAsync(SelectedPlaceViewModel.Latitude ?? 0, SelectedPlaceViewModel.Longitude ?? 0, cancellationToken);
+        var results = await _nominatimPresentationService.SearchAsync(SelectedPlaceViewModel.Latitude ?? 0, SelectedPlaceViewModel.Longitude ?? 0, cancellationToken);
         HandleNominatimResult(results);
     }
 
@@ -143,13 +229,13 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         if (SelectedPlaceViewModel is null) return;
 
         var address = SelectedPlaceViewModel.GetAddress();
-        var results = await nominatimPresentationService.SearchAsync(address, cancellationToken);
+        var results = await _nominatimPresentationService.SearchAsync(address, cancellationToken);
         HandleNominatimResult(results);
     }
 
     private void HandleNominatimResult(Result<IEnumerable<NominatimSearchResultViewModel>> results)
     {
-        var placeViewModel = navigationWindowService.ManageLocationWindowAction(results);
+        var placeViewModel = _navigationWindowService.ManageLocationWindowAction(results);
         if (placeViewModel is null) return;
 
         LoadPlaceViewModel(placeViewModel, false);
@@ -162,7 +248,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         if (mapInfoEventArgs is null) return;
 
         var worldPositionPoint = mapInfoEventArgs.WorldPosition;
-        var pointFeature = locationDtoViewModelMapper.MapToTemporaryFeature(worldPositionPoint, MapsuiStyleExtensions.GreenMarkerStyle);
+        var pointFeature = _locationDtoViewModelMapper.MapToTemporaryFeature(worldPositionPoint, MapsuiStyleExtensions.GreenMarkerStyle);
 
         var oldFeature = PlaceLayer.GetFeatures().FirstOrDefault(f => f is TemporaryPointFeature { IsTemp: true });
         if (oldFeature is not null) PlaceLayer.TryRemove(oldFeature);
@@ -174,7 +260,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     {
         SelectedPlaceViewModel = mapInfo?.Feature is not PointFeature pointFeature
             ? null
-            : locationDtoViewModelMapper.MapToPlaceViewModel(pointFeature);
+            : _locationDtoViewModelMapper.MapToPlaceViewModel(pointFeature);
     }
 
     [RelayCommand]
@@ -185,7 +271,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
             CountryGroupViewModel countryGroup => countryGroup.CityGroups?
                 .SelectMany(cityGroup => GetPoints(cityGroup.Places)) ?? [],
             CityGroupViewModel cityGroup => GetPoints(cityGroup.Places),
-            PlaceViewModel placeViewModel => [locationDtoViewModelMapper.MapToMPoint(placeViewModel)],
+            PlaceViewModel placeViewModel => [_locationDtoViewModelMapper.MapToMPoint(placeViewModel)],
             _ => []
         };
 
@@ -197,14 +283,14 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         {
             return places?
                 .Where(s =>s.Latitude is not 0 && s.Longitude is not 0)
-                .Select(locationDtoViewModelMapper.MapToMPoint) ?? [];
+                .Select(_locationDtoViewModelMapper.MapToMPoint) ?? [];
         }
     }
 
     [RelayCommand]
     private void OnMapControlLoaded(IMapControl mapControl)
     {
-        var mapResult = locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
+        var mapResult = _locationPresentationService.GetDefaultMap(true, Mapsui.Styles.Color.Black);
         if (!mapResult.IsSuccess) return;
 
         Map = mapResult.Value!;
@@ -232,7 +318,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     private void OnPlaceViewModelSelected(PlaceViewModel? placeViewModel)
     {
         if (placeViewModel is null) return;
-        var feature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel);
+        var feature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel);
         var point = feature.Point;
 
         Map?.Navigator.CenterOnAndZoomTo(point);
@@ -263,7 +349,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     [RelayCommand]
     private void OnLoad()
     {
-        var titleSource = locationPresentationService.GetAllKnowTitleSource();
+        var titleSource = _locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
     }
 
@@ -272,10 +358,10 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     {
         OnLoad();
 
-        var resultPlaces = await locationPresentationService.GetAllPlaces(cancellationToken);
+        var resultPlaces = await _locationPresentationService.GetAllPlaces(cancellationToken);
         if (!resultPlaces.IsSuccess)
         {
-            logger.LogWarning("Failed to load place group: {Error}", resultPlaces.InternalMessage!);
+            _logger.LogWarning("Failed to load place group: {Error}", resultPlaces.InternalMessage!);
             return;
         }
 
@@ -283,13 +369,47 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
                         s.Longitude is not 0)
             .Select(s => s.IsOpen
-                ? locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.RedMarkerStyle)
-                : locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
+                ? _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.RedMarkerStyle)
+                : _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
 
         PlaceLayer.AddRange(pointFeatures);
 
-        var group = locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
+        var group = _locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
         CountryGroups.AddRangeAndSort(group, s => s.Country!);
+    }
+
+    [RelayCommand]
+    private async Task OnValid(IClosable? dialog, CancellationToken cancellationToken = default)
+    {
+        if (SelectedPlaceViewModel is null) return;
+
+        try
+        {
+            var result = IsEditLocation
+                ? await _locationActionService.UpdatePlaceAsync(SelectedPlaceViewModel, cancellationToken)
+                : await _locationActionService.CreatePlaceAsync(SelectedPlaceViewModel, cancellationToken);
+
+            if (result.IsSuccess) dialog?.Close();
+        }
+        catch (Exception e)
+        {
+            if (IsEditLocation)
+            {
+                _logger.LogError(e, "Error updating color");
+
+                // dialogService.ShowMessageBox(SystemResources.MessageboxColorUpdateErrorCaption,
+                //     SystemResources.MessageboxColorUpdateErrorContent,
+                //     MessageBoxButton.Ok, MsgBoxImage.Error);
+            }
+            else
+            {
+                _logger.LogError(e, "Error creating color");
+
+                // dialogService.ShowMessageBox(SystemResources.MessageboxColorCreateErrorCaption,
+                //     SystemResources.MessageboxColorCreateErrorContent,
+                //     MessageBoxButton.Ok, MsgBoxImage.Error);
+            }
+        }
     }
 
     [RelayCommand]

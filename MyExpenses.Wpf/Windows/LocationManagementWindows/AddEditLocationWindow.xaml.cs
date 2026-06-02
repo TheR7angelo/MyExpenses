@@ -87,27 +87,6 @@ public partial class AddEditLocationWindow : IClosable
         Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
     }
 
-    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
-    {
-        string? localizedErrorMessage = null;
-        if (string.IsNullOrWhiteSpace(Place.Name)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationNameError;
-        if (string.IsNullOrWhiteSpace(Place.Street)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationStreetError;
-        if (string.IsNullOrWhiteSpace(Place.Postal)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationPostalError;
-        if (string.IsNullOrWhiteSpace(Place.City)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCityError;
-        if (string.IsNullOrWhiteSpace(Place.Country)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCountryError;
-        if (Place.Latitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLatitudeError;
-        if (Place.Longitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLongitudeError;
-        if (!string.IsNullOrWhiteSpace(localizedErrorMessage))
-        {
-            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxButtonValidationTitleError,
-                localizedErrorMessage, MessageBoxButton.OK, MsgBoxImage.Error);
-            return;
-        }
-
-        DialogResult = true;
-        Close();
-    }
-
     #endregion
 
     #endregion

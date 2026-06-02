@@ -67,7 +67,8 @@ public static class ViewModelRegistration
         {
             services.AddTransient<IAccountActionService, AccountActionService>()
                 .AddTransient<IExpenseActionService, ExpenseActionService>()
-                .AddTransient<ISystemActionService, SystemActionService>();
+                .AddTransient<ISystemActionService, SystemActionService>()
+                .AddTransient<ILocationActionService, LocationActionService>();
 
             return services;
         }
@@ -81,7 +82,8 @@ public static class ViewModelRegistration
                 .AddScoped<HistoryViewModelValidator>()
                 .AddScoped<BankTransferViewModelValidator>()
                 .AddScoped<CurrencyViewModelValidator>()
-                .AddScoped<ColorViewModelValidator>();
+                .AddScoped<ColorViewModelValidator>()
+                .AddScoped<PlaceViewModelValidator>();
 
             return services;
         }

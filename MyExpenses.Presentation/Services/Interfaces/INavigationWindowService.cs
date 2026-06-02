@@ -58,7 +58,7 @@ public interface INavigationWindowService
     /// </summary>
     /// <param name="placeViewModel">The view model representing the place to be managed. This contains the place's current details.</param>
     /// <param name="isEdit">A boolean indicating whether the window should be opened in edit mode (default is true).</param>
-    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit = false);
+    public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit);
 
     /// <summary>
     /// Displays the "Location Management" window as a dialog.
