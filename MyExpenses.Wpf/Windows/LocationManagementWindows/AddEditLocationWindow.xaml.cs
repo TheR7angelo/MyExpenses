@@ -38,12 +38,6 @@ public partial class AddEditLocationWindow : IClosable
 
     #region Button
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-        Close();
-    }
-
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         var response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,

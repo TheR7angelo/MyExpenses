@@ -250,7 +250,7 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
@@ -266,7 +266,7 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}">
             </Button>
 
         </Grid>

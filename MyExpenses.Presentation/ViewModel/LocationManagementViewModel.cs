@@ -11,6 +11,7 @@ using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Mapsui.UI;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -289,5 +290,12 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         var group = locationDtoViewModelMapper.MapToGroup(resultPlaces.Value!);
         CountryGroups.AddRangeAndSort(group, s => s.Country!);
+    }
+
+    [RelayCommand]
+    private void OnCancel(IClosable? closable)
+    {
+        closable?.DialogResult = false;
+        closable?.Close();
     }
 }
