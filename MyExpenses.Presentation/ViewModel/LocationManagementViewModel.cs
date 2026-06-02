@@ -58,6 +58,27 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         }
     }
 
+    [RelayCommand]
+    private void OnValidTemporaryFeature()
+    {
+        var features = PlaceLayer.GetFeatures().ToArray();
+        if (features.Length is not 2) return;
+
+        var temporaryFeature = features.First(f => f is TemporaryPointFeature { IsTemp: true }) as TemporaryPointFeature;
+        PlaceLayer.Clear();
+
+        var point = SphericalMercator.ToLonLat(temporaryFeature!.Point);
+        SelectedPlaceViewModel?.Latitude = point.Y;
+        SelectedPlaceViewModel?.Longitude = point.X;
+
+        point = SphericalMercator.FromLonLat(point);
+        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(point, MapsuiStyleExtensions.RedMarkerStyle);
+
+        PlaceLayer.Add(pointFeature);
+
+        ZoomToPoints();
+    }
+
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
     {
         SelectedPlaceViewModel ??= new PlaceViewModel();
@@ -159,12 +180,25 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         mapControl.Map = Map;
 
         OnUpdateTileSource();
+        ZoomToPoints();
+        //
+        // if (PlaceLayer.GetFeatures().Any()) mapControl.Map.Navigator.SetZoom(PlaceLayer);
+        // else
+        // {
+        //     var resolution = mapControl.Map.Navigator.Resolutions[2];
+        //     mapControl.Map.Navigator.ZoomTo(resolution);
+        // }
+    }
 
-        if (PlaceLayer.GetFeatures().Any()) mapControl.Map.Navigator.SetZoom(PlaceLayer);
+    private void ZoomToPoints()
+    {
+        if (Map is null) return;
+
+        if (PlaceLayer.GetFeatures().Any()) Map.Navigator.SetZoom(PlaceLayer);
         else
         {
-            var resolution = mapControl.Map.Navigator.Resolutions[2];
-            mapControl.Map.Navigator.ZoomTo(resolution);
+            var resolution = Map.Navigator.Resolutions[2];
+            Map.Navigator.ZoomTo(resolution);
         }
     }
 

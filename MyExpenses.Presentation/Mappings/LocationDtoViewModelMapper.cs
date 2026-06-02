@@ -44,6 +44,16 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
         return pointFeature;
     }
 
+    public PointFeature MapToPointFeature(MPoint point, ImageStyle? imageStyle = null)
+    {
+        var pointFeature = MapToPointFeature((point.X, point.Y));
+
+        pointFeature.Styles.Clear();
+        if (imageStyle is not null) pointFeature.Styles.Add(imageStyle);
+
+        return pointFeature;
+    }
+
     public TemporaryPointFeature MapToTemporaryFeature(PlaceViewModel place, ImageStyle? symbolStyle = null)
     {
         var feature = MapToPointFeature(place, symbolStyle);

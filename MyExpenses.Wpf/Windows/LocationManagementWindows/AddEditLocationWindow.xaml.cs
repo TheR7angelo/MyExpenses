@@ -106,30 +106,6 @@ public partial class AddEditLocationWindow : IClosable
         // SetPlace(newPlace, true);
     }
 
-    private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
-    {
-        var pointsFeatures = WritableLayer.GetFeatures().Select(s => (TemporaryPointFeature)s).ToList();
-        if (pointsFeatures.Count < 2) return;
-
-        var newFeature = pointsFeatures.First(f => f.IsTemp.Equals(true));
-        foreach (var pointFeature in pointsFeatures)
-        {
-            WritableLayer.TryRemove(pointFeature);
-        }
-
-        var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        Place.Geometry = new Point(coordinate.X, coordinate.Y);
-
-        newFeature.IsTemp = false;
-        newFeature.Styles.Clear();
-        newFeature.Styles.Add(MapsuiStyleExtensions.RedMarkerStyle);
-
-        WritableLayer.Add(newFeature);
-
-        MapControl.Map.Navigator.CenterOnAndZoomTo(newFeature.Point);
-    }
-
     private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
         => MapControl.Map.Navigator.SetZoom(WritableLayer);
 

@@ -22,8 +22,29 @@ public interface ILocationDtoViewModelMapper
     /// <returns>A place view model containing the mapped data.</returns>
     public PlaceViewModel MapToViewModel(PlaceDto src);
 
+    /// <summary>
+    /// Maps a PlaceViewModel instance to a PointFeature.
+    /// </summary>
+    /// <param name="placeViewModel">The PlaceViewModel to map from.</param>
+    /// <param name="imageStyle">Optional ImageStyle to apply to the point feature.</param>
+    /// <param name="addLabelStyle">Flag indicating whether to add a label style to the point feature.</param>
+    /// <returns>A PointFeature containing the mapped data.</returns>
     public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyle = null, bool addLabelStyle = true);
 
+    /// <summary>
+    /// Maps a MPoint to a PointFeature.
+    /// </summary>
+    /// <param name="point">The MPoint to map from.</param>
+    /// <param name="imageStyle">Optional ImageStyle for the point feature.</param>
+    /// <returns>A PointFeature with the mapped data.</returns>
+    public PointFeature MapToPointFeature(MPoint point, ImageStyle? imageStyle = null);
+
+    /// <summary>
+    /// Maps a point to a temporary feature.
+    /// </summary>
+    /// <param name="point">The point to map.</param>
+    /// <param name="symbolStyle">Optional symbol style for the temporary feature.</param>
+    /// <returns>A TemporaryPointFeature instance representing the mapped point.</returns>
     public TemporaryPointFeature MapToTemporaryFeature(MPoint point, ImageStyle? symbolStyle = null);
 
     /// <summary>
@@ -33,6 +54,11 @@ public interface ILocationDtoViewModelMapper
     /// <returns>A PlaceViewModel representation of the provided PointFeature, or null if the mapping fails.</returns>
     public PlaceViewModel? MapToPlaceViewModel(PointFeature pointFeature);
 
+    /// <summary>
+    /// Maps a MPoint instance to a TemporaryPointFeature instance.
+    /// </summary>
+    /// <param name="point">The MPoint to map from.</param>
+    /// <returns>A TemporaryPointFeature containing the mapped data.</returns>
     public TemporaryPointFeature MapToTemporaryPointFeature(MPoint point);
 
     /// <summary>

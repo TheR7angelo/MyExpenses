@@ -158,7 +158,7 @@
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValidNewPoint}}"
-                    Click="ButtonValidNewPoint_OnClick">
+                    Command="{Binding ValidTemporaryFeatureCommand}">
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
