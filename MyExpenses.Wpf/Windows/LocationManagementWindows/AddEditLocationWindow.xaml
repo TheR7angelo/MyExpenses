@@ -279,8 +279,6 @@
             <wpf:MapControl x:Name="MapControl"
                             Map="{Binding Map}"
                             ContextMenuOpening="MapControl_OnContextMenuOpening">
-                <!-- Info="MapControl_OnInfo" -->
-                <!-- Loaded="MapControl_OnLoaded"> -->
 
                 <b:Interaction.Triggers>
 
