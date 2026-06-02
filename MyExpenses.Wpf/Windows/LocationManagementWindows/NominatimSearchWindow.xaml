@@ -8,7 +8,6 @@
                  xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-                 xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
                  xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
                  xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
@@ -77,42 +76,41 @@
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNameHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentSearchResult.Name, Mode=OneWay}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxNameLength}">
+                 IsReadOnly="True">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNumberHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.HouseNumber, Mode=OneWay, FallbackValue=''}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxNumberLength}">
+                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceNumberHintAssist}}"
+                   Style="{StaticResource MaterialDesignFilledTextBox}"
+                   Text="{Binding CurrentSearchResult.Address.HouseNumber, Mode=OneWay, FallbackValue=''}"
+                   IsReadOnly="True">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceStreetHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Road, Mode=OneWay, FallbackValue=''}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxStreetLength}">
+                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceStreetHintAssist}}"
+                   Style="{StaticResource MaterialDesignFilledTextBox}"
+                   Text="{Binding CurrentSearchResult.Address.Road, Mode=OneWay, FallbackValue=''}"
+                   IsReadOnly="True">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlacePostalHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Postcode, Mode=OneWay, FallbackValue=''}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxPostalLength}">
+                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlacePostalHintAssist}}"
+                   Style="{StaticResource MaterialDesignFilledTextBox}"
+                   Text="{Binding CurrentSearchResult.Address.Postcode, Mode=OneWay, FallbackValue=''}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCityHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.CityName, Mode=OneWay, FallbackValue=''}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxCityLength}">
+                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCityHintAssist}}"
+                   Style="{StaticResource MaterialDesignFilledTextBox}"
+                   Text="{Binding CurrentSearchResult.Address.CityName, Mode=OneWay, FallbackValue=''}"
+                   IsReadOnly="True">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCountryHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentSearchResult.Address.Country, Mode=OneWay, FallbackValue=''}"
-                 MaxLength="{x:Static systems:PlaceDomain.MaxCountryLength}">
+                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.PlaceCountryHintAssist}}"
+                   Style="{StaticResource MaterialDesignFilledTextBox}"
+                   Text="{Binding CurrentSearchResult.Address.Country, Mode=OneWay, FallbackValue=''}"
+                   IsReadOnly="True">
         </TextBox>
 
         <ComboBox Grid.Row="6" Grid.Column="1"
