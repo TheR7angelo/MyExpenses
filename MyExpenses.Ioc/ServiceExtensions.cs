@@ -59,7 +59,8 @@ public static class ServiceExtensions
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
             .AddScoped<IExpensePresentationService, ExpensePresentationService>()
             .AddScoped<ISystemPresentationService, SystemPresentationService>()
-            .AddScoped<ILocationPresentationService, LocationPresentationService>();
+            .AddScoped<ILocationPresentationService, LocationPresentationService>()
+            .AddScoped<INominatimPresentationService, NominatimPresentationService>();
 
         services.AddScoped<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
             .AddScoped<IExpenseDtoDomainMapper, ExpenseDtoDomainMapper>()

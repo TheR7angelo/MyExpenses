@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using BruTile.Predefined;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Domain.Models.Validation;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
@@ -20,6 +21,7 @@ using MyExpenses.SharedUtils.Collection;
 namespace MyExpenses.Presentation.ViewModel;
 
 public partial class LocationManagementViewModel(ILocationPresentationService locationPresentationService,
+    INominatimPresentationService nominatimPresentationService,
     ILocationDtoViewModelMapper locationDtoViewModelMapper,
     INavigationWindowService navigationWindowService,
     ILogger<LocationManagementViewModel> logger,
@@ -87,6 +89,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         IsEditLocation = isEdit;
 
         var pointFeature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle, false);
+        PlaceLayer.Clear();
         PlaceLayer.Add(pointFeature);
     }
 
@@ -122,6 +125,34 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         var mapInfo = mapInfoEventArgs?.GetMapInfo(PlaceLayers);
 
         SetSelectedPlaceViewModel(mapInfo);
+    }
+
+    [RelayCommand]
+    private async Task SearchByCoordinate(CancellationToken cancellationToken = default)
+    {
+        if (SelectedPlaceViewModel is null) return;
+
+        var results = await nominatimPresentationService.SearchAsync(SelectedPlaceViewModel.Latitude ?? 0, SelectedPlaceViewModel.Longitude ?? 0, cancellationToken);
+        HandleNominatimResult(results);
+    }
+
+    [RelayCommand]
+    private async Task OnSearchByAddress(CancellationToken cancellationToken = default)
+    {
+        if (SelectedPlaceViewModel is null) return;
+
+        var address = SelectedPlaceViewModel.GetAddress();
+        var results = await nominatimPresentationService.SearchAsync(address, cancellationToken);
+        HandleNominatimResult(results);
+    }
+
+    private void HandleNominatimResult(Result<IEnumerable<NominatimSearchResultViewModel>> results)
+    {
+        var placeViewModel = navigationWindowService.ManageLocationWindowAction(results);
+        if (placeViewModel is null) return;
+
+        LoadPlaceViewModel(placeViewModel, false);
+        OnZoomToPoints();
     }
 
     [RelayCommand]
@@ -181,13 +212,6 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         OnUpdateTileSource();
         OnZoomToPoints();
-        //
-        // if (PlaceLayer.GetFeatures().Any()) mapControl.Map.Navigator.SetZoom(PlaceLayer);
-        // else
-        // {
-        //     var resolution = mapControl.Map.Navigator.Resolutions[2];
-        //     mapControl.Map.Navigator.ZoomTo(resolution);
-        // }
     }
 
     [RelayCommand]

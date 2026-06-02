@@ -1,4 +1,5 @@
-﻿using Mapsui;
+﻿using Domain.Models.Validation;
+using Mapsui;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Locations;
@@ -66,6 +67,14 @@ public interface INavigationWindowService
     /// <param name="point">The geographic point representing the location. Used for fetching detailed information about the place.</param>
     /// <param name="cancellationToken">A token that allows the operation to be canceled.</param>
     public Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Manages the action for location window based on search results.
+    /// This method processes the results from a nominatim search and potentially opens or updates a location management window.
+    /// </summary>
+    /// <param name="results">The result containing a collection of Nominatim search results.</param>
+    /// <returns>A PlaceViewModel instance if applicable, otherwise null.</returns>
+    public PlaceViewModel? ManageLocationWindowAction(Result<IEnumerable<NominatimSearchResultViewModel>> results);
 
     /// <summary>
     /// Shows the "Location Management" window as a dialog.
