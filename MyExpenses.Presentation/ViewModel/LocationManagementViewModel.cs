@@ -188,10 +188,16 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     }
 
     [RelayCommand]
-    private async Task OnLoad(CancellationToken cancellationToken = default)
+    private void OnLoad()
     {
         var titleSource = locationPresentationService.GetAllKnowTitleSource();
         if (titleSource.IsSuccess) KnownTileSources.AddRangeAndSort(titleSource.Value!, s => s.ToString());
+    }
+
+    [RelayCommand]
+    private async Task OnLoadWithFeature(CancellationToken cancellationToken = default)
+    {
+        OnLoad();
 
         var resultPlaces = await locationPresentationService.GetAllPlaces(cancellationToken);
         if (!resultPlaces.IsSuccess)

@@ -13,6 +13,7 @@
                  xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
                  xmlns:systems="clr-namespace:Domain.Models.Systems;assembly=MyExpenses.Domain"
                  xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
+                 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  mc:Ignorable="d"
 
                  TitleCharacterCasing="Normal"
@@ -50,6 +51,12 @@
             </Style.Triggers>
         </Style>
     </mah:MetroWindow.Style>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <mah:MetroWindow.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
@@ -193,7 +200,7 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static resx:LocationResourceManager.ComboBoxBaseMapHintAssist}}"
                       ItemsSource="{Binding KnownTileSources}"
-                      SelectedItem="{Binding KnownTileSourceSelected}"
+
                       SelectionChanged="Selector_OnSelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

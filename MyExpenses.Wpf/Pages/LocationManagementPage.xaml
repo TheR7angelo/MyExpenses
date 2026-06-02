@@ -25,7 +25,7 @@
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+            <b:InvokeCommandAction Command="{Binding LoadWithFeatureCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
