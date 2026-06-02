@@ -22,21 +22,9 @@ public interface ILocationDtoViewModelMapper
     /// <returns>A place view model containing the mapped data.</returns>
     public PlaceViewModel MapToViewModel(PlaceDto src);
 
-    /// <summary>
-    /// Maps the given <see cref="PlaceViewModel"/> instance to a <see cref="PointFeature"/> object.
-    /// </summary>
-    /// <param name="placeViewModel">The PlaceViewModel instance containing location data to be mapped.</param>
-    /// <param name="imageStyle">An optional ImageStyle to be applied to the PointFeature.</param>
-    /// <returns>A PointFeature representation of the provided PlaceViewModel.</returns>
-    public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyle = null);
+    public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyle = null, bool addLabelStyle = true);
 
-    /// <summary>
-    /// Converts the specified <see cref="PlaceViewModel"/> instance into a <see cref="TemporaryPointFeature"/> object.
-    /// </summary>
-    /// <param name="place">The PlaceViewModel instance containing the location data to be transformed.</param>
-    /// <param name="symbolStyle">An optional ImageStyle to be applied to the TemporaryPointFeature.</param>
-    /// <returns>A TemporaryPointFeature representation of the provided PlaceViewModel.</returns>
-    public TemporaryPointFeature ToTemporaryFeature(PlaceViewModel place, ImageStyle? symbolStyle = null);
+    public TemporaryPointFeature MapToTemporaryFeature(MPoint point, ImageStyle? symbolStyle = null);
 
     /// <summary>
     /// Maps the given <see cref="PointFeature"/> instance to a <see cref="PlaceViewModel"/> object.
@@ -44,6 +32,8 @@ public interface ILocationDtoViewModelMapper
     /// <param name="pointFeature">The PointFeature instance containing data to be mapped to a PlaceViewModel.</param>
     /// <returns>A PlaceViewModel representation of the provided PointFeature, or null if the mapping fails.</returns>
     public PlaceViewModel? MapToPlaceViewModel(PointFeature pointFeature);
+
+    public TemporaryPointFeature MapToTemporaryPointFeature(MPoint point);
 
     /// <summary>
     /// Maps the given coordinates to a <see cref="PointFeature"/> object.

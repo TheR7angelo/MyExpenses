@@ -62,7 +62,7 @@ public partial class LocationManagementPage
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
         var position = Mouse.GetPosition(MapControl);
-        LocationManagementViewModel.OnPositionChanged((position.X, position.Y), MapControl);
+        LocationManagementViewModel.OnPositionChanged(position.X, position.Y, MapControl, true);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)

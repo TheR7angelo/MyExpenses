@@ -14,7 +14,7 @@ public class TemporaryPointFeature : PointFeature
     /// Gets or sets a value indicating whether a point feature is temporary.
     /// When set to true, the feature is considered a temporary object, often used for transient operations or states.
     /// </summary>
-    public bool IsTemp { get; set; }
+    public bool IsTemp => true;
 
     public TemporaryPointFeature(PointFeature pointFeature) : base(pointFeature)
     {

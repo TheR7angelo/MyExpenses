@@ -22,35 +22,51 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
 
     private const double Width = 2;
 
-    public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyles = null)
+    public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyles = null, bool addLabelStyle = true)
     {
         var point = SphericalMercator.FromLonLat(placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
         var pointFeature = MapToPointFeature(point);
         pointFeature[nameof(PlaceViewModel)] = placeViewModel;
 
         pointFeature.Styles.Clear();
-        pointFeature.Styles.Add(new LabelStyle
+        if (addLabelStyle)
         {
-            Text = placeViewModel.Name, Offset = LabelOffset,
-            Font = new Font { FontFamily = FontFamily, Size = Size },
-            Halo = new Pen { Color = Color.White, Width = Width }
-        });
+            pointFeature.Styles.Add(new LabelStyle
+            {
+                Text = placeViewModel.Name, Offset = LabelOffset,
+                Font = new Font { FontFamily = FontFamily, Size = Size },
+                Halo = new Pen { Color = Color.White, Width = Width }
+            });
+        }
 
         if (imageStyles is not null) pointFeature.Styles.Add(imageStyles);
 
         return pointFeature;
     }
 
-    public TemporaryPointFeature ToTemporaryFeature(PlaceViewModel place, ImageStyle? symbolStyle = null)
+    public TemporaryPointFeature MapToTemporaryFeature(PlaceViewModel place, ImageStyle? symbolStyle = null)
     {
         var feature = MapToPointFeature(place, symbolStyle);
         return new TemporaryPointFeature(feature);
     }
 
+    public TemporaryPointFeature MapToTemporaryFeature(MPoint point, ImageStyle? imageStyles = null)
+    {
+        var pointFeature = MapToTemporaryPointFeature(point);
+
+        pointFeature.Styles.Clear();
+        if (imageStyles is not null) pointFeature.Styles.Add(imageStyles);
+
+        return pointFeature;
+    }
+
     public PlaceViewModel? MapToPlaceViewModel(PointFeature pointFeature)
         => pointFeature[nameof(PlaceViewModel)] as PlaceViewModel;
 
+    public partial TemporaryPointFeature MapToTemporaryPointFeature(MPoint point);
+
     public partial PointFeature MapToPointFeature((double x, double y) coordinates);
+
     public IEnumerable<CountryGroupViewModel> MapToGroup(IEnumerable<PlaceViewModel> placeViewModels)
     {
         // ReSharper disable HeapView.ObjectAllocation.Evident

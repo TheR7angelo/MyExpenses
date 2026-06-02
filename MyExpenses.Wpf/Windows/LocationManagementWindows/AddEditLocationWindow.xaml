@@ -291,7 +291,7 @@
                     </b:EventTrigger>
 
                     <b:EventTrigger EventName="Info">
-                        <b:InvokeCommandAction Command="{Binding MapInfoCommand}"
+                        <b:InvokeCommandAction Command="{Binding MapInfoTemporaryFeatureCommand}"
                                                PassEventArgsToCommand="True">
                         </b:InvokeCommandAction>
                     </b:EventTrigger>

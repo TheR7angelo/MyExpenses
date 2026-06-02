@@ -65,19 +65,21 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         IsEditLocation = isEdit;
 
-        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle);
+        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle, false);
         PlaceLayer.Add(pointFeature);
     }
 
-    public void OnPositionChanged((double Longitude, double Latitude) position, IMapControl mapControl)
+    public void OnPositionChanged(double screenX, double screenY, IMapControl mapControl, bool updateInfo)
     {
         if (Map is null) return;
 
-        var worldPosition = Map.Navigator.Viewport.ScreenToWorld(position.Longitude, position.Latitude);
+        var worldPosition = Map.Navigator.Viewport.ScreenToWorld(screenX, screenY);
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
         SelectedPlacePoint = locationDtoViewModelMapper.MapToMPoint(lonLat);
 
-        var mapInfo = mapControl.GetMapInfo(new ScreenPosition(position.Longitude, position.Latitude), PlaceLayers);
+        if (!updateInfo) return;
+
+        var mapInfo = mapControl.GetMapInfo(new ScreenPosition(screenX, screenY), PlaceLayers);
         SetSelectedPlaceViewModel(mapInfo);
     }
 
@@ -99,6 +101,20 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         var mapInfo = mapInfoEventArgs?.GetMapInfo(PlaceLayers);
 
         SetSelectedPlaceViewModel(mapInfo);
+    }
+
+    [RelayCommand]
+    private void OnMapInfoTemporaryFeature(MapInfoEventArgs? mapInfoEventArgs)
+    {
+        if (mapInfoEventArgs is null) return;
+
+        var worldPositionPoint = mapInfoEventArgs.WorldPosition;
+        var pointFeature = locationDtoViewModelMapper.MapToTemporaryFeature(worldPositionPoint, MapsuiStyleExtensions.GreenMarkerStyle);
+
+        var oldFeature = PlaceLayer.GetFeatures().FirstOrDefault(f => f is TemporaryPointFeature { IsTemp: true });
+        if (oldFeature is not null) PlaceLayer.TryRemove(oldFeature);
+
+        PlaceLayer.Add(pointFeature);
     }
 
     private void SetSelectedPlaceViewModel(MapInfo? mapInfo)
