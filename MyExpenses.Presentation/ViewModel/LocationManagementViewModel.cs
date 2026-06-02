@@ -64,6 +64,9 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
 
         IsEditLocation = isEdit;
+
+        var pointFeature = locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle);
+        PlaceLayer.Add(pointFeature);
     }
 
     public void OnPositionChanged((double Longitude, double Latitude) position, IMapControl mapControl)
@@ -89,12 +92,6 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
     [RelayCommand]
     private void OnGoToGoogleStreetView()
         => mapsUtils.GoToGoogleStreetView(SelectedPlacePoint);
-
-    private void OpenWebUriWithLog(string uri, string webPageTitle)
-    {
-        logger.LogInformation("Opening for {WebPageTitle} with the following url: {Uri}", webPageTitle, uri);
-        navigationWindowService.OpenUri(uri);
-    }
 
     [RelayCommand]
     private void OnMapInfo(MapInfoEventArgs? mapInfoEventArgs)
