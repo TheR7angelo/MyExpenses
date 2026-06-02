@@ -96,7 +96,7 @@
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type locations:PlaceViewModel}">
                                         <CheckBox IsThreeState="False"
-                                                  controlAssist:ReadOnlyCheckboxAssist.IsReadOnly="True"
+                                                  controlAssist:CheckboxAssist.IsReadOnly="True"
                                                   IsChecked="{Binding IsOpen, Mode=OneWay}"
                                                   Content="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}"
                                                   Command="{Binding DataContext.PlaceViewModelSelectedCommand, RelativeSource={RelativeSource AncestorType=Page}}"

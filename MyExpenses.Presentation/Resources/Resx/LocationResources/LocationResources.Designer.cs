@@ -69,6 +69,15 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The place is open :.
+        /// </summary>
+        public static string CheckBoxContentIsOpen {
+            get {
+                return ResourceManager.GetString("CheckBoxContentIsOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basemap :.
         /// </summary>
         public static string ComboBoxBaseMapHintAssist {
@@ -245,6 +254,24 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         public static string PlaceCountryHintAssist {
             get {
                 return ResourceManager.GetString("PlaceCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude :.
+        /// </summary>
+        public static string PlaceLatitudeHintAssist {
+            get {
+                return ResourceManager.GetString("PlaceLatitudeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude :.
+        /// </summary>
+        public static string PlaceLongitudeHintAssist {
+            get {
+                return ResourceManager.GetString("PlaceLongitudeHintAssist", resourceCulture);
             }
         }
         
