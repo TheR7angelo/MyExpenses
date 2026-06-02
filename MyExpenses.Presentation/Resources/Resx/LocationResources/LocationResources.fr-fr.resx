@@ -116,4 +116,31 @@
     <data name="ButtonContentValid" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="PlaceViewModelValidatorNameRequired" xml:space="preserve">
+        <value>Le nom du lieu doit être renseigné</value>
+    </data>
+    <data name="PlaceViewModelValidatorNameLength" xml:space="preserve">
+        <value>Le nom doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorNumberLength" xml:space="preserve">
+        <value>Le numéros de rue doit mesurer entre 0 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorStreetLength" xml:space="preserve">
+        <value>Le nom de la rue doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorPostalLength" xml:space="preserve">
+        <value>Le code postal doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorCityLength" xml:space="preserve">
+        <value>Le nom de la ville doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorCountryLength" xml:space="preserve">
+        <value>Le nom du pays doit mesurer entre 1 et {0} caractères</value>
+    </data>
+    <data name="PlaceViewModelValidatorLatitudeNotNull" xml:space="preserve">
+        <value>La latitude est requise</value>
+    </data>
+    <data name="PlaceViewModelValidatorLongitudeNotNull" xml:space="preserve">
+        <value>La longitude est requise</value>
+    </data>
 </root>

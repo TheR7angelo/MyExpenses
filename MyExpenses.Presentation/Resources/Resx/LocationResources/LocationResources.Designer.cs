@@ -373,5 +373,86 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
                 return ResourceManager.GetString("PlaceStreetHintAssist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the city must be between 1 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorCityLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorCityLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the country must be between 1 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorCountryLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorCountryLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude is required.
+        /// </summary>
+        public static string PlaceViewModelValidatorLatitudeNotNull {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorLatitudeNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude is required.
+        /// </summary>
+        public static string PlaceViewModelValidatorLongitudeNotNull {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorLongitudeNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name must be between 1 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorNameLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the place must be filled in.
+        /// </summary>
+        public static string PlaceViewModelValidatorNameRequired {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The street number must be between 0 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorNumberLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorNumberLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The postal code must be between 1 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorPostalLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorPostalLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The street name should be between 1 and {0} characters.
+        /// </summary>
+        public static string PlaceViewModelValidatorStreetLength {
+            get {
+                return ResourceManager.GetString("PlaceViewModelValidatorStreetLength", resourceCulture);
+            }
+        }
     }
 }

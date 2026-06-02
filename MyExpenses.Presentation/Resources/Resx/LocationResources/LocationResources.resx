@@ -123,4 +123,31 @@
     <data name="ButtonContentCancel" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="PlaceViewModelValidatorNameRequired" xml:space="preserve">
+        <value>The name of the place must be filled in</value>
+    </data>
+    <data name="PlaceViewModelValidatorNameLength" xml:space="preserve">
+        <value>The name must be between 1 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorNumberLength" xml:space="preserve">
+        <value>The street number must be between 0 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorStreetLength" xml:space="preserve">
+        <value>The street name should be between 1 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorPostalLength" xml:space="preserve">
+        <value>The postal code must be between 1 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorCityLength" xml:space="preserve">
+        <value>The name of the city must be between 1 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorCountryLength" xml:space="preserve">
+        <value>The name of the country must be between 1 and {0} characters</value>
+    </data>
+    <data name="PlaceViewModelValidatorLatitudeNotNull" xml:space="preserve">
+        <value>Latitude is required</value>
+    </data>
+    <data name="PlaceViewModelValidatorLongitudeNotNull" xml:space="preserve">
+        <value>Longitude is required</value>
+    </data>
 </root>
