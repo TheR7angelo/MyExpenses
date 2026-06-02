@@ -150,13 +150,13 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValidNewPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValidNewPoint}}"
                     Click="ButtonValidNewPoint_OnClick">
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentZoomToPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentZoomToPoint}}"
                     Click="ButtonZoomToPoint_OnClick">
             </Button>
 
@@ -205,21 +205,21 @@
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentSearchByAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentSearchByAddress}}"
                     Click="ButtonSearchByAddress_OnClick">
             </Button>
 
             <Button Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentSearchByCoordinate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentSearchByCoordinate}}"
                     Click="ButtonSearchByCoordinate_OnClick">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValid}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonValid_OnClick">
             </Button>
@@ -227,7 +227,7 @@
             <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentDelete, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentDelete}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
@@ -235,7 +235,7 @@
             <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonCancel_OnClick">
             </Button>
@@ -243,7 +243,7 @@
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentValid}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Click="ButtonValid_OnClick">
             </Button>
@@ -251,7 +251,7 @@
             <Button Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Click="ButtonCancel_OnClick">
             </Button>

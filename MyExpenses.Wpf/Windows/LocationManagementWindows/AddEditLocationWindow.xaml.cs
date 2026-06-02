@@ -48,72 +48,6 @@ public partial class AddEditLocationWindow : IClosable
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentZoomToPointProperty =
-        DependencyProperty.Register(nameof(ButtonContentZoomToPoint), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentZoomToPoint
-    {
-        get => (string)GetValue(ButtonContentZoomToPointProperty);
-        set => SetValue(ButtonContentZoomToPointProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentSearchByAddressProperty =
-        DependencyProperty.Register(nameof(ButtonContentSearchByAddress), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentSearchByAddress
-    {
-        get => (string)GetValue(ButtonContentSearchByAddressProperty);
-        set => SetValue(ButtonContentSearchByAddressProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentSearchByCoordinateProperty =
-        DependencyProperty.Register(nameof(ButtonContentSearchByCoordinate), typeof(string),
-            typeof(AddEditLocationWindow), new PropertyMetadata(default(string)));
-
-    public string ButtonContentSearchByCoordinate
-    {
-        get => (string)GetValue(ButtonContentSearchByCoordinateProperty);
-        set => SetValue(ButtonContentSearchByCoordinateProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentValidProperty =
-        DependencyProperty.Register(nameof(ButtonContentValid), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentValid
-    {
-        get => (string)GetValue(ButtonContentValidProperty);
-        set => SetValue(ButtonContentValidProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentDeleteProperty =
-        DependencyProperty.Register(nameof(ButtonContentDelete), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentDelete
-    {
-        get => (string)GetValue(ButtonContentDeleteProperty);
-        set => SetValue(ButtonContentDeleteProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonContentCancelProperty =
-        DependencyProperty.Register(nameof(ButtonContentCancel), typeof(string), typeof(AddEditLocationWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentCancel
-    {
-        get => (string)GetValue(ButtonContentCancelProperty);
-        set => SetValue(ButtonContentCancelProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TPlace Place { get; } = new();
     public bool PlaceDeleted { get; private set; }
 
@@ -135,7 +69,6 @@ public partial class AddEditLocationWindow : IClosable
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
-        UpdateLanguage();
         InitializeComponent();
 
         MapControl.Map = map;
@@ -143,25 +76,9 @@ public partial class AddEditLocationWindow : IClosable
         // ReSharper disable HeapView.DelegateAllocation
         // map.Tapped += Tapped;
         Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
 
         DataContext = viewModel;
-    }
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
-        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
-
-        ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
-
-        ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
-        ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
-        ButtonContentValid = AddEditLocationResources.ButtonContentValid;
     }
 
     #region Action

@@ -69,6 +69,69 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonContentCancel {
+            get {
+                return ResourceManager.GetString("ButtonContentCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonContentDelete {
+            get {
+                return ResourceManager.GetString("ButtonContentDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by address.
+        /// </summary>
+        public static string ButtonContentSearchByAddress {
+            get {
+                return ResourceManager.GetString("ButtonContentSearchByAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by contact information.
+        /// </summary>
+        public static string ButtonContentSearchByCoordinate {
+            get {
+                return ResourceManager.GetString("ButtonContentSearchByCoordinate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonContentValid {
+            get {
+                return ResourceManager.GetString("ButtonContentValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate the new point.
+        /// </summary>
+        public static string ButtonContentValidNewPoint {
+            get {
+                return ResourceManager.GetString("ButtonContentValidNewPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom in on the point.
+        /// </summary>
+        public static string ButtonContentZoomToPoint {
+            get {
+                return ResourceManager.GetString("ButtonContentZoomToPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The place is open :.
         /// </summary>
         public static string CheckBoxContentIsOpen {

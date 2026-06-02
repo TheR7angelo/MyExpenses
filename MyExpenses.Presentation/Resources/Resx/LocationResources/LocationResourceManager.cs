@@ -27,6 +27,14 @@ public static class LocationResourceManager
     public static string PlaceCountryHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceCountryHintAssist)}";
     public static string PlaceLongitudeHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceLongitudeHintAssist)}";
     public static string PlaceLatitudeHintAssist => $"{RessourceManagerName}:{nameof(LocationResources.PlaceLatitudeHintAssist)}";
+    public static string ButtonContentValidNewPoint => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentValidNewPoint)}";
+    public static string ButtonContentZoomToPoint => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentZoomToPoint)}";
+    public static string ButtonContentSearchByAddress => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentSearchByAddress)}";
+    public static string ButtonContentSearchByCoordinate => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentSearchByCoordinate)}";
+    public static string ButtonContentValid => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentValid)}";
+    public static string ButtonContentCancel => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentCancel)}";
+    public static string ButtonContentDelete => $"{RessourceManagerName}:{nameof(LocationResources.ButtonContentDelete)}";
+
     public static string NominatimButtonCancel => $"{RessourceManagerName}:{nameof(LocationResources.NominatimButtonCancel)}";
     public static string NominatimButtonValid => $"{RessourceManagerName}:{nameof(LocationResources.NominatimButtonValid)}";
 }
