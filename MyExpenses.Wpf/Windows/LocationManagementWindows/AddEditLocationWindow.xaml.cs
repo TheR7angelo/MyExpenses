@@ -323,4 +323,10 @@ public partial class AddEditLocationWindow : IClosable
 
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
         => ViewModel.LoadPlaceViewModel(placeViewModel, isEdit);
+
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var position = Mouse.GetPosition(MapControl);
+        ViewModel.OnPositionChanged(position.X, position.Y, MapControl, false);
+    }
 }

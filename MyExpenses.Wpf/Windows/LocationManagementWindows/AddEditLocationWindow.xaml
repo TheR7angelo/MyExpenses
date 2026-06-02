@@ -277,7 +277,8 @@
                 CornerRadius="5">
 
             <wpf:MapControl x:Name="MapControl"
-                            Map="{Binding Map}">
+                            Map="{Binding Map}"
+                            ContextMenuOpening="MapControl_OnContextMenuOpening">
                 <!-- Info="MapControl_OnInfo" -->
                 <!-- Loaded="MapControl_OnLoaded"> -->
 
@@ -296,6 +297,29 @@
                     </b:EventTrigger>
 
                 </b:Interaction.Triggers>
+
+                <wpf:MapControl.ContextMenu>
+
+                    <ContextMenu>
+
+                        <MenuItem
+                            Header="{localisations:Tr {x:Static resx:LocationResourceManager.MenuItemHeaderGoogleEarthWeb}}"
+                            Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleEarthWebCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                        </MenuItem>
+
+                        <MenuItem
+                            Header="{localisations:Tr {x:Static resx:LocationResourceManager.MenuItemHeaderGoogleMaps}}"
+                            Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleMapsCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                        </MenuItem>
+
+                        <MenuItem
+                            Header="{localisations:Tr {x:Static resx:LocationResourceManager.MenuItemHeaderGoogleStreetView}}"
+                            Command="{Binding Path=PlacementTarget.(FrameworkElement.DataContext).(viewModel:LocationManagementViewModel.GoToGoogleStreetViewCommand), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                        </MenuItem>
+
+                    </ContextMenu>
+
+                </wpf:MapControl.ContextMenu>
 
             </wpf:MapControl>
 
