@@ -53,9 +53,6 @@ public partial class AddEditLocationWindow : IClosable
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer WritableLayer { get; } = new() { Style = null };
-    public List<KnownTileSource> KnownTileSources { get; }
-
-    public KnownTileSource KnownTileSourceSelected { get; set; }
 
     #endregion
 
@@ -63,20 +60,7 @@ public partial class AddEditLocationWindow : IClosable
 
     public AddEditLocationWindow(LocationManagementViewModel viewModel)
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-
-        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        var map = MapsuiMapExtensions.GetMap(true, backColor);
-        map.Layers.Add(WritableLayer);
-
         InitializeComponent();
-
-        MapControl.Map = map;
-
-        // ReSharper disable HeapView.DelegateAllocation
-        // map.Tapped += Tapped;
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        // ReSharper restore HeapView.DelegateAllocation
 
         DataContext = viewModel;
     }
@@ -227,12 +211,6 @@ public partial class AddEditLocationWindow : IClosable
 
     #endregion
 
-    private void Interface_OnThemeChanged()
-    {
-        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        MapControl.Map.BackColor = backColor;
-    }
-
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var worldPosition = e.WorldPosition;
@@ -251,12 +229,6 @@ public partial class AddEditLocationWindow : IClosable
         WritableLayer.Add(feature);
         MapControl.Map.Refresh();
     }
-
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
 
     #endregion
 
@@ -345,22 +317,6 @@ public partial class AddEditLocationWindow : IClosable
 
         MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
         MapControl.Refresh();
-    }
-
-    private void UpdateTileLayer()
-    {
-        const string layerName = "Background";
-
-        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var tileLayer = new TileLayer(httpTileSource);
-        tileLayer.Name = layerName;
-
-        var layers = MapControl?.Map.Layers.FindLayer(layerName);
-        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
-
-        MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 
     #endregion
