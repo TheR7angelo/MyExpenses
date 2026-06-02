@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.LocationManagementWindows.AddEditLocationWindow"
+                 x:Name="RootWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -250,7 +251,8 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Command="{Binding CancelCommand}">
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
@@ -266,7 +268,8 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentCancel}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                    Command="{Binding CancelCommand}">
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
         </Grid>
