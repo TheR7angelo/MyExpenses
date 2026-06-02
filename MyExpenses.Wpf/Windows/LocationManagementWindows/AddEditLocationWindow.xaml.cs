@@ -106,9 +106,6 @@ public partial class AddEditLocationWindow : IClosable
         // SetPlace(newPlace, true);
     }
 
-    private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
-        => MapControl.Map.Navigator.SetZoom(WritableLayer);
-
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
         DialogResult = false;

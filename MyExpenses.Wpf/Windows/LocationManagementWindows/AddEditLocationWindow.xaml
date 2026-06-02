@@ -164,7 +164,7 @@
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentZoomToPoint}}"
-                    Click="ButtonZoomToPoint_OnClick">
+                    Command="{Binding ZoomToPointsCommand}">
             </Button>
 
         </StackPanel>

@@ -76,7 +76,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
 
         PlaceLayer.Add(pointFeature);
 
-        ZoomToPoints();
+        OnZoomToPoints();
     }
 
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
@@ -180,7 +180,7 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         mapControl.Map = Map;
 
         OnUpdateTileSource();
-        ZoomToPoints();
+        OnZoomToPoints();
         //
         // if (PlaceLayer.GetFeatures().Any()) mapControl.Map.Navigator.SetZoom(PlaceLayer);
         // else
@@ -190,7 +190,8 @@ public partial class LocationManagementViewModel(ILocationPresentationService lo
         // }
     }
 
-    private void ZoomToPoints()
+    [RelayCommand]
+    private void OnZoomToPoints()
     {
         if (Map is null) return;
 
