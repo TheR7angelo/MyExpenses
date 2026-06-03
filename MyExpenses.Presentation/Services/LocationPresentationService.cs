@@ -123,6 +123,16 @@ public class LocationPresentationService(ILocationDtoViewModelMapper locationDto
             : Result<PlaceViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
     }
 
+    public async Task<Result<PlaceViewModel>> UpdatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default)
+    {
+        var placeDto = locationDtoViewModelMapper.MapToDto(placeViewModel);
+        var result = await locationService.UpdatePlaceAsync(placeDto, cancellationToken);
+
+        return result.IsSuccess
+            ? Result<PlaceViewModel>.Success(locationDtoViewModelMapper.MapToViewModel(result.Value!))
+            : Result<PlaceViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
+    }
+
     // public async Task<Result<IEnumerable<CountryGroupViewModel>>> GetAllPlaceGroup(CancellationToken cancellationToken = default)
     // {
     //     var result = await locationService.GetAllPlaces(cancellationToken);

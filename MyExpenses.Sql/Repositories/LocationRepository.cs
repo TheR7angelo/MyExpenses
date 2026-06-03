@@ -73,4 +73,35 @@ public class LocationRepository(IDbContextFactory<DataBaseContext> dbContextFact
             return Result<PlaceDomain>.Failure(ErrorCode.DatabaseError, "Failed to add place");
         }
     }
+
+    public async Task<Result<PlaceDomain>> UpdatePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var place = placeDomain.MapToEntity();
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Updating place with id {PlaceId}", place.Id);
+
+            var entity = await context.TPlaces.FirstOrDefaultAsync(s => s.Id == place.Id, cancellationToken);
+            if (entity is null)
+            {
+                logger.LogWarning("Place with id {PlaceId} not found", place.Id);
+                return Result<PlaceDomain>.Failure(ErrorCode.NotFound, "Place not found");
+            }
+
+            place.Merge(entity);
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Place with id {PlaceId} was successfully updated", place.Id);
+            return Result<PlaceDomain>.Success(placeDomain);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update place with id {PlaceId}", placeDomain.Id);
+            return Result<PlaceDomain>.Failure(ErrorCode.DatabaseError, e.Message);
+        }
+    }
 }

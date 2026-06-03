@@ -4,7 +4,7 @@ using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Sql.Mappings;
 
-[Mapper]
+[Mapper(UseDeepCloning = true)]
 public static partial class LocationMapper
 {
     public static partial IQueryable<PlaceDomain> ProjectToDomain(this IQueryable<TPlace> src);
@@ -18,4 +18,11 @@ public static partial class LocationMapper
     [MapperIgnoreTarget(nameof(TPlace.TRecursiveExpenses))]
     [MapperIgnoreTarget(nameof(TPlace.Geometry))]
     public static partial TPlace MapToEntity(this PlaceDomain src);
+
+    public static partial void Merge(this TPlace src, TPlace dst);
+
+    private static NetTopologySuite.Geometries.Geometry? MapGeometry(NetTopologySuite.Geometries.Geometry? source)
+    {
+        return source;
+    }
 }

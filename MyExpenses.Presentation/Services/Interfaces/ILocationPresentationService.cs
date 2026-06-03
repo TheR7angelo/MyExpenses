@@ -83,4 +83,12 @@ public interface ILocationPresentationService
     /// <param name="cancellationToken">A token that allows for cancellation of the operation.</param>
     /// <returns>A <see cref="Result{PlaceViewModel}"/> indicating the success or failure of the operation, along with the newly created place if successful.</returns>
     public Task<Result<PlaceViewModel>> CreatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Asynchronously updates an existing place with the provided details.
+    /// </summary>
+    /// <param name="placeViewModel">The view model containing updated details of the place.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A <see cref="Result{PlaceViewModel}"/> indicating success or failure along with an optional error message and the updated place ViewModel.</returns>
+    public Task<Result<PlaceViewModel>> UpdatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
 }

@@ -66,9 +66,30 @@ public class LocationActionService(
         return Result<PlaceViewModel>.Failure(ErrorCode.ValidationFailed, "Validation failed.");
     }
 
-    public Task<Result<PlaceViewModel>> UpdatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<PlaceViewModel>> UpdatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (!placeViewModel.IsDirty) return Result<PlaceViewModel>.Failure(ErrorCode.None, "No changes to save.");
+
+        var valResultColor = await ValidateAsync<PlaceViewModelValidator, PlaceViewModel>(placeViewModel, cancellationToken);
+        if (valResultColor.IsValid)
+        {
+            var response = AskUpdateConfirmation(placeViewModel);
+            if (!response)
+            {
+                placeViewModel.RejectChanges();
+                return Result<PlaceViewModel>.Failure(ErrorCode.None, "Update cancelled.");
+            }
+
+            var result = await locationPresentationService.UpdatePlaceAsync(placeViewModel, cancellationToken);
+            ShowUpdateResultMessage(result.IsSuccess);
+
+            if (!result.IsSuccess) return result;
+            SendEntityChangedMessage(DependencyType.Place, DataAction.Update, result.Value);
+            return result;
+        }
+
+        placeViewModel.ValidateWithFluent(valResultColor);
+        return Result<PlaceViewModel>.Failure(ErrorCode.ValidationFailed, "Validation failed.");
     }
 
     public Task<DeletionResult> DeletePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default)

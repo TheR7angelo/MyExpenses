@@ -67,7 +67,7 @@ public partial class LocationManagementViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<PlaceViewModel>>(this, OnPlaceChanged);
     }
 
-    private async void OnPlaceChanged(object recipient, EntityChangedMessage<PlaceViewModel> message)
+    private void OnPlaceChanged(object recipient, EntityChangedMessage<PlaceViewModel> message)
     {
         if (message.Value.EntityType != DependencyType.Place) return;
 
@@ -78,12 +78,12 @@ public partial class LocationManagementViewModel : ViewModelBase
                 break;
 
             case DataAction.Add:
-                await ApplyAddAsync(message.Value.Content);
+                ApplyAdd(message.Value.Content);
                 break;
         }
     }
 
-    private async Task ApplyAddAsync(PlaceViewModel placeViewModel)
+    private void ApplyAdd(PlaceViewModel placeViewModel)
     {
         var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, placeViewModel.GetMarkerStyle());
         PlaceLayer.Add(pointFeature);
@@ -95,31 +95,61 @@ public partial class LocationManagementViewModel : ViewModelBase
             countryGroup = new CountryGroupViewModel { Country = placeViewModel.Country };
             CountryGroups.Add(countryGroup);
         }
-        else
+
+        var cityGroup = countryGroup.CityGroups?.FirstOrDefault(g => g.City == placeViewModel.City);
+        if (cityGroup is null)
         {
-            var placeGroup = countryGroup.CityGroups?.FirstOrDefault(g => g.City == placeViewModel.City);
-            if (placeGroup is null)
-            {
-                placeGroup = new CityGroupViewModel { City = placeViewModel.City };
-                countryGroup.CityGroups ??= [];
-                countryGroup.CityGroups.Add(placeGroup);
-            }
-            else
-            {
-                placeGroup.Places ??= [];
-                placeGroup.Places?.AddAndSort(placeViewModel, s => s.Name!);
-            }
+            cityGroup = new CityGroupViewModel { City = placeViewModel.City };
+            countryGroup.CityGroups ??= [];
+            countryGroup.CityGroups.Add(cityGroup);
         }
+
+        cityGroup.Places ??= [];
+        cityGroup.Places.AddAndSort(placeViewModel, s => s.Name!);
     }
 
     private void ApplyUpdate(PlaceViewModel placeViewModel)
     {
-        throw new NotImplementedException();
+        RemovePlaceViewModel(placeViewModel);
+        ApplyAdd(placeViewModel);
+    }
+
+    private void RemovePlaceViewModel(PlaceViewModel placeViewModel)
+    {
+        var pointFeature = PlaceLayer.GetFeatures()
+            .FirstOrDefault(s => s[_locationDtoViewModelMapper.PlaceViewModelPointFeatureKey] is PlaceViewModel vm && vm.Id == placeViewModel.Id) as PointFeature;
+
+        if (pointFeature?[_locationDtoViewModelMapper.PlaceViewModelPointFeatureKey] is not PlaceViewModel oldPlaceViewModel) return;
+        PlaceLayer.TryRemove(pointFeature);
+
+        var countryGroup = CountryGroups.FirstOrDefault(g => g.Country == oldPlaceViewModel.Country);
+        var cityGroup = countryGroup?.CityGroups?.FirstOrDefault(g => g.City == oldPlaceViewModel.City);
+        var oldPlace = cityGroup?.Places?.FirstOrDefault(p => p.Id == oldPlaceViewModel.Id);
+
+        if (oldPlace is not null) cityGroup?.Places?.Remove(oldPlace);
+        if (cityGroup?.Places?.Count is 0)
+        {
+            countryGroup?.CityGroups?.Remove(cityGroup);
+        }
+        if (countryGroup?.CityGroups?.Count is 0)
+        {
+            CountryGroups.Remove(countryGroup);
+        }
     }
 
     private void OnPlaceDeleted(object recipient, EntityChangedMessage<int[]> message)
     {
-        throw new NotImplementedException();
+        if (message.Value.EntityType != DependencyType.Place) return;
+
+        foreach (var id in message.Value.Content)
+        {
+            if (PlaceLayer.GetFeatures()
+                    .FirstOrDefault(s => s[_locationDtoViewModelMapper.PlaceViewModelPointFeatureKey] is PlaceViewModel vm && vm.Id == id) is not PointFeature pointFeature) continue;
+
+            if (pointFeature[_locationDtoViewModelMapper.PlaceViewModelPointFeatureKey] is not PlaceViewModel placeViewModel) continue;
+
+            RemovePlaceViewModel(placeViewModel);
+        }
     }
 
     public ObservableCollection<KnownTileSource> KnownTileSources { get; } = [];

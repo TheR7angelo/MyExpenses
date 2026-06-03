@@ -27,4 +27,12 @@ public interface ILocationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{PlaceDto}"/> object with the created place or an error if the creation fails.</returns>
     public Task<Result<PlaceDto>> CreatePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates an existing place with the provided details.
+    /// </summary>
+    /// <param name="placeDto">The updated place information.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{PlaceDto}"/> object indicating the success or failure of the update operation and containing the updated place details if successful.</returns>
+    public Task<Result<PlaceDto>> UpdatePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken = default);
 }

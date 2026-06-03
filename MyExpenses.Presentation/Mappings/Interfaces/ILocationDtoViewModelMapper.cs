@@ -9,6 +9,11 @@ namespace MyExpenses.Presentation.Mappings.Interfaces;
 public interface ILocationDtoViewModelMapper
 {
     /// <summary>
+    /// The key used to identify the point feature associated with a PlaceViewModel instance.
+    /// </summary>
+    public string PlaceViewModelPointFeatureKey { get; }
+
+    /// <summary>
     /// Maps a PlaceViewModel instance to a PlaceDto instance.
     /// </summary>
     /// <param name="src">The PlaceViewModel to map from.</param>

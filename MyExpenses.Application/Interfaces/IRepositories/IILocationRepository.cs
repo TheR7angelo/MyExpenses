@@ -43,4 +43,19 @@ public interface ILocationRepository
     /// A task containing the result of the creation operation as a <c>Result<PlaceDomain></c> object. If successful, it contains the created place; otherwise, it includes an error code and message.
     /// </returns>
     public Task<Result<PlaceDomain>> CreatePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates an existing place in the system.
+    /// </summary>
+    /// <param name="placeDomain">
+    /// The updated place information to be saved.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be canceled.
+    /// </param>
+    /// <returns>
+    /// A task containing a result indicating whether the update was successful or not.
+    /// If successful, contains the updated place as a <c>PlaceDomain</c> object; otherwise, contains an error code and message.
+    /// </returns>
+    public Task<Result<PlaceDomain>> UpdatePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
 }

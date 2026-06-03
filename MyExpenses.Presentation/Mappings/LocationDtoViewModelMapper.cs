@@ -22,11 +22,13 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
 
     private const double Width = 2;
 
+    public string PlaceViewModelPointFeatureKey { get; } = nameof(PlaceViewModel);
+
     public PointFeature MapToPointFeature(PlaceViewModel placeViewModel, ImageStyle? imageStyles = null, bool addLabelStyle = true)
     {
         var point = SphericalMercator.FromLonLat(placeViewModel.Longitude ?? 0, placeViewModel.Latitude ?? 0);
         var pointFeature = MapToPointFeature(point);
-        pointFeature[nameof(PlaceViewModel)] = placeViewModel;
+        pointFeature[PlaceViewModelPointFeatureKey] = placeViewModel;
 
         pointFeature.Styles.Clear();
         if (addLabelStyle)
@@ -71,7 +73,7 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
     }
 
     public PlaceViewModel? MapToPlaceViewModel(PointFeature pointFeature)
-        => pointFeature[nameof(PlaceViewModel)] as PlaceViewModel;
+        => pointFeature[PlaceViewModelPointFeatureKey] as PlaceViewModel;
 
     public partial TemporaryPointFeature MapToTemporaryPointFeature(MPoint point);
 
