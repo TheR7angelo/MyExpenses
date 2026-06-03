@@ -95,7 +95,7 @@ public partial class TPlace : ISql, ISig
     public bool IsOpen { get; set => SetProperty(ref field, value); } = true;
 
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
-    public bool? CanBeDeleted { get; init => SetProperty(ref field, value); } = true;
+    public bool? CanBeDeleted { get; set => SetProperty(ref field, value); } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set => SetProperty(ref field, value); } = DateTime.Now;
