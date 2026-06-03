@@ -85,7 +85,7 @@ public partial class LocationManagementViewModel : ViewModelBase
 
     private async Task ApplyAddAsync(PlaceViewModel placeViewModel)
     {
-        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle);
+        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, placeViewModel.GetMarkerStyle());
         PlaceLayer.Add(pointFeature);
         Map?.Refresh();
 
@@ -179,8 +179,9 @@ public partial class LocationManagementViewModel : ViewModelBase
         _locationDtoViewModelMapper.Merge(placeViewModel, SelectedPlaceViewModel);
 
         IsEditLocation = isEdit;
+        if (isEdit) SelectedPlaceViewModel.AcceptChanges();
 
-        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, MapsuiStyleExtensions.RedMarkerStyle, false);
+        var pointFeature = _locationDtoViewModelMapper.MapToPointFeature(placeViewModel, placeViewModel.GetMarkerStyle(), false);
         PlaceLayer.Clear();
         PlaceLayer.Add(pointFeature);
     }
@@ -373,9 +374,7 @@ public partial class LocationManagementViewModel : ViewModelBase
         var pointFeatures = resultPlaces.Value!
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
                         s.Longitude is not 0)
-            .Select(s => s.IsOpen
-                ? _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.RedMarkerStyle)
-                : _locationDtoViewModelMapper.MapToPointFeature(s, MapsuiStyleExtensions.BlueMarkerStyle));
+            .Select(s => _locationDtoViewModelMapper.MapToPointFeature(s, s.GetMarkerStyle()));
 
         PlaceLayer.AddRange(pointFeatures);
 

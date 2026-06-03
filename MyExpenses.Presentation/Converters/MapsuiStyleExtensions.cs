@@ -1,4 +1,5 @@
 ﻿using Mapsui.Styles;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.Presentation.Converters;
@@ -24,6 +25,9 @@ public static class MapsuiStyleExtensions
 
     private static string EmbeddedString => "embedded://";
     private static string FileString => "file://";
+
+    public static ImageStyle GetMarkerStyle(this PlaceViewModel placeViewModel)
+        => placeViewModel.IsOpen ? RedMarkerStyle : BlueMarkerStyle;
 
     private static ImageStyle SetGreenMarkerStyle()
     {
