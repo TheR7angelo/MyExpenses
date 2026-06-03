@@ -240,6 +240,42 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageboxPlaceCreateErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceCreateErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while creating the location. Please try again.
+        /// </summary>
+        public static string MessageboxPlaceCreateErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceCreateErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageboxPlaceUpdateErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceUpdateErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while updating the location. Please try again.
+        /// </summary>
+        public static string MessageboxPlaceUpdateErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceUpdateErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string NominatimButtonCancel {

@@ -15,8 +15,10 @@ using Mapsui.UI;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Converters;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.LocationResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Utils;
 using MyExpenses.Presentation.ViewModels.Locations;
@@ -33,6 +35,7 @@ public partial class LocationManagementViewModel : ViewModelBase
     private readonly INominatimPresentationService _nominatimPresentationService;
     private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
+    private readonly IDialogService _dialogService;
     private readonly ILogger<LocationManagementViewModel> _logger;
     private readonly ILocationActionService _locationActionService;
     private readonly MapsUtils _mapsUtils;
@@ -41,6 +44,7 @@ public partial class LocationManagementViewModel : ViewModelBase
         INominatimPresentationService nominatimPresentationService,
         ILocationDtoViewModelMapper locationDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
+        IDialogService dialogService,
         ILogger<LocationManagementViewModel> logger,
         ILocationActionService locationActionService,
         MapsUtils mapsUtils)
@@ -49,6 +53,7 @@ public partial class LocationManagementViewModel : ViewModelBase
         _nominatimPresentationService = nominatimPresentationService;
         _locationDtoViewModelMapper = locationDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
+        _dialogService = dialogService;
         _logger = logger;
         _locationActionService = locationActionService;
         _mapsUtils = mapsUtils;
@@ -397,17 +402,17 @@ public partial class LocationManagementViewModel : ViewModelBase
             {
                 _logger.LogError(e, "Error updating color");
 
-                // dialogService.ShowMessageBox(SystemResources.MessageboxColorUpdateErrorCaption,
-                //     SystemResources.MessageboxColorUpdateErrorContent,
-                //     MessageBoxButton.Ok, MsgBoxImage.Error);
+                _dialogService.ShowMessageBox(LocationResources.MessageboxPlaceUpdateErrorCaption,
+                    LocationResources.MessageboxPlaceUpdateErrorContent,
+                    MessageBoxButton.Ok, MsgBoxImage.Error);
             }
             else
             {
                 _logger.LogError(e, "Error creating color");
 
-                // dialogService.ShowMessageBox(SystemResources.MessageboxColorCreateErrorCaption,
-                //     SystemResources.MessageboxColorCreateErrorContent,
-                //     MessageBoxButton.Ok, MsgBoxImage.Error);
+                _dialogService.ShowMessageBox(LocationResources.MessageboxPlaceCreateErrorCaption,
+                    LocationResources.MessageboxPlaceCreateErrorContent,
+                    MessageBoxButton.Ok, MsgBoxImage.Error);
             }
         }
     }
