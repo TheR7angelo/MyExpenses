@@ -124,26 +124,6 @@ public partial class LocationManagementPage
         //     MsgBoxImage.Error);
     }
 
-    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // The AddEditLocationWindow instance is created to manage the addition or editing of a location.
-        // // The SetPlace method is called with the current ClickTPlace and an additional parameter to configure the dialog appropriately.
-        // // ShowDialog() is used to display the window modally, halting execution until the user closes the dialog.
-        // var addEditLocationWindow = new AddEditLocationWindow();
-        // addEditLocationWindow.SetPlace(ClickTPlace!, false);
-        // addEditLocationWindow.ShowDialog();
-        //
-        // if (addEditLocationWindow.DialogResult is not true) return;
-        //
-        // var editedPlace = addEditLocationWindow.Place;
-        // var success = ProcessNewPlace(editedPlace, edit: true);
-        // if (!success) return;
-        //
-        // RemovePlaceTreeViewCountryGroup(editedPlace);
-        // AddPlaceTreeViewCountryGroup(editedPlace);
-    }
-
     private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
     {
         // var log = ClickTPlace.GetLogForGoogleEarthWeb(ClickPoint);

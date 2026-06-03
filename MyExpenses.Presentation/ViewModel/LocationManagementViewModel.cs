@@ -142,7 +142,7 @@ public partial class LocationManagementViewModel : ViewModelBase
     [RelayCommand]
     private void OnManagePlaceViewModel(PlaceViewModel? placeViewModel)
     {
-        if (SelectedPlaceViewModel is null)
+        if (placeViewModel is null)
         {
             _navigationWindowService.ShowLocationManagementWindow(SelectedPlacePoint);
         }
