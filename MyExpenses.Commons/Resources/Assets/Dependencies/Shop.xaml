@@ -1,0 +1,82 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="Shop">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FFE4E8EB">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="0" RadiusY="0" Rect="11,23.5,42,28" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFBDC3C7">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="0" RadiusY="0" Rect="11,19.5,42,5" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFC39B71">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="0" RadiusY="0" Rect="17,32.5,12,19" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF1D2731">
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1" RadiusY="1" Center="26,42.5" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF7AC7F6">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <RectangleGeometry RadiusX="0" RadiusY="0" Rect="35,32.5,13,12" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFE74C3C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M8,24.5L13,12.5 51,12.5 56,24.5 8,24.5z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M15.5,24.5L19.5,12.5 27.5,12.5 24.5,24.5 15.5,24.5z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M33.5,24.5L35.5,12.5 43.5,12.5 42.5,24.5 33.5,24.5z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="{x:Null}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF1D2731" Thickness="2.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M8,24.5C10.17,27.17 12.33,27.17 14.5,24.5 16.67,27.17 18.83,27.17 21,24.5 23.17,27.17 25.17,27.17 27,24.5 29.17,27.17 31.33,27.17 33.5,24.5 35.67,27.17 37.83,27.17 40,24.5 42.17,27.17 44.33,27.17 46.5,24.5 48.67,27.17 50.83,27.17 53,24.5 54,26.5 55,26.5 56,24.5" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,64,64" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

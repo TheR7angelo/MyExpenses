@@ -74,4 +74,10 @@
     <data name="DependencyTypeColor" xml:space="preserve">
         <value>Color</value>
     </data>
+    <data name="DependencyTypePlace" xml:space="preserve">
+        <value>Location</value>
+    </data>
+    <data name="DependencyTypePlaces" xml:space="preserve">
+        <value>Locations</value>
+    </data>
 </root>

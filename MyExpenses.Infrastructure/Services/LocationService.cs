@@ -44,4 +44,10 @@ public class LocationService(ILocationRepository locationRepository,
             ? Result<PlaceDto>.Success(locationDtoDomainMapper.MapToDto(result.Value!))
             : Result<PlaceDto>.Failure(result.ErrorCode, result.InternalMessage!);
     }
+
+    public Task<DeletionResult> DeletePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken)
+    {
+        var placeDomain = locationDtoDomainMapper.MapToDomain(placeDto);
+        return locationRepository.DeletePlaceAsync(placeDomain, cancellationToken);
+    }
 }

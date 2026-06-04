@@ -24,6 +24,7 @@ public static class DependencyTypeConverter
                 DependencyType.CategoryType => DependencyRessources.DependencyTypeCategoryTypes,
                 DependencyType.Currency => DependencyRessources.DependencyTypeCurrencies,
                 DependencyType.Color => DependencyRessources.DependencyTypeColors,
+                DependencyType.Place => DependencyRessources.DependencyTypePlaces,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -38,6 +39,7 @@ public static class DependencyTypeConverter
             DependencyType.CategoryType => DependencyRessources.DependencyTypeCategoryType,
             DependencyType.Currency => DependencyRessources.DependencyTypeCurrency,
             DependencyType.Color => DependencyRessources.DependencyTypeColor,
+            DependencyType.Place => DependencyRessources.DependencyTypePlace,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -62,6 +64,8 @@ public static class DependencyTypeConverter
             str.Equals(DependencyRessources.DependencyTypeCurrencies)) return DependencyType.Currency;
         if (str.Equals(DependencyRessources.DependencyTypeColor) ||
             str.Equals(DependencyRessources.DependencyTypeColors)) return DependencyType.Color;
+        if (str.Equals(DependencyRessources.DependencyTypePlace) ||
+            str.Equals(DependencyRessources.DependencyTypePlaces)) return DependencyType.Place;
 
         return null;
     }

@@ -4,6 +4,7 @@
     <ResourceDictionary Source="AccountTransfert.xaml" />
     <ResourceDictionary Source="Colors.xaml" />
     <ResourceDictionary Source="RecursiveExpense.xaml" />
+    <ResourceDictionary Source="Shop.xaml" />
     <ResourceDictionary Source="Tag.xaml" />
     <ResourceDictionary Source="Ticket.xaml" />
     <ResourceDictionary Source="Trash.xaml" />

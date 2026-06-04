@@ -12,6 +12,7 @@ namespace MyExpenses.Infrastructure.Services;
 
 public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDomainMapper mapperExpense,
     ISystemDtoDomainMapper systemDtoDomainMapper,
+    ILocationDtoDomainMapper locationDtoDomainMapper,
     ILogger<SystemService> logger,
     IAccountRepository accountRepository, IExpenseRepository expenseRepository,
     ISystemRepository systemRepository) : ISystemService
@@ -246,6 +247,45 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
 
         dependencies = GroupDependencies(dependencies).ToList();
         logger.LogInformation("Finished dependency loading for account with {DependencyCount} dependencies", dependencies.Count);
+        return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
+    }
+
+    public async Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(PlaceDto placeDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var placeDomain = locationDtoDomainMapper.MapToDomain(placeDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["PlaceName"] = placeDomain.Name
+        });
+
+        logger.LogInformation("Loading dependencies for place {PlaceName}", placeDomain.Name);
+
+        var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(placeDomain, cancellationToken);
+        var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(placeDomain, cancellationToken);
+        var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(placeDomain, cancellationToken);
+
+        await Task.WhenAll(expenseCountTask, bankTransactionCountTask, recursiveExpenseCountTask);
+
+        var expenseCount = await expenseCountTask;
+        var bankTransactionCount = await bankTransactionCountTask;
+        var recursiveExpenseCount = await recursiveExpenseCountTask;
+
+        dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+        logger.LogInformation(
+            "Loaded dependencies for place {PlaceName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
+            placeDomain.Name,
+            expenseCount,
+            bankTransactionCount,
+            recursiveExpenseCount);
+
+        dependencies = GroupDependencies(dependencies).ToList();
+
+        logger.LogInformation("Finished dependency loading for currency with {DependencyCount} dependencies", dependencies.Count);
         return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
     }
 

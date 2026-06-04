@@ -58,4 +58,19 @@ public interface ILocationRepository
     /// If successful, contains the updated place as a <c>PlaceDomain</c> object; otherwise, contains an error code and message.
     /// </returns>
     public Task<Result<PlaceDomain>> UpdatePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified place from the system.
+    /// </summary>
+    /// <param name="placeDomain">
+    /// The place to be deleted, represented as a <see cref="PlaceDomain"/> object.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to monitor for cancellation requests, allowing the operation to be cancelled.
+    /// </param>
+    /// <returns>
+    /// A task containing a <see cref="DeletionResult"/> object which indicates the outcome of the deletion,
+    /// including any dependencies affected.
+    /// </returns>
+    public Task<DeletionResult> DeletePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken);
 }

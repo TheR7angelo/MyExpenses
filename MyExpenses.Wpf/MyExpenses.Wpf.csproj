@@ -362,6 +362,9 @@
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Tag.xaml">
         <Link>Resources\Assets\Dependencies\Tag.xaml</Link>
       </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Shop.xaml">
+        <Link>Resources\Assets\Dependencies\Shop.xaml</Link>
+      </Page>
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml">
         <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml</Link>
       </Page>
@@ -474,6 +477,9 @@
       </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Tag.svg">
         <Link>Resources\Assets\Dependencies\Tag.svg</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Dependencies\Shop.svg">
+        <Link>Resources\Assets\Dependencies\Shop.svg</Link>
       </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Csv.svg">
         <Link>Resources\Assets\Extensions\Csv.svg</Link>

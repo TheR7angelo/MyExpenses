@@ -231,6 +231,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DependencyRessources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string DependencyTypePlace {
+            get {
+                return ResourceManager.GetString("DependencyTypePlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locations.
+        /// </summary>
+        public static string DependencyTypePlaces {
+            get {
+                return ResourceManager.GetString("DependencyTypePlaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recurring expense.
         /// </summary>
         public static string DependencyTypeRecurringExpense {

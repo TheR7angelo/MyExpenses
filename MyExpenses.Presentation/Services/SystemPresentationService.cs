@@ -1,17 +1,19 @@
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Application.Interfaces.IServices;
+using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
-using PlaceViewModel = MyExpenses.Presentation.ViewModels.Locations.PlaceViewModel;
 
 namespace MyExpenses.Presentation.Services;
 
 public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapperMapper,
     IAccountDtoViewModelMapper accountDtoViewModelMapper, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+    ILocationDtoViewModelMapper locationDtoViewModelMapper,
     ISystemDtoViewModelMapper systemDtoViewModelMapper,
     ISystemService systemService) : ISystemPresentationService
 {
@@ -44,6 +46,12 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
     {
         var colorDto = systemDtoViewModelMapper.MapToDto(colorViewModel);
         return systemService.GetAllDependenciesAsync(colorDto, cancellationToken);
+    }
+
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default)
+    {
+        var placeDto = locationDtoViewModelMapper.MapToDto(placeViewModel);
+        return systemService.GetAllDependenciesAsync(placeDto, cancellationToken);
     }
 
     public async Task<ColorViewModel> GetRandomColorViewModel(CancellationToken cancellationToken = default)

@@ -260,6 +260,24 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
+        public static string MessageboxPlaceDeleteErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceDeleteErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to n error occurred while deleting the location. Please try again.
+        /// </summary>
+        public static string MessageboxPlaceDeleteErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceDeleteErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
         public static string MessageboxPlaceUpdateErrorCaption {
             get {
                 return ResourceManager.GetString("MessageboxPlaceUpdateErrorCaption", resourceCulture);

@@ -149,7 +149,7 @@
 
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderDeleteFeature}}"
                               Visibility="{Binding SelectedPlaceViewModel, Converter={StaticResource NullToVisibilityConverter}}"
-                              Click="MenuItemDeleteFeature_OnClick">
+                              Command="{Binding DeleteCommand}">
                     </MenuItem>
 
                     <MenuItem Header="{loc:Tr {x:Static locationResources:LocationResourceManager.MenuItemHeaderMaps}}">

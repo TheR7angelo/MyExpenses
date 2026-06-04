@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 64 64">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #1d2731;
+      }
+
+      .st1 {
+        fill: #e74c3c;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6, .st7 {
+        stroke: #1d2731;
+        stroke-width: 2.5px;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st7 {
+        stroke-linejoin: round;
+      }
+
+      .st2 {
+        fill: #e4e8eb;
+      }
+
+      .st3 {
+        fill: #fff;
+      }
+
+      .st4 {
+        fill: #c39b71;
+      }
+
+      .st5 {
+        fill: #7ac7f6;
+      }
+
+      .st6 {
+        fill: none;
+        stroke-linecap: round;
+      }
+
+      .st7 {
+        fill: #bdc3c7;
+      }
+    </style>
+  </defs>
+  <rect class="st2" x="11" y="23.5" width="42" height="28"/>
+  <rect class="st7" x="11" y="19.5" width="42" height="5"/>
+  <rect class="st4" x="17" y="32.5" width="12" height="19"/>
+  <circle class="st0" cx="26" cy="42.5" r="1"/>
+  <rect class="st5" x="35" y="32.5" width="13" height="12"/>
+  <path class="st1" d="M8,24.5l5-12h38l5,12H8Z"/>
+  <path class="st3" d="M15.5,24.5l4-12h8l-3,12h-9Z"/>
+  <path class="st3" d="M33.5,24.5l2-12h8l-1,12h-9Z"/>
+  <path class="st6" d="M8,24.5c2.17,2.67,4.33,2.67,6.5,0,2.17,2.67,4.33,2.67,6.5,0,2.17,2.67,4.17,2.67,6,0,2.17,2.67,4.33,2.67,6.5,0,2.17,2.67,4.33,2.67,6.5,0,2.17,2.67,4.33,2.67,6.5,0,2.17,2.67,4.33,2.67,6.5,0,1,2,2,2,3,0"/>
+</svg>

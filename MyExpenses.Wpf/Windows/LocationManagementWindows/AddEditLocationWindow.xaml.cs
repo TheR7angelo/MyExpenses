@@ -1,32 +1,24 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Data.Sqlite;
 using MyExpenses.Application.Interfaces;
-using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Locations;
-using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
-using MyExpenses.Sql.Context;
-using Serilog;
-using MessageBoxButton = System.Windows.MessageBoxButton;
-using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
+/// <summary>
+/// Window used to add or edit a location. It exposes a
+/// <see cref="LocationManagementViewModel"/> as its DataContext and
+/// delegates location-related operations to that view model.
+/// </summary>
 public partial class AddEditLocationWindow : IClosable
 {
-    #region Properties
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public TPlace Place { get; } = new();
-    public bool PlaceDeleted { get; private set; }
-
-    #endregion
-
     private LocationManagementViewModel ViewModel => (LocationManagementViewModel)DataContext;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="AddEditLocationWindow"/>.
+    /// </summary>
+    /// <param name="viewModel">The <see cref="LocationManagementViewModel"/> used as the window DataContext.</param>
     public AddEditLocationWindow(LocationManagementViewModel viewModel)
     {
         InitializeComponent();
@@ -34,66 +26,21 @@ public partial class AddEditLocationWindow : IClosable
         DataContext = viewModel;
     }
 
-    #region Action
-
-    #region Button
-
-    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-    {
-        // var response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
-        //     MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        // if (response is not MessageBoxResult.Yes) return;
-        //
-        // Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
-        // var (success, exception) = Place.Delete();
-        // if (success)
-        // {
-        //     Log.Information("Place was successfully removed");
-        //     Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
-        //
-        //     PlaceDeleted = true;
-        //     DialogResult = true;
-        //
-        //     Close();
-        //     return;
-        // }
-        //
-        // if (exception!.InnerException is SqliteException
-        //     {
-        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-        //     })
-        // {
-        //     Log.Error("Foreign key constraint violation");
-        //
-        //     response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
-        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        //
-        //     if (response is not MessageBoxResult.Yes) return;
-        //
-        //     Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
-        //         Place.Name);
-        //     Place.Delete(true);
-        //     Log.Information("Place and all relative element was successfully removed");
-        //     Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
-        //
-        //     PlaceDeleted = true;
-        //     DialogResult = true;
-        //     Close();
-        //
-        //     return;
-        // }
-        //
-        // Log.Error(exception, "An error occurred please retry");
-        // Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
-    }
-
-    #endregion
-
-    #endregion
-
+    /// <summary>
+    /// Loads a <see cref="PlaceViewModel"/> into the associated view model and indicates
+    /// whether the operation is an edit or a creation. The call is delegated to the
+    /// <see cref="LocationManagementViewModel"/>.
+    /// </summary>
+    /// <param name="placeViewModel">The place view model to load.</param>
+    /// <param name="isEdit">If true, the window is in edit mode; otherwise it is in create mode.</param>
     public void LoadPlaceViewModel(PlaceViewModel placeViewModel, bool isEdit)
         => ViewModel.LoadPlaceViewModel(placeViewModel, isEdit);
 
+    /// <summary>
+    /// Handles the context menu opening event for the map control.
+    /// </summary>
+    /// <param name="sender">The sender of the event.</param>
+    /// <param name="e">The event arguments.</param>
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
         var position = Mouse.GetPosition(MapControl);

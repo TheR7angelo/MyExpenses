@@ -17,15 +17,6 @@ public interface IExpenseRepository
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the total count of all recursive expenses associated with a specified account.
-    /// </summary>
-    /// <param name="account">The account for which to retrieve the recursive expense count.</param>
-    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
-    /// <returns>The total number of recursive expenses associated with the specified account.</returns>
-    public Task<int> GetAllRecursiveExpenseCountAsync(AccountDomain account,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Retrieves the unique identifiers of all expenses associated with the specified account IDs.
     /// </summary>
     /// <param name="accountIds">An array of account IDs for which to retrieve the expense IDs.</param>
@@ -47,8 +38,15 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type for which to retrieve the expense IDs.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of expense IDs associated with the specified category type.</returns>
-    public Task<int[]> GetAllExpenseIdAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int[]> GetAllExpenseIdAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves an array of all expense IDs associated with a specified place.
+    /// </summary>
+    /// <param name="placeDomain">The place for which to retrieve the expense IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of expense IDs associated with the specified place.</returns>
+    public Task<Result<int[]>> GetAllExpenseIdAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the unique identifiers of all bank transfers associated with the specified account IDs.
@@ -82,8 +80,23 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type associated with the recurring transactions.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of IDs corresponding to recurring transactions associated with the specified category type.</returns>
-    public Task<int[]> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int[]> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all recurring transactions associated with the specified account.
+    /// </summary>
+    /// <param name="accountDomain">The account domain from which the recurring transaction IDs will be retrieved.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of IDs representing the recurring transactions associated with the specified account.</returns>
+    public Task<int[]> GetAllRecurringTransactionIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the IDs of all recurring transactions associated with the specified place.
+    /// </summary>
+    /// <param name="placeDomain">The place domain from which the recurring transaction IDs will be retrieved.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of IDs representing the recurring transactions associated with the specified place.</returns>
+    public Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the total count of expenses associated with a specific account asynchronously.
@@ -91,8 +104,7 @@ public interface IExpenseRepository
     /// <param name="accountDomain">The account for which the total expense count is to be retrieved.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
     /// <returns>An integer representing the count of expenses associated with the specified account.</returns>
-    public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int> GetAllExpenseCountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the total count of all expenses associated with a specific category type.
@@ -103,12 +115,28 @@ public interface IExpenseRepository
     public Task<int> GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the total count of all expenses associated with a specified place.
+    /// </summary>
+    /// <param name="placeDomain">The domain model representing the place for which to retrieve the expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of expenses associated with the specified place.</returns>
+    public Task<int> GetAllExpenseCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the total count of all bank transactions associated with a specified category type.
     /// </summary>
     /// <param name="categoryTypeDomain">The category type for which to retrieve the bank transaction count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of bank transactions associated with the specified category type.</returns>
     public Task<int> GetAllBankTransactionCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all bank transactions associated with a specified place.
+    /// </summary>
+    /// <param name="placeDomain">The place for which to retrieve the bank transaction count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of bank transactions associated with the specified place.</returns>
+    public Task<int> GetAllBankTransactionCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken);
 
     /// <summary>
     /// Retrieves the IDs of all bank transfers associated with the specified accounts.
@@ -119,6 +147,22 @@ public interface IExpenseRepository
     public Task<int[]> GetAllBankTransferIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the IDs of all bank transfers associated with the specified places.
+    /// </summary>
+    /// <param name="placeDomain">The place for which to retrieve the bank transfer IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>An array of bank transfer IDs associated with the specified places.</returns>
+    public Task<Result<int[]>> GetAllBankTransferIdsAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all recursive expenses associated with a specified account.
+    /// </summary>
+    /// <param name="account">The account for which to retrieve the recursive expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of recursive expenses associated with the specified account.</returns>
+    public Task<int> GetAllRecursiveExpenseCountAsync(AccountDomain account, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the count of all recursive expenses associated with the specified category type.
     /// </summary>
     /// <param name="categoryTypeDomain">The category type for which to retrieve the recursive expense count.</param>
@@ -127,12 +171,12 @@ public interface IExpenseRepository
     public Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the IDs of all recurring transactions associated with the specified account.
+    /// Retrieves the count of all recursive expenses associated with the specified place.
     /// </summary>
-    /// <param name="accountDomain">The account domain from which the recurring transaction IDs will be retrieved.</param>
+    /// <param name="placeDomain">The place for which to retrieve the recursive expense count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
-    /// <returns>An array of IDs representing the recurring transactions associated with the specified account.</returns>
-    public Task<int[]> GetAllRecurringTransactionIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+    /// <returns>The total number of recursive expenses associated with the specified place.</returns>
+    public Task<int> GetAllRecursiveExpenseCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all category types from the data source.

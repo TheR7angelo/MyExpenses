@@ -91,4 +91,12 @@ public interface ILocationPresentationService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A <see cref="Result{PlaceViewModel}"/> indicating success or failure along with an optional error message and the updated place ViewModel.</returns>
     public Task<Result<PlaceViewModel>> UpdatePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the specified place asynchronously.
+    /// </summary>
+    /// <param name="placeViewModel">The place view model representing the place to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="DeletionResult"/> indicating the result of the operation, including any dependencies that were deleted.</returns>
+    public Task<DeletionResult> DeletePlaceAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
 }

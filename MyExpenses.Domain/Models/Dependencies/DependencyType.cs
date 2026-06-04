@@ -35,6 +35,7 @@ public static class DependencyCaptionName
             DependencyType.RecurringExpense => "RecursiveExpense",
             DependencyType.CategoryType => "Tag",
             DependencyType.Color => "Colors",
+            DependencyType.Place => "Shop",
             _ => throw new ArgumentOutOfRangeException(nameof(dependencyType), dependencyType, null)
         };
 }

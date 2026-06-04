@@ -35,4 +35,12 @@ public interface ILocationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{PlaceDto}"/> object indicating the success or failure of the update operation and containing the updated place details if successful.</returns>
     public Task<Result<PlaceDto>> UpdatePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a specified place and handles its associated deletion dependencies.
+    /// </summary>
+    /// <param name="placeDto">The data transfer object representing the place to be deleted.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the delete operation, including details of dependencies removed, if any.</returns>
+    public Task<DeletionResult> DeletePlaceAsync(PlaceDto placeDto, CancellationToken cancellationToken);
 }

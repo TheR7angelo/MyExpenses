@@ -1,3 +1,4 @@
+using Domain.Models.Dependencies;
 using Domain.Models.Systems;
 using Domain.Models.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using MyExpenses.Sql.Mappings;
 namespace MyExpenses.Sql.Repositories;
 
 public class LocationRepository(IDbContextFactory<DataBaseContext> dbContextFactory,
+    IExpenseRepository expenseRepository,
     ILogger<LocationRepository> logger) : ILocationRepository
 {
     public async Task<PlaceDomain?> GetPlace(int placeId, CancellationToken cancellationToken = default)
@@ -102,6 +104,64 @@ public class LocationRepository(IDbContextFactory<DataBaseContext> dbContextFact
         {
             logger.LogError(e, "Failed to update place with id {PlaceId}", placeDomain.Id);
             return Result<PlaceDomain>.Failure(ErrorCode.DatabaseError, e.Message);
+        }
+    }
+
+    public async Task<DeletionResult> DeletePlaceAsync(PlaceDomain placeDomain, CancellationToken cancellationToken)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Deleting place with name {PlaceName} and id {PlaceId}", placeDomain.Name, placeDomain.Id);
+
+        var placeEntity = await context.TPlaces.FirstOrDefaultAsync(s => s.Id == placeDomain.Id, cancellationToken: cancellationToken);
+
+        if (placeEntity is null && placeDomain.Id is 0)
+        {
+            logger.LogWarning("Place with id {PlaceId} was not found", placeDomain.Id);
+            return DeletionResult.Success("Place was not persisted, so nothing had to be deleted");
+        }
+
+        if (placeEntity is null)
+        {
+            logger.LogWarning("Place with id {PlaceId} was not found", placeDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The place with id {placeDomain.Id} was not found");
+        }
+
+        try
+        {
+            var expenseIdsTask = expenseRepository.GetAllExpenseIdAsync(placeDomain, cancellationToken);
+            var bankTransferIdsTask = expenseRepository.GetAllBankTransferIdsAsync(placeDomain, cancellationToken);
+            var recurringExpenseIdsTask = expenseRepository.GetAllRecurringTransactionIdsAsync(placeDomain, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (expenseIds.IsSuccess && expenseIds.Value!.Length > 0) logger.LogWarning("Color has associated expenses {@ExpenseIds}", expenseIds.Value);
+            if (bankTransferIds.IsSuccess && bankTransferIds.Value!.Length > 0) logger.LogWarning("Color has associated bank transfers {@BankTransferIds}", bankTransferIds.Value);
+            if (recurringExpenseIds.IsSuccess && recurringExpenseIds.Value!.Length > 0) logger.LogWarning("Color has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds.Value);
+
+            logger.LogInformation("Deleting place with id {PlaceId}", placeDomain.Id);
+
+            context.TPlaces.Remove(placeEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Place with id {PlaceId} was successfully deleted", placeDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.Expense, expenseIds.Value! },
+                { DependencyType.BankTransfer, bankTransferIds.Value! },
+                { DependencyType.RecurringExpense, recurringExpenseIds.Value! }
+            };
+            return DeletionResult.Success("Place was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete place with id {PlaceId}", placeDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete place: {e.Message}");
         }
     }
 }
