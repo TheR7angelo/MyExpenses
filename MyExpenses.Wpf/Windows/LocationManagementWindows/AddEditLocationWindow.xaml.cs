@@ -40,51 +40,51 @@ public partial class AddEditLocationWindow : IClosable
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response is not MessageBoxResult.Yes) return;
-
-        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
-        var (success, exception) = Place.Delete();
-        if (success)
-        {
-            Log.Information("Place was successfully removed");
-            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
-
-            PlaceDeleted = true;
-            DialogResult = true;
-
-            Close();
-            return;
-        }
-
-        if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-
-            if (response is not MessageBoxResult.Yes) return;
-
-            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
-                Place.Name);
-            Place.Delete(true);
-            Log.Information("Place and all relative element was successfully removed");
-            Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
-
-            PlaceDeleted = true;
-            DialogResult = true;
-            Close();
-
-            return;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
+        // var response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
+        //     MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        // if (response is not MessageBoxResult.Yes) return;
+        //
+        // Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
+        // var (success, exception) = Place.Delete();
+        // if (success)
+        // {
+        //     Log.Information("Place was successfully removed");
+        //     Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
+        //
+        //     PlaceDeleted = true;
+        //     DialogResult = true;
+        //
+        //     Close();
+        //     return;
+        // }
+        //
+        // if (exception!.InnerException is SqliteException
+        //     {
+        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+        //     })
+        // {
+        //     Log.Error("Foreign key constraint violation");
+        //
+        //     response = Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
+        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        //
+        //     if (response is not MessageBoxResult.Yes) return;
+        //
+        //     Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+        //         Place.Name);
+        //     Place.Delete(true);
+        //     Log.Information("Place and all relative element was successfully removed");
+        //     Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
+        //
+        //     PlaceDeleted = true;
+        //     DialogResult = true;
+        //     Close();
+        //
+        //     return;
+        // }
+        //
+        // Log.Error(exception, "An error occurred please retry");
+        // Dialogs.MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
     }
 
     #endregion

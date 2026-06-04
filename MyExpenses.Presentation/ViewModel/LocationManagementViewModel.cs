@@ -429,7 +429,7 @@ public partial class LocationManagementViewModel : ViewModelBase
         {
             if (IsEditLocation)
             {
-                _logger.LogError(e, "Error updating color");
+                _logger.LogError(e, "Error updating place");
 
                 _dialogService.ShowMessageBox(LocationResources.MessageboxPlaceUpdateErrorCaption,
                     LocationResources.MessageboxPlaceUpdateErrorContent,
@@ -437,7 +437,7 @@ public partial class LocationManagementViewModel : ViewModelBase
             }
             else
             {
-                _logger.LogError(e, "Error creating color");
+                _logger.LogError(e, "Error creating place");
 
                 _dialogService.ShowMessageBox(LocationResources.MessageboxPlaceCreateErrorCaption,
                     LocationResources.MessageboxPlaceCreateErrorContent,
@@ -451,5 +451,13 @@ public partial class LocationManagementViewModel : ViewModelBase
     {
         closable?.DialogResult = false;
         closable?.Close();
+    }
+
+    [RelayCommand]
+    private void OnDelete(IClosable? closable)
+    {
+        if (SelectedPlaceViewModel is null) return;
+
+        // TODO continue
     }
 }

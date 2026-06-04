@@ -244,7 +244,8 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{localisations:Tr {x:Static resx:LocationResourceManager.ButtonContentDelete}}"
                     Visibility="{Binding IsEditLocation, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Click="ButtonDelete_OnClick">
+                    Command="{Binding DeleteCommand}"
+                    CommandParameter="{Binding ElementName=RootWindow}">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
