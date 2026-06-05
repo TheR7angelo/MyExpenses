@@ -56,20 +56,28 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading all accounts with account type {AccountTypeName}", accountType.Name);
+        try
+        {
+            logger.LogInformation("Loading all accounts with account type {AccountTypeName}", accountType.Name);
 
-        var accounts = await dataBaseContext.TAccounts
-            .AsNoTracking()
-            .Include(s => s.AccountTypeFkNavigation)
-            .Where(s => s.AccountTypeFk == accountType.Id)
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+            var accounts = await dataBaseContext.TAccounts
+                .AsNoTracking()
+                .Include(s => s.AccountTypeFkNavigation)
+                .Where(s => s.AccountTypeFk == accountType.Id)
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} account", accounts.Length);
+            logger.LogInformation("Loaded {Count} account", accounts.Length);
 
-        return accounts;
+            return Result<IEnumerable<AccountDomain>>.Success(accounts);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading accounts with type {AccountTypeName}", accountType.Name);
+            return Result<IEnumerable<AccountDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading accounts with the specified type");
+        }
     }
 
     public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)

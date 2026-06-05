@@ -29,8 +29,14 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
 
         logger.LogInformation("Starting dependency loading for account type {AccountTypeName}", accountType.Name);
 
-        var accounts = await accountRepository.GetAllAccountAsync(accountType, cancellationToken);
-        var enumerable = accounts.ToArray();
+        var resultAccount = await accountRepository.GetAllAccountAsync(accountType, cancellationToken);
+        if (!resultAccount.IsSuccess)
+        {
+            // TODO return better result
+            return [];
+        }
+
+        var enumerable = resultAccount.Value!.ToArray();
         dependencies.Add(new DeletionDependency { Category = DependencyType.Account, Count = enumerable.Length });
 
         logger.LogInformation("Found {AccountCount} accounts", enumerable.Length);

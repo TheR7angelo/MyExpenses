@@ -20,12 +20,12 @@ public interface IAccountRepository
     public Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all accounts asynchronously based on the specified account type.
+    /// Retrieves a collection of accounts by type asynchronously.
     /// </summary>
-    /// <param name="accountType">The type of account to filter the retrieval process.</param>
+    /// <param name="accountType">The type of account to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>An <see cref="AccountDomain"/> object containing details of the retrieved accounts.</returns>
-    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
+    /// <returns>A result containing either a collection of <see cref="AccountDomain"/> objects or an error.</returns>
+    public Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a collection of accounts based on the provided currency domain asynchronously.
