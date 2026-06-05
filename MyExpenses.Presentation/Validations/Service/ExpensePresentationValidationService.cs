@@ -38,4 +38,35 @@ public class ExpensePresentationValidationService(ILogger<ExpensePresentationVal
             throw;
         }
     }
+
+    public async Task<bool> IsModePayementNameAvailableAsync(string name, CancellationToken cancellationToken = default)
+    {
+        using var scope = logger.BeginScope("Checking mode payment name availability. Input={Input}", name);
+
+        logger.LogInformation("Starting validation for mode payment availability");
+
+        try
+        {
+            var alreadyExists = await expenseValidationRepository.IsModePayementNameAvailableAsync(name, cancellationToken);
+
+            if (alreadyExists)
+            {
+                logger.LogInformation("Mode payment name is already used");
+                return false;
+            }
+
+            logger.LogInformation("Mode payment name is available");
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogWarning("Validation was canceled");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while checking mode payment name availability");
+            throw;
+        }
+    }
 }

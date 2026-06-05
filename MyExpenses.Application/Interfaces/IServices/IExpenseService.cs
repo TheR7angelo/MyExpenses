@@ -71,4 +71,28 @@ public interface IExpenseService
     /// The task result contains a <see cref="Result{T}"/> of a tuple consisting of the created <see cref="BankTransferDto"/> and an enumerable collection of <see cref="HistoryDto"/> objects.</returns>
     public Task<Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)>> CreateBankTransferAsync(
         BankTransferDto bankTransferDto, HistoryDto historyDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new mode of payment.
+    /// </summary>
+    /// <param name="modePaymentDto">The mode payment to create.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{ModePaymentDto}"/> object indicating success or failure of the operation.</returns>
+    public Task<Result<ModePaymentDto>> CreateModePaymentAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates an existing mode of payment.
+    /// </summary>
+    /// <param name="modePaymentDto">The mode of payment to update.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{ModePaymentDto}"/> indicating success or failure and containing the updated mode of payment.</returns>
+    public Task<Result<ModePaymentDto>> UpdateModePaymentAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a mode of payment asynchronously.
+    /// </summary>
+    /// <param name="modePaymentDto">The mode payment to delete.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a deletion result indicating whether the deletion was successful and any deleted items.</returns>
+    public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
 }

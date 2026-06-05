@@ -52,4 +52,37 @@ public interface IExpenseActionService
     /// </param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task<bool> DeleteCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Manages the payment mode action using the provided mode payment view model.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The view model containing details about the payment mode, including ID, name, and whether it can be deleted.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation. The result is a boolean indicating success or failure of the operation.</returns>
+    public Task ManageModePaymentAction(ModePaymentViewModel? modePaymentViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a mode payment based on the provided input and cancellation token.
+    /// </summary>
+    /// <param name="input">The input data required to create the mode payment.</param>
+    /// <param name="cancellationToken">A token to allow for cancellation of the operation.</param>
+    /// <returns>A task representing the asynchronous operation, which will be true if successful.</returns>
+    public Task CreateModePayment(string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates the mode payment using the provided mode payment view model and input.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The view model containing details about the mode of payment.</param>
+    /// <param name="input">Additional input related to the update operation.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation. The result is a boolean indicating whether the update was successful.</returns>
+    public Task UpdateModePayment(ModePaymentViewModel modePaymentViewModel, string input, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a mode of payment.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The view model containing details about the mode of payment to be deleted.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation. Returns true if the deletion was successful, otherwise false.</returns>
+    public Task DeleteModePayment(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
 }

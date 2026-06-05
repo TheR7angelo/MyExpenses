@@ -169,6 +169,13 @@ public interface IExpenseDtoViewModelMapper
     public void Merge(CategoryTypeViewModel src, CategoryTypeViewModel dst);
 
     /// <summary>
+    /// Merges the properties of a <see cref="ModePaymentViewModel"/> into another <see cref="ModePaymentViewModel"/>.
+    /// </summary>
+    /// <param name="src"> The source <see cref="ModePaymentViewModel"/> to merge from. </param>
+    /// <param name="dst"> The destination <see cref="ModePaymentViewModel"/> to merge into. </param>
+    public void Merge(ModePaymentViewModel src, ModePaymentViewModel dst);
+
+    /// <summary>
     /// Maps a <see cref="BankTransferDto"/> and a collection of <see cref="HistoryDto"/>
     /// to a tuple containing a <see cref="BankTransferViewModel"/>
     /// and an enumerable of <see cref="HistoryViewModel"/>.
@@ -182,4 +189,15 @@ public interface IExpenseDtoViewModelMapper
     /// and <see cref="IEnumerable{T}"/> of <see cref="HistoryViewModel"/>.
     /// </returns>
     public Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)> MapToViewModel(Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> result);
+
+    /// <summary>
+    /// Clones a <see cref="ModePaymentViewModel"/> object.
+    /// </summary>
+    /// <param name="src">
+    /// The source <see cref="ModePaymentViewModel"/> to be cloned.
+    /// </param>
+    /// <returns>
+    /// A new <see cref="ModePaymentViewModel"/> object that is a clone of the provided one.
+    /// </returns>
+    public ModePaymentViewModel Clone(ModePaymentViewModel src);
 }

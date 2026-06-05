@@ -59,6 +59,14 @@ public interface ISystemPresentationService
     public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(PlaceViewModel placeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves all deletion dependencies for the specified mode payment view model.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The mode payment view model for which dependencies are to be retrieved.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified mode payment.</returns>
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a random color view model asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

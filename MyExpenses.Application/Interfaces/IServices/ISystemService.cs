@@ -58,6 +58,14 @@ public interface ISystemService
     public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(PlaceDto placeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves a collection of dependencies associated with the specified mode payment.
+    /// </summary>
+    /// <param name="modePaymentDto">The mode payment data transfer object used to identify dependencies.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="DeletionDependency"/> objects.</returns>
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a randomly selected color, including its name and hexadecimal color code.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

@@ -58,6 +58,38 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return expenses;
     }
 
+    public async Task<int> GetAllExpenseCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading all expenses for mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+        var expenses = await context.THistories
+            .Where(e => e.ModePaymentFk == modePaymentDomain.Id)
+            .CountAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} expenses for mode payment with id {ModePaymentId}", expenses, modePaymentDomain.Id);
+
+        return expenses;
+    }
+
+    public async Task<int> GetAllBankTransactionCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading bank transaction count for mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+
+        var bankTransactionCount = await context.THistories
+            .AsNoTracking()
+            .Where(h => h.ModePaymentFk == modePaymentDomain.Id && h.BankTransferFk != null)
+            .Select(h => h.BankTransferFk)
+            .Distinct()
+            .CountAsync(cancellationToken);
+
+        logger.LogInformation("Loaded {Count} bank transaction count for mode payment with id {ModePaymentId}", bankTransactionCount, modePaymentDomain.Id);
+
+        return bankTransactionCount;
+    }
+
     public async Task<int> GetAllBankTransactionCountAsync(CategoryTypeDomain categoryTypeDomain,
         CancellationToken cancellationToken = default)
     {
@@ -95,6 +127,19 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return bankTransactionCount;
     }
 
+    public async Task<int> GetAllBankTransactionCountAsync(AccountDomain account, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading bank transaction count for account with id {AccountId}", account.Id);
+        var bankTransactionCount = await context.TBankTransfers
+            .CountAsync(h => h.FromAccountFk == account.Id || h.ToAccountFk == account.Id, cancellationToken);
+
+        logger.LogInformation("Loaded {Count} bank transaction count for account with id {AccountId}", bankTransactionCount, account.Id);
+
+        return bankTransactionCount;
+    }
+
     public async Task<int[]> GetAllBankTransferIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -125,6 +170,31 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return Result<int[]>.Success(result);
     }
 
+    public async Task<Result<int[]>> GetAllBankTransferIdsAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Loading all bank transfers for mode payment with ids {ModePaymentId}",
+                modePaymentDomain.Id);
+
+            var result = await context.THistories
+                .Where(e => e.ModePaymentFk == modePaymentDomain.Id && e.BankTransferFk != null)
+                .Select(e => (int)e.BankTransferFk!)
+                .Distinct().ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} bank transfers for mode payment", result.Length);
+
+            return Result<int[]>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error while loading all bank transfers for mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, $"Failed to load bank transfer ids: {e.Message}");
+        }
+    }
+
     public async Task<int[]> GetAllRecurringTransactionIdsAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -153,19 +223,6 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         logger.LogInformation("Loaded {Count} recursive expense count for place with id {PlaceId}", recursiveExpenseCount, placeDomain.Id);
 
         return Result<int[]>.Success(recursiveExpenseCount);
-    }
-
-    public async Task<int> GetAllBankTransactionCountAsync(AccountDomain account, CancellationToken cancellationToken = default)
-    {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-
-        logger.LogInformation("Loading bank transaction count for account with id {AccountId}", account.Id);
-        var bankTransactionCount = await context.TBankTransfers
-            .CountAsync(h => h.FromAccountFk == account.Id || h.ToAccountFk == account.Id, cancellationToken);
-
-        logger.LogInformation("Loaded {Count} bank transaction count for account with id {AccountId}", bankTransactionCount, account.Id);
-
-        return bankTransactionCount;
     }
 
     public async Task<int> GetAllRecursiveExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
@@ -203,6 +260,20 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .CountAsync(e => e.PlaceFk == placeDomain.Id, cancellationToken);
 
         logger.LogInformation("Loaded {Count} recursive expense count for place with id {PlaceId}", recursiveExpenseCount, placeDomain.Id);
+
+        return recursiveExpenseCount;
+    }
+
+    public async Task<int> GetAllRecursiveExpenseCountAsync(ModePaymentDomain modePaymentDomain,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Loading recursive expense count for mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+        var recursiveExpenseCount = await context.TRecursiveExpenses
+            .CountAsync(e => e.ModePaymentFk == modePaymentDomain.Id, cancellationToken);
+
+        logger.LogInformation("Loaded {Count} recursive expense count for mode payment with id {ModePaymentId}", recursiveExpenseCount, modePaymentDomain.Id);
 
         return recursiveExpenseCount;
     }
@@ -249,6 +320,26 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
         logger.LogInformation("Loaded {Count} expenses for place", result.Length);
         return Result<int[]>.Success(result);
+    }
+
+    public async Task<Result<int[]>> GetAllExpenseIdAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Loading all expenses for mode payment with id {ModePaymentId}",
+                modePaymentDomain.Id);
+            var result = await context.THistories.Where(e => e.ModePaymentFk == modePaymentDomain.Id).Select(e => e.Id)
+                .ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} expenses for mode payment", result.Length);
+            return Result<int[]>.Success(result);
+        }
+        catch (Exception e)
+        {
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, $"Failed to load expenses for mode payment: {e.Message}");
+        }
     }
 
     public async Task<int[]> GetAllBankTransferIdsAsync(int[] accountIds, CancellationToken cancellationToken = default)
@@ -313,6 +404,30 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         logger.LogInformation("Loaded {Count} recurring transactions for category type", result.Length);
 
         return result;
+    }
+
+    public async Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Loading all recurring transactions for mode payment with id {ModePaymentId}",
+                modePaymentDomain.Id);
+
+            var result = await context.TRecursiveExpenses
+                .Where(e => e.ModePaymentFk == modePaymentDomain.Id)
+                .Select(e => e.Id).ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} recurring transactions for mode payment", result.Length);
+
+            return Result<int[]>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load recurring transactions for mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, $"Failed to load recurring transactions for mode payment: {e.Message}");
+        }
     }
 
     public async Task<IEnumerable<CategoryTypeDomain>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
@@ -657,6 +772,129 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         logger.LogInformation("Loaded {Count} recurring expense IDs for category types", result.Length);
 
         return Result<int[]>.Success(result);
+    }
+
+    public async Task<Result<ModePaymentDomain>> CreateModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        var modePayment = modePaymentDomain.MapToEntity();
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Adding mode payment with name {ModePaymentName}", modePayment.Name);
+
+        var json = modePayment.ToJson();
+        logger.LogInformation("Mode payment json: {Json}", json);
+        logger.Log(LogLevel.Information, "Mode payment json: {Json}", json);
+
+        try
+        {
+            context.TModePayments.Add(modePayment);
+            await context.SaveChangesAsync(cancellationToken);
+
+            modePaymentDomain = modePayment.MapToDomain();
+
+            logger.LogInformation("Mode payment with name {ModePaymentName} was successfully added", modePayment.Name);
+            return Result<ModePaymentDomain>.Success(modePaymentDomain, "Mode payment was successfully added");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to add mode payment with name {ModePaymentName}", modePayment.Name);
+            return Result<ModePaymentDomain>.Failure(ErrorCode.DatabaseError, "Failed to add mode payment");
+        }
+    }
+
+    public async Task<Result<ModePaymentDomain>> UpdateModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Updating mode payment (ID={ModePaymentId}) with name {ModePaymentName}", modePaymentDomain.Id, modePaymentDomain.Name);
+
+        var json = modePaymentDomain.ToJson();
+        logger.LogInformation("Mode payment json: {Json}", json);
+
+        try
+        {
+            var modePayment = await context.TModePayments.FirstOrDefaultAsync(s => s.Id == modePaymentDomain.Id, cancellationToken);
+            if (modePayment is null)
+            {
+                return Result<ModePaymentDomain>.Failure(ErrorCode.NotFound, "Mode payment not found");
+            }
+
+            modePayment.Name = modePaymentDomain.Name;
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Mode payment (ID={ModePaymentId}) with name {ModePaymentName} was successfully updated", modePaymentDomain.Id, modePaymentDomain.Name);
+            return Result<ModePaymentDomain>.Success(modePaymentDomain, "Mode payment was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update mode payment (ID={ModePaymentId}) with name {ModePaymentName}", modePaymentDomain.Id, modePaymentDomain.Name);
+            return Result<ModePaymentDomain>.Failure(ErrorCode.DatabaseError, "Failed to update mode payment");
+        }
+    }
+
+    public async Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        logger.LogInformation("Deleting mode payment with name {ModePaymentName} and id {ModePaymentId}", modePaymentDomain.Name, modePaymentDomain.Id);
+
+        var modePaymentEntity = await
+            context.TModePayments.FirstOrDefaultAsync(s => s.Id == modePaymentDomain.Id,
+                cancellationToken: cancellationToken);
+
+        if (modePaymentEntity is null && modePaymentDomain.Id is 0)
+        {
+            logger.LogWarning("Mode payment with id {ModePaymentId} was not found", modePaymentDomain.Id);
+            return DeletionResult.Success("Mode payment was not persisted, so nothing had to be deleted");
+        }
+
+        if (modePaymentEntity is null) {
+            logger.LogWarning("Mode payment with id {ModePaymentId} was not found", modePaymentDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The mode payment with id {modePaymentDomain.Id} was not found");
+        }
+
+        try
+        {
+            var expenseIdsTask = GetAllExpenseIdAsync(modePaymentDomain, cancellationToken);
+            var bankTransferIdsTask = GetAllBankTransferIdsAsync(modePaymentDomain, cancellationToken);
+            var recurringExpenseIdsTask = GetAllRecurringTransactionIdsAsync(modePaymentDomain, cancellationToken);
+
+            await Task.WhenAll(expenseIdsTask, bankTransferIdsTask, recurringExpenseIdsTask);
+
+            var expenseIds = expenseIdsTask.Result;
+            var bankTransferIds = bankTransferIdsTask.Result;
+            var recurringExpenseIds = recurringExpenseIdsTask.Result;
+
+            if (!expenseIds.IsSuccess || !bankTransferIds.IsSuccess || !recurringExpenseIds.IsSuccess)
+            {
+                return DeletionResult.Failure(ErrorCode.DatabaseError, "Failed to load dependencies for deletion");
+            }
+
+            if (expenseIds.Value!.Length > 0) logger.LogWarning("Category type has associated expenses {@ExpenseIds}", expenseIds);
+            if (bankTransferIds.Value!.Length > 0) logger.LogWarning("Category type has associated bank transfers {@BankTransferIds}", bankTransferIds);
+            if (recurringExpenseIds.Value!.Length > 0) logger.LogWarning("Category type has associated recurring expenses {@RecurringExpenses}", recurringExpenseIds);
+
+            logger.LogInformation("Deleting mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+            context.TModePayments.Remove(modePaymentEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Mode payment with id {ModePaymentId} was successfully deleted", modePaymentDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.ModePayment, [modePaymentDomain.Id] },
+                { DependencyType.Expense, expenseIds.Value! },
+                { DependencyType.BankTransfer, bankTransferIds.Value! },
+                { DependencyType.RecurringExpense, recurringExpenseIds.Value! }
+            };
+            return DeletionResult.Success("Mode payment was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete mode payment with id {ModePaymentId}", modePaymentDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete mode payment: {e.Message}");
+        }
     }
 
     private static THistory FormateBankTransferHistory(AccountDomain accountDomain, HistoryDomain historyDomain, int multiplier = 1)

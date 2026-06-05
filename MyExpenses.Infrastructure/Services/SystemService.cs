@@ -285,7 +285,46 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
 
         dependencies = GroupDependencies(dependencies).ToList();
 
-        logger.LogInformation("Finished dependency loading for currency with {DependencyCount} dependencies", dependencies.Count);
+        logger.LogInformation("Finished dependency loading for place with {DependencyCount} dependencies", dependencies.Count);
+        return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
+    }
+
+    public async Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var modePaymentDomain = mapperExpense.MapToDomain(modePaymentDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["ModePaymentName"] = modePaymentDomain.Name!
+        });
+
+        logger.LogInformation("Loading dependencies for mode payment {ModePaymentName}", modePaymentDomain.Name!);
+
+        var expenseCountTask = expenseRepository.GetAllExpenseCountAsync(modePaymentDomain, cancellationToken);
+        var bankTransactionCountTask = expenseRepository.GetAllBankTransactionCountAsync(modePaymentDomain, cancellationToken);
+        var recursiveExpenseCountTask = expenseRepository.GetAllRecursiveExpenseCountAsync(modePaymentDomain, cancellationToken);
+
+        await Task.WhenAll(expenseCountTask, bankTransactionCountTask, recursiveExpenseCountTask);
+
+        var expenseCount = await expenseCountTask;
+        var bankTransactionCount = await bankTransactionCountTask;
+        var recursiveExpenseCount = await recursiveExpenseCountTask;
+
+        dependencies.Add(new DeletionDependency { Category = DependencyType.Expense, Count = expenseCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount });
+        dependencies.Add(new DeletionDependency { Category = DependencyType.RecurringExpense, Count = recursiveExpenseCount });
+
+        logger.LogInformation(
+            "Loaded dependencies for mode payment {ModePaymentName}: {ExpenseCount} expenses, {BankTransactionCount} bank transfers, {RecurringExpenseCount} recurring expenses",
+            modePaymentDomain.Name!,
+            expenseCount,
+            bankTransactionCount,
+            recursiveExpenseCount);
+
+        dependencies = GroupDependencies(dependencies).ToList();
+
+        logger.LogInformation("Finished dependency loading for mode payment with {DependencyCount} dependencies", dependencies.Count);
         return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
     }
 

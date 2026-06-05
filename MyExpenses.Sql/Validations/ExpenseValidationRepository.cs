@@ -18,4 +18,10 @@ public class ExpenseValidationRepository(IDbContextFactory<DataBaseContext> dbCo
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         return await context.TCategoryTypes.AnyAsync(a => a.Name == categoryTypeName && a.Id != id, cancellationToken: cancellationToken);
     }
+
+    public async Task<bool> IsModePayementNameAvailableAsync(string name, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        return await context.TModePayments.AnyAsync(m => m.Name == name, cancellationToken);
+    }
 }

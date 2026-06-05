@@ -35,4 +35,19 @@ public interface IExpenseValidationRepository
     /// </returns>
     public Task<bool> IsCategoryTypeNameAlreadyExistAsync(string categoryTypeName, int id,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks if a mode payment name is already available in the database.
+    /// </summary>
+    /// <param name="name">
+    /// The mode payment name to be checked for availability.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The token to monitor for cancellation requests during the asynchronous operation.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains a boolean indicating
+    /// whether the mode payment name is already available (true) or not (false).
+    /// </returns>
+    public Task<bool> IsModePayementNameAvailableAsync(string name, CancellationToken cancellationToken = default);
 }

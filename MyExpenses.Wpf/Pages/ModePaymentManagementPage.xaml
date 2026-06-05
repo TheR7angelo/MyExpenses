@@ -5,17 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behaviors="clr-namespace:MyExpenses.Wpf.Behaviors"
       mc:Ignorable="d"
 
       Title="ModePaymentManagementPage"
 
       d:DesignHeight="450"
       d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:ModePaymentManagementViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <Grid>
 
@@ -27,16 +35,18 @@
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Click="ButtonAddNewModePayment_OnClick">
+                    Command="{Binding DataContext.ManageModePayementCommand, RelativeSource={RelativeSource AncestorType=Page}}">
+
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
                                              Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
                     </materialDesign:PackIcon>
                 </Button.Content>
+
             </Button>
 
-            <ItemsControl ItemsSource="{Binding ModePayments}">
+            <ItemsControl ItemsSource="{Binding ModePaymentViewModels}">
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -49,12 +59,24 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Button
-                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                            Style="{StaticResource MaterialDesignPaperButton}"
-                            Content="{Binding Name}"
-                            Click="ButtonEditModePayment_OnClick">
-                        </Button>
+                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Duration=0:0:0.5, Kind=ExpandIn}">
+
+                            <b:Interaction.Behaviors>
+                                <behaviors:DeleteAnimationBehavior IsDeleting="{Binding IsDeleting}"
+                                                                   Duration="0:0:1"
+                                                                   DeleteCommand="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                   DeleteCommandParameter="{Binding .}">
+                                </behaviors:DeleteAnimationBehavior>
+                            </b:Interaction.Behaviors>
+
+                            <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Content="{Binding Name}"
+                                    Command="{Binding DataContext.ManageModePayementCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                    CommandParameter="{Binding .}">
+                            </Button>
+
+                        </materialDesign:TransitioningContent>
 
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

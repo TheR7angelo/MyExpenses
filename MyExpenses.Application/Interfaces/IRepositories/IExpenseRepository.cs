@@ -8,15 +8,6 @@ namespace MyExpenses.Application.Interfaces.IRepositories;
 public interface IExpenseRepository
 {
     /// <summary>
-    /// Retrieves the total count of all bank transactions associated with a specified account.
-    /// </summary>
-    /// <param name="account">The account for which to retrieve the bank transaction count.</param>
-    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
-    /// <returns>The total number of bank transactions associated with the specified account.</returns>
-    public Task<int> GetAllBankTransactionCountAsync(AccountDomain account,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Retrieves the unique identifiers of all expenses associated with the specified account IDs.
     /// </summary>
     /// <param name="accountIds">An array of account IDs for which to retrieve the expense IDs.</param>
@@ -106,6 +97,14 @@ public interface IExpenseRepository
     public Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the unique identifiers of all recurring transactions associated with the specified payment mode.
+    /// </summary>
+    /// <param name="modePaymentDomain">The payment mode for which to retrieve the recurring transaction IDs.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result object containing an array of integers representing the recurring transaction IDs associated with the specified payment mode.</returns>
+    public Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the total count of expenses associated with a specific account asynchronously.
     /// </summary>
     /// <param name="accountDomain">The account for which the total expense count is to be retrieved.</param>
@@ -128,6 +127,30 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of expenses associated with the specified place.</returns>
     public Task<int> GetAllExpenseCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all expenses associated with a specified mode payment.
+    /// </summary>
+    /// <param name="modePaymentDomain">The mode payment for which to retrieve the expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of expenses associated with the specified mode payment.</returns>
+    public Task<int> GetAllExpenseCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the total count of all bank transactions associated with a specified account.
+    /// </summary>
+    /// <param name="account">The account for which to retrieve the bank transaction count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The total number of bank transactions associated with the specified account.</returns>
+    public Task<int> GetAllBankTransactionCountAsync(AccountDomain account, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the count of bank transactions associated with a specific mode payment.
+    /// </summary>
+    /// <param name="modePaymentDomain">The domain model representing the mode of payment.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The number of bank transactions for the given mode payment.</returns>
+    public Task<int> GetAllBankTransactionCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the total count of all bank transactions associated with a specified category type.
@@ -184,6 +207,14 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of recursive expenses associated with the specified place.</returns>
     public Task<int> GetAllRecursiveExpenseCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the recursive expense count associated with the specified ModePaymentDomain.
+    /// </summary>
+    /// <param name="modePaymentDomain">The ModePaymentDomain for which to retrieve the recursive expense count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>The number of recursively linked expenses associated with the specified ModePaymentDomain.</returns>
+    public Task<int> GetAllRecursiveExpenseCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all category types from the data source.
@@ -266,6 +297,14 @@ public interface IExpenseRepository
     public Task<Result<int[]>> GetAllExpenseIdAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves the unique identifiers of expenses based on the provided domain object.
+    /// </summary>
+    /// <param name="modePaymentDomain">The domain object representing the payment mode to retrieve expense IDs for.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task that represents the asynchronous operation. The result is a Result<int[]> containing the expense IDs associated with the specified payment mode.</returns>
+    public Task<Result<int[]>> GetAllExpenseIdAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the identifiers of all bank transfer transactions associated with the specified category type domains.
     /// </summary>
     /// <param name="categoryTypeDomain">An array of category type domains for which to retrieve the bank transfer transaction identifiers.</param>
@@ -280,4 +319,28 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>A result object containing the IDs of all recurring transactions associated with the specified category types.</returns>
     public Task<Result<int[]>> GetAllRecurringTransactionIdsAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new mode of payment.
+    /// </summary>
+    /// <param name="modePaymentDomain">The domain model representing the mode of payment to create.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A Result containing either the created ModePaymentDomain or an error.</returns>
+    public Task<Result<ModePaymentDomain>> CreateModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates a mode of payment asynchronously.
+    /// </summary>
+    /// <param name="modePaymentDomain">The domain object representing the mode of payment to update.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result indicating whether the update was successful or not.</returns>
+    public Task<Result<ModePaymentDomain>> UpdateModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the mode payment associated with the specified domain object.
+    /// </summary>
+    /// <param name="modePaymentDomain">The domain object representing the mode payment to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task that represents the asynchronous operation. The result is a DeletionResult indicating success or failure of the deletion process.</returns>
+    public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 }

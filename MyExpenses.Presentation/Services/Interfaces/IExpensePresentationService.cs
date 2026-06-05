@@ -86,4 +86,28 @@ public interface IExpensePresentationService
     public Task<Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)>>
         CreateBankTransferAsync(BankTransferViewModel bankTransferViewModel, HistoryViewModel historyViewModel,
             CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a new mode of payment.
+    /// </summary>
+    /// <param name="newModePayment">The model view of the new mode of payment.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains the result of the operation including the created mode payment if successful.</returns>
+    public Task<Result<ModePaymentViewModel>> CreateModePayment(ModePaymentViewModel newModePayment, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates a mode payment.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The mode payment view model to update.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a result indicating success or failure of the operation and any associated error code or message.</returns>
+    public Task<Result<ModePaymentViewModel>> UpdateModePayment(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a mode payment asynchronously.
+    /// </summary>
+    /// <param name="modePaymentViewModel">The mode payment view model to delete.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a deletion result.</returns>
+    public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
 }

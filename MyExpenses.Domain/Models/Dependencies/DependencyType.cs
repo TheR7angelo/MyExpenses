@@ -13,7 +13,8 @@ public enum DependencyType
     AccountType,
     Currency,
     Color,
-    Place
+    Place,
+    ModePayment
 }
 
 public static class DependencyCaptionName

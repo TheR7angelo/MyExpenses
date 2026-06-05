@@ -140,4 +140,25 @@
     <data name="ButtonCancelContentCategoryType" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="ModePaymentViewModelNameRequired" xml:space="preserve">
+        <value>Le nom du mode de paiement est requis</value>
+    </data>
+    <data name="ModePaymentViewModelNameTooLong" xml:space="preserve">
+        <value>Le nom du mode de paiement ne peut pas dépasser {0} caractères</value>
+    </data>
+    <data name="TitleWindowAddModePayment" xml:space="preserve">
+        <value>Ajouter un nouveau mode de paiement</value>
+    </data>
+    <data name="TitleWindowEditModePayment" xml:space="preserve">
+        <value>Paiement en mode édition</value>
+    </data>
+    <data name="TextBoxAddNewModePayment" xml:space="preserve">
+        <value>Ajouter un nouveau mode de paiement :</value>
+    </data>
+    <data name="TextBoxEditModePayment" xml:space="preserve">
+        <value>Mode d’édition du nom du paiement :</value>
+    </data>
+    <data name="ModePaymentViewModelNameAlreadyExists" xml:space="preserve">
+        <value>Le nom du mode de paiement existe déjà</value>
+    </data>
 </root>

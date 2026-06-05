@@ -375,6 +375,33 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name of the payment method already exists.
+        /// </summary>
+        public static string ModePaymentViewModelNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("ModePaymentViewModelNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of mode payment is required.
+        /// </summary>
+        public static string ModePaymentViewModelNameRequired {
+            get {
+                return ResourceManager.GetString("ModePaymentViewModelNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the payment method cannot exceed {0} characters.
+        /// </summary>
+        public static string ModePaymentViewModelNameTooLong {
+            get {
+                return ResourceManager.GetString("ModePaymentViewModelNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Additional reason:.
         /// </summary>
         public static string TextBoxAdditionalReasonHintAssist {
@@ -393,6 +420,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new mode payment name :.
+        /// </summary>
+        public static string TextBoxAddNewModePayment {
+            get {
+                return ResourceManager.GetString("TextBoxAddNewModePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name of the category:.
         /// </summary>
         public static string TextBoxCategoryTypeNameHintAssist {
@@ -407,6 +443,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string TextBoxEditCategoryTypeName {
             get {
                 return ResourceManager.GetString("TextBoxEditCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit mode payment name :.
+        /// </summary>
+        public static string TextBoxEditModePayment {
+            get {
+                return ResourceManager.GetString("TextBoxEditModePayment", resourceCulture);
             }
         }
         
@@ -438,11 +483,29 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new mode payment.
+        /// </summary>
+        public static string TitleWindowAddModePayment {
+            get {
+                return ResourceManager.GetString("TitleWindowAddModePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit category type.
         /// </summary>
         public static string TitleWindowEditCategoryTypeName {
             get {
                 return ResourceManager.GetString("TitleWindowEditCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit mode payment.
+        /// </summary>
+        public static string TitleWindowEditModePayment {
+            get {
+                return ResourceManager.GetString("TitleWindowEditModePayment", resourceCulture);
             }
         }
     }

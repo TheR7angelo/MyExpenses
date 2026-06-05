@@ -90,6 +90,8 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
 
     public partial void Merge(CategoryTypeViewModel src, CategoryTypeViewModel dst);
 
+    public partial void Merge(ModePaymentViewModel src, ModePaymentViewModel dst);
+
     public Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)> MapToViewModel(Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> result)
     {
         var bankTransferDto = MapToViewModel(result.Value.bankTransfer);
@@ -99,6 +101,8 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
             ? Result<(BankTransferViewModel, IEnumerable<HistoryViewModel>)>.Failure(result.ErrorCode, result.InternalMessage ?? string.Empty)
             : Result<(BankTransferViewModel, IEnumerable<HistoryViewModel>)>.Success((bankTransferDto, expenseDtos), result.InternalMessage ?? string.Empty);
     }
+
+    public partial ModePaymentViewModel Clone(ModePaymentViewModel src);
 
     private PlaceDto MapToDto(PlaceViewModel source)
         => locationDtoViewModelMapper.MapToDto(source);
