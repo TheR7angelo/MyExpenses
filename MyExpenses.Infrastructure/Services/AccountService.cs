@@ -22,10 +22,10 @@ public class AccountService(IAccountRepository accountRepository,
         return result.MapSequence(mapperAccount.MapToDto);
     }
 
-    public async Task<AccountDto?> GetAccountAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountDto>> GetAccountAsync(int id, CancellationToken cancellationToken = default)
     {
-        var account = await accountRepository.GetAccountAsync(id, cancellationToken);
-        return account is null ? null : mapperAccount.MapToDto(account);
+        var result = await accountRepository.GetAccountAsync(id, cancellationToken);
+        return result.Map(mapperAccount.MapToDto);
     }
 
     public async Task<IEnumerable<AccountTypeDto>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)

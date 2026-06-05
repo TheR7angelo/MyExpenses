@@ -263,8 +263,13 @@ public partial class AddEditAccountWindow
 
     public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)
     {
-        var accountViewModel = await _accountPresentationService.GetAccount(totalByAccountViewModel);
-        Load(accountViewModel);
+        var result = await _accountPresentationService.GetAccount(totalByAccountViewModel);
+        if (!result.IsSuccess)
+        {
+            _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadAccountErrorContentErrorCaption,
+                AccountResources.MessageBoxLoadAccountErrorContent, MsgBoxImage.Error);
+        }
+        else Load(result.Value);
     }
 
     public void Load(AccountViewModel? accountViewModel)

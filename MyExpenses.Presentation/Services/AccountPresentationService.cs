@@ -71,10 +71,10 @@ public class AccountPresentationService(IAccountService accountService,
         return accountService.DeleteCurrencyAsync(currencyDto, cancellationToken);
     }
 
-    public async Task<AccountViewModel?> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountViewModel>> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default)
     {
-        var accountDto = await accountService.GetAccountAsync(totalByAccountViewModel.Id, cancellationToken);
-        return accountDto is null ? null : viewModelMapper.MapToViewModel(accountDto);
+        var result = await accountService.GetAccountAsync(totalByAccountViewModel.Id, cancellationToken);
+        return result.Map(viewModelMapper.MapToViewModel);
     }
 
     public Task<DeletionResult> DeleteAccountAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)

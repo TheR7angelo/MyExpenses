@@ -103,20 +103,33 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<AccountDomain?> GetAccountAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountDomain>> GetAccountAsync(int id, CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading account with id {AccountId}", id);
+        try
+        {
+            logger.LogInformation("Loading account with id {AccountId}", id);
 
-        var account = await dataBaseContext.TAccounts
-            .Include(s => s.AccountTypeFkNavigation)
-            .Include(s => s.CurrencyFkNavigation)
-            .AsNoTracking()
-            .ProjectToDomain()
-            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+            var account = await dataBaseContext.TAccounts
+                .Include(s => s.AccountTypeFkNavigation)
+                .Include(s => s.CurrencyFkNavigation)
+                .AsNoTracking()
+                .ProjectToDomain()
+                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
 
-        logger.LogInformation("Loaded account");
+            if (account is null)
+            {
+                logger.LogWarning("Account with id {AccountId} was not found", id);
+                return Result<AccountDomain>.Failure(ErrorCode.NotFound, $"The account with id {id} was not found");
+            }
 
-        return account;
+            logger.LogInformation("Loaded account");
+            return Result<AccountDomain>.Success(account);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading account with id {AccountId}", id);
+            return Result<AccountDomain>.Failure(ErrorCode.DatabaseError, "An error occurred while loading the account");
+        }
     }
 
     public async Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)

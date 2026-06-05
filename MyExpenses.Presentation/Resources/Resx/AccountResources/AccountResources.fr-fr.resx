@@ -164,4 +164,7 @@
     <data name="MessageBoxLoadAccountTypeErrorContent" xml:space="preserve">
         <value>Une erreur s’est produite lors du chargement des types de comptes</value>
     </data>
+    <data name="MessageBoxLoadAccountErrorContentErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
 </root>

@@ -36,12 +36,12 @@ public interface IAccountRepository
     public Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the account with the specified identifier asynchronously.
+    /// Retrieves an account by its identifier asynchronously.
     /// </summary>
     /// <param name="id">The unique identifier of the account to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>An instance of <see cref="TotalByAccountDomain"/> containing details of the specified account.</returns>
-    public Task<AccountDomain?> GetAccountAsync(int id, CancellationToken cancellationToken = default);
+    /// <returns>A result containing either the retrieved <see cref="AccountDomain"/> object or an error.</returns>
+    public Task<Result<AccountDomain>> GetAccountAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all account types asynchronously.

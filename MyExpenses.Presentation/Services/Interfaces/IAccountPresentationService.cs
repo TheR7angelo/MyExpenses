@@ -82,12 +82,12 @@ public interface IAccountPresentationService
     public Task<DeletionResult> DeleteCurrencyAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves an account view model associated with the specified total by account view model.
+    /// Retrieves an account view model based on the provided total by account view model.
     /// </summary>
-    /// <param name="totalByAccountViewModel">An instance of <see cref="TotalByAccountViewModel"/> representing the account details.</param>
+    /// <param name="totalByAccountViewModel">The total by account view model.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains an <see cref="AccountViewModel"/>.</return>
-    public Task<AccountViewModel?> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a single <see cref="AccountViewModel"/>.</returns>
+    public Task<Result<AccountViewModel>> GetAccount(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the specified account asynchronously.

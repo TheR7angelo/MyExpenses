@@ -402,6 +402,15 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadAccountErrorContentErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadAccountErrorContentErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while loading account types.
         /// </summary>
         public static string MessageBoxLoadAccountTypeErrorContent {
