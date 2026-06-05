@@ -132,32 +132,48 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountTypeDomain>>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        logger.LogInformation("Loading all account types");
-        var accountTypes = await context.TAccountTypes
-            .AsNoTracking()
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+            logger.LogInformation("Loading all account types");
+            var accountTypes = await context.TAccountTypes
+                .AsNoTracking()
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} account type", accountTypes.Length);
-        return accountTypes;
+            logger.LogInformation("Loaded {Count} account type", accountTypes.Length);
+            return Result<IEnumerable<AccountTypeDomain>>.Success(accountTypes);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading account types");
+            return Result<IEnumerable<AccountTypeDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading account types");
+        }
     }
 
-    public async Task<IEnumerable<CurrencyDomain>> GetAllCurrencyAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CurrencyDomain>>> GetAllCurrencyAsync(CancellationToken cancellationToken = default)
     {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        logger.LogInformation("Loading all currencies");
-        var currencies = await context.TCurrencies
-            .AsNoTracking()
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+            logger.LogInformation("Loading all currencies");
+            var currencies = await context.TCurrencies
+                .AsNoTracking()
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} currency", currencies.Length);
-        return currencies;
+            logger.LogInformation("Loaded {Count} currency", currencies.Length);
+            return Result<IEnumerable<CurrencyDomain>>.Success(currencies);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading currencies");
+            return Result<IEnumerable<CurrencyDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading currencies");
+        }
     }
 
     public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)

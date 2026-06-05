@@ -16,6 +16,7 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
+using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -254,11 +255,23 @@ public partial class AddEditAccountWindow
 
     private async Task FillCollection()
     {
+        var getAllAccountTypeTask = _accountPresentationService.GetAllAccountTypeViewModelAsync();
+        var getAllCurrenciesTask = _accountPresentationService.GetAllCurrencyViewModelAsync();
+
         await Task.WhenAll(
             _expensePresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
-            _accountPresentationService.GetAllCurrencyViewModelAsync().LoadAndSortAsync(Currencies, x => x.Symbol!),
-            _accountPresentationService.GetAllAccountTypeViewModelAsync().LoadAndSortAsync(AccountTypes, x => x.Name!)
-        );
+            getAllCurrenciesTask,
+            getAllAccountTypeTask);
+
+        var resultCurrencies = getAllCurrenciesTask.Result;
+        if (resultCurrencies.IsSuccess) Currencies.AddRangeAndSort(resultCurrencies.Value!, s => s.Symbol!);
+        else _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadCurrencyError,
+            AccountResources.MessageBoxLoadCurrencyErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+
+        var resultAccountType = getAllAccountTypeTask.Result;
+        if (resultAccountType.IsSuccess) AccountTypes.AddRangeAndSort(resultAccountType.Value!, s => s.Name!);
+        else _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadAccountTypeErrorCaption,
+            AccountResources.MessageBoxLoadAccountTypeErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
     }
 
     public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)

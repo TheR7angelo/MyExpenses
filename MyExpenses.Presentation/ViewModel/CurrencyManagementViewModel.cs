@@ -2,8 +2,10 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
@@ -42,6 +44,14 @@ public partial class CurrencyManagementViewModel : ViewModelBase
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
 
     /// <summary>
+    /// Manages the display and interaction of dialogs within the application.
+    /// Provides methods for showing input dialogs, message boxes,
+    /// and confirmation messages. Used to handle user interactions
+    /// that require dialog inputs or confirmations.
+    /// </summary>
+    private readonly IDialogService _dialogService;
+
+    /// <summary>
     /// Gets the collection of currency view models that represent individual currency entries in the application.
     /// This property provides an observable collection of <see cref="CurrencyViewModel"/>, serving as the data source
     /// for displaying and managing currencies within the user interface. Modifications to the collection, such as adding,
@@ -58,11 +68,13 @@ public partial class CurrencyManagementViewModel : ViewModelBase
     /// </summary>
     public CurrencyManagementViewModel(IAccountPresentationService accountPresentationService,
         IAccountActionService accountActionService,
-        IAccountDtoViewModelMapper accountDtoViewModelMapper)
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
+        IDialogService dialogService)
     {
         _accountPresentationService = accountPresentationService;
         _accountActionService = accountActionService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        _dialogService = dialogService;
 
         RegisterMessages();
     }
@@ -168,7 +180,9 @@ public partial class CurrencyManagementViewModel : ViewModelBase
     [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
-        var currencies = await _accountPresentationService.GetAllCurrencyViewModelAsync(cancellationToken);
-        CurrencyViewModels.AddRangeAndSort(currencies, s => s.Symbol!);
+        var result = await _accountPresentationService.GetAllCurrencyViewModelAsync(cancellationToken);
+        if(!result.IsSuccess) _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadCurrencyError,
+            AccountResources.MessageBoxLoadCurrencyErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        else CurrencyViewModels.AddRangeAndSort(result.Value!, s => s.Symbol!);
     }
 }

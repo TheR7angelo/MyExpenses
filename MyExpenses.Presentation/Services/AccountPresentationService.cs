@@ -21,16 +21,16 @@ public class AccountPresentationService(IAccountService accountService,
         return result.MapSequence(viewModelMapper.MapToViewModel);
     }
 
-    public async Task<IEnumerable<AccountTypeViewModel>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountTypeViewModel>>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var accountTypes = await accountService.GetAllAccountTypeAsync(cancellationToken);
-        return accountTypes.Select(viewModelMapper.MapToViewModel);
+        var result = await accountService.GetAllAccountTypeAsync(cancellationToken);
+        return result.MapSequence(viewModelMapper.MapToViewModel);
     }
 
-    public async Task<IEnumerable<CurrencyViewModel>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CurrencyViewModel>>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var currencies = await accountService.GetAllCurrencyAsync(cancellationToken);
-        return currencies.Select(viewModelMapper.MapToViewModel);
+        var result = await accountService.GetAllCurrencyAsync(cancellationToken);
+        return result.MapSequence(viewModelMapper.MapToViewModel);
     }
 
     public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)

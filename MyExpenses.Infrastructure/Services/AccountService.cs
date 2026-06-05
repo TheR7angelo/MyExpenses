@@ -28,16 +28,16 @@ public class AccountService(IAccountRepository accountRepository,
         return result.Map(mapperAccount.MapToDto);
     }
 
-    public async Task<IEnumerable<AccountTypeDto>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountTypeDto>>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
     {
-        var accountTypes = await accountRepository.GetAllAccountTypeAsync(cancellationToken);
-        return accountTypes.Select(mapperAccount.MapToDto);
+        var result = await accountRepository.GetAllAccountTypeAsync(cancellationToken);
+        return result.MapSequence(mapperAccount.MapToDto);
     }
 
-    public async Task<IEnumerable<CurrencyDto>> GetAllCurrencyAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CurrencyDto>>> GetAllCurrencyAsync(CancellationToken cancellationToken = default)
     {
-        var currencies = await accountRepository.GetAllCurrencyAsync(cancellationToken);
-        return currencies.Select(mapperAccount.MapToDto);
+        var result = await accountRepository.GetAllCurrencyAsync(cancellationToken);
+        return result.MapSequence(mapperAccount.MapToDto);
     }
 
     public async Task<DeletionResult> DeleteAccountTypeAsync(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default)

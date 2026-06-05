@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Services;
@@ -180,7 +181,12 @@ public partial class AccountTypeManagementViewModel : ViewModelBase
     {
         AccountTypes.Clear();
 
-        var items = await _accountService.GetAllAccountTypeViewModelAsync();
-        AccountTypes.AddRangeAndSort(items, s => s.Name!);
+        var result = await _accountService.GetAllAccountTypeViewModelAsync();
+        if (!result.IsSuccess)
+        {
+            _dialog.ShowMessageBox(AccountResources.MessageBoxLoadAccountTypeErrorCaption,
+                AccountResources.MessageBoxLoadAccountTypeErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
+        else AccountTypes.AddRangeAndSort(result.Value!, s => s.Name!);
     }
 }

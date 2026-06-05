@@ -23,15 +23,15 @@ public interface IAccountPresentationService
     /// Retrieves all account type view models asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a collection of <see cref="AccountTypeViewModel"/>.</return>
-    public Task<IEnumerable<AccountTypeViewModel>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of <see cref="AccountTypeViewModel"/>.</returns>
+    public Task<Result<IEnumerable<AccountTypeViewModel>>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all currency view models asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a collection of <see cref="CurrencyViewModel"/>.</return>
-    public Task<IEnumerable<CurrencyViewModel>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of <see cref="CurrencyViewModel"/>.</returns>
+    public Task<Result<IEnumerable<CurrencyViewModel>>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the specified account type asynchronously.

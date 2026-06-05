@@ -47,15 +47,15 @@ public interface IAccountRepository
     /// Retrieves all account types asynchronously.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A collection of <see cref="AccountTypeDomain"/> objects representing the available account types.</returns>
-    public Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
+    /// <returns>A result containing either a collection of <see cref="AccountTypeDomain"/> objects or an error.</returns>
+    public Task<Result<IEnumerable<AccountTypeDomain>>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all available currencies asynchronously.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A collection of <see cref="CurrencyDomain"/> objects representing the available currencies.</returns>
-    public Task<IEnumerable<CurrencyDomain>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
+    /// <returns>A result containing either a collection of <see cref="CurrencyDomain"/> objects or an error.</returns>
+    public Task<Result<IEnumerable<CurrencyDomain>>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the specified account type asynchronously.

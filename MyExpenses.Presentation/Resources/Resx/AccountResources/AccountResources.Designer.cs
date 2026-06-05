@@ -411,11 +411,38 @@ namespace MyExpenses.Presentation.Resources.Resx.AccountResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadAccountTypeErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadAccountTypeErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while loading account types.
         /// </summary>
         public static string MessageBoxLoadAccountTypeErrorContent {
             get {
                 return ResourceManager.GetString("MessageBoxLoadAccountTypeErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadCurrencyError {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadCurrencyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while loading currencies.
+        /// </summary>
+        public static string MessageBoxLoadCurrencyErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadCurrencyErrorContent", resourceCulture);
             }
         }
         

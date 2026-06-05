@@ -28,20 +28,18 @@ public interface IAccountService
     public Task<Result<AccountDto>> GetAccountAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a collection of account types, including details such as ID, name, and date added.
+    /// Retrieves a collection of account types.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="AccountTypeDto"/> objects.</returns>
-    public Task<IEnumerable<AccountTypeDto>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<AccountTypeDto>>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a collection of available currencies, including details such as ID, symbol, and date added.
+    /// Retrieves a collection of currency details.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="CurrencyDto"/> objects.</returns>
-    public Task<IEnumerable<CurrencyDto>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
-
-    // public Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<CurrencyDto>>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes an account type and returns the result of the deletion operation, including any deleted items and associated details.

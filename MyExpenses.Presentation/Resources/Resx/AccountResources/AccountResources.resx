@@ -174,4 +174,13 @@
     <data name="MessageBoxLoadAccountErrorContentErrorCaption" xml:space="preserve">
         <value>Error</value>
     </data>
+    <data name="MessageBoxLoadAccountTypeErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxLoadCurrencyErrorContent" xml:space="preserve">
+        <value>An error occurred while loading currencies</value>
+    </data>
+    <data name="MessageBoxLoadCurrencyError" xml:space="preserve">
+        <value>Error</value>
+    </data>
 </root>
