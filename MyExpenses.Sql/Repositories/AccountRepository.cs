@@ -80,19 +80,27 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading all accounts with currency {CurrencySymbol}", currencyDomain.Symbol);
+        try
+        {
+            logger.LogInformation("Loading all accounts with currency {CurrencySymbol}", currencyDomain.Symbol);
 
-        var accounts = await dataBaseContext.TAccounts
-            .AsNoTracking()
-            .Where(s => s.CurrencyFk == currencyDomain.Id)
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+            var accounts = await dataBaseContext.TAccounts
+                .AsNoTracking()
+                .Where(s => s.CurrencyFk == currencyDomain.Id)
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} account", accounts.Length);
+            logger.LogInformation("Loaded {Count} account", accounts.Length);
 
-        return accounts;
+            return Result<IEnumerable<AccountDomain>>.Success(accounts);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading accounts with currency {CurrencySymbol}", currencyDomain.Symbol);
+            return Result<IEnumerable<AccountDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading accounts with the specified currency");
+        }
     }
 
     public async Task<AccountDomain?> GetAccountAsync(int id, CancellationToken cancellationToken = default)
