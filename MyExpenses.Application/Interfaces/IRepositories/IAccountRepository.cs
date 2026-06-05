@@ -13,11 +13,11 @@ public interface IAccountRepository
     public Task<Result<IEnumerable<TotalByAccountDomain>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all accounts asynchronously.
+    /// Retrieves a collection of all accounts asynchronously.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A collection of <see cref="AccountDomain"/> objects representing the available accounts.</returns>
-    public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default);
+    /// <returns>A result containing either a collection of <see cref="AccountDomain"/> objects or an error.</returns>
+    public Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all accounts asynchronously based on the specified account type.

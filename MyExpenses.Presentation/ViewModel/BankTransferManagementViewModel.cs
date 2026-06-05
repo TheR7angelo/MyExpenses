@@ -416,7 +416,11 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
         CategoryTypeViewModels.AddRangeAndSort(categoryTypeTask.Result, s => s.Name!);
         ModePaymentViewModels.AddRangeAndSort(modePaymentTask.Result, s => s.Name!);
-        Accounts.AddRangeAndSort(accountTask.Result, s => s.Name!);
+
+        var resultAccounts = accountTask.Result;
+        if (!resultAccounts.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxLoadAccountErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        else Accounts.AddRangeAndSort(resultAccounts.Value!, s => s.Name!);
 
         var resultTotalByAccount = totalByAccountTask.Result;
         if (!resultTotalByAccount.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,

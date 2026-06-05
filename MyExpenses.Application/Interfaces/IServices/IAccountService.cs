@@ -13,11 +13,11 @@ public interface IAccountService
     public Task<Result<IEnumerable<TotalByAccountDto>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a collection of account details, including properties such as name, type, currency, and activity status.
+    /// Retrieves a collection of accounts.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="AccountDto"/> objects.</returns>
-    public Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<AccountDto>>> GetAllAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves an account based on the specified account ID.

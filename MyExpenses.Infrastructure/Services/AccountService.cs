@@ -16,10 +16,10 @@ public class AccountService(IAccountRepository accountRepository,
         return result.MapSequence(mapperAccount.MapToDto);
     }
 
-    public async Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountDto>>> GetAllAccountAsync(CancellationToken cancellationToken = default)
     {
-        var accounts = await accountRepository.GetAllAccountAsync(cancellationToken);
-        return accounts.Select(mapperAccount.MapToDto);
+        var result = await accountRepository.GetAllAccountAsync(cancellationToken);
+        return result.MapSequence(mapperAccount.MapToDto);
     }
 
     public async Task<AccountDto?> GetAccountAsync(int id, CancellationToken cancellationToken = default)

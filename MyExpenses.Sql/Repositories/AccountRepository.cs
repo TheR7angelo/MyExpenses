@@ -34,18 +34,26 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountDomain>>> GetAllAccountAsync(CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading all accounts");
-        var accounts = await dataBaseContext.TAccounts
-            .AsNoTracking()
-            .Include(s => s.CurrencyFkNavigation)
-            .Include(s => s.AccountTypeFkNavigation)
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+        try
+        {
+            logger.LogInformation("Loading all accounts");
+            var accounts = await dataBaseContext.TAccounts
+                .AsNoTracking()
+                .Include(s => s.CurrencyFkNavigation)
+                .Include(s => s.AccountTypeFkNavigation)
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} account", accounts.Length);
-        return accounts;
+            logger.LogInformation("Loaded {Count} account", accounts.Length);
+            return Result<IEnumerable<AccountDomain>>.Success(accounts);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading all accounts");
+            return Result<IEnumerable<AccountDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading accounts");
+        }
     }
 
     public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(AccountTypeDomain accountType, CancellationToken cancellationToken = default)

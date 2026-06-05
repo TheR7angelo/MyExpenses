@@ -9,10 +9,10 @@ namespace MyExpenses.Presentation.Services;
 public class AccountPresentationService(IAccountService accountService,
     IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
 {
-    public async Task<IEnumerable<AccountViewModel>> GetAllAccountViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<AccountViewModel>>> GetAllAccountViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var accounts = await accountService.GetAllAccountAsync(cancellationToken);
-        return accounts.Select(viewModelMapper.MapToViewModel);
+        var result = await accountService.GetAllAccountAsync(cancellationToken);
+        return result.MapSequence(viewModelMapper.MapToViewModel);
     }
 
     public async Task<Result<IEnumerable<TotalByAccountViewModel>>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default)
