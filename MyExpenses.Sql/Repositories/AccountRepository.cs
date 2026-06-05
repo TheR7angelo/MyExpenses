@@ -14,16 +14,24 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
     IExpenseRepository expenseRepository,
     ILogger<AccountRepository> logger) : IAccountRepository
 {
-    public async Task<IEnumerable<TotalByAccountDomain>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<TotalByAccountDomain>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading all totals by account");
-        var totalByAccounts = await dataBaseContext.VTotalByAccounts
-            .AsNoTracking()
-            .ProjectToDomain()
-            .ToArrayAsync(cancellationToken);
+        try
+        {
+            logger.LogInformation("Loading all totals by account");
+            var totalByAccounts = await dataBaseContext.VTotalByAccounts
+                .AsNoTracking()
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} total by account", totalByAccounts.Length);
-        return totalByAccounts;
+            logger.LogInformation("Loaded {Count} total by account", totalByAccounts.Length);
+            return Result<IEnumerable<TotalByAccountDomain>>.Success(totalByAccounts, "Totals by account were successfully loaded");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading all totals by account");
+            return Result<IEnumerable<TotalByAccountDomain>>.Failure(ErrorCode.DatabaseError, "An error occurred while loading totals by account");
+        }
     }
 
     public async Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default)

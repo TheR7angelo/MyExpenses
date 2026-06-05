@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
@@ -172,8 +173,11 @@ public partial class AccountManagementViewModel : ViewModelBase
     {
         TotalByAccounts.Clear();
 
-        var items = await _accountService.GetAllTotalByAccountViewModelAsync();
-        TotalByAccounts.AddRangeAndSort(items, s => s.Name);
+        var result = await _accountService.GetAllTotalByAccountViewModelAsync();
+        if (!result.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+            AccountResources.MessageBoxLoadAccountErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        else
+            TotalByAccounts.AddRangeAndSort(result.Value!, s => s.Name);
     }
 
     /// <summary>

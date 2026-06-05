@@ -10,10 +10,10 @@ public class AccountService(IAccountRepository accountRepository,
     IAccountDtoDomainMapper mapperAccount)
     : IAccountService
 {
-    public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<TotalByAccountDto>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
-        var totalByAccountDomain = await accountRepository.GetAllTotalByAccountAsync(cancellationToken);
-        return totalByAccountDomain.Select(mapperAccount.MapToDto);
+        var result = await accountRepository.GetAllTotalByAccountAsync(cancellationToken);
+        return result.MapSequence(mapperAccount.MapToDto);
     }
 
     public async Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default)

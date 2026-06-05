@@ -740,7 +740,7 @@ public partial class DashBoardPage
     {
         // ReSharper disable once HeapView.ClosureAllocation
         var newVTotalByAccounts = (await _accountPresentationService.GetAllTotalByAccountViewModelAsync())
-            .ToList();
+            .Value!.ToList();
 
         var itemsToDelete = VTotalByAccounts
             // ReSharper disable HeapView.DelegateAllocation

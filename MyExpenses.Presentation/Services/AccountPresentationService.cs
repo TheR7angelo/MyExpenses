@@ -15,10 +15,10 @@ public class AccountPresentationService(IAccountService accountService,
         return accounts.Select(viewModelMapper.MapToViewModel);
     }
 
-    public async Task<IEnumerable<TotalByAccountViewModel>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<TotalByAccountViewModel>>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var totalByAccountDto = await accountService.GetAllTotalByAccountAsync(cancellationToken);
-        return totalByAccountDto.Select(viewModelMapper.MapToViewModel);
+        var result = await accountService.GetAllTotalByAccountAsync(cancellationToken);
+        return result.MapSequence(viewModelMapper.MapToViewModel);
     }
 
     public async Task<IEnumerable<AccountTypeViewModel>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default)

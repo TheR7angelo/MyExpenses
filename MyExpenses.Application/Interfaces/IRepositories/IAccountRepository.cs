@@ -6,11 +6,11 @@ namespace MyExpenses.Application.Interfaces.IRepositories;
 public interface IAccountRepository
 {
     /// <summary>
-    /// Retrieves the total amounts for all accounts asynchronously.
+    /// Retrieves a collection of total amounts by account asynchronously.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A collection of <see cref="TotalByAccountDomain"/> objects containing account totals and related information.</returns>
-    public Task<IEnumerable<TotalByAccountDomain>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
+    /// <returns>A result containing either a collection of <see cref="TotalByAccountDomain"/> objects or an error.</returns>
+    public Task<Result<IEnumerable<TotalByAccountDomain>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the names of all accounts asynchronously.

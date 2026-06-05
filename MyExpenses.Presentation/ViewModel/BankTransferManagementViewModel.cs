@@ -7,6 +7,7 @@ using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -416,7 +417,11 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         CategoryTypeViewModels.AddRangeAndSort(categoryTypeTask.Result, s => s.Name!);
         ModePaymentViewModels.AddRangeAndSort(modePaymentTask.Result, s => s.Name!);
         Accounts.AddRangeAndSort(accountTask.Result, s => s.Name!);
-        TotalByAccounts.AddRange(totalByAccountTask.Result);
+
+        var resultTotalByAccount = totalByAccountTask.Result;
+        if (!resultTotalByAccount.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
+                AccountResources.MessageBoxLoadAccountErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        else TotalByAccounts.AddRange(resultTotalByAccount.Value!);
 
         OnPropertyChanged(nameof(FromAccounts));
         OnPropertyChanged(nameof(ToAccounts));

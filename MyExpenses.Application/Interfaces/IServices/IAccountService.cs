@@ -6,11 +6,11 @@ namespace MyExpenses.Application.Interfaces.IServices;
 public interface IAccountService
 {
     /// <summary>
-    /// Retrieves a collection of total amounts by account, including details such as total, total pointed, and total not pointed.
+    /// Retrieves a collection of totals by account.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="TotalByAccountDto"/> objects.</returns>
-    public Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<TotalByAccountDto>>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a collection of account details, including properties such as name, type, currency, and activity status.

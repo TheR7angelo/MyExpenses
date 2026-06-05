@@ -16,9 +16,8 @@ public interface IAccountPresentationService
     /// Retrieves all total by account view models asynchronously.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a collection of <see cref="TotalByAccountViewModel"/>.</return>
-    public Task<IEnumerable<TotalByAccountViewModel>> GetAllTotalByAccountViewModelAsync(
-        CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of <see cref="TotalByAccountViewModel"/>.</returns>
+    public Task<Result<IEnumerable<TotalByAccountViewModel>>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all account type view models asynchronously.
