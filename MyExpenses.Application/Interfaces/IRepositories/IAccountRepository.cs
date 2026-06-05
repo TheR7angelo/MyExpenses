@@ -131,10 +131,10 @@ public interface IAccountRepository
     public Task<Result<AccountDomain>> CreateAccount(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the total amounts for a specific account asynchronously.
+    /// Retrieves the total amount for a specific account asynchronously.
     /// </summary>
-    /// <param name="accountDomain">The account domain object representing the account for which the totals are being calculated.</param>
+    /// <param name="accountDomain">The domain model representing the account.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="TotalByAccountDomain"/> object containing the total amounts and related information for the specified account.</returns>
-    public Task<TotalByAccountDomain?> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
+    /// <returns>A result containing either the total amount as a <see cref="TotalByAccountDomain"/> object or an error.</returns>
+    public Task<Result<TotalByAccountDomain>> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default);
 }

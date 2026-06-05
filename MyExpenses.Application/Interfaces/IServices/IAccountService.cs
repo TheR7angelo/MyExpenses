@@ -115,10 +115,10 @@ public interface IAccountService
     public Task<Result<AccountDto>> CreateAccount(AccountDto accountDto, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the total amounts for a specific account, including details such as total, total pointed, and total not pointed.
+    /// Retrieves the total by account based on the provided account DTO.
     /// </summary>
-    /// <param name="accountDto">The account data transfer object containing the account information.</param>
+    /// <param name="accountDto">The account data transfer object.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="TotalByAccountDto"/> object with the total amounts for the specified account.</returns>
-    public Task<TotalByAccountDto?> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{TotalByAccountDto}"/> object.</returns>
+    public Task<Result<TotalByAccountDto>> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default);
 }

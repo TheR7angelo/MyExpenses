@@ -243,10 +243,13 @@ public partial class AccountManagementViewModel : ViewModelBase
     /// <returns>A task representing the asynchronous operation.</returns>
     private async Task ApplyAddAsync(AccountViewModel vm)
     {
-        var item = await _accountService.GetTotalByAccountViewModelAsync(vm);
-        if (item is null) return;
-
-        TotalByAccounts.AddAndSort(item, s => s.Name);
+        var result = await _accountService.GetTotalByAccountViewModelAsync(vm);
+        if (result.IsSuccess) TotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
+        else
+        {
+            _dialog.ShowMessageBox(AccountResources.MessageBoxAddAccountErrorCaption,
+                AccountResources.MessageBoxAddAccountErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
     }
 
     /// <summary>

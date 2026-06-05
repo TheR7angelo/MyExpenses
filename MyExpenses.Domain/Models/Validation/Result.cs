@@ -2,6 +2,7 @@ using Domain.Models.Dependencies;
 
 namespace Domain.Models.Validation;
 
+// TODO make internal
 public class Result
 {
     public bool IsSuccess { get; private set; }

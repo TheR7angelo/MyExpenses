@@ -176,4 +176,10 @@
     <data name="MessageBoxLoadCurrencyError" xml:space="preserve">
         <value>Erreur</value>
     </data>
+    <data name="MessageBoxAddAccountErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxAddAccountErrorContent" xml:space="preserve">
+        <value>Une erreur est survenue, veuillez réessayer</value>
+    </data>
 </root>

@@ -114,17 +114,10 @@ public interface IAccountPresentationService
     public Task<Result<AccountViewModel>> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves the total information associated with a specific account view model asynchronously.
+    /// Retrieves the total by account view model asynchronously.
     /// </summary>
-    /// <param name="accountViewModel">The account view model for which the total information is to be retrieved.</param>
+    /// <param name="accountViewModel">The account view model.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains the <see cref="TotalByAccountViewModel"/> corresponding to the provided account view model.</return>
-    public Task<TotalByAccountViewModel?> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Merges the data from the source account view model into the destination account view model.
-    /// </summary>
-    /// <param name="src">The source account view model containing the data to be merged.</param>
-    /// <param name="dst">The destination account view model where the data will be merged.</param>
-    public void Merge(AccountViewModel src, AccountViewModel dst);
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="Result{T}"/> of <see cref="TotalByAccountViewModel"/>.</returns>
+    public Task<Result<TotalByAccountViewModel>> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 }

@@ -467,9 +467,9 @@ public partial class DashBoardPage
 
             if (m.Value.DataAction is DataAction.Add)
             {
-                var item = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
-                if (item is null) return;
-                VTotalByAccounts.AddAndSort(item, s => s.Name);
+                var result = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
+                if (!result.IsSuccess) return;
+                VTotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
             }
         });
     }

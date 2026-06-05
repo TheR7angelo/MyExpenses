@@ -100,11 +100,10 @@ public class AccountService(IAccountRepository accountRepository,
         return mapperAccount.MapToDto(success);
     }
 
-    public async Task<TotalByAccountDto?> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    public async Task<Result<TotalByAccountDto>> GetTotalByAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
     {
         var domain = mapperAccount.MapToDomain(accountDto);
-
-        var totalByAccountDomain = await accountRepository.GetTotalByAccountAsync(domain, cancellationToken);
-        return totalByAccountDomain is null ? null : mapperAccount.MapToDto(totalByAccountDomain);
+        var result = await accountRepository.GetTotalByAccountAsync(domain, cancellationToken);
+        return result.Map(mapperAccount.MapToDto);
     }
 }

@@ -99,15 +99,10 @@ public class AccountPresentationService(IAccountService accountService,
         return viewModelMapper.MapToViewModel(success);
     }
 
-    public async Task<TotalByAccountViewModel?> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<TotalByAccountViewModel>> GetTotalByAccountViewModelAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
         var dto = viewModelMapper.MapToDto(accountViewModel);
-        var totalByAccountDto = await accountService.GetTotalByAccountAsync(dto, cancellationToken);
-        return totalByAccountDto is null ? null : viewModelMapper.MapToViewModel(totalByAccountDto);
-    }
-
-    public void Merge(AccountViewModel src, AccountViewModel dst)
-    {
-        viewModelMapper.Merge(src, dst);
+        var result = await accountService.GetTotalByAccountAsync(dto, cancellationToken);
+        return result.Map(viewModelMapper.MapToViewModel);
     }
 }

@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
 using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
@@ -33,6 +34,14 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     /// </summary>
     private readonly INavigationService _navigationService;
 
+    /// <summary>
+    /// The mapper for converting between account DTOs and view models.
+    /// </summary>
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+
+    /// <summary>
+    /// The service responsible for managing navigation within the application's windows.
+    /// </summary>
     private readonly INavigationWindowService _navigationWindowService;
 
     /// <summary>
@@ -150,6 +159,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
     public BankTransferManagementViewModel(IAccountPresentationService accountService,
         IExpensePresentationService expensePresentationService,
         IExpenseActionService expenseActionService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationService navigationService, INavigationWindowService navigationWindowService,
         IDialogService dialog, ILogger<BankTransferManagementViewModel> logger)
     {
@@ -157,6 +167,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         _expensePresentationService = expensePresentationService;
         _expenseActionService = expenseActionService;
         _navigationService = navigationService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
         _dialog = dialog;
         _logger = logger;
@@ -295,8 +306,8 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         OnPropertyChanged(nameof(FromAccounts));
         OnPropertyChanged(nameof(ToAccounts));
 
-        var item = await _accountService.GetTotalByAccountViewModelAsync(vm);
-        if (item is not null) TotalByAccounts.Add(item);
+        var result = await _accountService.GetTotalByAccountViewModelAsync(vm);
+        if (result.IsSuccess) TotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
 
         // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (_currentAccountSource)
@@ -323,7 +334,7 @@ public partial class BankTransferManagementViewModel : ViewModelBase
         var item = Accounts.FirstOrDefault(s => s.Id == vm.Id);
         if (item is null) return;
 
-        _accountService.Merge(vm, item);
+        _accountDtoViewModelMapper.Merge(vm, item);
     }
 
     /// <summary>

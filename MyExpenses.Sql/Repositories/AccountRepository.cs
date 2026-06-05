@@ -551,22 +551,31 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<TotalByAccountDomain?> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<TotalByAccountDomain>> GetTotalByAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading total by account with name {AccountName} and id {AccountId}", accountDomain.Name, accountDomain.Id);
-        var totalByAccount = await dataBaseContext.VTotalByAccounts
-            .AsNoTracking()
-            .ProjectToDomain()
-            .FirstOrDefaultAsync(s => s.Id == accountDomain.Id, cancellationToken);
-
-        if (totalByAccount is null)
+        try
         {
-            logger.LogWarning("Total by account with id {AccountId} not found", accountDomain.Id);
-            return null;
-        }
+            logger.LogInformation("Loading total by account with name {AccountName} and id {AccountId}",
+                accountDomain.Name, accountDomain.Id);
+            var totalByAccount = await dataBaseContext.VTotalByAccounts
+                .AsNoTracking()
+                .ProjectToDomain()
+                .FirstOrDefaultAsync(s => s.Id == accountDomain.Id, cancellationToken);
 
-        logger.LogInformation("Loaded total by account with id {AccountId}", totalByAccount.Id);
-        return totalByAccount;
+            if (totalByAccount is null)
+            {
+                logger.LogWarning("Total by account with id {AccountId} not found", accountDomain.Id);
+                return Result<TotalByAccountDomain>.Failure(ErrorCode.NotFound, "Total by account not found");
+            }
+
+            logger.LogInformation("Loaded total by account with id {AccountId}", totalByAccount.Id);
+            return Result<TotalByAccountDomain>.Success(totalByAccount, "Total by account found");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "An error occurred while loading total by account with name {AccountName} and id {AccountId}", accountDomain.Name, accountDomain.Id);
+            return Result<TotalByAccountDomain>.Failure(ErrorCode.DatabaseError, "An error occurred while loading total by account");
+        }
     }
 
     private async Task<int[]> GetAllAccountIdAsync(AccountTypeDomain accountType,
