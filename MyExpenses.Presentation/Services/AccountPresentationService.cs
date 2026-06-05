@@ -46,10 +46,11 @@ public class AccountPresentationService(IAccountService accountService,
         return viewModelMapper.MapToViewModel(success);
     }
 
-    public async Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeViewModel>> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
     {
         var accountTypeDto = viewModelMapper.MapToDto(accountTypeViewModel);
-        return await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
+        var result = await accountService.UpdateAccountTypeName(accountTypeDto, cancellationToken);
+        return viewModelMapper.MapToViewModel(result);
     }
 
     public async Task<Result<CurrencyViewModel>> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default)
@@ -59,10 +60,11 @@ public class AccountPresentationService(IAccountService accountService,
         return viewModelMapper.MapToViewModel(success);
     }
 
-    public Task<Result> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyViewModel>> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)
     {
         var currencyDto = viewModelMapper.MapToDto(currencyViewModel);
-        return accountService.UpdateCurrencySymbolAsync(currencyDto, cancellationToken);
+        var result = await accountService.UpdateCurrencySymbolAsync(currencyDto, cancellationToken);
+        return result.Map(viewModelMapper.MapToViewModel);
     }
 
     public Task<DeletionResult> DeleteCurrencyAsync(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default)

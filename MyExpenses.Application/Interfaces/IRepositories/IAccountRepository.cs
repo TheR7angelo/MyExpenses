@@ -79,8 +79,8 @@ public interface IAccountRepository
     /// </summary>
     /// <param name="accountTypeDomain">The account type to update, including its new name and existing identifier.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="Result"/> indicating the success or failure of the update operation.</returns>
-    public Task<Result> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default);
+    /// <returns>A <see cref="Result{AccountTypeDomain}"/> indicating the success or failure of the update operation.</returns>
+    public Task<Result<AccountTypeDomain>> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Asynchronously adds a new currency to the account repository.
@@ -95,8 +95,8 @@ public interface IAccountRepository
     /// </summary>
     /// <param name="currencyDomain">The domain object representing the currency to be updated.</param>
     /// <param name="cancellationToken">The cancellation token to observe while waiting for the operation to complete.</param>
-    /// <returns>A <see cref="Result"/> object indicating the success or failure of the update operation.</returns>
-    public Task<Result> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
+    /// <returns>A <see cref="Result{CurrencyDomain}"/> object indicating the success or failure of the update operation.</returns>
+    public Task<Result<CurrencyDomain>> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a specified currency asynchronously.

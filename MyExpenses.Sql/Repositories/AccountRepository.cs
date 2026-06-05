@@ -268,7 +268,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountTypeDomain>> UpdateAccountTypeName(AccountTypeDomain accountTypeDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -282,19 +282,21 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             var updatedAccountType = await context.TAccountTypes.FirstOrDefaultAsync(s => s.Id == accountTypeDomain.Id, cancellationToken);
             if (updatedAccountType is null)
             {
-                return Result.Failure(ErrorCode.NotFound, "Account type not found");
+                return Result<AccountTypeDomain>.Failure(ErrorCode.NotFound, "Account type not found");
             }
 
             updatedAccountType.Name = accountTypeDomain.Name;
             await context.SaveChangesAsync(cancellationToken);
 
+            accountTypeDomain = updatedAccountType.MapToDomain();
+
             logger.LogInformation("Account type (ID={AccountTypeId}) with name {AccountTypeName} was successfully updated", accountTypeDomain.Id, accountTypeDomain.Name);
-            return Result.Success("Account type was successfully updated");
+            return Result<AccountTypeDomain>.Success(accountTypeDomain, "Account type was successfully updated");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to update account type (ID={AccountTypeId}) with name {AccountTypeName}", accountTypeDomain.Id, accountTypeDomain.Name);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to update account type");
+            return Result<AccountTypeDomain>.Failure(ErrorCode.DatabaseError, "Failed to update account type");
         }
     }
 
@@ -327,7 +329,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<CurrencyDomain>> UpdateCurrencySymbolAsync(CurrencyDomain currencyDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -341,19 +343,21 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             var updatedCurrency = await context.TCurrencies.FirstOrDefaultAsync(s => s.Id == currencyDomain.Id, cancellationToken);
             if (updatedCurrency is null)
             {
-                return Result.Failure(ErrorCode.NotFound, "Currency not found");
+                return Result<CurrencyDomain>.Failure(ErrorCode.NotFound, "Currency not found");
             }
 
             updatedCurrency.Symbol = currencyDomain.Symbol;
             await context.SaveChangesAsync(cancellationToken);
 
+            currencyDomain = updatedCurrency.MapToDomain();
+
             logger.LogInformation("Currency (ID={CurrencyId}) with symbol {CurrencySymbol} was successfully updated", currencyDomain.Id, currencyDomain.Symbol);
-            return Result.Success("Currency was successfully updated");
+            return Result<CurrencyDomain>.Success(currencyDomain, "Currency was successfully updated");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to update currency (ID={CurrencyId}) with symbol {CurrencySymbol}", currencyDomain.Id, currencyDomain.Symbol);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to update currency");
+            return Result<CurrencyDomain>.Failure(ErrorCode.DatabaseError, "Failed to update currency");
         }
     }
 

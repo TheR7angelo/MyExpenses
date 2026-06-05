@@ -61,10 +61,10 @@ public interface IAccountService
     /// <summary>
     /// Updates the name of an account type.
     /// </summary>
-    /// <param name="accountTypeDto">The data transfer object containing the updated account type information.</param>
+    /// <param name="accountTypeDto">The account type DTO containing the new name.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> indicating success or failure.</returns>
-    public Task<Result> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{AccountTypeDto}"/> indicating success or failure of the update.</returns>
+    public Task<Result<AccountTypeDto>> UpdateAccountTypeName(AccountTypeDto accountTypeDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new currency to the system.
@@ -75,12 +75,12 @@ public interface IAccountService
     public Task<Result<CurrencyDto>> CreateCurrencyAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the currency symbol for a given currency record.
+    /// Updates the symbol for a currency.
     /// </summary>
-    /// <param name="currencyDto">The data transfer object containing the currency details to be updated.</param>
+    /// <param name="currencyDto">The currency data transfer object containing the new symbol.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/> object indicating the outcome of the update operation.</returns>
-    public Task<Result> UpdateCurrencySymbolAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{CurrencyDto}"/> indicating success or failure, and optionally the updated currency DTO.</returns>
+    public Task<Result<CurrencyDto>> UpdateCurrencySymbolAsync(CurrencyDto currencyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a specified currency based on the provided currency data transfer object (DTO).

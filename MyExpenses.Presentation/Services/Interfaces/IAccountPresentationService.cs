@@ -50,12 +50,12 @@ public interface IAccountPresentationService
     public Task<Result<AccountTypeViewModel>> AddAccountType(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the name of an account type.
+    /// Updates the name of an account type asynchronously.
     /// </summary>
-    /// <param name="accountTypeViewModel">The account type model containing the updated name.</param>
+    /// <param name="accountTypeViewModel">The view model containing the updated account type information.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the update operation.</return>
-    public Task<Result> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="Result{AccountTypeViewModel}"/> indicating success or failure of the update operation.</returns>
+    public Task<Result<AccountTypeViewModel>> UpdateAccountTypeName(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new currency to the system asynchronously.
@@ -66,12 +66,12 @@ public interface IAccountPresentationService
     public Task<Result<CurrencyViewModel>> AddCurrency(CurrencyViewModel newCurrency, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the currency symbol for the specified currency view model.
+    /// Updates the symbol of a currency asynchronously.
     /// </summary>
-    /// <param name="currencyViewModel">The view model containing the currency information to be updated.</param>
+    /// <param name="currencyViewModel">The currency view model containing the new symbol.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
-    public Task<Result> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains the updated <see cref="CurrencyViewModel"/>.</returns>
+    public Task<Result<CurrencyViewModel>> UpdateCurrencySymbol(CurrencyViewModel currencyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a specified currency asynchronously.

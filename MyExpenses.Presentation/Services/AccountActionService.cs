@@ -70,7 +70,7 @@ public class AccountActionService(
 
         var result = await accountPresentationService.UpdateAccountTypeName(accountTypeViewModel, cancellationToken);
 
-        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.AccountType, DataAction.Update, accountTypeViewModel);
+        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.AccountType, DataAction.Update, result.Value);
 
         ShowUpdateResultMessage(result.IsSuccess);
     }
@@ -127,11 +127,7 @@ public class AccountActionService(
         var newCurrency = new CurrencyViewModel { Symbol = input };
         var result = await accountPresentationService.AddCurrency(newCurrency, cancellationToken);
 
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.Currency, DataAction.Add, result.Value);
-        }
-
+        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.Currency, DataAction.Add, result.Value);
         ShowCreateResultMessage(result.IsSuccess, newCurrency.Symbol);
     }
 
@@ -143,11 +139,7 @@ public class AccountActionService(
 
         var result = await accountPresentationService.UpdateCurrencySymbol(currencyViewModel, cancellationToken);
 
-        if (result.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.Currency, DataAction.Update, currencyViewModel);
-        }
-
+        if (result.IsSuccess) SendEntityChangedMessage(DependencyType.Currency, DataAction.Update, result.Value);
         ShowUpdateResultMessage(result.IsSuccess);
     }
 
