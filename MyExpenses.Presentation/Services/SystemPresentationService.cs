@@ -1,7 +1,6 @@
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using MyExpenses.Application.Interfaces.IServices;
-using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;

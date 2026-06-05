@@ -30,7 +30,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return expenses;
     }
 
-    async Task<int> IExpenseRepository.GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
+    public async Task<int> GetAllExpenseCountAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

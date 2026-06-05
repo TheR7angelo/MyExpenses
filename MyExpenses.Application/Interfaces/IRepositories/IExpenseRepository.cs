@@ -62,8 +62,15 @@ public interface IExpenseRepository
     /// <param name="categoryTypeDomain">The category type domain for which to retrieve the bank transfer IDs.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of IDs representing the bank transfers associated with the specified category type domain.</returns>
-    public Task<int[]> GetAllBankTransferIdsAsync(CategoryTypeDomain categoryTypeDomain,
-        CancellationToken cancellationToken = default);
+    public Task<int[]> GetAllBankTransferIdsAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the unique identifiers of all bank transfers associated with the specified payment method.
+    /// </summary>
+    /// <param name="modePaymentDomain">The payment method domain object containing details about the payment method.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing an array of integers representing the bank transfer IDs associated with the specified payment method.</returns>
+    public Task<Result<int[]>> GetAllBankTransferIdsAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the unique identifiers of all recurring transactions associated with the specified account IDs.
