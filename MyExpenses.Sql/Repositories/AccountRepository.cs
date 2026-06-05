@@ -34,18 +34,6 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default)
-    {
-        logger.LogInformation("Loading all account names");
-        var accountNames = await dataBaseContext.TAccounts
-            .AsNoTracking()
-            .Select(s => s.Name)
-            .ToArrayAsync(cancellationToken);
-
-        logger.LogInformation("Loaded {Count} account names", accountNames.Length);
-        return accountNames;
-    }
-
     public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Loading all accounts");
