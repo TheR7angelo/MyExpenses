@@ -98,12 +98,12 @@ public interface IAccountPresentationService
     public Task<DeletionResult> DeleteAccountAsync(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates an existing account with the provided information.
+    /// Updates an existing account asynchronously.
     /// </summary>
-    /// <param name="accountViewModel">The account view model containing the updated information.</param>
+    /// <param name="accountViewModel">The account view model to update.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a <see cref="Result"/> indicating the success or failure of the operation.</return>
-    public Task<Result> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="Result{AccountViewModel}"/> indicating whether the update was successful or not.</returns>
+    public Task<Result<AccountViewModel>> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new account asynchronously.

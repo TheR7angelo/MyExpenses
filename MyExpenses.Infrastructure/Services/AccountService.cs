@@ -86,10 +86,11 @@ public class AccountService(IAccountRepository accountRepository,
         return accountRepository.DeleteAccountAsync(accountDomain, cancellationToken);
     }
 
-    public Task<Result> UpdateAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountDto>> UpdateAccountAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
     {
         var accountDomain = mapperAccount.MapToDomain(accountDto);
-        return accountRepository.UpdateAccountAsync(accountDomain, cancellationToken);
+        var result = await accountRepository.UpdateAccountAsync(accountDomain, cancellationToken);
+        return result.Map(mapperAccount.MapToDto);
     }
 
     public async Task<Result<AccountDto>> CreateAccount(AccountDto accountDto, CancellationToken cancellationToken = default)

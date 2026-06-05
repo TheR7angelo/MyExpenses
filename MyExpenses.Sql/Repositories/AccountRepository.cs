@@ -485,7 +485,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
         }
     }
 
-    public async Task<Result> UpdateAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountDomain>> UpdateAccountAsync(AccountDomain accountDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -499,7 +499,7 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             var updatedAccount = await context.TAccounts.FirstOrDefaultAsync(s => s.Id == accountDomain.Id, cancellationToken);
             if (updatedAccount is null)
             {
-                return Result.Failure(ErrorCode.NotFound, "Account not found");
+                return Result<AccountDomain>.Failure(ErrorCode.NotFound, "Account not found");
             }
 
             var entity = accountDomain.MapToEntity();
@@ -508,12 +508,12 @@ public class AccountRepository(DataBaseContext dataBaseContext, IDbContextFactor
             await context.SaveChangesAsync(cancellationToken);
 
             logger.LogInformation("Account (ID={AccountId}) with name {AccountName} was successfully updated", accountDomain.Id, accountDomain.Name);
-            return Result.Success("Account was successfully updated");
+            return Result<AccountDomain>.Success(accountDomain, "Account was successfully updated");
         }
         catch (Exception e)
         {
             logger.LogError(e, "Failed to update account (ID={AccountId}) with name {AccountName}", accountDomain.Id, accountDomain.Name);
-            return Result.Failure(ErrorCode.DatabaseError, "Failed to update account");
+            return Result<AccountDomain>.Failure(ErrorCode.DatabaseError, "Failed to update account");
         }
     }
 

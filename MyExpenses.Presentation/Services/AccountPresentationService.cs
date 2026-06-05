@@ -85,10 +85,11 @@ public class AccountPresentationService(IAccountService accountService,
         return accountService.DeleteAccountAsync(accountDto, cancellationToken);
     }
 
-    public Task<Result> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    public async Task<Result<AccountViewModel>> UpdateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
         var accountDto = viewModelMapper.MapToDto(accountViewModel);
-        return accountService.UpdateAccountAsync(accountDto, cancellationToken);
+        var result = await accountService.UpdateAccountAsync(accountDto, cancellationToken);
+        return result.Map(viewModelMapper.MapToViewModel);
     }
 
     public async Task<Result<AccountViewModel>> CreateAccount(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
