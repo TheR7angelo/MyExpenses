@@ -127,13 +127,14 @@
 
         <TextBox Grid.Row="4" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist}}"
+                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=OneWay}"
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
+                 controlAssist:NumericTextBoxAssist.AllowDecimal="True"
+                 controlAssist:NumericTextBoxAssist.AllowNegative="True"
+                 controlAssist:NumericTextBoxAssist.AllowPositive="True"
+                 controlAssist:NumericTextBoxAssist.MaxDecimal="2"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding History.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 AcceptsReturn="False" AcceptsTab="False"
-                 PreviewKeyDown="UIElement_OnPreviewKeyDown"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxValue_OnTextChanged">
+                 Text="{Binding History.Value, Mode=TwoWay}">
         </TextBox>
 
         <Button Grid.Row="4" Grid.Column="1"
