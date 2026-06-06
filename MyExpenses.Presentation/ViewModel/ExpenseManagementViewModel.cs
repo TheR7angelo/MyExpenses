@@ -37,6 +37,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [ObservableProperty]
     public partial PlaceViewModel? SelectedPlace { get; set; }
 
+    [ObservableProperty]
+    public partial bool IsHistoryEdit { get; set; }
+
     public static string TextSearchLocationName { get; } = nameof(PlaceViewModel.Name);
 
     private readonly IAccountPresentationService _accountPresentationService;

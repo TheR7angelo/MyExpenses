@@ -14,6 +14,7 @@
       xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
       mc:Ignorable="d"
 
       Title="RecordExpensePage"
@@ -38,7 +39,6 @@
     <Page.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -67,14 +67,7 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist}}"
                   ItemsSource="{Binding Accounts}"
-                  SelectedItem="{Binding HistoryViewModel.AccountViewModel}"
-                  SelectionChanged="SelectorAccount_OnSelectionChanged">
-
-            <!-- <b:Interaction.Triggers> -->
-            <!--     <b:EventTrigger EventName="SelectionChanged"> -->
-            <!--         <b:InvokeCommandAction Command="{Binding LocationManagementViewModel.UpdateTileSourceCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" /> -->
-            <!--     </b:EventTrigger> -->
-            <!-- </b:Interaction.Triggers> -->
+                  SelectedItem="{Binding HistoryViewModel.AccountViewModel}">
 
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -98,8 +91,8 @@
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxDescriptionHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
+                 Text="{Binding HistoryViewModel.Description}"
+                 MaxLength="{x:Static expenses:HistoryDomain.MaxDescriptionLength}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
@@ -157,21 +150,21 @@
 
         <TextBox Grid.Row="4" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist}}"
-                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=OneWay}"
+                 materialDesign:TextFieldAssist.PrefixText="{Binding HistoryViewModel.AccountViewModel.CurrencyViewModel.Symbol, FallbackValue=''}"
                  controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
                  controlAssist:NumericTextBoxAssist.AllowDecimal="True"
                  controlAssist:NumericTextBoxAssist.AllowNegative="True"
                  controlAssist:NumericTextBoxAssist.AllowPositive="True"
                  controlAssist:NumericTextBoxAssist.MaxDecimal="2"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding History.Value, Mode=TwoWay}">
+                 Text="{Binding HistoryViewModel.Value, Mode=TwoWay}">
         </TextBox>
 
         <Button Grid.Row="4" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Visibility="Collapsed">
-                <!-- Click="ButtonModePayment_OnClick"> -->
+                Visibility="Collapsed"
+                Click="ButtonModePayment_OnClick">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="Calculator" />
@@ -191,14 +184,14 @@
             <DatePicker Grid.Column="0" x:Name="DatePicker"
                         materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerWhenHintAssist}}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
-                        SelectedDate="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding HistoryViewModel.Date}"
                         IsTodayHighlighted="True">
             </DatePicker>
 
             <materialDesign:TimePicker Grid.Column="1" x:Name="TimePicker"
                                        materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TimePickerWhenHintAssist}}"
                                        Style="{StaticResource MaterialDesignFilledTimePicker}"
-                                       SelectedTime="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SelectedTime="{Binding HistoryViewModel.Date}"
                                        SelectedTimeFormat="Long">
             </materialDesign:TimePicker>
 
@@ -235,7 +228,6 @@
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCountryHintAssist}}"
                       ItemsSource="{Binding AvailableCountries}"
                       SelectedItem="{Binding SelectedCountry}">
-                      <!-- SelectionChanged="SelectorCountry_OnSelectionChanged"> -->
             </ComboBox>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
@@ -245,7 +237,6 @@
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCityHintAssist}}"
                       ItemsSource="{Binding AvailableCities}"
                       SelectedItem="{Binding SelectedCity}">
-                      <!-- SelectionChanged="SelectorCity_OnSelectionChanged"> -->
             </ComboBox>
 
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
@@ -256,7 +247,7 @@
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceHintAssist}}"
                       ItemsSource="{Binding FilteredPlaces}"
-                      SelectedValue="{Binding HistoryViewModel.PlaceViewModel}">
+                      SelectedItem="{Binding HistoryViewModel.PlaceViewModel}">
 
                       <ComboBox.ItemTemplate>
                           <DataTemplate>
@@ -287,12 +278,12 @@
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Center"
                   Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxPointed}}"
-                  IsChecked="{Binding History.IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsChecked="{Binding HistoryViewModel.IsPointed}"
                   IsThreeState="False">
         </CheckBox>
 
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-              Visibility="{Binding EditHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+              Visibility="{Binding IsHistoryEdit, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>
@@ -313,7 +304,7 @@
         </Grid>
 
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-              Visibility="{Binding EditHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Visibility="{Binding IsHistoryEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>

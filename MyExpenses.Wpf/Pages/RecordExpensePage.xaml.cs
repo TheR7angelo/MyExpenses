@@ -1,39 +1,24 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup;
-using BruTile.Predefined;
-using Mapsui.Layers;
-using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Presentation;
-using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
-using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Maps;
-using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Utils.Strings;
-using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
@@ -43,78 +28,12 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class RecordExpensePage
 {
-    public static readonly DependencyProperty ValuePrefixTextProperty =
-        DependencyProperty.Register(nameof(ValuePrefixText), typeof(string), typeof(RecordExpensePage),
-            new PropertyMetadata(null));
-
-    public string? ValuePrefixText
-    {
-        get => (string?)GetValue(ValuePrefixTextProperty);
-        set => SetValue(ValuePrefixTextProperty, value);
-    }
-
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
-        typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(false));
-
-    public bool EditHistory
-    {
-        get => (bool)GetValue(EditHistoryProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(EditHistoryProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedCountryProperty =
-        DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(RecordExpensePage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string? SelectedCountry
-    {
-        get => (string)GetValue(SelectedCountryProperty);
-        set => SetValue(SelectedCountryProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register(nameof(SelectedCity),
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        typeof(string), typeof(RecordExpensePage), new PropertyMetadata(default(string)));
-
-    public string SelectedCity
-    {
-        get => (string)GetValue(SelectedCityProperty);
-        set => SetValue(SelectedCityProperty, value);
-    }
-
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new();
 
-    public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
-    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
-    public string SelectedValuePathCategoryType { get; } = nameof(TCategoryType.Id);
-    public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
-    public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
-    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
-    public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
-    public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
-
     public ObservableCollection<TAccount> Accounts { get; }
-    public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
-
-    public ObservableCollection<string> CountriesCollection { get; }
-
-    public ObservableCollection<string> CitiesCollection { get; }
     public ObservableCollection<TPlace> PlacesCollection { get; }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    // A new WritableLayer instance is intentionally allocated here to represent the layer
-    // dedicated to places (TPlace). This layer acts as a container for displaying map features
-    // related to places and provides the flexibility to dynamically add or remove features
-    // as needed. By creating a unique instance for each `DetailedRecordContentPage`, we
-    // ensure that map layers remain properly isolated and don't interfere with layers
-    // managed by other pages or components in the application.
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
 
     private ExpenseManagementViewModel ExpenseManagementViewModel
         => (ExpenseManagementViewModel)DataContext;
@@ -126,29 +45,15 @@ public partial class RecordExpensePage
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
-        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
-
-        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
-            .Distinct();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        CountriesCollection = new ObservableCollection<string>(records);
-
-        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        CitiesCollection = new ObservableCollection<string>(records);
 
         // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         // var map = MapsuiMapExtensions.GetMap(true, backColor);
         // map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
-
-        History.Date = DateTime.Now;
 
         UpdateConfiguration();
 
@@ -419,23 +324,23 @@ public partial class RecordExpensePage
 
             MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistorySuccessMessage, MsgBoxImage.Check);
 
-            if (EditHistory)
-            {
-                if (History.BankTransferFk is not null)
-                {
-                    using var context = new DataBaseContextOld();
-                    var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
-                    if (bankTransfer is not null)
-                    {
-                        bankTransfer.MainReason = History.Description;
-                        bankTransfer.Value = Math.Abs(History.Value ?? 0);
-                        bankTransfer.AddOrEdit();
-                    }
-                }
-
-                nameof(MainWindow.FrameBody).GoBack();
-                return;
-            }
+            // if (EditHistory)
+            // {
+            //     if (History.BankTransferFk is not null)
+            //     {
+            //         using var context = new DataBaseContextOld();
+            //         var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
+            //         if (bankTransfer is not null)
+            //         {
+            //             bankTransfer.MainReason = History.Description;
+            //             bankTransfer.Value = Math.Abs(History.Value ?? 0);
+            //             bankTransfer.AddOrEdit();
+            //         }
+            //     }
+            //
+            //     nameof(MainWindow.FrameBody).GoBack();
+            //     return;
+            // }
 
             var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistoryQuestionMessage, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
@@ -509,127 +414,6 @@ public partial class RecordExpensePage
     private void Configuration_OnConfigurationChanged()
         => UpdateConfiguration();
 
-    private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => ValuePrefixText = ((int?)History.AccountFk).GetSymbolCurrencyFromAccount();
-
-    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is not ComboBox comboBox)return;
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string city) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var query = context.TPlaces.Where(s => s.IsOpen);
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(city))
-        {
-            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.City == null)
-                : query.Where(s => s.City == city);
-        }
-        else
-        {
-            records = query;
-        }
-
-        if (SelectedCountry is null)
-        {
-            // ReSharper disable HeapView.DelegateAllocation
-            ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-            SelectedCountry = records.First().Country;
-            ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-            // ReSharper restore HeapView.DelegateAllocation
-        }
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-
-        var points = records.Select(s => Mapping.Mapper.Map<PointFeature>(s)).Select(s => s.Point).ToArray();
-        MapControl.Map.Navigator.SetZoom(points);
-    }
-
-    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is not ComboBox comboBox)return;
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string country) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var query = context.TPlaces.Where(s => s.IsOpen);
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(country))
-        {
-            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.Country == null)
-                : query.Where(s => s.Country == country);
-        }
-        else
-        {
-            records = query;
-        }
-
-        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-
-        CitiesCollection.Clear();
-        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-
-        var points = records.Select(s => Mapping.Mapper.Map<PointFeature>(s)).Select(s => s.Point).ToArray();
-        MapControl.Map.Navigator.SetZoom(points);
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorPlace.SelectionChanged += SelectorPlace_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-    }
-
-    private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var place = History.PlaceFk?.ToISql<TPlace>();
-        UpdateMapPoint(place);
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-
-        var country = string.IsNullOrEmpty(place?.Country)
-            ? EmptyStringTreeViewConverterResources.Unknown
-            : place.Country;
-
-        var city = string.IsNullOrEmpty(place?.City)
-            ? EmptyStringTreeViewConverterResources.Unknown
-            : place.City;
-
-        ComboBoxSelectorCountry.SelectedItem = country;
-        ComboBoxSelectorCity.SelectedItem = city;
-        History.PlaceFk = place?.Id;
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-    }
-
     #endregion
 
     #region Function
@@ -645,11 +429,11 @@ public partial class RecordExpensePage
     public void SetTHistory(THistory history)
     {
         var place = history.PlaceFk?.ToISql<TPlace>();
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+        // SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        // SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
 
         history.CopyPropertiesTo(History);
-        EditHistory = true;
+        // EditHistory = true;
     }
 
     private void UpdateConfiguration()
@@ -659,26 +443,6 @@ public partial class RecordExpensePage
 
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         MapControl.Map.BackColor = backColor;
-    }
-
-    private void UpdateMapPoint(TPlace? place)
-    {
-        PlaceLayer.Clear();
-
-        if (place is null)
-        {
-            MapControl.Refresh();
-            return;
-        }
-
-        var symbolStyle = place.IsOpen
-            ? MapsuiStyleExtensions.RedMarkerStyle
-            : MapsuiStyleExtensions.BlueMarkerStyle;
-
-        var pointFeature = place.ToFeature(symbolStyle);
-
-        PlaceLayer.Add(pointFeature);
-        MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
     }
 
     #endregion
