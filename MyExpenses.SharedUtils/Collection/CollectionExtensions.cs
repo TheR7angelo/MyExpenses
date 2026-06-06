@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using Domain.Models.Validation;
+using Microsoft.Extensions.Logging;
 
 namespace MyExpenses.SharedUtils.Collection;
 
@@ -60,6 +62,55 @@ public static class CollectionExtensions
         foreach (var item in itemList)
         {
             collection.Remove(item);
+        }
+    }
+
+    /// <summary>
+    /// Adds a range of items to an ObservableCollection and sorts them based on a key selector function.
+    /// </summary>
+    /// <param name="collection">The ObservableCollection to add the items to.</param>
+    /// <param name="task">A Task containing the result of the operation, which is expected to contain an IEnumerable of T items.</param>
+    /// <param name="keySelector">A function that returns the key used for sorting each item.</param>
+    /// <param name="comparisonType">The type of string comparison to use for sorting. Defaults to StringComparison.OrdinalIgnoreCase.</param>
+    /// <param name="logger">An optional ILogger instance to log errors. If not provided, no logging will occur.</param>
+    /// <typeparam name="T">The type of items in the ObservableCollection.</typeparam>
+    /// <exception cref="ArgumentNullException">Thrown when the collection or task is null.</exception>
+    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, Task<Result<IEnumerable<T>>> task,
+        Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase,
+        ILogger? logger = null)
+    {
+        if (task is { IsCompletedSuccessfully: true, Result.IsSuccess: true })
+        {
+            collection.AddRangeAndSort(task.Result.Value!, keySelector, comparisonType);
+        }
+        else
+        {
+            if (task.IsFaulted) logger?.LogError(task.Exception, "Error loading accounts");
+            else logger?.LogError("Error loading accounts: {ErrorMessage}", task.Result.InternalMessage);
+        }
+    }
+
+    /// <summary>
+    /// Adds a range of items to an ObservableCollection and sorts it based on a key selector function.
+    /// </summary>
+    /// <typeparam name="T">The type of items in the collection.</typeparam>
+    /// <param name="collection">The ObservableCollection to add the item to.</param>
+    /// <param name="result">The Result containing the range of items to add.</param>
+    /// <param name="keySelector">A function that returns the key used for sorting.</param>
+    /// <param name="comparisonType">The StringComparison type for comparison, default is OrdinalIgnoreCase.</param>
+    /// <param name="logger">An optional ILogger for logging errors.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the collection or result is null.</exception>
+    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, Result<IEnumerable<T>> result,
+        Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase,
+        ILogger? logger = null)
+    {
+        if (result.IsSuccess)
+        {
+            collection.AddRangeAndSort(result.Value!, keySelector, comparisonType);
+        }
+        else
+        {
+            logger?.LogError("Error loading accounts: {ErrorMessage}", result.InternalMessage);
         }
     }
 
