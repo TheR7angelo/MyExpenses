@@ -16,7 +16,6 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MessageBoxButton = MyExpenses.Presentation.Enums.MessageBoxButton;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -257,21 +256,13 @@ public partial class AddEditAccountWindow
     {
         var getAllAccountTypeTask = _accountPresentationService.GetAllAccountTypeViewModelAsync();
         var getAllCurrenciesTask = _accountPresentationService.GetAllCurrencyViewModelAsync();
+        var getAllCategoryTypeTask = _expensePresentationService.GetAllCategoryTypeViewModelAsync();
 
-        await Task.WhenAll(
-            _expensePresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
-            getAllCurrenciesTask,
-            getAllAccountTypeTask);
+        await Task.WhenAll(getAllCurrenciesTask, getAllAccountTypeTask, getAllCategoryTypeTask);
 
-        var resultCurrencies = getAllCurrenciesTask.Result;
-        if (resultCurrencies.IsSuccess) Currencies.AddRangeAndSort(resultCurrencies.Value!, s => s.Symbol!);
-        else _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadCurrencyError,
-            AccountResources.MessageBoxLoadCurrencyErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
-
-        var resultAccountType = getAllAccountTypeTask.Result;
-        if (resultAccountType.IsSuccess) AccountTypes.AddRangeAndSort(resultAccountType.Value!, s => s.Name!);
-        else _dialogService.ShowMessageBox(AccountResources.MessageBoxLoadAccountTypeErrorCaption,
-            AccountResources.MessageBoxLoadAccountTypeErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
+        Currencies.AddRangeAndSort(getAllCurrenciesTask, s => s.Symbol!, logger: _logger);
+        AccountTypes.AddRangeAndSort(getAllAccountTypeTask, s => s.Name!, logger: _logger);
+        CategoryTypes.AddRangeAndSort(getAllCategoryTypeTask, s => s.Name!, logger: _logger);
     }
 
     public async Task LoadAsync(TotalByAccountViewModel totalByAccountViewModel)

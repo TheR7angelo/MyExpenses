@@ -425,13 +425,9 @@ public partial class BankTransferManagementViewModel : ViewModelBase
 
         await Task.WhenAll(categoryTypeTask, modePaymentTask, accountTask, totalByAccountTask);
 
-        CategoryTypeViewModels.AddRangeAndSort(categoryTypeTask.Result, s => s.Name!);
-        ModePaymentViewModels.AddRangeAndSort(modePaymentTask.Result, s => s.Name!);
-
-        var resultAccounts = accountTask.Result;
-        if (!resultAccounts.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,
-                AccountResources.MessageBoxLoadAccountErrorContent, MessageBoxButton.Ok, MsgBoxImage.Error);
-        else Accounts.AddRangeAndSort(resultAccounts.Value!, s => s.Name!);
+        CategoryTypeViewModels.AddRangeAndSort(categoryTypeTask, s => s.Name!, logger: _logger);
+        ModePaymentViewModels.AddRangeAndSort(modePaymentTask, s => s.Name!, logger: _logger);
+        Accounts.AddRangeAndSort(accountTask, s => s.Name!, logger: _logger);
 
         var resultTotalByAccount = totalByAccountTask.Result;
         if (!resultTotalByAccount.IsSuccess) _dialog.ShowMessageBox(AccountResources.MessageBoxAddEditAccountTypeErrorCaption,

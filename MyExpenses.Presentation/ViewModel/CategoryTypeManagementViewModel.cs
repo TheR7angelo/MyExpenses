@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
@@ -105,6 +106,13 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     private CategoryTypeViewModel? _categoryTypeViewModelToLoad;
 
     /// <summary>
+    /// Provides access to a service responsible for logging messages in the CategoryTypeManagementViewModel.
+    /// This logger is used to record information, warnings, and errors that occur during the execution of the ViewModel's logic.
+    /// It helps in debugging and monitoring the application's behavior by providing insights into its operations.
+    /// </summary>
+    private readonly ILogger<CategoryTypeManagementViewModel> _logger;
+
+    /// <summary>
     /// Represents an entity that facilitates the management of a closeable resource or dialog
     /// within the context of category type management.
     /// This property is used to interact with and control the lifecycle of a dialog-like
@@ -129,7 +137,8 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         IExpenseActionService expenseActionService,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         ISystemDtoViewModelMapper systemDtoViewModelMapper,
-        INavigationWindowService navigationWindowService)
+        INavigationWindowService navigationWindowService,
+        ILogger<CategoryTypeManagementViewModel> logger)
     {
         _expensePresentationService = expensePresentationService;
         _systemPresentationService = systemPresentationService;
@@ -137,6 +146,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
         _systemDtoViewModelMapper = systemDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
+        _logger = logger;
 
         RegisterMessages();
     }
@@ -396,7 +406,7 @@ public partial class CategoryTypeManagementViewModel : ViewModelBase
     private async Task OnLoadAllCategoryTypeAsync(CancellationToken cancellationToken = default)
     {
         var categoryType = await _expensePresentationService.GetAllCategoryTypeViewModelAsync(cancellationToken);
-        CategoryTypeViewModels.AddRangeAndSort(categoryType, vm => vm.Name!);
+        CategoryTypeViewModels.AddRangeAndSort(categoryType, vm => vm.Name!, logger: _logger);
     }
 
     /// <summary>
