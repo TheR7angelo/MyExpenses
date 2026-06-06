@@ -31,7 +31,7 @@
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding LocationManagementViewModel.LoadCommand}" />
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
@@ -66,11 +66,22 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist}}"
-                  ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding History.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                  ItemsSource="{Binding Accounts}"
+                  SelectedItem="{Binding HistoryViewModel.AccountViewModel}"
                   SelectionChanged="SelectorAccount_OnSelectionChanged">
+
+            <!-- <b:Interaction.Triggers> -->
+            <!--     <b:EventTrigger EventName="SelectionChanged"> -->
+            <!--         <b:InvokeCommandAction Command="{Binding LocationManagementViewModel.UpdateTileSourceCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" /> -->
+            <!--     </b:EventTrigger> -->
+            <!-- </b:Interaction.Triggers> -->
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="0" Grid.Column="1"
@@ -96,10 +107,15 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxCategoryTypeNameHintAssist}}"
-                  ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathCategoryType}"
-                  DisplayMemberPath="{Binding DisplayMemberPathCategoryType}">
+                  ItemsSource="{Binding CategoryTypes}"
+                  SelectedItem="{Binding HistoryViewModel.CategoryTypeViewModel}">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="2" Grid.Column="1"
@@ -117,10 +133,15 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxModePaymentHintAssist}}"
-                  ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding History.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathModePayment}"
-                  DisplayMemberPath="{Binding DisplayMemberPathModePayment}">
+                  ItemsSource="{Binding ModePaymentViewModels}"
+                  SelectedItem="{Binding HistoryViewModel.ModePaymentViewModel}">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="3" Grid.Column="1"
@@ -212,9 +233,9 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCountryHintAssist}}"
-                      ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionChanged="SelectorCountry_OnSelectionChanged">
+                      ItemsSource="{Binding AvailableCountries}"
+                      SelectedItem="{Binding SelectedCountry}">
+                      <!-- SelectionChanged="SelectorCountry_OnSelectionChanged"> -->
             </ComboBox>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
@@ -222,21 +243,27 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCityHintAssist}}"
-                      ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionChanged="SelectorCity_OnSelectionChanged">
+                      ItemsSource="{Binding AvailableCities}"
+                      SelectedItem="{Binding SelectedCity}">
+                      <!-- SelectionChanged="SelectorCity_OnSelectionChanged"> -->
             </ComboBox>
 
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       x:Name="ComboBoxSelectorPlace"
+                      IsTextSearchEnabled="True"
+                      TextSearch.TextPath="{x:Static viewModel:ExpenseManagementViewModel.TextSearchLocationName}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceHintAssist}}"
-                      ItemsSource="{Binding PlacesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="{Binding SelectedValuePathPlace}"
-                      DisplayMemberPath="{Binding DisplayMemberPathPlaceName}"
-                      SelectionChanged="SelectorPlace_OnSelectionChanged">
+                      ItemsSource="{Binding FilteredPlaces}"
+                      SelectedValue="{Binding HistoryViewModel.PlaceViewModel}">
+
+                      <ComboBox.ItemTemplate>
+                          <DataTemplate>
+                              <TextBlock Text="{Binding Name}" />
+                          </DataTemplate>
+                      </ComboBox.ItemTemplate>
+
             </ComboBox>
 
         </Grid>
