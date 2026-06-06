@@ -16,6 +16,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
@@ -114,13 +115,12 @@ public partial class RecordExpensePage
     // ensure that map layers remain properly isolated and don't interfere with layers
     // managed by other pages or components in the application.
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
-    public List<KnownTileSource> KnownTileSources { get; }
-    public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    public RecordExpensePage()
+    private ExpenseManagementViewModel ExpenseManagementViewModel
+        => (ExpenseManagementViewModel)DataContext;
+
+    public RecordExpensePage(ExpenseManagementViewModel vm)
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
@@ -142,9 +142,9 @@ public partial class RecordExpensePage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         CitiesCollection = new ObservableCollection<string>(records);
 
-        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        var map = MapsuiMapExtensions.GetMap(true, backColor);
-        map.Layers.Add(PlaceLayer);
+        // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
+        // var map = MapsuiMapExtensions.GetMap(true, backColor);
+        // map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
 
@@ -152,10 +152,12 @@ public partial class RecordExpensePage
 
         UpdateConfiguration();
 
-        MapControl.Map = map;
+        // MapControl.Map = map;
 
         // ReSharper disable once HeapView.DelegateAllocation
         Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
+
+        DataContext = vm;
     }
 
     #region Action
@@ -507,9 +509,6 @@ public partial class RecordExpensePage
     private void Configuration_OnConfigurationChanged()
         => UpdateConfiguration();
 
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
-
     private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => ValuePrefixText = ((int?)History.AccountFk).GetSymbolCurrencyFromAccount();
 
@@ -631,9 +630,6 @@ public partial class RecordExpensePage
         // ReSharper restore HeapView.DelegateAllocation
     }
 
-    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
-
     #endregion
 
     #region Function
@@ -685,26 +681,11 @@ public partial class RecordExpensePage
         MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
     }
 
-    private void UpdateTileLayer()
-    {
-        const string layerName = "Background";
-
-        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Allocation is necessary because a TileLayer is immutable after it is created.
-        // This means that once the TileSource of a TileLayer is set,
-        // it can no longer be changed directly.
-        // In this case, to change the source, a new TileLayer must be created
-        // and added to the menu.
-        var tileLayer = new TileLayer(httpTileSource);
-        tileLayer.Name = layerName;
-
-        var layers = MapControl?.Map.Layers.FindLayer(layerName);
-        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
-
-        MapControl?.Map.Layers.Insert(0, tileLayer);
-    }
-
     #endregion
+
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var position = Mouse.GetPosition(MapControl);
+        ExpenseManagementViewModel.LocationManagementViewModel.OnPositionChanged(position.X, position.Y, MapControl, true);
+    }
 }

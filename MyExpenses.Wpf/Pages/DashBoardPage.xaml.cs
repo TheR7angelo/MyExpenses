@@ -677,16 +677,18 @@ public partial class DashBoardPage
 
     private static void EditRecord(VHistory vHistory)
     {
-        var history = vHistory.Id.ToISql<THistory>();
-        if (history is null) return;
+        // TODO correct
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The RecordExpensePage instance is created with the specified THistory instance to handle record edition operations.
-        // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-        var recordExpensePage = new RecordExpensePage();
-        recordExpensePage.SetTHistory(history);
-
-        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+        // var history = vHistory.Id.ToISql<THistory>();
+        // if (history is null) return;
+        //
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // The RecordExpensePage instance is created with the specified THistory instance to handle record edition operations.
+        // // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
+        // var recordExpensePage = new RecordExpensePage();
+        // recordExpensePage.SetTHistory(history);
+        //
+        // nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
 
     private DateOnly GetDateOnlyFilter()

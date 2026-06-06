@@ -262,7 +262,7 @@ public partial class LocationManagementViewModel : ViewModelBase
     /// Current map point (in MPoint) corresponding to the selected or newly created place.
     /// Used when opening external map services or creating new places at the current cursor.
     /// </summary>
-    private MPoint SelectedPlacePoint { get; set; } = new(0, 0);
+    internal MPoint SelectedPlacePoint { get; set; } = new(0, 0);
 
     /// <summary>
     /// The currently selected tile source for the map.
