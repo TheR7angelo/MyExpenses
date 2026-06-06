@@ -24,4 +24,14 @@ public static class ExpenseResourceManager
     public static string ButtonValidContentCategoryType => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonValidContentCategoryType)}";
     public static string ButtonCancelContentCategoryType => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonCancelContentCategoryType)}";
     public static string ButtonDeleteContentCategoryType => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonDeleteContentCategoryType)}";
+
+    public static string TextBoxDescriptionHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxDescriptionHintAssist)}";
+    public static string TimePickerWhenHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TimePickerWhenHintAssist)}";
+    public static string ComboBoxPlaceCountryHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxPlaceCountryHintAssist)}";
+    public static string ComboBoxPlaceCityHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxPlaceCityHintAssist)}";
+    public static string ComboBoxPlaceHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxPlaceHintAssist)}";
+    public static string CheckBoxPointed => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.CheckBoxPointed)}";
+    public static string ButtonValidExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonValidExpense)}";
+    public static string ButtonCancelExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonCancelExpense)}";
+    public static string ButtonDeleteExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonDeleteExpense)}";
 }

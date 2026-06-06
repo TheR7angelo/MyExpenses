@@ -161,4 +161,31 @@
     <data name="ModePaymentViewModelNameAlreadyExists" xml:space="preserve">
         <value>The name of the payment method already exists</value>
     </data>
+    <data name="TextBoxDescriptionHintAssist" xml:space="preserve">
+        <value>Description :</value>
+    </data>
+    <data name="TimePickerWhenHintAssist" xml:space="preserve">
+        <value>Time :</value>
+    </data>
+    <data name="ComboBoxPlaceCountryHintAssist" xml:space="preserve">
+        <value>Country :</value>
+    </data>
+    <data name="ComboBoxPlaceCityHintAssist" xml:space="preserve">
+        <value>City :</value>
+    </data>
+    <data name="ComboBoxPlaceHintAssist" xml:space="preserve">
+        <value>Location :</value>
+    </data>
+    <data name="CheckBoxPointed" xml:space="preserve">
+        <value>Pointed operation :</value>
+    </data>
+    <data name="ButtonCancelExpense" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonDeleteExpense" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonValidExpense" xml:space="preserve">
+        <value>Valid</value>
+    </data>
 </root>

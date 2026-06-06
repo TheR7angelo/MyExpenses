@@ -132,11 +132,29 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelExpense {
+            get {
+                return ResourceManager.GetString("ButtonCancelExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string ButtonDeleteContentCategoryType {
             get {
                 return ResourceManager.GetString("ButtonDeleteContentCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annuler.
+        /// </summary>
+        public static string ButtonDeleteExpense {
+            get {
+                return ResourceManager.GetString("ButtonDeleteExpense", resourceCulture);
             }
         }
         
@@ -186,6 +204,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidExpense {
+            get {
+                return ResourceManager.GetString("ButtonValidExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color is required.
         /// </summary>
         public static string CategoryTypeViewModelColorRequired {
@@ -222,6 +249,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pointed operation :.
+        /// </summary>
+        public static string CheckBoxPointed {
+            get {
+                return ResourceManager.GetString("CheckBoxPointed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The category Type :.
         /// </summary>
         public static string ComboBoxCategoryTypeHintAssist {
@@ -254,6 +290,33 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string ComboBoxModePaymentHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City :.
+        /// </summary>
+        public static string ComboBoxPlaceCityHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCityHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country :.
+        /// </summary>
+        public static string ComboBoxPlaceCountryHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location :.
+        /// </summary>
+        public static string ComboBoxPlaceHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceHintAssist", resourceCulture);
             }
         }
         
@@ -438,6 +501,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description :.
+        /// </summary>
+        public static string TextBoxDescriptionHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxDescriptionHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit category type name :.
         /// </summary>
         public static string TextBoxEditCategoryTypeName {
@@ -470,6 +542,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string TextBoxValueHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxValueHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time :.
+        /// </summary>
+        public static string TimePickerWhenHintAssist {
+            get {
+                return ResourceManager.GetString("TimePickerWhenHintAssist", resourceCulture);
             }
         }
         
