@@ -12,10 +12,10 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
     IExpenseValidationRepository expenseValidationRepository,
     ILogger<ExpensePresentationService> logger) : IExpensePresentationService
 {
-    public async Task<IEnumerable<CategoryTypeViewModel>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CategoryTypeViewModel>>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var categoryTypes = await expenseService.GetAllCategoryTypesAsync(cancellationToken);
-        return categoryTypes.Select(mapper.MapToViewModel);
+        var result = await expenseService.GetAllCategoryTypesAsync(cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
     }
 
     public async Task<bool> IsCategoryTypeNameAvailableAsync(string input, CancellationToken cancellationToken = default)
@@ -70,10 +70,10 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return mapper.Map(result);
     }
 
-    public async Task<IEnumerable<ModePaymentViewModel>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<ModePaymentViewModel>>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var modePayment = await expenseService.GetAllModePaymentAsync(cancellationToken);
-        return modePayment.Select(mapper.MapToViewModel);
+        var result = await expenseService.GetAllModePaymentAsync(cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
     }
 
     public async Task<ModePaymentViewModel?> GetModePaymentViewModel(int modePaymentId, CancellationToken cancellationToken = default)

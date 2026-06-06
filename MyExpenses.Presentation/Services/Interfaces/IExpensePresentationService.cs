@@ -6,11 +6,11 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 public interface IExpensePresentationService
 {
     /// <summary>
-    /// Retrieves all category type view models.
+    /// Retrieves a list of all category type view models.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <return>A task representing the asynchronous operation. The task result contains a collection of category type view models.</return>
-    public Task<IEnumerable<CategoryTypeViewModel>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of category type view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<CategoryTypeViewModel>>> GetAllCategoryTypeViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new category type.
@@ -54,11 +54,11 @@ public interface IExpensePresentationService
     public Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all available mode of payment view models.
+    /// Retrieves a list of all mode payment view models.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task representing the asynchronous operation. The task result contains a collection of all mode of payment view models.</returns>
-    public Task<IEnumerable<ModePaymentViewModel>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default);
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of mode payment view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<ModePaymentViewModel>>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the mode of payment view model based on the specified mode payment ID.

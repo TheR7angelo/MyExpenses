@@ -217,11 +217,11 @@ public interface IExpenseRepository
     public Task<int> GetAllRecursiveExpenseCountAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all category types from the data source.
+    /// Retrieves the unique identifiers of all category types.
     /// </summary>
-    /// <param name="cancellationToken">A cancellation token that can be used to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of category types.</returns>
-    public Task<IEnumerable<CategoryTypeDomain>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default);
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing an enumerable of category type domains associated with the specified account IDs.</returns>
+    public Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new category type asynchronously.
@@ -256,11 +256,11 @@ public interface IExpenseRepository
     public Task<Result<HistoryDomain>> CreateExpenseAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all available modes of payment from the data source.
+    /// Retrieves the unique identifiers of all mode payments.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of <see cref="ModePaymentDomain"/> objects representing all modes of payment.</returns>
-    public Task<IEnumerable<ModePaymentDomain>> GetAllModePaymentAsync(CancellationToken cancellationToken = default);
+    /// <returns>A result containing an enumerable collection of mode payment IDs.</returns>
+    public Task<Result<IEnumerable<ModePaymentDomain>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the mode of payment details associated with a specified ID.

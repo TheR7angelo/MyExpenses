@@ -430,21 +430,29 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
-    public async Task<IEnumerable<CategoryTypeDomain>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
     {
-        logger.LogInformation("Loading all category types");
+        try
+        {
+            logger.LogInformation("Loading all category types");
 
-        await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+            await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        var results = await dataBaseContext.TCategoryTypes
-            .AsNoTracking()
-            .Include(s => s.ColorFkNavigation)
-            .ProjectToDomain()
-            .ToListAsync(cancellationToken);
+            var results = await dataBaseContext.TCategoryTypes
+                .AsNoTracking()
+                .Include(s => s.ColorFkNavigation)
+                .ProjectToDomain()
+                .ToListAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} category types", results.Count);
+            logger.LogInformation("Loaded {Count} category types", results.Count);
 
-        return results;
+            return Result<IEnumerable<CategoryTypeDomain>>.Success(results);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load all category types");
+            return Result<IEnumerable<CategoryTypeDomain>>.Failure(ErrorCode.DatabaseError, $"Failed to load all category types: {e.Message}");
+        }
     }
 
     public async Task<Result<CategoryTypeDomain>> CreateCategoryTypeAsync(CategoryTypeDomain categoryTypeDomain, CancellationToken cancellationToken = default)
@@ -616,18 +624,26 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
-    public async Task<IEnumerable<ModePaymentDomain>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<ModePaymentDomain>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        logger.LogInformation("Loading all mode payment");
-        var modePayments = await context.TModePayments
-            .ProjectToDomain()
-            .ToListAsync(cancellationToken);
+            logger.LogInformation("Loading all mode payment");
+            var modePayments = await context.TModePayments
+                .ProjectToDomain()
+                .ToListAsync(cancellationToken);
 
-        logger.LogInformation("Loaded {Count} mode payment", modePayments.Count);
+            logger.LogInformation("Loaded {Count} mode payment", modePayments.Count);
 
-        return modePayments;
+            return Result<IEnumerable<ModePaymentDomain>>.Success(modePayments, "Mode payments loaded successfully");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load mode payments");
+            return Result<IEnumerable<ModePaymentDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load mode payments");
+        }
     }
 
     public async Task<ModePaymentDomain?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default)

@@ -8,10 +8,10 @@ namespace MyExpenses.Infrastructure.Services;
 
 public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDomainMapper mapper) : IExpenseService
 {
-    public async Task<IEnumerable<CategoryTypeDto>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<CategoryTypeDto>>> GetAllCategoryTypesAsync(CancellationToken cancellationToken = default)
     {
-        var categories = await expenseRepository.GetAllCategoryTypesAsync(cancellationToken);
-        return categories.Select(mapper.MapToDto);
+        var result = await expenseRepository.GetAllCategoryTypesAsync(cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
     }
 
     public async Task<Result<CategoryTypeDto>> CreateCategoryTypeAsync(CategoryTypeDto categoryTypeDto, CancellationToken cancellationToken = default)
@@ -40,10 +40,10 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return mapper.Map(result);
     }
 
-    public async Task<IEnumerable<ModePaymentDto>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<ModePaymentDto>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
-        var modePayment = await expenseRepository.GetAllModePaymentAsync(cancellationToken);
-        return modePayment.Select(mapper.MapToDto);
+        var result = await expenseRepository.GetAllModePaymentAsync(cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
     }
 
     public async Task<ModePaymentDto?> GetModePaymentByIdAsync(int modePaymentId, CancellationToken cancellationToken = default)
