@@ -41,9 +41,6 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     public partial string? SelectedCity { get; set; }
 
     [ObservableProperty]
-    public partial PlaceViewModel? SelectedPlace { get; set; }
-
-    [ObservableProperty]
     public partial bool IsHistoryEdit { get; set; }
 
     public static string TextSearchLocationName { get; } = nameof(PlaceViewModel.Name);
@@ -288,26 +285,18 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         UpdateFilteredPlaces();
     }
 
-    partial void OnSelectedPlaceChanged(PlaceViewModel? oldValue, PlaceViewModel? newValue)
-    {
-        if (newValue is null) return;
-
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(newValue.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(newValue.City);
-    }
-
     private void UpdateFiltersFromHistoryPlace(PlaceViewModel? placeViewModel)
     {
         if (placeViewModel is null)
         {
             SelectedCountry = null;
             SelectedCity = null;
-            SelectedPlace = null;
+            HistoryViewModel.PlaceViewModel = null;
             return;
         }
 
         SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(placeViewModel.Country);
         SelectedCity = EmptyStringTreeViewConverter.ToUnknown(placeViewModel.City);
-        SelectedPlace = placeViewModel;
+        HistoryViewModel.PlaceViewModel = placeViewModel;
     }
 }
