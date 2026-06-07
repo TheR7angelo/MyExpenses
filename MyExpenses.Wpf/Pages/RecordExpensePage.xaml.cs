@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,19 +22,11 @@ public partial class RecordExpensePage
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new();
 
-    public ObservableCollection<TModePayment> ModePayments { get; }
-
     private ExpenseManagementViewModel ExpenseManagementViewModel
         => (ExpenseManagementViewModel)DataContext;
 
     public RecordExpensePage(ExpenseManagementViewModel vm)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-
         InitializeComponent();
 
         UpdateConfiguration();
