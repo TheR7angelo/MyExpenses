@@ -65,6 +65,9 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
 
     public async Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {
+        historyViewModel.DateAdded ??= DateTime.Now;
+        if (historyViewModel.IsPointed) historyViewModel.DatePointed ??= DateTime.Now;
+
         var historyDto = mapper.MapToDto(historyViewModel);
         var result = await expenseService.CreateExpenseAsync(historyDto, cancellationToken);
         return mapper.Map(result);

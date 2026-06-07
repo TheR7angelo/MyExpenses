@@ -924,7 +924,9 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             Value = multiplier * historyDomain.Value,
             Date = historyDomain.Date,
             PlaceFk = historyDomain.Place.Id,
-            IsPointed = historyDomain.IsPointed
+            IsPointed = historyDomain.IsPointed,
+            DateAdded = historyDomain.DateAdded,
+            DatePointed = historyDomain.DatePointed
         };
     }
 }

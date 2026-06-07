@@ -43,18 +43,36 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
     public async Task CreateBankTransfer(BankTransferViewModel bankTransferViewModel, HistoryViewModel historyViewModel,
         CancellationToken cancellationToken = default)
     {
-        var result = await expensePresentationService.CreateBankTransferAsync(bankTransferViewModel, historyViewModel, cancellationToken);
+        if (!bankTransferViewModel.IsDirty) return;
 
-        if (result.IsSuccess)
+        var bankTransferValidationTask = ValidateAsync<BankTransferViewModelValidator, BankTransferViewModel>(bankTransferViewModel, cancellationToken);
+        var historyValidationTask = ValidateAsync<HistoryViewModelValidator, HistoryViewModel>(historyViewModel, cancellationToken);
+
+        await Task.WhenAll(bankTransferValidationTask, historyValidationTask);
+
+        if (bankTransferValidationTask.Result.IsValid && historyValidationTask.Result.IsValid)
         {
-            SendEntityChangedMessage(DependencyType.BankTransfer, DataAction.Add, result.Value.bankTransferViewModel);
-            foreach (var v in result.Value.historyViewModel)
+            bankTransferViewModel.DateAdded ??= DateTime.Now;
+            historyViewModel.DateAdded ??= DateTime.Now;
+            if (historyViewModel.IsPointed) historyViewModel.DatePointed ??= DateTime.Now;
+
+            var result = await expensePresentationService.CreateBankTransferAsync(bankTransferViewModel, historyViewModel, cancellationToken);
+
+            if (result.IsSuccess)
             {
-                SendEntityChangedMessage(DependencyType.Expense, DataAction.Add, v);
+                SendEntityChangedMessage(DependencyType.BankTransfer, DataAction.Add, result.Value.bankTransferViewModel);
+                foreach (var v in result.Value.historyViewModel)
+                {
+                    SendEntityChangedMessage(DependencyType.Expense, DataAction.Add, v);
+                }
             }
+
+            ShowCreateResultMessage(result.IsSuccess, result.Value.bankTransferViewModel.MainReason!);
+            return;
         }
 
-        ShowCreateResultMessage(result.IsSuccess, result.Value.bankTransferViewModel.MainReason!);
+        bankTransferViewModel.ValidateWithFluent(bankTransferValidationTask.Result);
+        historyViewModel.ValidateWithFluent(historyValidationTask.Result);
     }
 
     public async Task<bool> CreateCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
