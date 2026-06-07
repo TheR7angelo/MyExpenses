@@ -5,6 +5,14 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 public interface IExpenseActionService
 {
     /// <summary>
+    /// Creates an expense using the provided historical data.
+    /// </summary>
+    /// <param name="historyViewModel">The view model containing historical data that can be used to create the expense.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation. The result indicates whether the expense was successfully created.</returns>```csharp
+    public Task<bool> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Validates a bank transfer using the provided bank transfer details and historical data.
     /// </summary>
     /// <param name="bankTransferViewModel">The view model containing details about the bank transfer, including accounts, value, date, and reasons for the transfer.</param>

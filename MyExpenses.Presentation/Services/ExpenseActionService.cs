@@ -22,6 +22,30 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
 {
     private readonly IDialogService _dialogService = dialogService;
 
+    public async Task<bool> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        if (!historyViewModel.IsDirty) return false;
+
+        var valResultHistory = await ValidateAsync<HistoryViewModelValidator, HistoryViewModel>(historyViewModel, cancellationToken);
+        if (valResultHistory.IsValid)
+        {
+            if (!AskCreateConfirmation(historyViewModel.Description!)) return false;
+
+            var result = await expensePresentationService.CreateExpense(historyViewModel, cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                SendEntityChangedMessage(DependencyType.Expense, DataAction.Add, historyViewModel);
+            }
+
+            ShowCreateResultMessage(result.IsSuccess, historyViewModel.Description!);
+            return result.IsSuccess;
+        }
+
+        historyViewModel.ValidateWithFluent(valResultHistory);
+        return false;
+    }
+
     public async Task<bool> ValidateBankTransfer(BankTransferViewModel bankTransferViewModel,
         HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {

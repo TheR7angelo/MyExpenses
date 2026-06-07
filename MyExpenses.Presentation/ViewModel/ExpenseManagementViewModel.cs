@@ -144,6 +144,57 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private async Task OnValid(CancellationToken cancellationToken = default)
+    {
+        // var result = IsHistoryEdit
+        //     ? await _expenseActionService.Update(SelectedPlaceViewModel, cancellationToken)
+        //     : await _locationActionService.CreatePlaceAsync(SelectedPlaceViewModel, cancellationToken);
+        //
+        // if (result.IsSuccess) dialog?.Close();
+
+        await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+    }
+
+        // var (success, exception) = History.AddOrEdit();
+        // if (success)
+        // {
+        //     Log.Information("History was successfully added");
+        //     var json = History.ToJsonString();
+        //     Log.Information("{Json}", json);
+        //
+        //     MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistorySuccessMessage, MsgBoxImage.Check);
+        //
+        //     // if (EditHistory)
+        //     // {
+        //     //     if (History.BankTransferFk is not null)
+        //     //     {
+        //     //         using var context = new DataBaseContextOld();
+        //     //         var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
+        //     //         if (bankTransfer is not null)
+        //     //         {
+        //     //             bankTransfer.MainReason = History.Description;
+        //     //             bankTransfer.Value = Math.Abs(History.Value ?? 0);
+        //     //             bankTransfer.AddOrEdit();
+        //     //         }
+        //     //     }
+        //     //
+        //     //     nameof(MainWindow.FrameBody).GoBack();
+        //     //     return;
+        //     // }
+        //
+        //     var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistoryQuestionMessage, MsgBoxImage.Question,
+        //         MessageBoxButton.YesNoCancel);
+        //     if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+        //
+        //     History.Reset();
+        // }
+        // else
+        // {
+        //     Log.Error(exception, "An error occurred please retry");
+        //     MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistoryErrorMessage, MsgBoxImage.Error);
+        // }
+
+    [RelayCommand]
     private void OnCancel()
         => _navigationService.GoBack();
 

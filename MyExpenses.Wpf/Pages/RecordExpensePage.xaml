@@ -278,7 +278,7 @@
 
             <Button Grid.Column="0" Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonValidExpense}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonValid_OnClick">
+                    Command="{Binding ValidCommand}">
             </Button>
 
             <Button Grid.Column="1" Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonCancelExpense}}"
