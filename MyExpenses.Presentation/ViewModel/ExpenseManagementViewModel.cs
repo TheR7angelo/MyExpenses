@@ -102,75 +102,28 @@ public partial class ExpenseManagementViewModel : ViewModelBase
                 getId: vm => vm.Id,
                 getName: vm => vm.Name,
                 merge: (src, target) => _accountDtoViewModelMapper.Merge(src, target),
-                updateHistory: vm => HistoryViewModel.AccountViewModel = vm));
+                update: vm => HistoryViewModel.AccountViewModel = vm));
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (r, m) =>
             OnEntityChanged(m, CategoryTypes, DependencyType.CategoryType,
                 getId: vm => vm.Id,
                 getName: vm => vm.Name,
                 merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
-                updateHistory: vm => HistoryViewModel.CategoryTypeViewModel = vm));
+                update: vm => HistoryViewModel.CategoryTypeViewModel = vm));
 
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (r, m) =>
             OnEntityChanged(m, ModePaymentViewModels, DependencyType.ModePayment,
                 getId: vm => vm.Id,
                 getName: vm => vm.Name,
                 merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
-                updateHistory: vm => HistoryViewModel.ModePaymentViewModel = vm));
+                update: vm => HistoryViewModel.ModePaymentViewModel = vm));
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnItemDeleted);
-    }
-
-    private void OnEntityChanged<T>(
-        EntityChangedMessage<T> m,
-        ObservableCollection<T> collection,
-        DependencyType expectedType,
-        Func<T, int> getId,
-        Func<T, string?> getName,
-        Action<T, T> merge,
-        Action<T> updateHistory) where T : class
-    {
-        if (m.Value.EntityType != expectedType) return;
-
-        var content = m.Value.Content;
-
-        switch (m.Value.DataAction)
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
         {
-            case DataAction.Update:
-                var item = collection.FirstOrDefault(s => getId(s) == getId(content));
-                if (item is not null)
-                    merge(content, item);
-                break;
-
-            case DataAction.Add:
-                collection.AddAndSort(content, s => getName(s)!);
-                updateHistory(content);
-                break;
-        }
-    }
-
-    private void OnItemDeleted(object recipient, EntityChangedMessage<int[]> m)
-    {
-        if (m.Value.DataAction is not DataAction.Delete) return;
-
-        switch (m.Value.EntityType)
-        {
-            case DependencyType.Account:
-                ApplyDelete(m.Value.Content, Accounts, x => x.Id);
-                break;
-            case DependencyType.CategoryType:
-                ApplyDelete(m.Value.Content, CategoryTypes, x => x.Id);
-                break;
-            case DependencyType.ModePayment:
-                ApplyDelete(m.Value.Content, ModePaymentViewModels, x => x.Id);
-                break;
-        }
-    }
-
-    private void ApplyDelete<T>(int[] ids, ICollection<T> collection, Func<T, int> getId)
-    {
-        var toDeletes = collection.Where(s => ids.Contains(getId(s))).ToList();
-        collection.RemoveRange(toDeletes);
+            OnItemDeleted(m, Accounts, DependencyType.Account, x => x.Id);
+            OnItemDeleted(m, CategoryTypes, DependencyType.CategoryType, x => x.Id);
+            OnItemDeleted(m, ModePaymentViewModels, DependencyType.ModePayment, x => x.Id);
+        });
     }
 
     [RelayCommand]
