@@ -53,6 +53,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     private readonly ILocationPresentationService _locationPresentationService;
     private readonly IExpenseActionService _expenseActionService;
     private readonly INavigationWindowService _navigationWindowService;
+    private readonly INavigationService _navigationService;
     private readonly IDialogService _dialogService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
@@ -65,6 +66,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         ILocationPresentationService locationPresentationService,
         IExpenseActionService expenseActionService,
         INavigationWindowService navigationWindowService,
+        INavigationService navigationService,
         IDialogService dialogService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
@@ -77,6 +79,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         _locationPresentationService = locationPresentationService;
         _expenseActionService = expenseActionService;
         _navigationWindowService = navigationWindowService;
+        _navigationService = navigationService;
         _dialogService = dialogService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
@@ -139,6 +142,10 @@ public partial class ExpenseManagementViewModel : ViewModelBase
             OnItemDeleted(m, Places, DependencyType.Place, x => x.Id);
         });
     }
+
+    [RelayCommand]
+    private void OnCancel()
+        => _navigationService.GoBack();
 
     [RelayCommand]
     private void OnManageAccount()

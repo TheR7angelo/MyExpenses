@@ -283,7 +283,7 @@
 
             <Button Grid.Column="1" Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonCancelExpense}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}">
             </Button>
 
         </Grid>
@@ -310,7 +310,7 @@
 
             <Button Grid.Column="2" Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonCancelExpense}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Click="ButtonCancel_OnClick">
+                    Command="{Binding CancelCommand}">
             </Button>
 
         </Grid>

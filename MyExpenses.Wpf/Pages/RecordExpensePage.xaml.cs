@@ -136,9 +136,6 @@ public partial class RecordExpensePage
         }
     }
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).GoBack();
-
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage, MsgBoxImage.Question,
