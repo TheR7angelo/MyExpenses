@@ -186,7 +186,7 @@
             <Button Grid.Column="2"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    Click="ButtonDateNow_OnClick">
+                    Command="{Binding DateNowCommand}">
 
                 <Button.Content>
                     <materialDesign:PackIcon Kind="ClockFast" />

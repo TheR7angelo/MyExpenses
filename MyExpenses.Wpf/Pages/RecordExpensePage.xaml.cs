@@ -195,9 +195,6 @@ public partial class RecordExpensePage
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).GoBack();
 
-    private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
-        => History.Date = DateTime.Now;
-
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage, MsgBoxImage.Question,

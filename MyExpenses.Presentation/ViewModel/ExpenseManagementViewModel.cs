@@ -184,6 +184,10 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         => await _expenseActionService.ManageModePaymentAction(HistoryViewModel.ModePaymentViewModel, cancellationToken);
 
     [RelayCommand]
+    private void OnDateNow()
+        => HistoryViewModel.Date = DateTime.Now;
+
+    [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         LocationManagementViewModel.LoadCommand.Execute(null);
