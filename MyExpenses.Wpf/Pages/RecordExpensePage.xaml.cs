@@ -4,14 +4,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
@@ -31,9 +29,7 @@ public partial class RecordExpensePage
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new();
 
-    public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
-    public ObservableCollection<TPlace> PlacesCollection { get; }
 
     private ExpenseManagementViewModel ExpenseManagementViewModel
         => (ExpenseManagementViewModel)DataContext;
@@ -44,20 +40,11 @@ public partial class RecordExpensePage
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContextOld();
-        Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-
-        PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
-
-        // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        // var map = MapsuiMapExtensions.GetMap(true, backColor);
-        // map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
 
         UpdateConfiguration();
-
-        // MapControl.Map = map;
 
         // ReSharper disable once HeapView.DelegateAllocation
         Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
@@ -66,50 +53,6 @@ public partial class RecordExpensePage
     }
 
     #region Action
-
-    private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
-
-        var account = History.AccountFk.ToISql<TAccount>();
-        if (account is not null) addEditAccountWindow.SetTAccount(account);
-
-        addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult is not true) return;
-
-        if (addEditAccountWindow.DeleteAccount)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
-            if (accountToRemove is not null) Accounts.Remove(accountToRemove);
-        }
-        else
-        {
-            var editedAccount = addEditAccountWindow.Account;
-
-            Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
-            var (success, exception) = editedAccount.AddOrEdit();
-            if (success)
-            {
-                Log.Information("Account was successfully edited");
-                var json = editedAccount.ToJsonString();
-                Log.Information("{Json}", json);
-
-                MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
-
-                // ReSharper disable once HeapView.DelegateAllocation
-                var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
-                Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
-
-                History.AccountFk = editedAccount.Id;
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
-            }
-        }
-    }
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {

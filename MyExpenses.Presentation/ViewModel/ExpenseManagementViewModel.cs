@@ -1,7 +1,11 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -45,18 +49,24 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ILocationPresentationService _locationPresentationService;
+    private readonly INavigationWindowService _navigationWindowService;
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
 
     private readonly ILogger<ExpenseManagementViewModel> _logger;
 
     public ExpenseManagementViewModel(LocationManagementViewModel locationManagementViewModel,
         IAccountPresentationService accountPresentationService, IExpensePresentationService expensePresentationService,
         ILocationPresentationService locationPresentationService,
+        INavigationWindowService navigationWindowService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
         ILogger<ExpenseManagementViewModel> logger)
     {
         LocationManagementViewModel = locationManagementViewModel;
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
         _locationPresentationService = locationPresentationService;
+        _navigationWindowService = navigationWindowService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
 
         _logger = logger;
 
@@ -66,14 +76,69 @@ public partial class ExpenseManagementViewModel : ViewModelBase
             UpdateFilteredPlaces();
         };
 
-        HistoryViewModel.PropertyChanged += (_, e) =>
+        HistoryViewModel?.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName is nameof(HistoryViewModel.PlaceViewModel))
             {
                 UpdateFiltersFromHistoryPlace(HistoryViewModel.PlaceViewModel);
             }
         };
+
+        RegisterMessages();
     }
+
+    private void RegisterMessages()
+    {
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnItemDeleted);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChanged);
+    }
+
+    private void OnAccountChanged(object recipient, EntityChangedMessage<AccountViewModel> m)
+    {
+        if (m.Value.EntityType is not DependencyType.Account) return;
+
+        switch (m.Value.DataAction)
+        {
+            case DataAction.Update:
+                ApplyUpdate(m.Value.Content);
+                break;
+
+            case DataAction.Add:
+                ApplyAddAsync(m.Value.Content);
+                break;
+        }
+    }
+
+    private void ApplyUpdate(AccountViewModel vm)
+    {
+        var item = Accounts.FirstOrDefault(s => s.Id == vm.Id);
+        if (item is null) return;
+
+        _accountDtoViewModelMapper.Merge(vm, item);
+    }
+
+    private void ApplyAddAsync(AccountViewModel vm)
+    {
+        Accounts.AddAndSort(vm, s => s.Name!);
+        HistoryViewModel.AccountViewModel = vm;
+    }
+
+    private void OnItemDeleted(object recipient, EntityChangedMessage<int[]> m)
+    {
+        if (m.Value.DataAction is not DataAction.Delete) return;
+
+        if (m.Value.EntityType is DependencyType.Account) OnAccountDeleted(m.Value.Content);
+    }
+
+    private void OnAccountDeleted(int[] m)
+    {
+        var toDeletes = Accounts.Where(s => m.Contains(s.Id)).ToList();
+        Accounts.RemoveRange(toDeletes);
+    }
+
+    [RelayCommand]
+    private void OnManageAccount()
+        => _navigationWindowService.ShowManageAccount(HistoryViewModel.AccountViewModel);
 
     [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
