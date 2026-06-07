@@ -77,25 +77,34 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
 
     public async Task<bool> CreateCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
     {
-        if (!AskCreateConfirmation(categoryTypeViewModel.Name!)) return false;
+        if (!categoryTypeViewModel.IsDirty) return false;
 
-        var result = await expensePresentationService.CreateCategoryType(categoryTypeViewModel, cancellationToken);
-
-        if (result.IsSuccess)
+        var valResultCategoryType = await ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>(categoryTypeViewModel, cancellationToken);
+        if (valResultCategoryType.IsValid)
         {
-            SendEntityChangedMessage(DependencyType.CategoryType, DataAction.Add, categoryTypeViewModel);
+            if (!AskCreateConfirmation(categoryTypeViewModel.Name!)) return false;
+
+            var result = await expensePresentationService.CreateCategoryType(categoryTypeViewModel, cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                SendEntityChangedMessage(DependencyType.CategoryType, DataAction.Add, categoryTypeViewModel);
+            }
+
+            ShowCreateResultMessage(result.IsSuccess, categoryTypeViewModel.Name!);
+            return result.IsSuccess;
         }
 
-        ShowCreateResultMessage(result.IsSuccess, categoryTypeViewModel.Name!);
-        return result.IsSuccess;
+        categoryTypeViewModel.ValidateWithFluent(valResultCategoryType);
+        return false;
     }
 
     public async Task<bool> UpdateCategoryType(CategoryTypeViewModel categoryTypeViewModel, CancellationToken cancellationToken = default)
     {
         if (!categoryTypeViewModel.IsDirty) return false;
 
-        var valResultAccount = await ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>(categoryTypeViewModel, cancellationToken);
-        if (valResultAccount.IsValid)
+        var valResultCategoryType = await ValidateAsync<CategoryTypeViewModelValidator, CategoryTypeViewModel>(categoryTypeViewModel, cancellationToken);
+        if (valResultCategoryType.IsValid)
         {
             if (!AskUpdateConfirmation(categoryTypeViewModel)) return false;
 
@@ -110,7 +119,7 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
             return true;
         }
 
-        categoryTypeViewModel.ValidateWithFluent(valResultAccount);
+        categoryTypeViewModel.ValidateWithFluent(valResultCategoryType);
         return false;
     }
 
