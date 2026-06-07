@@ -402,6 +402,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string MessageBoxErrorEditDefaultPaymentMethodCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorEditDefaultPaymentMethodCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot edit or delete this item as it is a default payment method.
+        /// </summary>
+        public static string MessageBoxErrorEditDefaultPaymentMethodContent {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorEditDefaultPaymentMethodContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxValidBankTransferErrorCaption {

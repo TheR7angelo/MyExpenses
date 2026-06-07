@@ -188,4 +188,10 @@
     <data name="ButtonValidExpense" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="MessageBoxErrorEditDefaultPaymentMethodCaption" xml:space="preserve">
+        <value>Avertissement</value>
+    </data>
+    <data name="MessageBoxErrorEditDefaultPaymentMethodContent" xml:space="preserve">
+        <value>Vous ne pouvez ni modifier ni supprimer cet élément, car il s'agit d'un moyen de paiement par défaut.</value>
+    </data>
 </root>

@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -51,6 +53,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     private readonly ILocationPresentationService _locationPresentationService;
     private readonly IExpenseActionService _expenseActionService;
     private readonly INavigationWindowService _navigationWindowService;
+    private readonly IDialogService _dialogService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
 
@@ -61,6 +64,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         ILocationPresentationService locationPresentationService,
         IExpenseActionService expenseActionService,
         INavigationWindowService navigationWindowService,
+        IDialogService dialogService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         ILogger<ExpenseManagementViewModel> logger)
@@ -71,6 +75,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         _locationPresentationService = locationPresentationService;
         _expenseActionService = expenseActionService;
         _navigationWindowService = navigationWindowService;
+        _dialogService = dialogService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
 
@@ -181,7 +186,19 @@ public partial class ExpenseManagementViewModel : ViewModelBase
 
     [RelayCommand]
     private async Task OnManageModePayment(CancellationToken cancellationToken = default)
-        => await _expenseActionService.ManageModePaymentAction(HistoryViewModel.ModePaymentViewModel, cancellationToken);
+    {
+        if (HistoryViewModel.ModePaymentViewModel is null || HistoryViewModel.ModePaymentViewModel.CanBeDeleted)
+        {
+            await _expenseActionService.ManageModePaymentAction(HistoryViewModel.ModePaymentViewModel, cancellationToken);
+        }
+        else
+        {
+            _dialogService.ShowMessageBox(ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodCaption,
+                ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodContent,
+                MessageBoxButton.Ok,
+                MsgBoxImage.Warning);
+        }
+    }
 
     [RelayCommand]
     private void OnDateNow()

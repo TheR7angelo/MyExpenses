@@ -2,8 +2,10 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -15,15 +17,18 @@ public partial class ModePaymentManagementViewModel : ViewModelBase
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly IExpenseActionService _expenseActionService;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    private readonly IDialogService _dialogService;
 
     public ObservableCollection<ModePaymentViewModel> ModePaymentViewModels { get; } = [];
 
     public ModePaymentManagementViewModel(IExpensePresentationService expensePresentationService,
-        IExpenseActionService expenseActionService, IExpenseDtoViewModelMapper expenseDtoViewModelMapper)
+        IExpenseActionService expenseActionService, IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+        IDialogService dialogService)
     {
         _expensePresentationService = expensePresentationService;
         _expenseActionService = expenseActionService;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
+        _dialogService = dialogService;
 
         RegisterMessages();
     }
@@ -40,7 +45,10 @@ public partial class ModePaymentManagementViewModel : ViewModelBase
         if (item is null || item.CanBeDeleted) _expenseActionService.ManageModePaymentAction(item);
         else
         {
-            // TODO send message cant edit or delete
+            _dialogService.ShowMessageBox(ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodCaption,
+                ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodContent,
+                MessageBoxButton.Ok,
+                MsgBoxImage.Warning);
         }
     }
 
