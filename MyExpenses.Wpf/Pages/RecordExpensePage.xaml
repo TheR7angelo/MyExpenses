@@ -210,7 +210,6 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox Grid.Row="0" Grid.Column="0"
-                      x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCountryHintAssist}}"
@@ -219,7 +218,6 @@
             </ComboBox>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
-                      x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCityHintAssist}}"
@@ -228,7 +226,6 @@
             </ComboBox>
 
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                      x:Name="ComboBoxSelectorPlace"
                       IsTextSearchEnabled="True"
                       TextSearch.TextPath="{x:Static viewModel:ExpenseManagementViewModel.TextSearchLocationName}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
