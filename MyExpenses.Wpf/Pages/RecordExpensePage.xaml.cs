@@ -8,13 +8,10 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
-using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
-using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using Serilog;
@@ -53,59 +50,6 @@ public partial class RecordExpensePage
     }
 
     #region Action
-
-    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        // TODO correct
-        // var place = History.PlaceFk?.ToISql<TPlace>();
-        // if (place?.CanBeDeleted is false)
-        // {
-        //     MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
-        //     return;
-        // }
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // An instance of AddEditPlaceWindow is created to handle adding or editing a place.
-        // // The place is set to null if the place is not found.
-        // var addEditLocationWindow = new AddEditLocationWindow();
-        // if (place is not null) addEditLocationWindow.SetPlace(place, false);
-        //
-        // var result = addEditLocationWindow.ShowDialog();
-        // if (result is not true) return;
-        //
-        // // ReSharper disable once HeapView.DelegateAllocation
-        // var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == History.PlaceFk);
-        // if (addEditLocationWindow.PlaceDeleted)
-        // {
-        //     if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
-        //
-        //     return;
-        // }
-        //
-        // var editedPlace = addEditLocationWindow.Place;
-        // Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
-        //     editedPlace.Name);
-        //
-        // var (success, exception) = editedPlace.AddOrEdit();
-        // if (success)
-        // {
-        //     PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
-        //     History.PlaceFk = editedPlace.Id;
-        //
-        //     Log.Information("Place was successfully edited");
-        //
-        //     // Loop crash
-        //     // var json = editedPlace.ToJsonString();
-        //     // Log.Information("{Json}", json);
-        //
-        //     MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
-        // }
-    }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {

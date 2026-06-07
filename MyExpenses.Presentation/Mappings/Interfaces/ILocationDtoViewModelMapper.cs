@@ -97,6 +97,14 @@ public interface ILocationDtoViewModelMapper
     public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d);
 
     /// <summary>
+    /// Maps a collection of PlaceViewModel instances to an MRect.
+    /// </summary>
+    /// <param name="placeViewModels">The collection of PlaceViewModel instances to map.</param>
+    /// <param name="margin">The margin to be added around the bounding box, default is 10d.</param>
+    /// <returns>An MRect that contains all the points from the provided PlaceViewModel instances with the specified margin.</returns>
+    public MRect MapToMRect(IEnumerable<PlaceViewModel> placeViewModels, double margin = 10d);
+
+    /// <summary>
     /// Converts a PlaceViewModel instance into an MPoint instance.
     /// </summary>
     /// <param name="place">The PlaceViewModel object to be converted.</param>

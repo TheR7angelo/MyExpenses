@@ -119,6 +119,12 @@ public partial class LocationDtoViewModelMapper : ILocationDtoViewModelMapper
     public MRect MapToMRect(IEnumerable<MPoint> points, double margin = 10d)
         => MapToMRect(points.ToArray(), margin);
 
+    public MRect MapToMRect(IEnumerable<PlaceViewModel> placeViewModels, double margin = 10)
+    {
+        var points = placeViewModels.Select(MapToMPoint);
+        return MapToMRect(points, margin);
+    }
+
     public MPoint MapToMPoint(PlaceViewModel place)
     {
         var pointFeature = MapToPointFeature(place);

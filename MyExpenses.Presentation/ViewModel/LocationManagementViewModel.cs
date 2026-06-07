@@ -36,7 +36,7 @@ public partial class LocationManagementViewModel : ViewModelBase
     /// <summary>
     /// Layer that contains place markers and features displayed on the map.
     /// </summary>
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
+    internal WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(PlaceViewModel) };
 
     /// <summary>
     /// Enumerable wrapper exposing the place layer(s) used for hit testing on the map.

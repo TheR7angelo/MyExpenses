@@ -247,7 +247,7 @@
         <Button Grid.Row="6" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonPlace_OnClick">
+                Command="{Binding ManagePlaceCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
+using Domain.Models.Systems;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
@@ -45,6 +46,8 @@ public partial class ExpenseManagementViewModel : ViewModelBase
 
     public static string TextSearchLocationName { get; } = nameof(PlaceViewModel.Name);
 
+    private bool _isLoaded;
+
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ILocationPresentationService _locationPresentationService;
@@ -53,6 +56,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     private readonly IDialogService _dialogService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
 
     private readonly ILogger<ExpenseManagementViewModel> _logger;
 
@@ -64,6 +68,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         IDialogService dialogService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+        ILocationDtoViewModelMapper locationDtoViewModelMapper,
         ILogger<ExpenseManagementViewModel> logger)
     {
         LocationManagementViewModel = locationManagementViewModel;
@@ -75,6 +80,7 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         _dialogService = dialogService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
+        _locationDtoViewModelMapper = locationDtoViewModelMapper;
 
         _logger = logger;
 
@@ -104,25 +110,33 @@ public partial class ExpenseManagementViewModel : ViewModelBase
                 merge: (src, target) => _accountDtoViewModelMapper.Merge(src, target),
                 update: vm => HistoryViewModel.AccountViewModel = vm));
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (_, m) =>
             OnEntityChanged(m, CategoryTypes, DependencyType.CategoryType,
                 getId: vm => vm.Id,
                 getName: vm => vm.Name,
                 merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
                 update: vm => HistoryViewModel.CategoryTypeViewModel = vm));
 
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (_, m) =>
             OnEntityChanged(m, ModePaymentViewModels, DependencyType.ModePayment,
                 getId: vm => vm.Id,
                 getName: vm => vm.Name,
                 merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
                 update: vm => HistoryViewModel.ModePaymentViewModel = vm));
 
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<PlaceViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, Places, DependencyType.Place,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _locationDtoViewModelMapper.Merge(src, target),
+                update: vm => HistoryViewModel.PlaceViewModel = vm));
+
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
         {
             OnItemDeleted(m, Accounts, DependencyType.Account, x => x.Id);
             OnItemDeleted(m, CategoryTypes, DependencyType.CategoryType, x => x.Id);
             OnItemDeleted(m, ModePaymentViewModels, DependencyType.ModePayment, x => x.Id);
+            OnItemDeleted(m, Places, DependencyType.Place, x => x.Id);
         });
     }
 
@@ -155,6 +169,10 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         => HistoryViewModel.Date = DateTime.Now;
 
     [RelayCommand]
+    private void OnManagePlace()
+        => _navigationWindowService.ShowLocationManagementWindow(HistoryViewModel.PlaceViewModel, false);
+
+    [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         LocationManagementViewModel.LoadCommand.Execute(null);
@@ -171,8 +189,10 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         ModePaymentViewModels.AddRangeAndSort(modePaymentsTask, x => x.Name!, logger: _logger);
         Places.AddRangeAndSort(locationsTask, x => x.Name!, logger: _logger);
 
-
         UpdateAvailableCountries();
+        InitializeZoom();
+
+        _isLoaded = true;
     }
 
     private void UpdateAvailableCountries()
@@ -225,6 +245,11 @@ public partial class ExpenseManagementViewModel : ViewModelBase
             .ToList();
 
         FilteredPlaces.AddRange(places);
+
+        if (!_isLoaded) return;
+        var points = places.Where(s => s.Id is not PlaceDomain.DefaultPlaceId)
+            .Select(s => _locationDtoViewModelMapper.MapToMPoint(s)).ToArray();
+        LocationManagementViewModel.Map?.Navigator.SetZoom(points);
     }
 
     partial void OnSelectedCountryChanged(string? oldValue, string? newValue)
@@ -245,11 +270,33 @@ public partial class ExpenseManagementViewModel : ViewModelBase
             SelectedCountry = null;
             SelectedCity = null;
             HistoryViewModel.PlaceViewModel = null;
+
+            InitializeZoom();
             return;
         }
 
         SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(placeViewModel.Country);
         SelectedCity = EmptyStringTreeViewConverter.ToUnknown(placeViewModel.City);
         HistoryViewModel.PlaceViewModel = placeViewModel;
+
+        LocationManagementViewModel.LoadPlaceViewModel(placeViewModel, false);
+        LocationManagementViewModel.ZoomToPointsCommand.Execute(null);
+    }
+
+    private void InitializeZoom()
+    {
+        var points = Places.Where(s => s.Id != PlaceDomain.DefaultPlaceId)
+            .Select(s => _locationDtoViewModelMapper.MapToMPoint(s)).ToArray();
+
+        LocationManagementViewModel.PlaceLayer.Clear();
+        Task.Run(async () =>
+        {
+            while (LocationManagementViewModel.Map is null)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
+            }
+
+            LocationManagementViewModel.Map?.Navigator.SetZoom(points);
+        });
     }
 }
