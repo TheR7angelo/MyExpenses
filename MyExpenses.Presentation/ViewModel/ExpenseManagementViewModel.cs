@@ -49,24 +49,30 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
     private readonly ILocationPresentationService _locationPresentationService;
+    private readonly IExpenseActionService _expenseActionService;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+    private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
 
     private readonly ILogger<ExpenseManagementViewModel> _logger;
 
     public ExpenseManagementViewModel(LocationManagementViewModel locationManagementViewModel,
         IAccountPresentationService accountPresentationService, IExpensePresentationService expensePresentationService,
         ILocationPresentationService locationPresentationService,
+        IExpenseActionService expenseActionService,
         INavigationWindowService navigationWindowService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
+        IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         ILogger<ExpenseManagementViewModel> logger)
     {
         LocationManagementViewModel = locationManagementViewModel;
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
         _locationPresentationService = locationPresentationService;
+        _expenseActionService = expenseActionService;
         _navigationWindowService = navigationWindowService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
 
         _logger = logger;
 
@@ -89,56 +95,93 @@ public partial class ExpenseManagementViewModel : ViewModelBase
 
     private void RegisterMessages()
     {
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, Accounts, DependencyType.Account,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _accountDtoViewModelMapper.Merge(src, target),
+                updateHistory: vm => HistoryViewModel.AccountViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (r, m) =>
+            OnEntityChanged(m, CategoryTypes, DependencyType.CategoryType,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
+                updateHistory: vm => HistoryViewModel.CategoryTypeViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (r, m) =>
+            OnEntityChanged(m, ModePaymentViewModels, DependencyType.ModePayment,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
+                updateHistory: vm => HistoryViewModel.ModePaymentViewModel = vm));
+
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, OnItemDeleted);
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChanged);
     }
 
-    private void OnAccountChanged(object recipient, EntityChangedMessage<AccountViewModel> m)
+    private void OnEntityChanged<T>(
+        EntityChangedMessage<T> m,
+        ObservableCollection<T> collection,
+        DependencyType expectedType,
+        Func<T, int> getId,
+        Func<T, string?> getName,
+        Action<T, T> merge,
+        Action<T> updateHistory) where T : class
     {
-        if (m.Value.EntityType is not DependencyType.Account) return;
+        if (m.Value.EntityType != expectedType) return;
+
+        var content = m.Value.Content;
 
         switch (m.Value.DataAction)
         {
             case DataAction.Update:
-                ApplyUpdate(m.Value.Content);
+                var item = collection.FirstOrDefault(s => getId(s) == getId(content));
+                if (item is not null)
+                    merge(content, item);
                 break;
 
             case DataAction.Add:
-                ApplyAddAsync(m.Value.Content);
+                collection.AddAndSort(content, s => getName(s)!);
+                updateHistory(content);
                 break;
         }
-    }
-
-    private void ApplyUpdate(AccountViewModel vm)
-    {
-        var item = Accounts.FirstOrDefault(s => s.Id == vm.Id);
-        if (item is null) return;
-
-        _accountDtoViewModelMapper.Merge(vm, item);
-    }
-
-    private void ApplyAddAsync(AccountViewModel vm)
-    {
-        Accounts.AddAndSort(vm, s => s.Name!);
-        HistoryViewModel.AccountViewModel = vm;
     }
 
     private void OnItemDeleted(object recipient, EntityChangedMessage<int[]> m)
     {
         if (m.Value.DataAction is not DataAction.Delete) return;
 
-        if (m.Value.EntityType is DependencyType.Account) OnAccountDeleted(m.Value.Content);
+        switch (m.Value.EntityType)
+        {
+            case DependencyType.Account:
+                ApplyDelete(m.Value.Content, Accounts, x => x.Id);
+                break;
+            case DependencyType.CategoryType:
+                ApplyDelete(m.Value.Content, CategoryTypes, x => x.Id);
+                break;
+            case DependencyType.ModePayment:
+                ApplyDelete(m.Value.Content, ModePaymentViewModels, x => x.Id);
+                break;
+        }
     }
 
-    private void OnAccountDeleted(int[] m)
+    private void ApplyDelete<T>(int[] ids, ICollection<T> collection, Func<T, int> getId)
     {
-        var toDeletes = Accounts.Where(s => m.Contains(s.Id)).ToList();
-        Accounts.RemoveRange(toDeletes);
+        var toDeletes = collection.Where(s => ids.Contains(getId(s))).ToList();
+        collection.RemoveRange(toDeletes);
     }
 
     [RelayCommand]
     private void OnManageAccount()
         => _navigationWindowService.ShowManageAccount(HistoryViewModel.AccountViewModel);
+
+    [RelayCommand]
+    private void OnManageCategoryType()
+        => _navigationWindowService.ShowManageCategoryType(HistoryViewModel.CategoryTypeViewModel);
+
+    [RelayCommand]
+    private async Task OnManageModePayment(CancellationToken cancellationToken = default)
+        => await _expenseActionService.ManageModePaymentAction(HistoryViewModel.ModePaymentViewModel, cancellationToken);
 
     [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)

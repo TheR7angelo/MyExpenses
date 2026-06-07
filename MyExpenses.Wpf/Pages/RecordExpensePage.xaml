@@ -114,7 +114,7 @@
         <Button Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonCategoryType_OnClick">
+                Command="{Binding ManageCategoryTypeCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />
@@ -140,7 +140,7 @@
         <Button Grid.Row="3" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonModePayment_OnClick">
+                Command="{Binding ManageModePaymentCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />
@@ -160,18 +160,6 @@
                  Text="{Binding HistoryViewModel.Value, Mode=TwoWay}">
         </TextBox>
 
-        <Button Grid.Row="4" Grid.Column="1"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Visibility="Collapsed"
-                Click="ButtonModePayment_OnClick">
-
-            <Button.Content>
-                <materialDesign:PackIcon Kind="Calculator" />
-            </Button.Content>
-
-        </Button>
-
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
               margin:PanelExtensions.MarginForAllChildren="3">
 
@@ -181,7 +169,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <DatePicker Grid.Column="0" x:Name="DatePicker"
+            <DatePicker Grid.Column="0"
                         materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerWhenHintAssist}}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding HistoryViewModel.Date}"

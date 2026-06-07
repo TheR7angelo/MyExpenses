@@ -18,7 +18,7 @@ public static class CollectionExtensions
     /// <param name="item">The item to add to the collection.</param>
     /// <param name="keySelector">A function that returns the key used for sorting.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
-    public static void AddAndSort<T>(this List<T> collection, T oldItem, T item,
+    public static void AddAndSort<T>(this IList<T> collection, T oldItem, T item,
         Func<T, string> keySelector)
     {
         ArgumentNullException.ThrowIfNull(collection);
@@ -35,7 +35,7 @@ public static class CollectionExtensions
     /// <param name="keySelector">A function that returns the key used for sorting.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
     // ReSharper disable once HeapView.ClosureAllocation
-    public static void AddAndSort<T>(this List<T> collection, T item, Func<T, string> keySelector)
+    public static void AddAndSort<T>(this IList<T> collection, T item, Func<T, string> keySelector)
     {
         ArgumentNullException.ThrowIfNull(collection);
 
@@ -55,7 +55,7 @@ public static class CollectionExtensions
     /// <param name="collection">The ObservableCollection<T/> to remove the items from.</param>
     /// <param name="items">The collection of items to remove.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
-    public static void RemoveRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
+    public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
         var itemList = items.ToList();
 
@@ -75,7 +75,7 @@ public static class CollectionExtensions
     /// <param name="logger">An optional ILogger instance to log errors. If not provided, no logging will occur.</param>
     /// <typeparam name="T">The type of items in the ObservableCollection.</typeparam>
     /// <exception cref="ArgumentNullException">Thrown when the collection or task is null.</exception>
-    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, Task<Result<IEnumerable<T>>> task,
+    public static void AddRangeAndSort<T>(this IList<T> collection, Task<Result<IEnumerable<T>>> task,
         Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase,
         ILogger? logger = null)
     {
@@ -100,7 +100,7 @@ public static class CollectionExtensions
     /// <param name="comparisonType">The StringComparison type for comparison, default is OrdinalIgnoreCase.</param>
     /// <param name="logger">An optional ILogger for logging errors.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection or result is null.</exception>
-    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, Result<IEnumerable<T>> result,
+    public static void AddRangeAndSort<T>(this IList<T> collection, Result<IEnumerable<T>> result,
         Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase,
         ILogger? logger = null)
     {
@@ -122,7 +122,7 @@ public static class CollectionExtensions
     /// <param name="keySelector">The key selector function used to determine the sorting order.</param>
     /// <param name="comparisonType">The type of comparison to use when sorting the collection.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
-    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, IEnumerable<T> items,
+    public static void AddRangeAndSort<T>(this IList<T> collection, IEnumerable<T> items,
         Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
     {
         foreach (var item in items)
@@ -137,7 +137,7 @@ public static class CollectionExtensions
     /// <param name="collection">The ObservableCollection<T/> to add the items to.</param>
     /// <param name="items">The collection of items to add.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
-    public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
+    public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
         foreach (var item in items)
         {
@@ -155,7 +155,7 @@ public static class CollectionExtensions
     /// <param name="keySelector">A function that selects a key for sorting the collection.</param>
     /// <param name="comparisonType">The type of comparison to use when sorting the collection.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
-    public static void AddAndSort<T>(this ObservableCollection<T> collection, T oldItem, T newItem,
+    public static void AddAndSort<T>(this IList<T> collection, T oldItem, T newItem,
         Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
     {
         ArgumentNullException.ThrowIfNull(collection);
@@ -173,7 +173,7 @@ public static class CollectionExtensions
     /// <param name="comparisonType">The type of comparison to use when sorting the collection.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
     // ReSharper disable once HeapView.ClosureAllocation
-    public static void AddAndSort<T>(this ObservableCollection<T> collection, T item, Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+    public static void AddAndSort<T>(this IList<T> collection, T item, Func<T, string> keySelector, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
     {
         ArgumentNullException.ThrowIfNull(collection);
 
