@@ -57,8 +57,10 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
 
     public void ShowLocationManagementWindow(PlaceViewModel? placeViewModel, bool isEdit)
     {
+        placeViewModel ??= new PlaceViewModel();
+
         var window = provider.GetRequiredService<AddEditLocationWindow>();
-        if (placeViewModel is not null) window.LoadPlaceViewModel(placeViewModel, isEdit);
+        window.LoadPlaceViewModel(placeViewModel, isEdit);
         window.ShowDialog();
     }
 
