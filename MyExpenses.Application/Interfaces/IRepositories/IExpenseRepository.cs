@@ -256,6 +256,14 @@ public interface IExpenseRepository
     public Task<Result<HistoryDomain>> CreateExpenseAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Updates an expense asynchronously.
+    /// </summary>
+    /// <param name="domain">The domain object representing the expense to update.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result indicating success or failure of the operation.</returns>
+    public Task<Result<HistoryDomain>> UpdateExpenseAsync(HistoryDomain domain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the unique identifiers of all mode payments.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>

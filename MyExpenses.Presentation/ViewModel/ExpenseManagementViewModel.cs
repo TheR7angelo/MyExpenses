@@ -146,13 +146,28 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
-        // var result = IsHistoryEdit
-        //     ? await _expenseActionService.Update(SelectedPlaceViewModel, cancellationToken)
-        //     : await _locationActionService.CreatePlaceAsync(SelectedPlaceViewModel, cancellationToken);
-        //
-        // if (result.IsSuccess) dialog?.Close();
+        bool result;
+        if (!IsHistoryEdit)
+        {
+            result = await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+        }
+        else
+        {
+            if (HistoryViewModel.BankTransferViewModel is not null)
+            {
+                // TODO send message to confirm edit
+            }
+            else result = await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken);
+        }
 
-        await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+
+        // var result = !IsHistoryEdit
+        //     ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
+        //     : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+        // //
+        // // if (result.IsSuccess) dialog?.Close();
+        //
+        // await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
     }
 
         // var (success, exception) = History.AddOrEdit();
@@ -356,5 +371,13 @@ public partial class ExpenseManagementViewModel : ViewModelBase
 
             LocationManagementViewModel.Map?.Navigator.SetZoom(points);
         });
+    }
+
+    public void Load(HistoryViewModel historyViewModel)
+    {
+        // TODO make it
+        // throw new NotImplementedException();
+
+        Console.WriteLine("Load method called with HistoryViewModel");
     }
 }

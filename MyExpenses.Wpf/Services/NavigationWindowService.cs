@@ -11,6 +11,7 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
+using MyExpenses.Wpf.Pages;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -19,6 +20,7 @@ namespace MyExpenses.Wpf.Services;
 
 public class NavigationWindowService(IServiceProvider provider, IDialogService dialogService,
     INominatimPresentationService nominatimPresentationService,
+    INavigationService navigationService,
     ILogger<NavigationWindowService> logger,
     INominatimDtoViewModelMapper nominatimDtoViewModelMapper) : INavigationWindowService
 {
@@ -38,13 +40,13 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
 
     public async Task ShowAddAccountType()
     {
-        var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
+        var accountActionService = provider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction();
     }
 
     public async Task ShowEditAccountTypeAsync(AccountTypeViewModel item)
     {
-        var accountActionService = App.ServiceProvider.GetRequiredService<IAccountActionService>();
+        var accountActionService = provider.GetRequiredService<IAccountActionService>();
         await accountActionService.ManageAccountTypeAction(item);
     }
 
@@ -104,9 +106,12 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         return placeViewModel;
     }
 
+    public void ManageExpense(HistoryViewModel? historyViewModel)
+        => navigationService.Navigate(nameof(RecordExpensePage), historyViewModel);
+
     public NominatimSearchResultViewModel? ShowLocationManagementWindow(IEnumerable<NominatimSearchResultViewModel> nominatimSearchResultViewModels)
     {
-        var window = App.ServiceProvider.GetRequiredService<NominatimSearchWindow>();
+        var window = provider.GetRequiredService<NominatimSearchWindow>();
         window.LoadNominatimSearchResults(nominatimSearchResultViewModels);
         window.ShowDialog();
 
@@ -117,7 +122,7 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
 
     public void ShowColorManagementWindow(ColorViewModel? color)
     {
-        var window = App.ServiceProvider.GetRequiredService<AddEditColorWindow>();
+        var window = provider.GetRequiredService<AddEditColorWindow>();
         if (color is not null) window.LoadColorViewModel(color);
         window.ShowDialog();
     }

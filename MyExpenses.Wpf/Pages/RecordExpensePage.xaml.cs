@@ -5,7 +5,9 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModel;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.Sql.Context;
@@ -17,7 +19,7 @@ using MessageBoxResult = System.Windows.MessageBoxResult;
 
 namespace MyExpenses.Wpf.Pages;
 
-public partial class RecordExpensePage
+public partial class RecordExpensePage : IReceiveNavigationParameter
 {
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new();
@@ -214,5 +216,17 @@ public partial class RecordExpensePage
     {
         var position = Mouse.GetPosition(MapControl);
         ExpenseManagementViewModel.LocationManagementViewModel.OnPositionChanged(position.X, position.Y, MapControl, true);
+    }
+
+    /// <summary>
+    /// Receives navigation parameters from the NavigationService.
+    /// This is called when the page receives a navigation parameter.
+    /// </summary>
+    /// <param name="parameter">The parameter passed during navigation</param>
+    public void OnNavigationParameterReceived(object? parameter)
+    {
+        if (parameter is not HistoryViewModel historyViewModel) return;
+
+        ExpenseManagementViewModel.Load(historyViewModel);
     }
 }

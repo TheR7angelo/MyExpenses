@@ -54,6 +54,14 @@ public interface IExpensePresentationService
     public Task<Result<HistoryViewModel>> CreateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Updates an existing expense.
+    /// </summary>
+    /// <param name="historyViewModel">The history view model containing the updated expense data.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a validation result indicating whether the update was successful or not.</returns>
+    public Task<Result<HistoryViewModel>> UpdateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a list of all mode payment view models.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

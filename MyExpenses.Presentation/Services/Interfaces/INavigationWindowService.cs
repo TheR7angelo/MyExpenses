@@ -77,6 +77,13 @@ public interface INavigationWindowService
     public PlaceViewModel? ManageLocationWindowAction(Result<IEnumerable<NominatimSearchResultViewModel>> results);
 
     /// <summary>
+    /// Displays the expense management window as a dialog, allowing users to manage expenses.
+    /// This method is used to navigate to the interface where users can view or modify expense records.
+    /// </summary>
+    /// <param name="historyViewModel">The view model representing the expense history to be managed. This contains the details of specific expenses.</param>
+    public void ManageExpense(HistoryViewModel? historyViewModel);
+
+    /// <summary>
     /// Shows the "Location Management" window as a dialog.
     /// This method is used to navigate to the interface where users can manage location details.
     /// </summary>

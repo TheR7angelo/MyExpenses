@@ -144,6 +144,7 @@ public partial class MainWindow
     #endregion
 
     private readonly INavigationWindowService _navigationWindowService;
+    private readonly NavigationService _navigationService;
 
     public MainWindow(NavigationService navigationService, INavigationWindowService navigationWindowService)
     {
@@ -154,6 +155,7 @@ public partial class MainWindow
 
         InitializeComponent();
 
+        _navigationService = navigationService;
         navigationService.Initialize(FrameBody);
         navigationService.Navigate(nameof(WelcomePage));
 
@@ -179,12 +181,12 @@ public partial class MainWindow
         if (e.ChangedButton == MouseButton.XButton1)
         {
             e.Handled = true;
-            nameof(FrameBody).GoBack();
+            _navigationService.GoBack();
         }
         else if (e.ChangedButton == MouseButton.XButton2)
         {
             e.Handled = true;
-            nameof(FrameBody).GoForward();
+            _navigationService.GoForward();
         }
     }
 
@@ -259,7 +261,7 @@ public partial class MainWindow
     }
 
     private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
-        => nameof(FrameBody).GoBack();
+        => _navigationService.GoBack();
 
     private void Navigator_OnCanGoBackChanged(object? sender, NavigatorEventArgs e)
         => CanGoBack = e.CanGoBack;

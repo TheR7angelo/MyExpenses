@@ -40,6 +40,13 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return mapper.Map(result);
     }
 
+    public async Task<Result<HistoryDto>> UpdateExpenseAsync(HistoryDto historyDto, CancellationToken cancellationToken = default)
+    {
+        var domain = mapper.MapToDomain(historyDto);
+        var result = await expenseRepository.UpdateExpenseAsync(domain, cancellationToken);
+        return mapper.Map(result);
+    }
+
     public async Task<Result<IEnumerable<ModePaymentDto>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
         var result = await expenseRepository.GetAllModePaymentAsync(cancellationToken);

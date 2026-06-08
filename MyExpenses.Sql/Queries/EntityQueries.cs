@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -5,6 +6,7 @@ using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Mappings;
 
 namespace MyExpenses.Sql.Queries;
 
@@ -226,6 +228,84 @@ public static class EntityQueries
             TotalRowCount = totalRowCount,
             TotalFilteredRowCount = totalFilteredRowCount
         };
+    }
+
+    public static FilteredHistoryDomainResults GetFilteredHistoryDomain(this string accountName,
+    int? month = null, int? year = null,
+    string[]? categories = null, string?[]? descriptions = null, string[]? modePayments = null,
+    string[]? places = null,
+    double[]? values = null, bool[]? pointed = null)
+    // ReSharper restore HeapView.ClosureAllocation
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
+        // to the database. This allocation is mandatory to perform any query or operation on the "VHistories" view, and
+        // without it, retrieving or filtering data would not be possible.
+        using var context = new DataBaseContextOld();
+        var query = context.THistories
+            .Include(s => s.AccountFkNavigation).ThenInclude(s => s.CurrencyFkNavigation)
+            .Include(s => s.AccountFkNavigation).ThenInclude(s => s.AccountTypeFkNavigation)
+            .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s.ColorFkNavigation)
+            .Include(s => s.ModePaymentFkNavigation)
+            .Include(s => s.PlaceFkNavigation)
+            .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+            .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+            .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+            .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+            .Where(s => s.AccountFkNavigation.Name == accountName);
+
+        if (month.HasValue)
+        {
+            query = query.Where(s => s.Date!.Value.Month.Equals(month.Value));
+        }
+
+        if (year.HasValue)
+        {
+            query = query.Where(s => s.Date!.Value.Year.Equals(year.Value));
+        }
+
+        var totalRowCount = query.Count();
+
+        if (categories is { Length: > 0 })
+        {
+            query = query.Where(s => categories.Contains(s.CategoryTypeFkNavigation.Name));
+        }
+
+        if (descriptions is { Length: > 0 })
+        {
+            query = query.Where(s => descriptions.Contains(s.Description));
+        }
+
+        if (modePayments is { Length: > 0 })
+        {
+            query = query.Where(s => modePayments.Contains(s.ModePaymentFkNavigation.Name));
+        }
+
+        if (places is { Length: > 0 })
+        {
+            query = query.Where(s => places.Contains(s.PlaceFkNavigation.Name));
+        }
+
+        if (values is { Length: > 0 })
+        {
+            query = query.Where(s => values.Contains(s.Value!.Value));
+        }
+
+        if (pointed is { Length: > 0 })
+        {
+            query = query.Where(s => pointed.Contains((bool)s.IsPointed!));
+        }
+
+        var totalFilteredRowCount = query.Count();
+
+        var records = query
+            .OrderBy(s => s.IsPointed)
+            .ThenByDescending(s => s.Date)
+            .ThenBy(s => s.CategoryTypeFkNavigation.Name)
+            .ProjectToDomain()
+            .ToList();
+
+        return new FilteredHistoryDomainResults { Histories = records, TotalRowCount = totalRowCount, TotalFilteredRowCount = totalFilteredRowCount};
     }
 
     /// <summary>

@@ -624,6 +624,12 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
+    public Task<Result<HistoryDomain>> UpdateExpenseAsync(HistoryDomain domain, CancellationToken cancellationToken = default)
+    {
+        // TODO make it
+        throw new NotImplementedException();
+    }
+
     public async Task<Result<IEnumerable<ModePaymentDomain>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
         try

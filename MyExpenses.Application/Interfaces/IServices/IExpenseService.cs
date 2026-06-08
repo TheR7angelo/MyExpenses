@@ -47,6 +47,14 @@ public interface IExpenseService
     public Task<Result<HistoryDto>> CreateExpenseAsync(HistoryDto historyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Updates an existing expense in the system.
+    /// </summary>
+    /// <param name="historyDto">The updated expense data transfer object.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{HistoryDto}"/> object representing the updated expense or an error if the update failed.</returns>
+    public Task<Result<HistoryDto>> UpdateExpenseAsync(HistoryDto historyDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a list of all mode payment types from the system.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

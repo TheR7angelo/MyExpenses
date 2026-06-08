@@ -35,11 +35,6 @@ public sealed class NavigationService : INavigationService
     /// </summary>
     private System.Windows.Navigation.NavigationService? _navigationService;
 
-    /// <summary>
-    /// Indicates whether there is at least one entry in the navigation back stack,
-    /// allowing the user to return to the previous page or state. Updates dynamically
-    /// based on the current navigation history managed by the service.
-    /// </summary>
     public bool CanGoBack
     {
         get;
@@ -51,11 +46,6 @@ public sealed class NavigationService : INavigationService
         }
     }
 
-    /// <summary>
-    /// Indicates whether there is a forward navigation entry in the navigation stack.
-    /// This property is updated dynamically based on the current state of the navigation service
-    /// and reflects whether the application can navigate to a forward entry.
-    /// </summary>
     public bool CanGoForward
     {
         get;
@@ -139,9 +129,6 @@ public sealed class NavigationService : INavigationService
     private async void OnNavigating(object sender, NavigatingCancelEventArgs e)
         => await SetBusyState(true);
 
-    /// <summary>
-    /// Navigates to a registered route.
-    /// </summary>
     public async void Navigate(string route, object? parameter = null)
     {
         if (_navigationService is null)
@@ -168,10 +155,6 @@ public sealed class NavigationService : INavigationService
         }
     }
 
-    /// <summary>
-    /// Navigates back to the previous entry in the navigation history, if possible.
-    /// Raises the CanGoBackChanged event when the navigation state changes.
-    /// </summary>
     public void GoBack()
     {
         if (_navigationService?.CanGoBack is not true) return;
@@ -179,10 +162,6 @@ public sealed class NavigationService : INavigationService
         UpdateNavigationState();
     }
 
-    /// <summary>
-    /// Navigates to the next page in the navigation history, if one exists.
-    /// Updates the navigation state after completing the operation.
-    /// </summary>
     public void GoForward()
     {
         if (_navigationService?.CanGoForward is not true) return;
@@ -192,6 +171,7 @@ public sealed class NavigationService : INavigationService
 
     /// <summary>
     /// Handles post-navigation logic, including updating the application state and resetting the busy state.
+    /// Also delivers navigation parameters to pages that implement IReceiveNavigationParameter.
     /// </summary>
     /// <param name="sender">The source of the navigation event, typically the navigation service.</param>
     /// <param name="e">The navigation event arguments containing details of the navigation.</param>
@@ -199,6 +179,13 @@ public sealed class NavigationService : INavigationService
     {
         await SetBusyState(false);
         UpdateNavigationState();
+
+        // If the navigated content is a page that implements IReceiveNavigationParameter,
+        // pass the parameter to it
+        if (e is { Content: IReceiveNavigationParameter parameterReceiver, ExtraData: not null })
+        {
+            parameterReceiver.OnNavigationParameterReceived(e.ExtraData);
+        }
     }
 
     /// <summary>

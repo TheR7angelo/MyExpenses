@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models.Dependencies;
 using FilterDataGrid;
+using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -16,6 +17,7 @@ using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
@@ -36,7 +38,8 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class DashBoardPage
 {
-    public ObservableCollection<VHistory> VHistories { get; } = [];
+    // public ObservableCollection<VHistory> VHistories { get; } = [];
+    public ObservableCollection<HistoryViewModel> VHistories { get; } = [];
     public ObservableCollection<TotalByAccountViewModel> VTotalByAccounts { get; } = [];
 
     private DataGridRow? DataGridRow { get; set; }
@@ -373,13 +376,22 @@ public partial class DashBoardPage
 
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+    private readonly IExpenseDtoDomainMapper _expenseDtoDomainMapper;
+    private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    private readonly INavigationWindowService _navigationWindowService;
 
     public DashBoardPage(IAccountPresentationService accountPresentationService,
-        IAccountDtoViewModelMapper accountDtoViewModelMapper)
+        IExpenseDtoDomainMapper expenseDtoDomainMapper,
+        IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
+        INavigationWindowService navigationWindowService)
     {
         Instance = this;
         _accountPresentationService = accountPresentationService;
+        _expenseDtoDomainMapper = expenseDtoDomainMapper;
+        _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        _navigationWindowService = navigationWindowService;
 
         var (currentYear, currentMonth, _) = DateTime.Now;
 
@@ -558,9 +570,9 @@ public partial class DashBoardPage
     private void ButtonEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
-        if (button.DataContext is not VHistory vHistory) return;
+        if (button.DataContext is not HistoryViewModel historyViewModel) return;
 
-        EditRecord(vHistory);
+        EditRecord(historyViewModel);
     }
 
     private void ButtonPointedRecord_OnClick(object sender, RoutedEventArgs e)
@@ -657,26 +669,46 @@ public partial class DashBoardPage
 
     private void DeleteRecord(VHistory vHistory)
     {
-        using var context = new DataBaseContextOld();
-        var history = context.THistories.FirstOrDefault(s => s.Id.Equals(vHistory.Id));
+        // TODO correct
 
-        var bankTransfer = history?.BankTransferFk is null
-            ? null
-            : context.TBankTransfers.FirstOrDefault(s => s.Id == history.BankTransferFk);
-
-        history?.Delete(true);
-        bankTransfer?.Delete(true);
-
-        VHistories.Remove(vHistory);
-
-        var accountName = vHistory.Account!;
-
-        RefreshDataGrid(accountName);
-        RefreshAccountTotal(CurrentVTotalByAccount!.Id);
+        // using var context = new DataBaseContextOld();
+        // var history = context.THistories.FirstOrDefault(s => s.Id.Equals(vHistory.Id));
+        //
+        // var bankTransfer = history?.BankTransferFk is null
+        //     ? null
+        //     : context.TBankTransfers.FirstOrDefault(s => s.Id == history.BankTransferFk);
+        //
+        // history?.Delete(true);
+        // bankTransfer?.Delete(true);
+        //
+        // VHistories.Remove(vHistory);
+        //
+        // var accountName = vHistory.Account!;
+        //
+        // RefreshDataGrid(accountName);
+        // RefreshAccountTotal(CurrentVTotalByAccount!.Id);
     }
 
     private static void EditRecord(VHistory vHistory)
     {
+        // TODO correct
+
+        // var history = vHistory.Id.ToISql<THistory>();
+        // if (history is null) return;
+        //
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // The RecordExpensePage instance is created with the specified THistory instance to handle record edition operations.
+        // // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
+        // var recordExpensePage = new RecordExpensePage();
+        // recordExpensePage.SetTHistory(history);
+        //
+        // nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+    }
+
+    private void EditRecord(HistoryViewModel historyViewModel)
+    {
+        _navigationWindowService.ManageExpense(historyViewModel);
+
         // TODO correct
 
         // var history = vHistory.Id.ToISql<THistory>();
@@ -780,9 +812,12 @@ public partial class DashBoardPage
         VHistories.Clear();
 
         var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
-        var results = accountName.GetFilteredHistories(monthInt, yearInt);
+        var results = accountName.GetFilteredHistoryDomain(monthInt, yearInt);
 
-        VHistories.AddRange(results.Histories);
+        var historiesDto = results.Histories.Select(_expenseDtoDomainMapper.MapToDto);
+        var historiesViewModel = historiesDto.Select(_expenseDtoViewModelMapper.MapToViewModel);
+
+        VHistories.AddRange(historiesViewModel);
 
         UpdatePieChartData(accountName, monthInt, yearInt);
     }

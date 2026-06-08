@@ -46,6 +46,30 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
         return false;
     }
 
+    public async Task<bool> UpdateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        if (!historyViewModel.IsDirty) return false;
+
+        var valResultHistory = await ValidateAsync<HistoryViewModelValidator, HistoryViewModel>(historyViewModel, cancellationToken);
+        if (valResultHistory.IsValid)
+        {
+            if (!AskUpdateConfirmation(historyViewModel)) return false;
+
+            var result = await expensePresentationService.UpdateExpense(historyViewModel, cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                SendEntityChangedMessage(DependencyType.Expense, DataAction.Update, historyViewModel);
+            }
+
+            ShowUpdateResultMessage(result.IsSuccess);
+            return result.IsSuccess;
+        }
+
+        historyViewModel.ValidateWithFluent(valResultHistory);
+        return false;
+    }
+
     public async Task<bool> ValidateBankTransfer(BankTransferViewModel bankTransferViewModel,
         HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {

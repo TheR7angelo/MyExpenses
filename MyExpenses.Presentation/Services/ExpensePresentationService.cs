@@ -73,6 +73,13 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return mapper.Map(result);
     }
 
+    public async Task<Result<HistoryViewModel>> UpdateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        var historyDto = mapper.MapToDto(historyViewModel);
+        var result = await expenseService.UpdateExpenseAsync(historyDto, cancellationToken);
+        return mapper.Map(result);
+    }
+
     public async Task<Result<IEnumerable<ModePaymentViewModel>>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)
     {
         var result = await expenseService.GetAllModePaymentAsync(cancellationToken);
