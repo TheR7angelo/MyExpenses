@@ -177,7 +177,7 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
     public Task ManageModePaymentAction(ModePaymentViewModel? modePaymentViewModel, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: modePaymentViewModel,
+            viewModel: modePaymentViewModel,
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: ModePaymentDomain.MaxNameLength,

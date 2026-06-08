@@ -30,7 +30,7 @@ public class AccountActionService(
     public Task ManageAccountTypeAction(AccountTypeViewModel? accountTypeViewModel = null, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: accountTypeViewModel,
+            viewModel: accountTypeViewModel,
             getName: viewModel => viewModel.Name,
             setName: (viewModel, name) => viewModel.Name = name,
             maxNameLength: AccountTypeDomain.MaxNameLength,
@@ -101,7 +101,7 @@ public class AccountActionService(
     public Task ManageCurrencyAction(CurrencyViewModel? currencyViewModel, CancellationToken cancellationToken = default)
     {
         return ManageNamedEntityAction(
-            currentViewModel: currencyViewModel,
+            viewModel: currencyViewModel,
             getName: viewModel => viewModel.Symbol,
             setName: (viewModel, name) => viewModel.Symbol = name,
             maxNameLength: CurrencyDomain.MaxSymbolLength,

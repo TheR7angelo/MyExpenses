@@ -23,7 +23,7 @@ public abstract class AActionService(IDialogService dialogService, ILogger logge
     /// <typeparam name="TViewModel">
     /// The type of the view model used to represent the entity. Must be a class.
     /// </typeparam>
-    /// <param name="currentViewModel">
+    /// <param name="viewModel">
     /// The current instance of the view model being edited. If null, the operation will be treated as creating a new entity.
     /// </param>
     /// <param name="getName">
@@ -78,7 +78,7 @@ public abstract class AActionService(IDialogService dialogService, ILogger logge
     /// A task representing the asynchronous operation. The task completes when the user finishes the interaction
     /// or the operation is canceled.
     /// </returns>
-    internal async Task ManageNamedEntityAction<TViewModel>(TViewModel? currentViewModel,
+    internal async Task ManageNamedEntityAction<TViewModel>(TViewModel? viewModel,
         Func<TViewModel, string?> getName,
         Action<TViewModel, string?> setName,
         int maxNameLength, string addTitle, string editTitle, string addPlaceholder, string editPlaceholder,
@@ -95,24 +95,24 @@ public abstract class AActionService(IDialogService dialogService, ILogger logge
     {
         while (true)
         {
-            var dialogContext = ShowEntityInputDialog(currentViewModel, getName, maxNameLength, addTitle, editTitle,
+            var dialogContext = ShowEntityInputDialog(viewModel, getName, maxNameLength, addTitle, editTitle,
                 addPlaceholder, editPlaceholder);
 
             if (dialogContext.ShouldCancel) return;
 
             if (dialogContext.ShouldDelete)
             {
-                await deleteAsync(currentViewModel!, cancellationToken);
+                await deleteAsync(viewModel!, cancellationToken);
                 return;
             }
 
-            var isValid = await ValidateEntityInputAsync(currentViewModel, dialogContext.Input, setName,
+            var isValid = await ValidateEntityInputAsync(viewModel, dialogContext.Input, setName,
                 createValidationViewModel, cloneValidationViewModel, beforeValidationAsync, validateAsync,
                 logValidationError, cancellationToken);
 
             if (!isValid) continue;
 
-            await ExecuteEntitySaveActionAsync(currentViewModel, dialogContext.Input!,
+            await ExecuteEntitySaveActionAsync(viewModel, dialogContext.Input!,
                 createAsync, updateAsync, cancellationToken);
             return;
         }
