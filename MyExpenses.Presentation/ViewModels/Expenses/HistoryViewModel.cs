@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using FluentValidation.Results;
 using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Locations;
@@ -57,7 +56,4 @@ public partial class HistoryViewModel : BaseViewModel
     [DirtyTrackedProperty]
     [ObservableProperty]
     public partial DateTime? DatePointed { get; set; }
-
-    public new void ValidateWithFluent(ValidationResult result)
-        => base.ValidateWithFluent(result);
 }

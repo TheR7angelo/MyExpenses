@@ -66,7 +66,7 @@ public abstract class BaseViewModel : ObservableObject, INotifyDataErrorInfo
     /// the error collection and notification system accordingly.
     /// </summary>
     /// <param name="result">The validation result containing details of validation errors.</param>
-    protected void ValidateWithFluent(ValidationResult result)
+    public void ValidateWithFluent(ValidationResult result)
     {
         var propertiesToNotify = _errors.Keys
             .Concat(result.Errors.Select(e => e.PropertyName))

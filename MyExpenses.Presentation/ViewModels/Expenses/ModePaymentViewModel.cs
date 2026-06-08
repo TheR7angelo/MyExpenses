@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using FluentValidation.Results;
 using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
@@ -22,7 +21,4 @@ public partial class ModePaymentViewModel : BaseViewModel
 
     [ObservableProperty]
     public partial bool IsDeleting { get; set; }
-
-    public new void ValidateWithFluent(ValidationResult result)
-        => base.ValidateWithFluent(result);
 }

@@ -1,6 +1,5 @@
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
-using FluentValidation.Results;
 using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
@@ -70,7 +69,4 @@ public partial class PlaceViewModel : BaseViewModel
             sb.Append(value);
         }
     }
-
-    public new void ValidateWithFluent(ValidationResult result)
-        => base.ValidateWithFluent(result);
 }

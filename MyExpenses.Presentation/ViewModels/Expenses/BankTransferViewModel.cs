@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using FluentValidation.Results;
 using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using TheR7angelo.DirtyTracking.Abstractions;
@@ -36,7 +35,4 @@ public partial class BankTransferViewModel : BaseViewModel
     public partial DateTime? Date { get; set; }
 
     public DateTime? DateAdded { get; set; }
-
-    public new void ValidateWithFluent(ValidationResult result)
-        => base.ValidateWithFluent(result);
 }
