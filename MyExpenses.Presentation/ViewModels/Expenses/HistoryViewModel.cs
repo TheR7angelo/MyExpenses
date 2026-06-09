@@ -56,4 +56,29 @@ public partial class HistoryViewModel : BaseViewModel
     [DirtyTrackedProperty]
     [ObservableProperty]
     public partial DateTime? DatePointed { get; set; }
+
+    public void Reset()
+    {
+        Id = 0;
+
+        AccountViewModel = null;
+        Description = null;
+        CategoryTypeViewModel = null;
+        ModePaymentViewModel = null;
+        Value = null;
+
+        Date = DateTime.Now;
+
+        PlaceViewModel = null;
+        IsPointed = false;
+        BankTransferViewModel = null;
+        RecursiveExpenseViewModel = null;
+
+        DateAdded = DateTime.Now;
+
+        DatePointed = null;
+
+        AcceptChanges();
+    }
+
 }

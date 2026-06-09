@@ -111,4 +111,11 @@ public static partial class ExpensesMapper
     [MapProperty(nameof(TRecursiveExpense.CategoryTypeFkNavigation), nameof(RecursiveExpenseDomain.CategoryType))]
     [MapProperty(nameof(TRecursiveExpense.AccountFkNavigation), nameof(RecursiveExpenseDomain.Account))]
     public static partial RecursiveExpenseDomain MapToDomain(this TRecursiveExpense src);
+
+    /// <summary>
+    /// Merges the properties from the source THistory object into the destination THistory object.
+    /// </summary>
+    /// <param name="src">The source THistory object.</param>
+    /// <param name="dst">The destination THistory object.</param>
+    public static partial void Merge(this THistory src, THistory dst);
 }
