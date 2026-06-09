@@ -15,6 +15,7 @@ using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
@@ -380,11 +381,14 @@ public partial class DashBoardPage
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
 
+    private readonly IDialogService _dialogService;
+
     public DashBoardPage(IAccountPresentationService accountPresentationService,
         IExpenseDtoDomainMapper expenseDtoDomainMapper,
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
-        INavigationWindowService navigationWindowService)
+        INavigationWindowService navigationWindowService,
+        IDialogService dialogService)
     {
         Instance = this;
         _accountPresentationService = accountPresentationService;
@@ -392,6 +396,7 @@ public partial class DashBoardPage
         _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
+        _dialogService = dialogService;
 
         var (currentYear, currentMonth, _) = DateTime.Now;
 
@@ -707,27 +712,15 @@ public partial class DashBoardPage
 
     private void EditRecord(HistoryViewModel historyViewModel)
     {
-        // TODO correct
-        // if (historyViewModel.BankTransferViewModel is not null)
-        // {
-        //     var response = _dialogService.ShowMessageBox("Warning",
-        //         "This expense is linked with a bank transfert, do you realy want to edit it ?",
-        //         MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
-        //     if (response is not MessageBoxResult.Yes) return;
-        // }
+        if (historyViewModel.BankTransferViewModel is not null)
+        {
+            var response = _dialogService.ShowMessageBox(ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferCaption,
+                ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferContent,
+                Presentation.Enums.MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+            if (response is not Presentation.Enums.MessageBoxResult.Yes) return;
+        }
 
         _navigationWindowService.ManageExpense(historyViewModel);
-
-        // var history = vHistory.Id.ToISql<THistory>();
-        // if (history is null) return;
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // // The RecordExpensePage instance is created with the specified THistory instance to handle record edition operations.
-        // // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-        // var recordExpensePage = new RecordExpensePage();
-        // recordExpensePage.SetTHistory(history);
-        //
-        // nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
 
     private DateOnly GetDateOnlyFilter()

@@ -438,6 +438,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attention.
+        /// </summary>
+        public static string MessageBoxUpdateExpenseLindedBankTranferCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateExpenseLindedBankTranferCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This expense is related to a bank transfer, do you really want to change it ?.
+        /// </summary>
+        public static string MessageBoxUpdateExpenseLindedBankTranferContent {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateExpenseLindedBankTranferContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxValidBankTransferErrorCaption {

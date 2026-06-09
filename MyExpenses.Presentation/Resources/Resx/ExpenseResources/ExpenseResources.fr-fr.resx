@@ -200,4 +200,10 @@
     <data name="MessageBoxQuestionNewExpenseContent" xml:space="preserve">
         <value>Voulez-vous ajouter une dépense supplémentaire ?</value>
     </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferCaption" xml:space="preserve">
+        <value>Attention</value>
+    </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
+        <value>Cette dépense est liée à un virement bancaire, voulez-vous vraiment la modifier ?</value>
+    </data>
 </root>
