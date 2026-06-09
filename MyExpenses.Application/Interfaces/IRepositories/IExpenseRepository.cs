@@ -289,6 +289,14 @@ public interface IExpenseRepository
         CreateBankTransferAsync(BankTransferDomain bankTransferDomain, HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Updates a bank transfer record in the database.
+    /// </summary>
+    /// <param name="historyDomain">The HistoryDomain object containing the updated bank transfer information.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A Result object indicating the success or failure of the update operation.</returns>
+    public Task<Result<HistoryDomain>> UpdateBankTransfer(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves all category types associated with a specified color.
     /// </summary>
     /// <param name="colorDomain">The color domain object used to filter category types.</param>

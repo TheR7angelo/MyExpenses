@@ -624,10 +624,44 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
-    public Task<Result<HistoryDomain>> UpdateExpenseAsync(HistoryDomain domain, CancellationToken cancellationToken = default)
+    public async Task<Result<HistoryDomain>> UpdateExpenseAsync(HistoryDomain domain, CancellationToken cancellationToken = default)
     {
-        // TODO make it
-        throw new NotImplementedException();
+        logger.LogInformation("Updating expense with id {HistoryId}", domain.Id);
+
+        try
+        {
+            if (domain.BankTransfer is not null)
+            {
+                logger.LogInformation("Bank transfer was provided, updating bank transfer instead of expense");
+                return await UpdateBankTransfer(domain, cancellationToken);
+            }
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Updating expense (ID={HistoryId}) with description {HistoryDescription}", domain.Id, domain.Description);
+
+            var json = domain.ToJson();
+            logger.LogDebug("Expense: {Json}", json);
+
+            var updatedHistory = await context.THistories.FirstOrDefaultAsync(s => s.Id == domain.Id, cancellationToken);
+            if (updatedHistory is null)
+            {
+                return Result<HistoryDomain>.Failure(ErrorCode.NotFound, "Expense was not found");
+            }
+
+            var entity = domain.MapToEntity();
+            entity.Merge(updatedHistory);
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Expense (ID={HistoryId}) with description {HistoryDescription} was successfully updated", domain.Id, domain.Description);
+            return Result<HistoryDomain>.Success(domain, "Expense was successfully updated");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to update expense with description {HistoryDescription}", domain.Description);
+            return Result<HistoryDomain>.Failure(ErrorCode.DatabaseError, "Failed to update expense");
+        }
     }
 
     public async Task<Result<IEnumerable<ModePaymentDomain>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
@@ -704,6 +738,12 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             .OrderBy(s => s.Value).ToList();
 
         return Result<(BankTransferDomain, IEnumerable<HistoryDomain>)>.Success((bankTransferDomain, historiesDomain));
+    }
+
+    public async Task<Result<HistoryDomain>> UpdateBankTransfer(HistoryDomain domain, CancellationToken cancellationToken = default)
+    {
+        // TODO work
+        throw new NotImplementedException();
     }
 
     public async Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllByColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
