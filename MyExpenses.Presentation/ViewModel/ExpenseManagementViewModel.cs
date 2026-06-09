@@ -336,6 +336,19 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     public void Load(HistoryViewModel historyViewModel)
     {
         _expenseDtoViewModelMapper.Merge(historyViewModel, HistoryViewModel);
+
+        var accountViewModel = Accounts.FirstOrDefault(c => c.Id == historyViewModel.AccountViewModel?.Id);
+        if (accountViewModel is not null) HistoryViewModel.AccountViewModel = accountViewModel;
+
+        var categoryTypeViewModel = CategoryTypes.FirstOrDefault(c => c.Id == historyViewModel.CategoryTypeViewModel?.Id);
+        if (categoryTypeViewModel is not null) HistoryViewModel.CategoryTypeViewModel = categoryTypeViewModel;
+
+        var modePaymentViewModel = ModePaymentViewModels.FirstOrDefault(m => m.Id == historyViewModel.ModePaymentViewModel?.Id);
+        if (modePaymentViewModel is not null) HistoryViewModel.ModePaymentViewModel = modePaymentViewModel;
+
+        var placeViewModel = Places.FirstOrDefault(p => p.Id == historyViewModel.PlaceViewModel?.Id);
+        if (placeViewModel is not null) HistoryViewModel.PlaceViewModel = placeViewModel;
+
         HistoryViewModel.AcceptChanges();
         IsHistoryEdit = true;
     }

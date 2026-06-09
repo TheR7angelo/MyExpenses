@@ -760,17 +760,52 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
             logger.LogInformation("Found bank transfer with id {BankTransferId}", bankEntity.Id);
 
-            // TODO work
+            var entityEdited = bankEntity.THistories!.First(s => s.Id == domain.Id);
+            var entityToEdit = bankEntity.THistories!.First(s => s.Id != domain.Id);
 
+            bankEntity.Date = domain.Date;
+            bankEntity.MainReason = domain.Description?.Length > 100
+                ? domain.Description[..100]
+                : domain.Description;
 
+            bankEntity.FromAccountFk = domain.Value < 0 ? entityEdited.AccountFk : entityToEdit.AccountFk;
+            bankEntity.ToAccountFk = bankEntity.FromAccountFk == entityEdited.AccountFk ? entityToEdit.AccountFk : entityEdited.AccountFk;
+            bankEntity.Value = Math.Abs(entityEdited.Value ?? 0d);
+
+            var history = domain.MapToEntity();
+            history.Id = entityEdited.Id;
+            history.AccountFk = entityEdited.AccountFk;
+            history.Value = bankEntity.FromAccountFk == entityEdited.AccountFk ? -1 * Math.Abs(domain.Value) : domain.Value;
+            history.Merge(entityEdited);
+
+            var historyDestination = domain.MapToEntity();
+            historyDestination.Id = entityToEdit.Id;
+            historyDestination.AccountFk = entityToEdit.AccountFk;
+            historyDestination.Value = -entityEdited.Value;
+            historyDestination.Merge(entityToEdit);
+
+            await dataBaseContext.SaveChangesAsync(cancellationToken);
+
+            domain = await dataBaseContext.THistories
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.AccountTypeFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.CurrencyFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s.ColorFkNavigation)
+                .Include(s => s.ModePaymentFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.CategoryTypeFkNavigation).ThenInclude(s => s!.ColorFkNavigation)
+                .Include(s => s.RecursiveExpenseFkNavigation).ThenInclude(s => s!.AccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+                .Include(s => s.PlaceFkNavigation)
+                .ProjectToDomain()
+                .FirstAsync(s => s.Id == domain.Id, cancellationToken: cancellationToken);
+
+            return Result<HistoryDomain>.Success(domain, "Bank transfer successfully updated with expense data");
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            logger.LogError(e, "Failed to update bank transfer with expense {HistoryId}", domain.Id);
+            return Result<HistoryDomain>.Failure(ErrorCode.DatabaseError, "Failed to update bank transfer");
         }
-
-        throw new NotImplementedException();
     }
 
     public async Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllByColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
