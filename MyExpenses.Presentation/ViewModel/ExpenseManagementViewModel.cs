@@ -146,14 +146,23 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
-        var result = !IsHistoryEdit
+        var result = IsHistoryEdit
             ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
             : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
 
+        if (!result) return;
+        if (IsHistoryEdit)
+        {
+            _navigationService.GoBack();
+            return;
+        }
 
-        // // if (result.IsSuccess) dialog?.Close();
-        //
-        // await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+        // TODO trad
+        var response = _dialogService.ShowMessageBox("Question", "Do you want to add another expense ?",
+            MessageBoxButton.YesNo, MsgBoxImage.Question);
+
+        if (response is not MessageBoxResult.Yes) _navigationService.GoBack();
+        HistoryViewModel.Reset();
     }
 
         // var (success, exception) = History.AddOrEdit();
