@@ -146,25 +146,11 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
-        bool result;
-        if (!IsHistoryEdit)
-        {
-            result = await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
-        }
-        else
-        {
-            if (HistoryViewModel.BankTransferViewModel is not null)
-            {
-                // TODO send message to confirm edit
-            }
-            else result = await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken);
-        }
+        var result = !IsHistoryEdit
+            ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
+            : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
 
 
-        // var result = !IsHistoryEdit
-        //     ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
-        //     : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
-        // //
         // // if (result.IsSuccess) dialog?.Close();
         //
         // await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);

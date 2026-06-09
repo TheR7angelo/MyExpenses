@@ -707,9 +707,16 @@ public partial class DashBoardPage
 
     private void EditRecord(HistoryViewModel historyViewModel)
     {
-        _navigationWindowService.ManageExpense(historyViewModel);
-
         // TODO correct
+        // if (historyViewModel.BankTransferViewModel is not null)
+        // {
+        //     var response = _dialogService.ShowMessageBox("Warning",
+        //         "This expense is linked with a bank transfert, do you realy want to edit it ?",
+        //         MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+        //     if (response is not MessageBoxResult.Yes) return;
+        // }
+
+        _navigationWindowService.ManageExpense(historyViewModel);
 
         // var history = vHistory.Id.ToISql<THistory>();
         // if (history is null) return;
