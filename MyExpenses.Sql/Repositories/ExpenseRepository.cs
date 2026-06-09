@@ -742,7 +742,34 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
 
     public async Task<Result<HistoryDomain>> UpdateBankTransfer(HistoryDomain domain, CancellationToken cancellationToken = default)
     {
-        // TODO work
+        try
+        {
+            logger.LogInformation("Updating bank transfer with id {BankTransferId}", domain.BankTransfer!.Id);
+
+            await using var dataBaseContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var bankEntity = await dataBaseContext.TBankTransfers
+                .Include(s => s.THistories)
+                .FirstOrDefaultAsync(s => s.Id == domain.BankTransfer.Id, cancellationToken: cancellationToken);
+
+            if (bankEntity is null)
+            {
+                logger.LogError("Failed to find bank transfer with id {BankTransferId}", domain.BankTransfer.Id);
+                return Result<HistoryDomain>.Failure(ErrorCode.NotFound, "Failed find corresponding bank transfer for history update");
+            }
+
+            logger.LogInformation("Found bank transfer with id {BankTransferId}", bankEntity.Id);
+
+            // TODO work
+
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
         throw new NotImplementedException();
     }
 
