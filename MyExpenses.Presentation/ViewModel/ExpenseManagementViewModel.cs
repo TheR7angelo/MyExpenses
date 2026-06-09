@@ -373,11 +373,14 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         });
     }
 
+    /// <summary>
+    /// Loads data from the provided history view model into the current instance's history view model.
+    /// </summary>
+    /// <param name="historyViewModel">The source history view model containing the data to be loaded.</param>
     public void Load(HistoryViewModel historyViewModel)
     {
-        // TODO make it
-        // throw new NotImplementedException();
-
-        Console.WriteLine("Load method called with HistoryViewModel");
+        _expenseDtoViewModelMapper.Merge(historyViewModel, HistoryViewModel);
+        HistoryViewModel.AcceptChanges();
+        IsHistoryEdit = true;
     }
 }

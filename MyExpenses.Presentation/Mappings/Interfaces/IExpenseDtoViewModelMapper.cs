@@ -176,6 +176,13 @@ public interface IExpenseDtoViewModelMapper
     public void Merge(ModePaymentViewModel src, ModePaymentViewModel dst);
 
     /// <summary>
+    /// Merges the properties of a source <see cref="HistoryViewModel"/> into a destination <see cref="HistoryViewModel"/>.
+    /// </summary>
+    /// <param name="src">The source <see cref="HistoryViewModel"/>.</param>
+    /// <param name="dst">The destination <see cref="HistoryViewModel"/>.</param>
+    public void Merge(HistoryViewModel src, HistoryViewModel dst);
+
+    /// <summary>
     /// Maps a <see cref="BankTransferDto"/> and a collection of <see cref="HistoryDto"/>
     /// to a tuple containing a <see cref="BankTransferViewModel"/>
     /// and an enumerable of <see cref="HistoryViewModel"/>.

@@ -92,6 +92,8 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
 
     public partial void Merge(ModePaymentViewModel src, ModePaymentViewModel dst);
 
+    public partial void Merge(HistoryViewModel src, HistoryViewModel dst);
+
     public Result<(BankTransferViewModel bankTransferViewModel, IEnumerable<HistoryViewModel> historyViewModel)> MapToViewModel(Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> result)
     {
         var bankTransferDto = MapToViewModel(result.Value.bankTransfer);
