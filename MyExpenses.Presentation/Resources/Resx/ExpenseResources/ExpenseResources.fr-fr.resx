@@ -194,4 +194,10 @@
     <data name="MessageBoxErrorEditDefaultPaymentMethodContent" xml:space="preserve">
         <value>Vous ne pouvez ni modifier ni supprimer cet élément, car il s'agit d'un moyen de paiement par défaut.</value>
     </data>
+    <data name="MessageBoxQuestionNewExpenseCaption" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxQuestionNewExpenseContent" xml:space="preserve">
+        <value>Voulez-vous ajouter une dépense supplémentaire ?</value>
+    </data>
 </root>

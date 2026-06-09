@@ -420,6 +420,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxQuestionNewExpenseCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxQuestionNewExpenseCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to add an extra expense?.
+        /// </summary>
+        public static string MessageBoxQuestionNewExpenseContent {
+            get {
+                return ResourceManager.GetString("MessageBoxQuestionNewExpenseContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageBoxValidBankTransferErrorCaption {
