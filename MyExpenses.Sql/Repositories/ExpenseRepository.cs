@@ -109,7 +109,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         return bankTransactionCount;
     }
 
-    public async Task<int> GetAllBankTransactionCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken)
+    public async Task<int> GetAllBankTransactionCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -125,6 +125,32 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         logger.LogInformation("Loaded {Count} bank transaction count for place with id {PlaceId}", bankTransactionCount, placeDomain.Id);
 
         return bankTransactionCount;
+    }
+
+    public async Task<Result<int>> GetAllBankTransactionCountAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Loading bank transaction count for expense with id {HistoryId}", historyDomain.Id);
+
+            var bankTransactionCount = await context.THistories
+                .AsNoTracking()
+                .Where(h => h.Id == historyDomain.Id && h.BankTransferFk != null)
+                .Select(h => h.BankTransferFk)
+                .Distinct()
+                .CountAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} bank transaction count for expense with id {HistoryId}", bankTransactionCount, historyDomain.Id);
+
+            return Result<int>.Success(bankTransactionCount);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error while getting bank transaction count");
+            return Result<int>.Failure(ErrorCode.DatabaseError, "Error while getting bank transaction count. Please try again later.");
+        }
     }
 
     public async Task<int> GetAllBankTransactionCountAsync(AccountDomain account, CancellationToken cancellationToken = default)

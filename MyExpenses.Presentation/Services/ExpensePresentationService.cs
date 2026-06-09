@@ -80,6 +80,12 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return mapper.Map(result);
     }
 
+    public Task<DeletionResult> DeleteHistory(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        // TODO work
+        throw new NotImplementedException();
+    }
+
     public async Task<Result<IEnumerable<ModePaymentViewModel>>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)
     {
         var result = await expenseService.GetAllModePaymentAsync(cancellationToken);

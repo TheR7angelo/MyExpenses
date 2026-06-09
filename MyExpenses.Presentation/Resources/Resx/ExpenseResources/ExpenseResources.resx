@@ -213,4 +213,10 @@
     <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
         <value>This expense is related to a bank transfer, do you really want to change it ?</value>
     </data>
+    <data name="MessageBoxGetAllDependenciesExpenseErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxGetAllDependenciesExpenseErrorContent" xml:space="preserve">
+        <value>An error occurred while getting the dependencies, please try again</value>
+    </data>
 </root>

@@ -420,6 +420,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxGetAllDependenciesExpenseErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxGetAllDependenciesExpenseErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while getting the dependencies, please try again.
+        /// </summary>
+        public static string MessageBoxGetAllDependenciesExpenseErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxGetAllDependenciesExpenseErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string MessageBoxQuestionNewExpenseCaption {

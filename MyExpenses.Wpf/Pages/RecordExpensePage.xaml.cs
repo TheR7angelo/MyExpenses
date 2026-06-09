@@ -42,52 +42,54 @@ public partial class RecordExpensePage : IReceiveNavigationParameter
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage, MsgBoxImage.Question,
-            MessageBoxButton.YesNoCancel);
 
-        if (response is not MessageBoxResult.Yes) return;
 
-        Log.Information("Attempting to remove the record \"{HistoryToDeleteDescriiption}\"", History.Description);
-        var (success, exception) = History.Delete();
-
-        if (success)
-        {
-            Log.Information("This Record was successfully removed");
-            MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryNoUseSuccessMessage, MsgBoxImage.Check);
-
-            DeleteBankTransfer();
-
-            nameof(MainWindow.FrameBody).GoBack();
-            return;
-        }
-
-        if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteUseRecordQuestionMessage,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-
-            if (response is not MessageBoxResult.Yes) return;
-
-            Log.Information(
-                "Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
-                History.Description);
-            History.Delete(true);
-            DeleteBankTransfer();
-            Log.Information("This record and all relative element was successfully removed");
-
-            MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryUseSuccessMessage, MsgBoxImage.Check);
-
-            nameof(MainWindow.FrameBody).GoBack();
-            return;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorMessage, MsgBoxImage.Error);
+        // var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage, MsgBoxImage.Question,
+        //     MessageBoxButton.YesNoCancel);
+        //
+        // if (response is not MessageBoxResult.Yes) return;
+        //
+        // Log.Information("Attempting to remove the record \"{HistoryToDeleteDescriiption}\"", History.Description);
+        // var (success, exception) = History.Delete();
+        //
+        // if (success)
+        // {
+        //     Log.Information("This Record was successfully removed");
+        //     MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryNoUseSuccessMessage, MsgBoxImage.Check);
+        //
+        //     DeleteBankTransfer();
+        //
+        //     nameof(MainWindow.FrameBody).GoBack();
+        //     return;
+        // }
+        //
+        // if (exception!.InnerException is SqliteException
+        //     {
+        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+        //     })
+        // {
+        //     Log.Error("Foreign key constraint violation");
+        //
+        //     response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteUseRecordQuestionMessage,
+        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        //
+        //     if (response is not MessageBoxResult.Yes) return;
+        //
+        //     Log.Information(
+        //         "Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
+        //         History.Description);
+        //     History.Delete(true);
+        //     DeleteBankTransfer();
+        //     Log.Information("This record and all relative element was successfully removed");
+        //
+        //     MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryUseSuccessMessage, MsgBoxImage.Check);
+        //
+        //     nameof(MainWindow.FrameBody).GoBack();
+        //     return;
+        // }
+        //
+        // Log.Error(exception, "An error occurred please retry");
+        // MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorMessage, MsgBoxImage.Error);
     }
 
     private void Configuration_OnConfigurationChanged()

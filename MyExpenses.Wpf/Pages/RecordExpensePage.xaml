@@ -303,6 +303,7 @@
 
             <Button Grid.Column="1" Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ButtonDeleteExpense}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Command="{Binding DeleteCommand}"
                     Click="ButtonDelete_OnClick">
             </Button>
 

@@ -206,4 +206,10 @@
     <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
         <value>Cette dépense est liée à un virement bancaire, voulez-vous vraiment la modifier ?</value>
     </data>
+    <data name="MessageBoxGetAllDependenciesExpenseErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxGetAllDependenciesExpenseErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de l’obtention des dépendances, veuillez réessayer</value>
+    </data>
 </root>

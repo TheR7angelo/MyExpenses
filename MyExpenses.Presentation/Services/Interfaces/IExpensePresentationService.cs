@@ -62,6 +62,14 @@ public interface IExpensePresentationService
     public Task<Result<HistoryViewModel>> UpdateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Deletes a history entry.
+    /// </summary>
+    /// <param name="historyViewModel">The history entry to delete.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a deletion result or an error if the operation fails.</returns>
+    public Task<DeletionResult> DeleteHistory(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a list of all mode payment view models.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

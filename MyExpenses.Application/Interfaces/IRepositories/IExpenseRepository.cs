@@ -166,7 +166,15 @@ public interface IExpenseRepository
     /// <param name="placeDomain">The place for which to retrieve the bank transaction count.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>The total number of bank transactions associated with the specified place.</returns>
-    public Task<int> GetAllBankTransactionCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken);
+    public Task<int> GetAllBankTransactionCountAsync(PlaceDomain placeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the count of bank transactions associated with the specified history domain.
+    /// </summary>
+    /// <param name="historyDomain">The history domain for which to retrieve the bank transaction count.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task representing the asynchronous operation that returns a result containing the count of bank transactions.</returns>
+    public Task<Result<int>> GetAllBankTransactionCountAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the IDs of all bank transfers associated with the specified accounts.

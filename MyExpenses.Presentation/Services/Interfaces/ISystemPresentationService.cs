@@ -9,7 +9,7 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 
 public interface ISystemPresentationService
 {
-        /// <summary>
+    /// <summary>
     /// Retrieves all deletion dependencies for the specified account type.
     /// </summary>
     /// <param name="accountTypeViewModel">The account type view model for which dependencies are to be retrieved.</param>
@@ -65,6 +65,16 @@ public interface ISystemPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A collection of <see cref="DeletionDependency"/> representing the dependencies associated with the specified mode payment.</returns>
     public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all dependencies for a given history view model asynchronously.
+    /// </summary>
+    /// <param name="historyViewModel">The history view model containing the category type information.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a <see cref="Result{IEnumerable<DeletionDependency>}" />
+    /// indicating the operation's success or failure.</returns>
+    public Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(HistoryViewModel historyViewModel,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a random color view model asynchronously.

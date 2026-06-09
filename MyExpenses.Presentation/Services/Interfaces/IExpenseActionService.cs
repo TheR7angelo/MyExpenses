@@ -1,3 +1,4 @@
+using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -19,6 +20,14 @@ public interface IExpenseActionService
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation. The result indicates whether the expense was successfully updated.</returns>
     public Task<bool> UpdateExpense(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes the history using the provided historical data.
+    /// </summary>
+    /// <param name="historyViewModel">The view model containing historical data that can be used to delete the history.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation. The result indicates whether the history was successfully deleted.</returns>
+    public Task<bool> DeleteHistory(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Validates a bank transfer using the provided bank transfer details and historical data.

@@ -70,6 +70,43 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
         return false;
     }
 
+    public async Task<bool> DeleteHistory(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
+    {
+        var result = await systemPresentationService.GetAllDependenciesAsync(
+            historyViewModel,
+            cancellationToken);
+
+        if (!result.IsSuccess)
+        {
+            _dialogService.ShowMessageBox(ExpenseResources.MessageBoxGetAllDependenciesExpenseErrorCaption,
+                ExpenseResources.MessageBoxGetAllDependenciesExpenseErrorContent, MsgBoxImage.Error);
+            return false;
+        }
+
+        var dependenciesArray = result.Value!.ToArray();
+
+        var response = dependenciesArray.Length is 0
+            ? AskDeleteConfirmation(historyViewModel.Description)
+            : _dialogService.AskConfirmationOfDependenciesRemoval(
+                DependencyType.Expense,
+                dependenciesArray);
+
+        if (response is not MessageBoxResult.Yes) return false;
+
+        // TODO try
+        throw new NotImplementedException();
+        var deleteResult = await expensePresentationService.DeleteHistory(historyViewModel, cancellationToken);
+
+        if (deleteResult.IsSuccess)
+        {
+            SendEntityChangedMessage(DependencyType.Expense, DataAction.Delete, new[] { historyViewModel.Id });
+            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
+        }
+
+        ShowDeleteResultMessage(deleteResult.IsSuccess, historyViewModel.Description);
+        return true;
+    }
+
     public async Task<bool> ValidateBankTransfer(BankTransferViewModel bankTransferViewModel,
         HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {

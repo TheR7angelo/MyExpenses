@@ -144,6 +144,13 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private async Task OnDelete(CancellationToken cancellationToken = default)
+    {
+        var result = await _expenseActionService.DeleteHistory(HistoryViewModel, cancellationToken);
+        if (result) _navigationService.GoBack();
+    }
+
+    [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
         var result = IsHistoryEdit

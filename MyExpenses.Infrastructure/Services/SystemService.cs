@@ -340,6 +340,38 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
     }
 
+    public async Task<Result<IEnumerable<DeletionDependency>>> GetAllDependenciesAsync(HistoryDto historyDto, CancellationToken cancellationToken = default)
+    {
+        var dependencies = new List<DeletionDependency>();
+        var historyDomain = mapperExpense.MapToDomain(historyDto);
+
+        using var scope = logger.BeginScope(new Dictionary<string, string>
+        {
+            ["HistoryDescription"] = historyDomain.Description!
+        });
+
+        logger.LogInformation("Loading dependencies for expense {HistoryDescription}", historyDomain.Description!);
+
+        var bankTransactionCount = await expenseRepository.GetAllBankTransactionCountAsync(historyDomain, cancellationToken);
+        if (!bankTransactionCount.IsSuccess)
+        {
+            return Result<IEnumerable<DeletionDependency>>.Failure(ErrorCode.DatabaseError,
+                "Failed to load bank transactions for given history");
+        }
+
+        dependencies.Add(new DeletionDependency { Category = DependencyType.BankTransfer, Count = bankTransactionCount.Value });
+
+        logger.LogInformation(
+            "Loaded dependencies for expense {HistoryDescription}: {BankTransactionCount} bank transfers",
+            historyDomain.Description,
+            bankTransactionCount.Value);
+
+        dependencies = GroupDependencies(dependencies).ToList();
+
+        logger.LogInformation("Finished dependency loading for expense with {DependencyCount} dependencies", dependencies.Count);
+        return Result<IEnumerable<DeletionDependency>>.Success(dependencies);
+    }
+
     public async Task<ColorDto> GetRandomColor(CancellationToken cancellationToken)
     {
         var colorDomain = await systemRepository.GetRandomColor(cancellationToken);
