@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Domain.Models.Dependencies;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
@@ -420,6 +421,23 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
     public Task<bool> IsColorHexadecimalCodeAvailableAsync(string hexadecimalCode, CancellationToken cancellationToken = default)
     {
         return systemRepository.IsColorHexadecimalCodeAvailableAsync(hexadecimalCode, cancellationToken);
+    }
+
+    private AppSettingsDto? _appSettingDto;
+
+    public async Task<AppSettingsDto> GetAppSetting(CancellationToken cancellationToken = default)
+    {
+        if (_appSettingDto is not null) return _appSettingDto;
+
+        var baseDirectory  = AppDomain.CurrentDomain.BaseDirectory;
+        var appSettingsPath = Path.Combine(baseDirectory, "appsettings.json");
+
+        if (!File.Exists(appSettingsPath)) return new AppSettingsDto();
+
+        var json = await File.ReadAllTextAsync(appSettingsPath, cancellationToken);
+        _appSettingDto = JsonSerializer.Deserialize<AppSettingsDto>(json) ?? new AppSettingsDto();
+
+        return _appSettingDto;
     }
 
     private IEnumerable<DeletionDependency> GroupDependencies(IEnumerable<DeletionDependency> dependencies)

@@ -25,4 +25,24 @@ public partial class SystemDtoViewModelMapper : ISystemDtoViewModelMapper
     public partial RecursiveFrequencyViewModel MapToViewModel(RecursiveFrequencyDto src);
 
     public partial void Merge(ColorViewModel src, ColorViewModel dst);
+
+    public partial AppSettingsViewModel MapToViewModel(AppSettingsDto appSettingsDto);
+
+    public partial AppSettingsDto MapToDto(AppSettingsViewModel appSettingsViewModel);
+
+    public partial SystemViewModel MapToViewModel(SystemDto systemDto);
+
+    public partial SystemDto MapToDto(SystemViewModel systemViewModel);
+
+    public partial InterfaceViewModel MapToViewModel(InterfaceDto interfaceDto);
+
+    public partial InterfaceDto MapToDto(InterfaceViewModel interfaceViewModel);
+
+    public partial ThemeViewModel MapToViewModel(ThemeDto themeDto);
+
+    public partial ThemeDto MapToDto(ThemeViewModel themeViewModel);
+
+    public partial ClockViewModel MapToViewModel(ClockDto clockDto);
+
+    public partial ClockDto MapToDto(ClockViewModel clockViewModel);
 }

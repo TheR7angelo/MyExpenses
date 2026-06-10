@@ -126,4 +126,11 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> indicating the outcome of the delete operation, including details of dependencies removed, if any.</returns>
     public Task<DeletionResult> DeleteColorAsync(ColorDto colorDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves application settings.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an instance of <see cref="AppSettingsDto"/>.</returns>
+    public Task<AppSettingsDto> GetAppSetting(CancellationToken cancellationToken = default);
 }
