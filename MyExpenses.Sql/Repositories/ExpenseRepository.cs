@@ -368,6 +368,26 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
+    public async Task<Result<int[]>> GetAllExpenseIdAsync(BankTransferDomain bankTransferDomain, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Loading all expenses for bank transfer with id {BankTransferId}",
+                bankTransferDomain.Id);
+            var result = await context.THistories.Where(e => e.BankTransferFk == bankTransferDomain.Id).Select(e => e.Id)
+                .ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} expenses for bank transfer", result.Length);
+            return Result<int[]>.Success(result);
+        }
+        catch (Exception e)
+        {
+            return Result<int[]>.Failure(ErrorCode.DatabaseError, $"Failed to load expenses for mode payment: {e.Message}");
+        }
+    }
+
     public async Task<int[]> GetAllBankTransferIdsAsync(int[] accountIds, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -690,6 +710,55 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
+    public async Task<DeletionResult> DeleteHistoryAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Deleting expense with id {HistoryId}", historyDomain.Id);
+
+        try
+        {
+            if (historyDomain.BankTransfer is not null)
+            {
+                logger.LogInformation("Bank transfer was provided, deleting bank transfer instead of expense");
+                return await DeleteBankTransfer(historyDomain, cancellationToken);
+            }
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            logger.LogInformation("Deleting expense (ID={HistoryId}) with description {HistoryDescription}", historyDomain.Id, historyDomain.Description);
+
+            var expenseEntity = await context.THistories.FirstOrDefaultAsync(s => s.Id == historyDomain.Id, cancellationToken);
+
+            if (expenseEntity is null)
+            {
+                logger.LogWarning("Expense with id {HistoryId} not found", historyDomain.Id);
+                return DeletionResult.Success($"Expense {historyDomain.Description} was successfully deleted");
+            }
+
+            if (expenseEntity.Id is 0)
+            {
+                logger.LogWarning("Expense with id {HistoryId} was not found", historyDomain.Id);
+                return DeletionResult.Success("Expense was not persisted, so nothing had to be deleted");
+            }
+
+            context.THistories.Remove(expenseEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Expense (ID={HistoryId}) with description {HistoryDescription} was successfully deleted", historyDomain.Id, historyDomain.Description);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.Expense, [historyDomain.Id] }
+            };
+
+            return DeletionResult.Success($"Expense {historyDomain.Description} was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete expense with id {HistoryId}", historyDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete expense: {e.Message}");
+        }
+    }
+
     public async Task<Result<IEnumerable<ModePaymentDomain>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
         try
@@ -833,6 +902,56 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             return Result<HistoryDomain>.Failure(ErrorCode.DatabaseError, "Failed to update bank transfer");
         }
     }
+
+    public async Task<DeletionResult> DeleteBankTransfer(HistoryDomain historyDomain, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        var bankTransferDomain = historyDomain.BankTransfer!;
+        logger.LogInformation("Deleting bank transfer with main raison {BankTransferMainReason} and id {BankTransferId}", bankTransferDomain.MainReason, bankTransferDomain.Id);
+
+        var bankTransferEntity = await
+            context.TBankTransfers.FirstOrDefaultAsync(s => s.Id == bankTransferDomain.Id, cancellationToken);
+
+        if (bankTransferEntity is null)
+        {
+            logger.LogWarning("Bank transfer with id {BankTransferId} was not found", bankTransferDomain.Id);
+            return DeletionResult.Failure(ErrorCode.NotFound, $"The bank transfer with id {bankTransferDomain.Id} was not found");
+        }
+
+        if (bankTransferEntity.Id is 0)
+        {
+            logger.LogWarning("Bank transfer with id {BankTransferId} was not found", bankTransferDomain.Id);
+            return DeletionResult.Success("Bank transfer was not persisted, so nothing had to be deleted");
+        }
+
+        try
+        {
+            var expenseIds = await GetAllExpenseIdAsync(bankTransferDomain, cancellationToken);
+
+            if (expenseIds is { IsSuccess: true, Value.Length: > 0 }) logger.LogWarning("Bank transfer has associated expenses {@ExpenseIds}", expenseIds.Value);
+
+            logger.LogInformation("Deleting bank transfer with id {BankTransferId}", bankTransferDomain.Id);
+            context.TBankTransfers.Remove(bankTransferEntity);
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Bank transfer with id {BankTransferId} was successfully deleted", bankTransferDomain.Id);
+
+            var result = new Dictionary<DependencyType, int[]>
+            {
+                { DependencyType.BankTransfer, [ bankTransferEntity.Id ] },
+                { DependencyType.Expense, expenseIds.Value ?? [] },
+            };
+            return DeletionResult.Success("Bank transfer was successfully deleted", result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to delete bank transfer with id {BankTransferId}", bankTransferDomain.Id);
+            return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete bank transfer: {e.Message}");
+        }
+    }
+
+
 
     public async Task<Result<IEnumerable<CategoryTypeDomain>>> GetAllByColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default)
     {

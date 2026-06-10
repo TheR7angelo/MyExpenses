@@ -55,6 +55,14 @@ public interface IExpenseService
     public Task<Result<HistoryDto>> UpdateExpenseAsync(HistoryDto historyDto, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Deletes a history record.
+    /// </summary>
+    /// <param name="historyDto">The history record to delete.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="DeletionResult"/> object indicating the success or failure of the deletion and any deleted items.</returns>
+    public Task<DeletionResult> DeleteHistoryAsync(HistoryDto historyDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves a list of all mode payment types from the system.
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>

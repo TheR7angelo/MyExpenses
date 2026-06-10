@@ -47,6 +47,12 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return mapper.Map(result);
     }
 
+    public Task<DeletionResult> DeleteHistoryAsync(HistoryDto historyDto, CancellationToken cancellationToken = default)
+    {
+        var domain = mapper.MapToDomain(historyDto);
+        return expenseRepository.DeleteHistoryAsync(domain, cancellationToken);
+    }
+
     public async Task<Result<IEnumerable<ModePaymentDto>>> GetAllModePaymentAsync(CancellationToken cancellationToken = default)
     {
         var result = await expenseRepository.GetAllModePaymentAsync(cancellationToken);

@@ -82,8 +82,8 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
 
     public Task<DeletionResult> DeleteHistory(HistoryViewModel historyViewModel, CancellationToken cancellationToken = default)
     {
-        // TODO work
-        throw new NotImplementedException();
+        var dto = mapper.MapToDto(historyViewModel);
+        return expenseService.DeleteHistoryAsync(dto, cancellationToken);
     }
 
     public async Task<Result<IEnumerable<ModePaymentViewModel>>> GetAllModePaymentViewModelAsync(CancellationToken cancellationToken = default)

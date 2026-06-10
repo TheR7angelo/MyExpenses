@@ -93,18 +93,12 @@ public class ExpenseActionService(IExpensePresentationService expensePresentatio
 
         if (response is not MessageBoxResult.Yes) return false;
 
-        // TODO try
-        throw new NotImplementedException();
         var deleteResult = await expensePresentationService.DeleteHistory(historyViewModel, cancellationToken);
 
-        if (deleteResult.IsSuccess)
-        {
-            SendEntityChangedMessage(DependencyType.Expense, DataAction.Delete, new[] { historyViewModel.Id });
-            SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
-        }
+        if (deleteResult.IsSuccess) SendDeletedMessageIfNeeded(deleteResult.DeletedItems);
 
         ShowDeleteResultMessage(deleteResult.IsSuccess, historyViewModel.Description);
-        return true;
+        return deleteResult.IsSuccess;
     }
 
     public async Task<bool> ValidateBankTransfer(BankTransferViewModel bankTransferViewModel,

@@ -272,6 +272,14 @@ public interface IExpenseRepository
     public Task<Result<HistoryDomain>> UpdateExpenseAsync(HistoryDomain domain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Deletes historical data associated with the specified history.
+    /// </summary>
+    /// <param name="historyDomain">The domain object representing the history to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a DeletionResult indicating the outcome of the deletion.</returns>
+    public Task<DeletionResult> DeleteHistoryAsync(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves the unique identifiers of all mode payments.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
@@ -305,6 +313,14 @@ public interface IExpenseRepository
     public Task<Result<HistoryDomain>> UpdateBankTransfer(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Deletes a bank transfer associated with the specified history domain.
+    /// </summary>
+    /// <param name="historyDomain">The history domain containing information about the bank transfer to be deleted.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A DeletionResult indicating whether the deletion was successful and any related dependencies.</returns>
+    public Task<DeletionResult> DeleteBankTransfer(HistoryDomain historyDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Retrieves all category types associated with a specified color.
     /// </summary>
     /// <param name="colorDomain">The color domain object used to filter category types.</param>
@@ -319,6 +335,14 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>An array of expense IDs associated with the specified category type domains.</returns>
     public Task<Result<int[]>> GetAllExpenseIdAsync(CategoryTypeDomain[] categoryTypeDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the unique identifiers of expenses associated with a specific bank transfer domain.
+    /// </summary>
+    /// <param name="bankTransferDomain">The bank transfer domain containing details for expense retrieval.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result object containing an array of integers representing the expense IDs associated with the specified bank transfer domain.</returns>
+    public Task<Result<int[]>> GetAllExpenseIdAsync(BankTransferDomain bankTransferDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the unique identifiers of expenses based on the provided domain object.
