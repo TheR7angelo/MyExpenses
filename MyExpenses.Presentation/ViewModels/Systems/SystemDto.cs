@@ -1,9 +1,10 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Systems;
 
 [DirtyTracking]
-public partial class AppSettingsViewModel
+public partial class AppSettingsViewModel : ObservableObject
 {
     [DirtyTrackedProperty]
     public SystemViewModel SystemSettings { get; set; } = new();
