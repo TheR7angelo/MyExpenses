@@ -18,49 +18,130 @@ using MyExpenses.Utils.Converters;
 
 namespace MyExpenses.Presentation.ViewModel;
 
-
+/// <summary>
+/// ViewModel for managing expenses.
+/// Contains properties and methods to handle expense data and interactions.
+/// Inherits from ViewModelBase.
+/// </summary>
 public partial class ExpenseManagementViewModel : ViewModelBase
 {
+    /// <summary>View model for managing expense history.</summary>
     [ObservableProperty]
     public partial HistoryViewModel HistoryViewModel { get; private set; } = new();
 
+    /// <summary>View model managing locations for expense management.</summary>
     public LocationManagementViewModel LocationManagementViewModel { get; }
 
+    /// <summary>Collection of account view models representing different accounts available for expenses.</summary>
     public ObservableCollection<AccountViewModel> Accounts { get; } = [];
+
+    /// <summary>Collection of category type view models representing different categories available for expenses.</summary>
     public ObservableCollection<CategoryTypeViewModel> CategoryTypes { get; } = [];
+
+    /// <summary>Collection of mode payment view models representing different payment methods available for expenses.</summary>
     public ObservableCollection<ModePaymentViewModel> ModePaymentViewModels { get; } = [];
+
+    /// <summary>Collection of place view models representing locations available for management.</summary>
     private ObservableCollection<PlaceViewModel> Places { get; } = [];
 
+    /// <summary>The collection of countries available for selection in the user interface.</summary>
     public ObservableCollection<string> AvailableCountries { get; } = [];
+
+    /// <summary>The collection of cities available for selection based on the selected country.</summary>
     public ObservableCollection<string> AvailableCities { get; } = [];
+
+    /// <summary>The collection of filtered places based on the selected country and city.</summary>
     public ObservableCollection<PlaceViewModel> FilteredPlaces { get; } = [];
 
+    /// <summary>The country selected in the location management.</summary>
     [ObservableProperty]
     public partial string? SelectedCountry { get; set; }
 
+    /// <summary>The city selected in the location management.</summary>
     [ObservableProperty]
     public partial string? SelectedCity { get; set; }
 
+    /// <summary>Indicates whether the current operation is an edit of a historical record.</summary>
     [ObservableProperty]
     public partial bool IsHistoryEdit { get; set; }
 
+    /// <summary>Stores the name of the property to be used for text searching in the LocationViewModel.</summary>
     public static string TextSearchLocationName { get; } = nameof(PlaceViewModel.Name);
 
+    /// <summary>Indicates whether the data has been loaded into the ViewModel.</summary>
     private bool _isLoaded;
 
+    /// <summary>
+    /// Represents the service responsible for presenting account-related data and functionality.
+    /// This includes retrieving, updating, and filtering accounts based on various criteria.
+    /// </summary>/// <summary>
+    /// Represents the service responsible for presenting account-related data and functionality.
+    /// This includes retrieving, updating, and filtering accounts based on various criteria.
+    /// </summary>
     private readonly IAccountPresentationService _accountPresentationService;
+
+    /// <summary>
+    /// Represents the service responsible for presenting expense-related data and functionality.
+    /// This includes retrieving, updating, and filtering expenses based on various criteria.
+    /// </summary>
     private readonly IExpensePresentationService _expensePresentationService;
+
+    /// <summary>
+    /// Represents the service responsible for presenting location-related data and functionality.
+    /// This includes retrieving, updating, and filtering places based on various criteria.
+    /// </summary>
     private readonly ILocationPresentationService _locationPresentationService;
+
+    /// <summary>
+    /// Represents the service responsible for performing various actions related to expenses.
+    /// This includes deleting, updating, and creating expense records.
+    /// </summary>
     private readonly IExpenseActionService _expenseActionService;
+
+    /// <summary>
+    /// Represents the service responsible for managing navigation within the application.
+    /// Used to show and hide different windows or manage the navigation stack.
+    /// </summary>
     private readonly INavigationWindowService _navigationWindowService;
+
+    /// <summary>
+    /// Represents the service responsible for managing navigation within the application.
+    /// Used to navigate between different views and manage the navigation stack.
+    /// </summary>
     private readonly INavigationService _navigationService;
+
+    /// <summary>
+    /// Represents the service responsible for displaying dialog boxes and message boxes.
+    /// Used in various parts of the application to provide user feedback and interact with the user through modal dialogs.
+    /// </summary>
     private readonly IDialogService _dialogService;
+
+    /// <summary>
+    /// Represents the mapper responsible for converting data transfer objects (DTOs) related to accounts into view models.
+    /// Used in the ExpenseManagementViewModel to facilitate data transformation between DTOs and view models, particularly when dealing with account-related operations.
+    /// </summary>
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
+
+    /// <summary>
+    /// Represents the mapper responsible for converting data transfer objects (DTOs) related to expenses into view models.
+    /// Used in the ExpenseManagementViewModel to facilitate data transformation between DTOs and view models.
+    /// </summary>
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+
+    /// <summary>
+    /// Represents the mapper responsible for converting data transfer objects (DTOs) related to locations into view models.
+    /// Used in the ExpenseManagementViewModel to facilitate data transformation between DTOs and view models.
+    /// </summary>
     private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
 
+    /// <summary>
+    /// Represents the logging service used for recording information, warnings, and errors in the ExpenseManagementViewModel.
+    /// </summary>
     private readonly ILogger<ExpenseManagementViewModel> _logger;
 
+    /// <summary>
+    /// ViewModel for managing expenses.
+    /// </summary>
     public ExpenseManagementViewModel(LocationManagementViewModel locationManagementViewModel,
         IAccountPresentationService accountPresentationService, IExpensePresentationService expensePresentationService,
         ILocationPresentationService locationPresentationService,
@@ -104,6 +185,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         RegisterMessages();
     }
 
+    /// <summary>
+    /// Registers message handlers to handle entity changes and item deletions.
+    /// </summary>
     private void RegisterMessages()
     {
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
@@ -143,6 +227,10 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         });
     }
 
+    /// <summary>
+    /// Deletes the current expense entry.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
     [RelayCommand]
     private async Task OnDelete(CancellationToken cancellationToken = default)
     {
@@ -150,6 +238,14 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         if (result) _navigationService.GoBack();
     }
 
+    /// <summary>
+    /// Validates the current expense entry and performs the appropriate action.
+    /// If IsHistoryEdit is true, updates the existing expense.
+    /// Otherwise, creates a new expense.
+    /// After successful validation or update, navigates back to the previous screen if applicable.
+    /// Displays a message box to confirm the creation of a new expense.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
     [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
@@ -172,18 +268,31 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         HistoryViewModel.Reset();
     }
 
+    /// <summary>
+    /// Navigates back to the previous entry in the navigation history, if possible.
+    /// </summary>
     [RelayCommand]
     private void OnCancel()
         => _navigationService.GoBack();
 
+    /// <summary>
+    /// Navigates to the window for managing accounts.
+    /// </summary>
     [RelayCommand]
     private void OnManageAccount()
         => _navigationWindowService.ShowManageAccount(HistoryViewModel.AccountViewModel);
 
+    /// <summary>
+    /// Navigates to the window for managing category types.
+    /// </summary>
     [RelayCommand]
     private void OnManageCategoryType()
         => _navigationWindowService.ShowManageCategoryType(HistoryViewModel.CategoryTypeViewModel);
 
+    /// <summary>
+    /// Manages the payment mode in the history view model.
+    /// </summary>
+    /// <param name="cancellationToken">A token to allow cancellation of the operation.</param>
     [RelayCommand]
     private async Task OnManageModePayment(CancellationToken cancellationToken = default)
     {
@@ -200,14 +309,24 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Sets the date in the history view model to the current date and time.
+    /// </summary>
     [RelayCommand]
     private void OnDateNow()
         => HistoryViewModel.Date = DateTime.Now;
 
+    /// <summary>
+    /// Navigates to the location management window.
+    /// </summary>
     [RelayCommand]
     private void OnManagePlace()
         => _navigationWindowService.ShowLocationManagementWindow(HistoryViewModel.PlaceViewModel, false);
 
+    /// <summary>
+    /// Loads data asynchronously when the view model is initialized.
+    /// </summary>
+    /// <param name="cancellationToken">Token for canceling the operation.</param>
     [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
@@ -231,6 +350,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         _isLoaded = true;
     }
 
+    /// <summary>
+    /// Updates the AvailableCountries collection based on the data in Places.
+    /// </summary>
     private void UpdateAvailableCountries()
     {
         var countries = Places
@@ -243,6 +365,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         AvailableCountries.AddRange(countries);
     }
 
+    /// <summary>
+    /// Updates the AvailableCities collection based on the selected country.
+    /// </summary>
     private void UpdateAvailableCities()
     {
         AvailableCities.Clear();
@@ -260,6 +385,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         AvailableCities.AddRange(cities);
     }
 
+    /// <summary>
+    /// Updates the FilteredPlaces collection based on the selected country and city.
+    /// </summary>
     private void UpdateFilteredPlaces()
     {
         FilteredPlaces.Clear();
@@ -288,17 +416,29 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         LocationManagementViewModel.Map?.Navigator.SetZoom(points);
     }
 
+    /// <summary>
+    /// Handles changes to the selected country and updates the available cities accordingly.
+    /// </summary>
+    /// <param name="oldValue">The previous value of the selected country.</param>
+    /// <param name="newValue">The new value of the selected country.</param>
     partial void OnSelectedCountryChanged(string? oldValue, string? newValue)
     {
         UpdateAvailableCities();
         UpdateFilteredPlaces();
     }
 
+    /// <summary>
+    /// Handles changes to the selected city and updates the filtered places accordingly.
+    /// </summary>
+    /// <param name="oldValue">The previous value of the selected city.</param>
+    /// <param name="newValue">The new value of the selected city.</param>
     partial void OnSelectedCityChanged(string? oldValue, string? newValue)
-    {
-        UpdateFilteredPlaces();
-    }
+        => UpdateFilteredPlaces();
 
+    /// <summary>
+    /// Updates filters based on the history place.
+    /// </summary>
+    /// <param name="placeViewModel">The place view model to update filters from.</param>
     private void UpdateFiltersFromHistoryPlace(PlaceViewModel? placeViewModel)
     {
         if (placeViewModel is null)
@@ -319,6 +459,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         LocationManagementViewModel.ZoomToPointsCommand.Execute(null);
     }
 
+    /// <summary>
+    /// Initializes the zoom level of the map based on the locations available.
+    /// </summary>
     private void InitializeZoom()
     {
         var points = Places.Where(s => s.Id != PlaceDomain.DefaultPlaceId)
