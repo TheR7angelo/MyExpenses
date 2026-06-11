@@ -1,73 +1,59 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Systems;
 
 [DirtyTracking]
-public partial class AppSettingsViewModel : BaseViewModel
+public partial class AppSettingsViewModel
 {
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial SystemViewModel SystemSettings { get; set; } = new();
+    public SystemViewModel SystemSettings { get; set; } = new();
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial InterfaceViewModel InterfaceSettings { get; set; } = new();
+    public InterfaceViewModel InterfaceSettings { get; set; } = new();
 }
 
 [DirtyTracking]
-public partial class SystemViewModel : BaseViewModel
+public partial class SystemViewModel
 {
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial int MaxDaysLog { get; set; }
+    public int MaxDaysLog { get; set; }
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial int MaxBackupDatabase { get; set; }
+    public int MaxBackupDatabase { get; set; }
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial DateTime? CallBackLaterTime { get; set; }
+    public DateTime? CallBackLaterTime { get; set; }
 }
 
 [DirtyTracking]
-public partial class InterfaceViewModel : BaseViewModel
+public partial class InterfaceViewModel
 {
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial string Language { get; set; } = "en-001";
+    public string Language { get; set; } = "en-001";
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial ThemeViewModel Theme { get; set; } = new();
+    public ThemeViewModel Theme { get; set; } = new();
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial ClockViewModel Clock { get; set; } = new();
+    public ClockViewModel Clock { get; set; } = new();
 }
 
 [DirtyTracking]
-public partial class ThemeViewModel : BaseViewModel
+public partial class ThemeViewModel
 {
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial int BaseTheme { get; set; } = 2;
+    public int BaseTheme { get; set; } = 2;
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial string HexadecimalCodePrimaryColor { get; set; } = "#FF32CD30";
+    public string HexadecimalCodePrimaryColor { get; set; } = "#FF32CD30";
 
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial string HexadecimalCodeSecondaryColor { get; set; } = "#FFFFA500";
+    public string HexadecimalCodeSecondaryColor { get; set; } = "#FFFFA500";
 }
 
 [DirtyTracking]
-public partial class ClockViewModel : BaseViewModel
+public partial class ClockViewModel
 {
     [DirtyTrackedProperty]
-    [ObservableProperty]
-    public partial bool Is24Hours { get; set; }
+    public bool Is24Hours { get; set; }
 }
