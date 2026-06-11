@@ -1,21 +1,26 @@
 ﻿using System.Globalization;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Models;
-using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Presentation.Mappings.Interfaces;
+using MyExpenses.Presentation.ViewModels.Systems;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
 using MyExpenses.Wpf.DependencyInjections;
+using MyExpenses.Wpf.Localisations;
 using MyExpenses.Wpf.Utils;
 using Serilog.Events;
 using Log = Serilog.Log;
-using Theme = MyExpenses.Models.Config.Interfaces.Theme;
 
 namespace MyExpenses.Wpf;
 
@@ -26,7 +31,7 @@ public partial class App
 
     public static CancellationTokenSource CancellationTokenSource { get; private set; } = null!;
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         EventManager.RegisterClassHandler(
             typeof(MetroWindow),
@@ -66,20 +71,49 @@ public partial class App
             splashScreenWindow.Show(true, true);
 
             Log.Information("Reading configuration file");
-            var configuration = Config.Configuration;
-            Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
+
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var appSettingsPath = Path.Combine(baseDirectory, "appsettings.json");
+
+            string json;
+            AppSettingsViewModel configuration;
+            if (File.Exists(appSettingsPath))
+            {
+                json = await File.ReadAllTextAsync(appSettingsPath);
+                var dto = JsonSerializer.Deserialize<AppSettingsDto>(json) ?? new AppSettingsDto();
+                var mapper = ServiceProvider.GetRequiredService<ISystemDtoViewModelMapper>();
+
+                configuration = mapper.MapToViewModel(dto);
+                configuration.AcceptChanges();
+            }
+            else
+            {
+                configuration = new AppSettingsViewModel();
+                json = configuration.ToJson();
+            }
+
+            var logger = ServiceProvider.GetRequiredService<ILogger<App>>();
+
+            AppSettingsService.Instance.Initialize(
+                configuration,
+                persistFunc: null,
+                logger: logger,
+                debounceMilliseconds: 1000
+            );
+
+            Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, json);
 
             Log.Information("Apply log configuration");
-            LoadLogConfiguration(configuration.System.MaxDaysLog);
+            LoadLogConfiguration(configuration.SystemSettings.MaxDaysLog);
 
             Log.Information("Start of database backup on start");
             var totalDatabaseBackup = DbContextBackup.BackupDatabase();
-            var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxBackupDatabase);
+            var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.SystemSettings.MaxBackupDatabase);
             Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
             Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
 
             Log.Information("Apply interface configuration");
-            LoadInterfaceConfiguration(configuration.Interface);
+            LoadInterfaceConfiguration(configuration.InterfaceSettings);
 
             var mainWindow  = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
@@ -99,7 +133,7 @@ public partial class App
         }
     }
 
-    private static void LoadInterfaceConfiguration(Interface configurationInterface)
+    private static void LoadInterfaceConfiguration(InterfaceViewModel configurationInterface)
     {
         LoadInterfaceTheme(configurationInterface.Theme);
         LoadInterfaceLanguage();
@@ -131,7 +165,7 @@ public partial class App
         if (currentCultureIsSupported) DbContextHelper.UpdateDbLanguage();
     }
 
-    public static void LoadInterfaceTheme(Theme configurationTheme)
+    public static void LoadInterfaceTheme(ThemeViewModel configurationTheme)
     {
         var baseTheme = (BaseTheme)configurationTheme.BaseTheme;
         var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);

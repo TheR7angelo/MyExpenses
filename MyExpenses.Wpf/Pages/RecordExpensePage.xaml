@@ -178,7 +178,8 @@
                                        materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TimePickerWhenHintAssist}}"
                                        Style="{StaticResource MaterialDesignFilledTimePicker}"
                                        SelectedTime="{Binding HistoryViewModel.Date}"
-                                       SelectedTimeFormat="Long">
+                                       SelectedTimeFormat="Long"
+                                       Is24Hours="{Binding Source={x:Static localisations:AppSettingsService.Instance}, Path=Settings.InterfaceSettings.Clock.Is24Hours, Mode=TwoWay}">
             </materialDesign:TimePicker>
 
             <Button Grid.Column="2"

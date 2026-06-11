@@ -1,45 +1,26 @@
 using System.Windows.Controls;
 using System.Windows.Input;
-using MyExpenses.Models.Config;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Expenses;
-using MyExpenses.Utils;
 
 namespace MyExpenses.Wpf.Pages;
 
+/// <summary> Represents a page for recording expenses. </summary>
 public partial class RecordExpensePage : IReceiveNavigationParameter
 {
     private ExpenseManagementViewModel ExpenseManagementViewModel
         => (ExpenseManagementViewModel)DataContext;
 
+    /// <summary>
+    /// Represents a page for recording expenses.
+    /// </summary>
     public RecordExpensePage(ExpenseManagementViewModel vm)
     {
         InitializeComponent();
 
-        UpdateConfiguration();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
-
         DataContext = vm;
     }
-
-    private void Configuration_OnConfigurationChanged()
-        => UpdateConfiguration();
-
-    #region Function
-
-    private void UpdateConfiguration()
-    {
-        var configuration = Config.Configuration;
-        TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
-
-        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        MapControl.Map.BackColor = backColor;
-    }
-
-    #endregion
 
     /// <summary>
     /// Handles the context menu opening event for the MapControl.

@@ -5,6 +5,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Localisations;
 using MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow;
 using MyExpenses.Wpf.Utils;
 
@@ -142,16 +143,22 @@ public partial class SettingsWindow
 
     private Task UpdateAppearanceSettings()
     {
+        // 1. Récupérer les nouvelles couleurs depuis ton contrôle d'apparence
         var primaryColor = AppearanceControl.Theme.PrimaryMid.Color;
         var secondaryColor = AppearanceControl.Theme.SecondaryMid.Color;
 
-        Config.Configuration.Interface.Theme.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
-        Config.Configuration.Interface.Theme.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
+        // 2. Mettre à jour DIRECTEMENT le ViewModel géré par ton service singleton
+        // (Comme ton service est abonné aux PropertyChanged de cet objet, le Debounce va démarrer tout seul !)
+        var themeSettings = AppSettingsService.Instance.Settings.InterfaceSettings.Theme;
 
-        Config.Configuration.WriteConfiguration();
+        themeSettings.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
+        themeSettings.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
 
-        App.LoadInterfaceTheme(Config.Configuration.Interface.Theme);
+        // 3. Mettre à jour le thème visuel de l'application immédiatement (en mémoire)
+        // On lui passe le sous-ViewModel du thème actuel
+        App.LoadInterfaceTheme(themeSettings);
 
+        // 4. Notifier ton interface
         Interface.OnThemeChanged();
 
         return Task.CompletedTask;
