@@ -26,7 +26,7 @@
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
-      Language="{Binding Source={x:Static localisations:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}">
+      Language="{Binding Source={x:Static localisations:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}">
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">

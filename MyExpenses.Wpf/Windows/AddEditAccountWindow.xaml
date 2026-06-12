@@ -18,7 +18,7 @@
                  mc:Ignorable="d"
 
                  Title="{loc:Tr {x:Static resx:AddEditAccountResourceManager.RessourceAddEditAccountTitleWindow}}"
-                 Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
+                 Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
                  d:DesignHeight="585"
                  d:DesignWidth="458"

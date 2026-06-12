@@ -44,7 +44,7 @@
 
         <TextBox Text="{Binding TextBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  SpellCheck.IsEnabled="True"
-                 Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.IetfLanguageTag, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
+                 Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
                  MaxLength="{Binding TextBoxMaxLength, Mode=OneWay}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxHint, Mode=OneWay}"
                  Style="{StaticResource MaterialDesignFilledTextBox}">

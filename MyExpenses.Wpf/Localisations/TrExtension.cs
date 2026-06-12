@@ -127,7 +127,7 @@ public class TrExtension : MarkupExtension
         }
 
         public string LanguageTag
-            => LocalizationService.Instance.CurrentCulture.IetfLanguageTag;
+            => LocalizationService.Instance.CurrentCulture.Name;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

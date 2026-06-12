@@ -11,6 +11,7 @@
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
+      xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
       mc:Ignorable="d"
 
       Title="DashBoard"
@@ -202,7 +203,7 @@
                               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource MaterialDesignFilledComboBox}"
                               materialDesign:TextFieldAssist.HasClearButton="True"
-                              materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxYearsHintAssist}}"
                               SelectionChanged="Selector_OnSelectionChanged">
                     </ComboBox>
 
@@ -211,7 +212,7 @@
                               SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource MaterialDesignFilledComboBox}"
                               materialDesign:TextFieldAssist.HasClearButton="True"
-                              materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxMonthHintAssist}}"
                               SelectionChanged="Selector_OnSelectionChanged">
                     </ComboBox>
 
@@ -349,7 +350,7 @@
                                        VerticalScrollBarVisibility="Auto"
 
                                        FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                       DateFormatString="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.Name, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}, ConverterCulture={x:Static globalization:CultureInfo.CurrentUICulture}}">
 
             <filterDataGrid:FilterDataGrid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
