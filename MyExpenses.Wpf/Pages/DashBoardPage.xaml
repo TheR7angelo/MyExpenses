@@ -365,29 +365,32 @@
 
             <filterDataGrid:FilterDataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem
-                        Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Click="MenuItemEditRecord_OnClick" />
-                    <MenuItem
-                        Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Click="MenuItemPointed_OnClick" />
-                    <MenuItem
-                        Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Click="MenuItemDeleteRecord_OnClick" />
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
+                              Click="MenuItemEditRecord_OnClick">
+                    </MenuItem>
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
+                              Click="MenuItemPointed_OnClick">
+                    </MenuItem>
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
+                              Click="MenuItemDeleteRecord_OnClick">
+                    </MenuItem>
                 </ContextMenu>
             </filterDataGrid:FilterDataGrid.ContextMenu>
 
             <filterDataGrid:FilterDataGrid.Columns>
 
-                <filterDataGrid:DataGridTextColumn x:Name="TextColumnAccount" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderAccount}}"
+                                                   IsColumnFiltered="True"
                                                    Binding="{Binding Account}">
                 </filterDataGrid:DataGridTextColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDescription" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDescription}}"
+                                                   IsColumnFiltered="True"
                                                    Binding="{Binding Description}">
                 </filterDataGrid:DataGridTextColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnCategory" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderCategory}}"
+                                                       IsColumnFiltered="True"
                                                        SortMemberPath="Category" FieldName="Category">
                     <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -409,11 +412,13 @@
                     </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                 </filterDataGrid:DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="TextColumnModePayment" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderModePayment}}"
+                                                   IsColumnFiltered="True"
                                                    Binding="{Binding ModePayment}">
                 </filterDataGrid:DataGridTextColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnValue" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderValue}}"
+                                                       IsColumnFiltered="True"
                                                        SortMemberPath="Value" FieldName="Value">
                     <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -429,19 +434,23 @@
                     </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                 </filterDataGrid:DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDate" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDate}}"
+                                                   IsColumnFiltered="True"
                                                    Binding="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}">
                 </filterDataGrid:DataGridTextColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="TextColumnPlace" IsColumnFiltered="True"
+                <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPlace}}"
+                                                   IsColumnFiltered="True"
                                                    Binding="{Binding Place}">
                 </filterDataGrid:DataGridTextColumn>
 
-                <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
+                <filterDataGrid:DataGridCheckBoxColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
+                                                       IsColumnFiltered="True"
                                                        IsThreeState="False" Binding="{Binding IsPointed}">
                 </filterDataGrid:DataGridCheckBoxColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
+                <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTemplateColumnHeaderActions}}"
+                                                       IsColumnFiltered="False"
                                                        IsReadOnly="True">
                     <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -450,17 +459,17 @@
                                         margin:PanelExtensions.MarginForAllChildren="3">
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                        Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
                                         Click="ButtonEditRecord_OnClick">
                                 </Button>
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                        Content="{Binding ButtonContentPointedRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
                                         Click="ButtonPointedRecord_OnClick">
                                 </Button>
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                        Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
                                         Click="ButtonDeleteRecord_OnClick">
                                 </Button>
 

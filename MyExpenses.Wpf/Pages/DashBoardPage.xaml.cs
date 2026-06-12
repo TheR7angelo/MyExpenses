@@ -45,76 +45,6 @@ public partial class DashBoardPage
 
     private DataGridRow? DataGridRow { get; set; }
 
-    #region DataGrid
-
-    public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
-        DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DataGridMenuItemHeaderEditRecord
-    {
-        get => (string)GetValue(DataGridMenuItemHeaderEditRecordProperty);
-        set => SetValue(DataGridMenuItemHeaderEditRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
-        DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DataGridMenuItemHeaderDeleteRecord
-    {
-        get => (string)GetValue(DataGridMenuItemHeaderDeleteRecordProperty);
-        set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridCheckBoxColumnPointedProperty =
-        DependencyProperty.Register(nameof(DataGridCheckBoxColumnPointed), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DataGridCheckBoxColumnPointed
-    {
-        get => (string)GetValue(DataGridCheckBoxColumnPointedProperty);
-        set => SetValue(DataGridCheckBoxColumnPointedProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonContentEditRecordProperty =
-        DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentEditRecord
-    {
-        get => (string)GetValue(ButtonContentEditRecordProperty);
-        set => SetValue(ButtonContentEditRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
-        DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentDeleteRecord
-    {
-        get => (string)GetValue(ButtonContentDeleteRecordProperty);
-        set => SetValue(ButtonContentDeleteRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonContentPointedRecordProperty =
-        DependencyProperty.Register(nameof(ButtonContentPointedRecord), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentPointedRecord
-    {
-        get => (string)GetValue(ButtonContentPointedRecordProperty);
-        set => SetValue(ButtonContentPointedRecordProperty, value);
-    }
-
-    #endregion
-
     public static readonly DependencyProperty PreviousToolTipNegativeChartProperty =
         DependencyProperty.Register(nameof(PreviousToolTipNegativeChart), typeof(string), typeof(DashBoardPage),
             new PropertyMetadata(default(string)));
@@ -770,25 +700,6 @@ public partial class DashBoardPage
 
     private void UpdateLanguage()
     {
-        TextColumnAccount.Header = DashBoardManagementResources.DataGridTextColumnAccount;
-        TextColumnDescription.Header = DashBoardManagementResources.DataGridTextColumnDescription;
-        TemplateColumnCategory.Header = DashBoardManagementResources.DataGridTextColumnCategory;
-        TextColumnModePayment.Header = DashBoardManagementResources.DataGridTextColumnModePayment;
-        TemplateColumnValue.Header = DashBoardManagementResources.DataGridTextColumnValue;
-        TextColumnDate.Header = DashBoardManagementResources.DataGridTextColumnDate;
-        TextColumnPlace.Header = DashBoardManagementResources.DataGridTextColumnPlace;
-        CheckBoxColumnPointed.Header = DashBoardManagementResources.DataGridTextColumnPointed;
-        ButtonContentPointedRecord = DashBoardManagementResources.DataGridTextColumnPointed;
-
-        TemplateColumnActions.Header = DashBoardManagementResources.DataGridTemplateColumnActionsHeader;
-        ButtonContentPointedRecord = DashBoardManagementResources.DataGridTextColumnPointed;
-        ButtonContentEditRecord = DashBoardManagementResources.ButtonContentEditRecord;
-        ButtonContentDeleteRecord = DashBoardManagementResources.ButtonContentDeleteRecord;
-
-        DataGridCheckBoxColumnPointed = DashBoardManagementResources.DataGridTextColumnPointed;
-        DataGridMenuItemHeaderEditRecord = DashBoardManagementResources.ButtonContentEditRecord;
-        DataGridMenuItemHeaderDeleteRecord = DashBoardManagementResources.ButtonContentDeleteRecord;
-
         ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
 
