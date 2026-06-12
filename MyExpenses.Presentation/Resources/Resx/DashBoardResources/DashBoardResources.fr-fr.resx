@@ -83,4 +83,13 @@
     <data name="ComboBoxMonthHintAssist" xml:space="preserve">
         <value>Choix du mois :</value>
     </data>
+    <data name="MonthlyNegativeBudgetChartDistribution" xml:space="preserve">
+        <value>Distribution mensuelle du budget négatif</value>
+    </data>
+    <data name="MonthlyGlobalBudgetChartDistribution" xml:space="preserve">
+        <value>Répartition globale du budget mensuel</value>
+    </data>
+    <data name="MonthlyPositiveBudgetChartDistribution" xml:space="preserve">
+        <value>Distribution mensuelle du budget positif</value>
+    </data>
 </root>

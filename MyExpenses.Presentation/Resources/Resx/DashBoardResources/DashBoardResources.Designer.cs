@@ -274,5 +274,32 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
                 return ResourceManager.GetString("DataGridTextColumnHeaderValue", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overall monthly budget breakdown.
+        /// </summary>
+        public static string MonthlyGlobalBudgetChartDistribution {
+            get {
+                return ResourceManager.GetString("MonthlyGlobalBudgetChartDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly distribution of the negative budget.
+        /// </summary>
+        public static string MonthlyNegativeBudgetChartDistribution {
+            get {
+                return ResourceManager.GetString("MonthlyNegativeBudgetChartDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly distribution of the positive budget.
+        /// </summary>
+        public static string MonthlyPositiveBudgetChartDistribution {
+            get {
+                return ResourceManager.GetString("MonthlyPositiveBudgetChartDistribution", resourceCulture);
+            }
+        }
     }
 }

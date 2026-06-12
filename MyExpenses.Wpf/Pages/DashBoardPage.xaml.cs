@@ -17,6 +17,7 @@ using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
@@ -44,36 +45,6 @@ public partial class DashBoardPage
     public ObservableCollection<TotalByAccountViewModel> VTotalByAccounts { get; } = [];
 
     private DataGridRow? DataGridRow { get; set; }
-
-    public static readonly DependencyProperty PreviousToolTipNegativeChartProperty =
-        DependencyProperty.Register(nameof(PreviousToolTipNegativeChart), typeof(string), typeof(DashBoardPage),
-            new PropertyMetadata(default(string)));
-
-    public string PreviousToolTipNegativeChart
-    {
-        get => (string)GetValue(PreviousToolTipNegativeChartProperty);
-        set => SetValue(PreviousToolTipNegativeChartProperty, value);
-    }
-
-    public static readonly DependencyProperty NextToolTipNegativeChartProperty =
-        DependencyProperty.Register(nameof(NextToolTipNegativeChart), typeof(string), typeof(DashBoardPage),
-            new PropertyMetadata(default(string)));
-
-    public string NextToolTipNegativeChart
-    {
-        get => (string)GetValue(NextToolTipNegativeChartProperty);
-        set => SetValue(NextToolTipNegativeChartProperty, value);
-    }
-
-    public string MonthlyGlobalBudgetChartDistributionTitle
-    {
-        get => (string)GetValue(MonthlyGlobalBudgetChartDistributionTitleProperty);
-        set => SetValue(MonthlyGlobalBudgetChartDistributionTitleProperty, value);
-    }
-
-    public static readonly DependencyProperty MonthlyGlobalBudgetChartDistributionTitleProperty =
-        DependencyProperty.Register(nameof(MonthlyGlobalBudgetChartDistributionTitle), typeof(string),
-            typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
@@ -160,107 +131,111 @@ public partial class DashBoardPage
         IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
-        IDialogService dialogService)
+        IDialogService dialogService, DashBoardViewModel dashBoardViewModel)
     {
-        Instance = this;
-        _accountPresentationService = accountPresentationService;
-        _expenseDtoDomainMapper = expenseDtoDomainMapper;
-        _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
-        _accountDtoViewModelMapper = accountDtoViewModelMapper;
-        _navigationWindowService = navigationWindowService;
-        _dialogService = dialogService;
-
-        var (currentYear, currentMonth, _) = DateTime.Now;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
-
-        if (recurrences.Any())
-        {
-            var mainWindow = System.Windows.Application.Current.MainWindow!;
-            var actualWidth = mainWindow.ActualWidth;
-            var actualHeight = mainWindow.ActualHeight;
-            var size = new Size(actualWidth, actualHeight);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
-            // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-            var recurrentAddWindow = new RecurrentAddWindow(size);
-            recurrentAddWindow.ShowDialog();
-        }
-
-        UpdateMonthLanguage();
-
-        Years =
-        [
-            ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
-                .Select(s => s.ToString())
-        ];
-
-        if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
-        var lastYear = int.Parse(Years.Max()!);
-        for (var year = lastYear + 1; year <= currentYear; year++)
-        {
-            Years.Insert(0, year.ToString());
-        }
-
-        SelectedYear = currentYear.ToString();
-        SelectedMonth = Months[currentMonth - 1];
-
-        RefreshAccountTotal();
-
         InitializeComponent();
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        PieChartManager = new PieChartManager(PieChart, CategoryTotals);
+        DataContext = dashBoardViewModel;
 
-        UpdateLanguage();
-
-        UpdatePieChartLegendTextPaint();
-
-        // ReSharper disable HeapView.DelegateAllocation
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
-        {
-            if (m.Value.EntityType is not DependencyType.Account || m.Value.DataAction is not DataAction.Delete) return;
-
-            var ids = m.Value.Content;
-            if (!VTotalByAccounts.Any(s => ids.Contains(s.Id))) return;
-
-            foreach (var id in ids)
-            {
-                var toRemove = VTotalByAccounts.First(s => s.Id.Equals(id));
-                VTotalByAccounts.Remove(toRemove);
-            }
-
-            RefreshRadioButtonSelected();
-        });
-
-        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, async (_, m) =>
-        {
-            if (m.Value is not {EntityType: DependencyType.Account, Content: var accountViewModel }) return;
-
-            if (m.Value.DataAction is DataAction.Update)
-            {
-                var item = VTotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
-                if (item is null) return;
-                item.Name = accountViewModel.Name ?? string.Empty;
-                item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
-            }
-
-            if (m.Value.DataAction is DataAction.Add)
-            {
-                var result = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
-                if (!result.IsSuccess) return;
-                VTotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
-            }
-        });
+        Instance = this;
+        // _accountPresentationService = accountPresentationService;
+        // _expenseDtoDomainMapper = expenseDtoDomainMapper;
+        // _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
+        // _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        // _navigationWindowService = navigationWindowService;
+        // _dialogService = dialogService;
+        //
+        // var (currentYear, currentMonth, _) = DateTime.Now;
+        //
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // Necessary instantiation of DataBaseContext to interact with the database.
+        // // This creates a scoped database context for performing queries and modifications in the database.
+        // using var context = new DataBaseContextOld();
+        // var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
+        //
+        // if (recurrences.Any())
+        // {
+        //     var mainWindow = System.Windows.Application.Current.MainWindow!;
+        //     var actualWidth = mainWindow.ActualWidth;
+        //     var actualHeight = mainWindow.ActualHeight;
+        //     var size = new Size(actualWidth, actualHeight);
+        //
+        //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+        //     // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
+        //     // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
+        //     var recurrentAddWindow = new RecurrentAddWindow(size);
+        //     recurrentAddWindow.ShowDialog();
+        // }
+        //
+        // UpdateMonthLanguage();
+        //
+        // Years =
+        // [
+        //     ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
+        //         .Select(s => s.ToString())
+        // ];
+        //
+        // if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
+        // var lastYear = int.Parse(Years.Max()!);
+        // for (var year = lastYear + 1; year <= currentYear; year++)
+        // {
+        //     Years.Insert(0, year.ToString());
+        // }
+        //
+        // SelectedYear = currentYear.ToString();
+        // SelectedMonth = Months[currentMonth - 1];
+        //
+        // RefreshAccountTotal();
+        //
+        // InitializeComponent();
+        //
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // PieChartManager = new PieChartManager(PieChart, CategoryTotals);
+        //
+        // UpdateLanguage();
+        //
+        // UpdatePieChartLegendTextPaint();
+        //
+        // // ReSharper disable HeapView.DelegateAllocation
+        // Interface.ThemeChanged += Interface_OnThemeChanged;
+        // Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // // ReSharper restore HeapView.DelegateAllocation
+        //
+        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
+        // {
+        //     if (m.Value.EntityType is not DependencyType.Account || m.Value.DataAction is not DataAction.Delete) return;
+        //
+        //     var ids = m.Value.Content;
+        //     if (!VTotalByAccounts.Any(s => ids.Contains(s.Id))) return;
+        //
+        //     foreach (var id in ids)
+        //     {
+        //         var toRemove = VTotalByAccounts.First(s => s.Id.Equals(id));
+        //         VTotalByAccounts.Remove(toRemove);
+        //     }
+        //
+        //     RefreshRadioButtonSelected();
+        // });
+        //
+        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, async (_, m) =>
+        // {
+        //     if (m.Value is not {EntityType: DependencyType.Account, Content: var accountViewModel }) return;
+        //
+        //     if (m.Value.DataAction is DataAction.Update)
+        //     {
+        //         var item = VTotalByAccounts.FirstOrDefault(s => s.Id == accountViewModel.Id);
+        //         if (item is null) return;
+        //         item.Name = accountViewModel.Name ?? string.Empty;
+        //         item.Symbol = accountViewModel.CurrencyViewModel?.Symbol ?? string.Empty;
+        //     }
+        //
+        //     if (m.Value.DataAction is DataAction.Add)
+        //     {
+        //         var result = await accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
+        //         if (!result.IsSuccess) return;
+        //         VTotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
+        //     }
+        // });
     }
 
     #region Action
@@ -373,12 +348,6 @@ public partial class DashBoardPage
             DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
     }
 
-    private void ButtonSwitchLeftPositiveNegativeChartValues_OnClick(object sender, RoutedEventArgs e)
-        => RefreshPositiveNegativeChartValues(-1);
-
-    private void ButtonSwitchRightPositiveNegativeChartValues_OnClick(object sender, RoutedEventArgs e)
-        => RefreshPositiveNegativeChartValues(1);
-
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
@@ -387,7 +356,6 @@ public partial class DashBoardPage
 
     private void Interface_OnLanguageChanged()
     {
-        UpdateLanguage();
         UpdateMonthLanguage();
     }
 
@@ -617,8 +585,6 @@ public partial class DashBoardPage
             (IndexOfPositiveNegativeChartValues + valueToAdd + PositiveNegativeChartValues.Length)
             % PositiveNegativeChartValues.Length;
 
-        UpdateMonthlyGlobalBudgetChartDistributionTitle();
-
         var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
         UpdatePieChartData(null, monthInt, yearInt);
     }
@@ -665,11 +631,6 @@ public partial class DashBoardPage
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
     }
 
-    private void UpdateLanguage()
-    {
-        UpdateMonthlyGlobalBudgetChartDistributionTitle();
-    }
-
     private void UpdateMonthLanguage()
     {
         var currentCulture = CultureInfo.CurrentCulture;
@@ -694,33 +655,6 @@ public partial class DashBoardPage
 
             SelectedMonth = selectedMonth;
         }
-    }
-
-    private void UpdateMonthlyGlobalBudgetChartDistributionTitle()
-    {
-        MonthlyGlobalBudgetChartDistributionTitle = IndexOfPositiveNegativeChartValues switch
-        {
-            0 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
-            1 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
-            2 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
-            _ => MonthlyGlobalBudgetChartDistributionTitle
-        };
-
-        PreviousToolTipNegativeChart = IndexOfPositiveNegativeChartValues switch
-        {
-            0 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
-            1 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
-            2 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
-            _ => PreviousToolTipNegativeChart
-        };
-
-        NextToolTipNegativeChart = IndexOfPositiveNegativeChartValues switch
-        {
-            0 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
-            1 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
-            2 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
-            _ => NextToolTipNegativeChart
-        };
     }
 
     private void UpdatePieChartData(string? accountName = null, int? monthInt = null, int? yearInt = null)

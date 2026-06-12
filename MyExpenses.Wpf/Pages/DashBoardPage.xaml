@@ -12,9 +12,15 @@
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
       xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
 
       Title="DashBoard"
+
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance viewModel:DashBoardViewModel}"
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -270,24 +276,93 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    ToolTip="{Binding PreviousToolTipNegativeChart, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Click="ButtonSwitchLeftPositiveNegativeChartValues_OnClick">
+                    Command="{Binding ManagePieChartCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}">
+
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.CommandParameter>
+                    <system:Int32>-1</system:Int32>
+                </Button.CommandParameter>
+
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle" />
             </Button>
 
             <wpf:PieChart Grid.Row="0" Grid.Column="1" x:Name="PieChart" />
 
             <Button Grid.Row="0" Grid.Column="2"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    ToolTip="{Binding NextToolTipNegativeChart, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Click="ButtonSwitchRightPositiveNegativeChartValues_OnClick">
+                    Command="{Binding ManagePieChartCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}">
+
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.CommandParameter>
+                    <system:Int32>1</system:Int32>
+                </Button.CommandParameter>
+
                 <materialDesign:PackIcon Kind="ArrowRightBoldCircle" />
             </Button>
 
             <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                   HorizontalContentAlignment="Center"
-                   Content="{Binding MonthlyGlobalBudgetChartDistributionTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                   HorizontalContentAlignment="Center">
+
+                   <Label.Style>
+                       <Style TargetType="Label">
+
+                           <Style.Triggers>
+
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                               </DataTrigger>
+
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                               </DataTrigger>
+
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                               </DataTrigger>
+
+                           </Style.Triggers>
+                       </Style>
+                   </Label.Style>
+
             </Label>
 
             <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"

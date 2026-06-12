@@ -28,4 +28,7 @@ public static class DashBoardResourceManager
     public static string DataGridMenuItemHeaderDeleteRecord => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridMenuItemHeaderDeleteRecord)}";
     public static string ComboBoxYearsHintAssist => $"{RessourceManagerName}:{nameof(DashBoardResources.ComboBoxYearsHintAssist)}";
     public static string ComboBoxMonthHintAssist => $"{RessourceManagerName}:{nameof(DashBoardResources.ComboBoxMonthHintAssist)}";
+    public static string MonthlyNegativeBudgetChartDistribution => $"{RessourceManagerName}:{nameof(DashBoardResources.MonthlyNegativeBudgetChartDistribution)}";
+    public static string MonthlyGlobalBudgetChartDistribution => $"{RessourceManagerName}:{nameof(DashBoardResources.MonthlyGlobalBudgetChartDistribution)}";
+    public static string MonthlyPositiveBudgetChartDistribution => $"{RessourceManagerName}:{nameof(DashBoardResources.MonthlyPositiveBudgetChartDistribution)}";
 }
