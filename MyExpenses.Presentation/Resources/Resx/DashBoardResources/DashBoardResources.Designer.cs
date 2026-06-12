@@ -159,6 +159,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choice of the month :.
+        /// </summary>
+        public static string ComboBoxMonthHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxMonthHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choice of the year :.
+        /// </summary>
+        public static string ComboBoxYearsHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxYearsHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string DataGridMenuItemHeaderDeleteRecord {

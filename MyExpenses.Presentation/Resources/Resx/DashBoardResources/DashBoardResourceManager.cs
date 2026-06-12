@@ -26,4 +26,6 @@ public static class DashBoardResourceManager
     public static string DataGridTemplateColumnHeaderActions => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTemplateColumnHeaderActions)}";
     public static string DataGridMenuItemHeaderEditRecord => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridMenuItemHeaderEditRecord)}";
     public static string DataGridMenuItemHeaderDeleteRecord => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridMenuItemHeaderDeleteRecord)}";
+    public static string ComboBoxYearsHintAssist => $"{RessourceManagerName}:{nameof(DashBoardResources.ComboBoxYearsHintAssist)}";
+    public static string ComboBoxMonthHintAssist => $"{RessourceManagerName}:{nameof(DashBoardResources.ComboBoxMonthHintAssist)}";
 }

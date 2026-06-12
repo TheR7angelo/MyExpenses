@@ -75,28 +75,6 @@ public partial class DashBoardPage
         DependencyProperty.Register(nameof(MonthlyGlobalBudgetChartDistributionTitle), typeof(string),
             typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
-    public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxYearsHintAssist
-    {
-        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
-        set => SetValue(ComboBoxYearsHintAssistProperty, value);
-    }
-
-    public static readonly DependencyProperty ComboBoxMonthHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ComboBoxMonthHintAssist
-    {
-        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
-        set => SetValue(ComboBoxMonthHintAssistProperty, value);
-    }
-
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
     private PieChartManager PieChartManager { get; }
@@ -143,17 +121,6 @@ public partial class DashBoardPage
         get => (Local)GetValue(LocalLanguageProperty);
         // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(LocalLanguageProperty, value);
-    }
-
-    public static readonly DependencyProperty DateFormatStringProperty =
-        DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(DashBoardPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DateFormatString
-    {
-        get => (string)GetValue(DateFormatStringProperty);
-        set => SetValue(DateFormatStringProperty, value);
     }
 
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
@@ -700,11 +667,6 @@ public partial class DashBoardPage
 
     private void UpdateLanguage()
     {
-        ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
-
-        DateFormatString = SharedUtils.Converters.DateTimeToDateTimeWithoutSecondsConverter.GetDateTimePattern();
-
         UpdateMonthlyGlobalBudgetChartDistributionTitle();
     }
 
