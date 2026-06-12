@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Reflection;
 using System.Text.Json;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Mappings;
@@ -25,7 +21,7 @@ public sealed partial class AppSettingsService : ObservableObject, IDisposable
 {
     public static AppSettingsService Instance { get; } = new();
 
-    private readonly object _sync = new();
+    private readonly Lock _sync = new();
     private readonly HashSet<INotifyPropertyChanged> _subscriptions = new();
     private bool _saving;
     private CancellationTokenSource? _debounceCts;
