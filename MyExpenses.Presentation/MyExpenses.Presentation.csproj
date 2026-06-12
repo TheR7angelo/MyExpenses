@@ -66,6 +66,10 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>LocationResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\DashBoardResources\DashBoardResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>DashBoardResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -108,6 +112,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>LocationResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\DashBoardResources\DashBoardResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DashBoardResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

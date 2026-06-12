@@ -5,6 +5,7 @@ using MyExpenses.Presentation.Resources.Resx.DependencyRessources;
 using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Resources.Resx.LocationResources;
 using MyExpenses.Presentation.Resources.Resx.SystemResources;
+using MyExpenses.Presentation.Resources.Resx.DashBoardResources;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.Dialogs;
@@ -27,5 +28,6 @@ public static class LocalizationResources
             [nameof(ExpenseResources)] = ExpenseResources.ResourceManager,
             [nameof(SystemResources)] = SystemResources.ResourceManager,
             [nameof(LocationResources)] = LocationResources.ResourceManager,
+            [nameof(DashBoardResources)] = DashBoardResources.ResourceManager,
         };
 }
