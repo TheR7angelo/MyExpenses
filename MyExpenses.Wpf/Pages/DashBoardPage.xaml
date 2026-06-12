@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:dashboardResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.DashBoardResources;assembly=MyExpenses.Presentation"
+      xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
@@ -48,57 +50,57 @@
                 HorizontalAlignment="Center"
                 margin:PanelExtensions.MarginForAllChildren="5">
 
-                <Button Content="{Binding ButtonAccountManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAccountManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonAccountManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonAccountTypeManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAccountTypeManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonAccountTypeManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonCategoryTypeManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonCategoryTypeManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonCategoryTypeManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonLocationManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonLocationManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonLocationManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonColorManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonColorManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonColorManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonCurrencyManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonCurrencyManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonCurrencyManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonModePaymentManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonModePaymentManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonModePaymentManagement_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonRecurrentExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonRecurrentExpenseContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonRecurrentExpense_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonMakeBankTransfer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonMakeBankTransferContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonMakeBankTransfer_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonRecordExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonRecordExpenseContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonRecordExpense_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonAnalytics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAnalyticsContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonAnalytics_OnClick">
                 </Button>

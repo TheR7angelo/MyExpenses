@@ -1,11 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -19,36 +12,36 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="ButtonAccountManagementContent" xml:space="preserve">
-        <value>Account management</value>
+        <value>Gestion des comptes</value>
     </data>
     <data name="ButtonAccountTypeManagementContent" xml:space="preserve">
-        <value>Account types management</value>
+        <value>Gestion des types de comptes</value>
     </data>
     <data name="ButtonCategoryTypeManagementContent" xml:space="preserve">
-        <value>Category types management</value>
+        <value>Gestion des types de catégories</value>
     </data>
     <data name="ButtonColorManagementContent" xml:space="preserve">
-        <value>Color management</value>
+        <value>Gestion des couleurs</value>
     </data>
     <data name="ButtonCurrencyManagementContent" xml:space="preserve">
-        <value>Currency symbols management</value>
+        <value>Gestion des symboles monétaires</value>
     </data>
     <data name="ButtonLocationManagementContent" xml:space="preserve">
-        <value>Location management</value>
+        <value>Gestion des emplacements</value>
     </data>
     <data name="ButtonModePaymentManagementContent" xml:space="preserve">
-        <value>Payment method management</value>
+        <value>Gestion des méthodes de paiement</value>
     </data>
     <data name="ButtonMakeBankTransferContent" xml:space="preserve">
-        <value>Make a bank transfer</value>
+        <value>Effectuez un virement bancaire</value>
     </data>
     <data name="ButtonRecordExpenseContent" xml:space="preserve">
-        <value>Record a financial transaction</value>
+        <value>Enregistrer une transaction financière</value>
     </data>
     <data name="ButtonAnalyticsContent" xml:space="preserve">
-        <value>Graphical analysis</value>
+        <value>Analyses graphiques</value>
     </data>
     <data name="ButtonRecurrentExpenseContent" xml:space="preserve">
-        <value>Recurring Expense Management</value>
+        <value>Gestion des dépenses récurrente</value>
     </data>
 </root>

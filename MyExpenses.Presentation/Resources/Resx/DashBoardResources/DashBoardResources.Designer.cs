@@ -58,5 +58,104 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account management.
+        /// </summary>
+        public static string ButtonAccountManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonAccountManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account types management.
+        /// </summary>
+        public static string ButtonAccountTypeManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonAccountTypeManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphical analysis.
+        /// </summary>
+        public static string ButtonAnalyticsContent {
+            get {
+                return ResourceManager.GetString("ButtonAnalyticsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category types management.
+        /// </summary>
+        public static string ButtonCategoryTypeManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonCategoryTypeManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color management.
+        /// </summary>
+        public static string ButtonColorManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonColorManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbols management.
+        /// </summary>
+        public static string ButtonCurrencyManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonCurrencyManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location management.
+        /// </summary>
+        public static string ButtonLocationManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonLocationManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make a bank transfer.
+        /// </summary>
+        public static string ButtonMakeBankTransferContent {
+            get {
+                return ResourceManager.GetString("ButtonMakeBankTransferContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method management.
+        /// </summary>
+        public static string ButtonModePaymentManagementContent {
+            get {
+                return ResourceManager.GetString("ButtonModePaymentManagementContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record a financial transaction.
+        /// </summary>
+        public static string ButtonRecordExpenseContent {
+            get {
+                return ResourceManager.GetString("ButtonRecordExpenseContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurring Expense Management.
+        /// </summary>
+        public static string ButtonRecurrentExpenseContent {
+            get {
+                return ResourceManager.GetString("ButtonRecurrentExpenseContent", resourceCulture);
+            }
+        }
     }
 }
