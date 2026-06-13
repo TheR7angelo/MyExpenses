@@ -99,4 +99,13 @@
     <data name="MonthlyPositiveBudgetChartDistribution" xml:space="preserve">
         <value>Monthly distribution of the positive budget</value>
     </data>
+    <data name="DataGridFilterYes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="DataGridFilterNo" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="DataGridFilterSelectAll" xml:space="preserve">
+        <value>Select all</value>
+    </data>
 </root>

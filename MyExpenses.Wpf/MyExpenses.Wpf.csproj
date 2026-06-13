@@ -14,6 +14,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="DataGridExtensions" Version="2.9.1" />
+      <PackageReference Include="TomsToolbox.Wpf" Version="2.24.0" />
       <PackageReference Include="FilterDataGrid" Version="1.2.9" />
       <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc5.4" />
       <PackageReference Include="Mapsui.Wpf" Version="5.0.0" />
@@ -417,6 +419,11 @@
       </Page>
       <Page Update="Windows\Dialogs\MsgBox\MsgBoxMessageWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Resources\Styles\DatagridExtensionsThemesDictionary.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
       </Page>
     </ItemGroup>
 

@@ -177,6 +177,33 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string DataGridFilterNo {
+            get {
+                return ResourceManager.GetString("DataGridFilterNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string DataGridFilterSelectAll {
+            get {
+                return ResourceManager.GetString("DataGridFilterSelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string DataGridFilterYes {
+            get {
+                return ResourceManager.GetString("DataGridFilterYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string DataGridMenuItemHeaderDeleteRecord {

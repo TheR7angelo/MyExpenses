@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="TabControlDictionary.xaml" />
+        <ResourceDictionary Source="DatagridExtensionsThemesDictionary.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
