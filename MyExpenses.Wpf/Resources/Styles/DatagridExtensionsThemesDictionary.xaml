@@ -226,7 +226,7 @@
                                       BorderBrush="Transparent"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      ClickMode="Press" Focusable="False"
+                                      ClickMode="Release" Focusable="False"
                                       IsChecked="{Binding IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                       Style="{StaticResource {x:Type ToggleButton}}">
                             <ToggleButton.Template>
@@ -257,8 +257,11 @@
                                 </ControlTemplate>
                             </ToggleButton.Template>
                         </ToggleButton>
-                        <Popup x:Name="Popup" StaysOpen="False"
-                               IsOpen="{Binding IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                        <Popup x:Name="Popup"
+                               StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=ToggleButton}"
+                               Placement="Bottom"
+                               IsOpen="{Binding IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                AllowsTransparency="True">
                             <FrameworkElement.Resources>
                                 <CollectionViewSource x:Key="SortedValuesSource"
@@ -268,9 +271,6 @@
                                     </CollectionViewSource.SortDescriptions>
                                 </CollectionViewSource>
                             </FrameworkElement.Resources>
-                            <i:Interaction.Behaviors>
-                                <toms:PopupFocusManagerBehavior ToggleButton="{Binding ElementName=ToggleButton}" />
-                            </i:Interaction.Behaviors>
                             <Border Background="{DynamicResource MaterialDesignPaper}"
                                     BorderThickness="1"
                                     MinWidth="100"
