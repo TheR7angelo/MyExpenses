@@ -463,11 +463,6 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn
-                    Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderAccount}}"
-                    Binding="{Binding Account}">
-                </DataGridTextColumn>
-
-                <DataGridTextColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDescription}}"
                     Binding="{Binding Description}">
                 </DataGridTextColumn>

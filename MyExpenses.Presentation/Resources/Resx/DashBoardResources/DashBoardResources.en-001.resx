@@ -47,9 +47,6 @@
     <data name="DataGridTextColumnHeaderPointed" xml:space="preserve">
         <value>Pointed</value>
     </data>
-    <data name="DataGridTextColumnHeaderAccount" xml:space="preserve">
-        <value>Account</value>
-    </data>
     <data name="DataGridTextColumnHeaderDescription" xml:space="preserve">
         <value>Description</value>
     </data>

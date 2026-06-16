@@ -16,7 +16,6 @@ public static class DashBoardResourceManager
     public static string ButtonAnalyticsContent => $"{RessourceManagerName}:{nameof(DashBoardResources.ButtonAnalyticsContent)}";
     public static string ButtonRecurrentExpenseContent => $"{RessourceManagerName}:{nameof(DashBoardResources.ButtonRecurrentExpenseContent)}";
     public static string DataGridTextColumnHeaderPointed => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTextColumnHeaderPointed)}";
-    public static string DataGridTextColumnHeaderAccount => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTextColumnHeaderAccount)}";
     public static string DataGridTextColumnHeaderDescription => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTextColumnHeaderDescription)}";
     public static string DataGridTextColumnHeaderCategory => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTextColumnHeaderCategory)}";
     public static string DataGridTextColumnHeaderModePayment => $"{RessourceManagerName}:{nameof(DashBoardResources.DataGridTextColumnHeaderModePayment)}";

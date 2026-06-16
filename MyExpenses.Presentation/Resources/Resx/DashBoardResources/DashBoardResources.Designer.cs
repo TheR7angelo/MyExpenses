@@ -231,15 +231,6 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account.
-        /// </summary>
-        public static string DataGridTextColumnHeaderAccount {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnHeaderAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string DataGridTextColumnHeaderCategory {
