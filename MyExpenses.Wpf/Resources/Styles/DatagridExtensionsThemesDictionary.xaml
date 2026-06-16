@@ -4,7 +4,7 @@
                     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                     xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
                     xmlns:toms="urn:TomsToolbox"
-                    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
                     xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
                     xmlns:dashboardResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.DashBoardResources;assembly=MyExpenses.Presentation">
 
@@ -329,11 +329,11 @@
                                                            VerticalAlignment="Center" />
                                                 <DataTemplate.Triggers>
 
-                                                    <DataTrigger Binding="{Binding}" Value="{x:Static System:Boolean.TrueString}">
+                                                    <DataTrigger Binding="{Binding}" Value="{x:Static system:Boolean.TrueString}">
                                                         <Setter TargetName="Text" Property="Text" Value="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridFilterYes}}" />
                                                     </DataTrigger>
 
-                                                    <DataTrigger Binding="{Binding}" Value="{x:Static System:Boolean.FalseString}">
+                                                    <DataTrigger Binding="{Binding}" Value="{x:Static system:Boolean.FalseString}">
                                                         <Setter TargetName="Text" Property="Text" Value="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridFilterNo}}" />
                                                     </DataTrigger>
 

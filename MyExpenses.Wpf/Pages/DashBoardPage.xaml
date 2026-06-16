@@ -10,7 +10,6 @@
       xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-      xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
       xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
@@ -21,13 +20,14 @@
 
       d:DesignHeight="450"
       d:DesignWidth="800"
-
+      Language="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <!-- d:DataContext="{d:DesignInstance viewModel:DashBoardViewModel}" -->
+
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
@@ -464,12 +464,14 @@
 
                 <DataGridTextColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDescription}}"
-                    Binding="{Binding Description}">
+                    Binding="{Binding Description}"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
                 </DataGridTextColumn>
 
                 <DataGridTemplateColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderCategory}}"
-                    SortMemberPath="Category">
+                    SortMemberPath="CategoryTypeViewModel.Name"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
@@ -479,11 +481,11 @@
                                 <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                                          Stroke="{DynamicResource MaterialDesignBody}"
                                          StrokeThickness="1.5"
-                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                         Fill="{Binding CategoryTypeViewModel.Color.HexadecimalColorCode, FallbackValue=Transparent, TargetNullValue=Transparent, Mode=OneWay}"
                                          Margin="0, 0, 3, 0">
                                 </Ellipse>
 
-                                <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+                                <TextBlock Text="{Binding CategoryTypeViewModel.Name, FallbackValue='', TargetNullValue=''}" Margin="3, 0, 0, 0" />
 
                             </StackPanel>
                         </DataTemplate>
@@ -492,19 +494,22 @@
 
                 <DataGridTextColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderModePayment}}"
-                    Binding="{Binding ModePayment}">
+                    Binding="{Binding ModePaymentViewModel.Name, FallbackValue=''}"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
                 </DataGridTextColumn>
 
                 <DataGridTemplateColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderValue}}"
-                    SortMemberPath="Value">
+                    SortMemberPath="Value"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
                                         <Binding Path="Value" />
-                                        <Binding Path="Symbol" />
+                                        <Binding Path="AccountViewModel.CurrencyViewModel.Symbol" FallbackValue="" />
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
@@ -512,13 +517,22 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- <DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDate}}" -->
-                <!--                     Binding="{Binding Date, StringFormat={Binding Source={x:Static loc:LocalizationService.Instance}, Path=LanguageTag, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}}"> -->
-                <!-- </DataGridTextColumn> -->
+                <DataGridTemplateColumn
+                    Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDate}}"
+                    SortMemberPath="Date"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn
                     Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPlace}}"
-                    Binding="{Binding Place}">
+                    Binding="{Binding PlaceViewModel.Name, FallbackValue=''}"
+                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
                 </DataGridTextColumn>
 
                 <DataGridCheckBoxColumn
@@ -559,153 +573,6 @@
             </DataGrid.Columns>
 
         </DataGrid>
-
-        <!-- <filterDataGrid:FilterDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" -->
-        <!--                                ShowStatusBar="True" ShowElapsedTime="True" -->
-        <!--                                FilterPopupBackground="{DynamicResource MaterialDesignPaper}" -->
-        <!--                                IsReadOnly="True" AutoGenerateColumns="False" -->
-        <!--                                ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-        <!--                                CanUserAddRows="False" CanUserDeleteRows="False" -->
-        <!--                                CanUserReorderColumns="False" -->
-        <!--                                HorizontalScrollBarVisibility="Auto" -->
-        <!--                                VerticalScrollBarVisibility="Auto" -->
-        <!-- -->
-        <!--                                FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-        <!--                                DateFormatString="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentCulture.Name, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}, ConverterCulture={x:Static globalization:CultureInfo.CurrentUICulture}}"> -->
-        <!-- -->
-        <!--     <filterDataGrid:FilterDataGrid.Resources> -->
-        <!--         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" /> -->
-        <!--     </filterDataGrid:FilterDataGrid.Resources> -->
-        <!-- -->
-        <!--     <filterDataGrid:FilterDataGrid.ItemContainerStyle> -->
-        <!--         <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"> -->
-        <!--             <EventSetter Event="PreviewMouseRightButtonDown" -->
-        <!--                          Handler="DataGridRow_PreviewMouseRightButtonDown"> -->
-        <!--             </EventSetter> -->
-        <!--         </Style> -->
-        <!--     </filterDataGrid:FilterDataGrid.ItemContainerStyle> -->
-        <!-- -->
-        <!--     <filterDataGrid:FilterDataGrid.ContextMenu> -->
-        <!--         <ContextMenu> -->
-        <!--             <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}" -->
-        <!--                       Click="MenuItemEditRecord_OnClick"> -->
-        <!--             </MenuItem> -->
-        <!--             <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}" -->
-        <!--                       Click="MenuItemPointed_OnClick"> -->
-        <!--             </MenuItem> -->
-        <!--             <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}" -->
-        <!--                       Click="MenuItemDeleteRecord_OnClick"> -->
-        <!--             </MenuItem> -->
-        <!--         </ContextMenu> -->
-        <!--     </filterDataGrid:FilterDataGrid.ContextMenu> -->
-        <!-- -->
-        <!--     <filterDataGrid:FilterDataGrid.Columns> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderAccount}}" -->
-        <!--                                            IsColumnFiltered="True" -->
-        <!--                                            Binding="{Binding Account}"> -->
-        <!--         </filterDataGrid:DataGridTextColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDescription}}" -->
-        <!--                                            IsColumnFiltered="True" -->
-        <!--                                            Binding="{Binding Description}"> -->
-        <!--         </filterDataGrid:DataGridTextColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderCategory}}" -->
-        <!--                                                IsColumnFiltered="True" -->
-        <!--                                                SortMemberPath="Category" FieldName="Category"> -->
-        <!--             <filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--                 <DataTemplate> -->
-        <!--                     <StackPanel Orientation="Horizontal" -->
-        <!--                                 HorizontalAlignment="Left" -->
-        <!--                                 VerticalAlignment="Top"> -->
-        <!-- -->
-        <!--                         <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
-        <!--                                  Stroke="{DynamicResource MaterialDesignBody}" -->
-        <!--                                  StrokeThickness="1.5" -->
-        <!--                                  Fill="{Binding HexadecimalColorCode, Mode=OneWay}" -->
-        <!--                                  Margin="0, 0, 3, 0"> -->
-        <!--                         </Ellipse> -->
-        <!-- -->
-        <!--                         <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" /> -->
-        <!-- -->
-        <!--                     </StackPanel> -->
-        <!--                 </DataTemplate> -->
-        <!--             </filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--         </filterDataGrid:DataGridTemplateColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderModePayment}}" -->
-        <!--                                            IsColumnFiltered="True" -->
-        <!--                                            Binding="{Binding ModePayment}"> -->
-        <!--         </filterDataGrid:DataGridTextColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderValue}}" -->
-        <!--                                                IsColumnFiltered="True" -->
-        <!--                                                SortMemberPath="Value" FieldName="Value"> -->
-        <!--             <filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--                 <DataTemplate> -->
-        <!--                     <TextBlock> -->
-        <!--                         <TextBlock.Text> -->
-        <!--                             <MultiBinding Converter="{StaticResource ValueSymbolConverter}"> -->
-        <!--                                 <Binding Path="Value" /> -->
-        <!--                                 <Binding Path="Symbol" /> -->
-        <!--                             </MultiBinding> -->
-        <!--                         </TextBlock.Text> -->
-        <!--                     </TextBlock> -->
-        <!--                 </DataTemplate> -->
-        <!--             </filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--         </filterDataGrid:DataGridTemplateColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDate}}" -->
-        <!--                                            IsColumnFiltered="True" -->
-        <!--                                            Binding="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}"> -->
-        <!--         </filterDataGrid:DataGridTextColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTextColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPlace}}" -->
-        <!--                                            IsColumnFiltered="True" -->
-        <!--                                            Binding="{Binding Place}"> -->
-        <!--         </filterDataGrid:DataGridTextColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridCheckBoxColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}" -->
-        <!--                                                IsColumnFiltered="True" -->
-        <!--                                                IsThreeState="False" Binding="{Binding IsPointed}"> -->
-        <!--         </filterDataGrid:DataGridCheckBoxColumn> -->
-        <!-- -->
-        <!--         <filterDataGrid:DataGridTemplateColumn Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTemplateColumnHeaderActions}}" -->
-        <!--                                                IsColumnFiltered="False" -->
-        <!--                                                IsReadOnly="True"> -->
-        <!--             <filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--                 <DataTemplate> -->
-        <!-- -->
-        <!--                     <StackPanel Orientation="Horizontal" -->
-        <!--                                 margin:PanelExtensions.MarginForAllChildren="3"> -->
-        <!-- -->
-        <!--                         <Button Style="{StaticResource MaterialDesignPaperButton}" -->
-        <!--                                 Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}" -->
-        <!--                                 Click="ButtonEditRecord_OnClick"> -->
-        <!--                         </Button> -->
-        <!-- -->
-        <!--                         <Button Style="{StaticResource MaterialDesignPaperButton}" -->
-        <!--                                 Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}" -->
-        <!--                                 Click="ButtonPointedRecord_OnClick"> -->
-        <!--                         </Button> -->
-        <!-- -->
-        <!--                         <Button Style="{StaticResource MaterialDesignPaperButton}" -->
-        <!--                                 Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}" -->
-        <!--                                 Click="ButtonDeleteRecord_OnClick"> -->
-        <!--                         </Button> -->
-        <!-- -->
-        <!--                     </StackPanel> -->
-        <!-- -->
-        <!--                 </DataTemplate> -->
-        <!--             </filterDataGrid:DataGridTemplateColumn.CellTemplate> -->
-        <!--         </filterDataGrid:DataGridTemplateColumn> -->
-        <!-- -->
-        <!--     </filterDataGrid:FilterDataGrid.Columns> -->
-        <!-- -->
-        <!-- </filterDataGrid:FilterDataGrid> -->
-
-        <DataGrid></DataGrid>
 
     </Grid>
 
