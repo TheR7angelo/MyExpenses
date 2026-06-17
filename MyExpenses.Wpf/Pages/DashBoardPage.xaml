@@ -143,7 +143,7 @@
             <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 <materialDesign:PackIcon
-                    Kind="{Binding CurrentVTotalByAccount.Total, FallbackValue=0, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                    Kind="{Binding SelectedTotalByAccountViewModel.Total, FallbackValue=0, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                     Height="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, ElementName=Ellipse}"
                     Width="{Binding Width, Converter={StaticResource PercentageConverter}, ConverterParameter=75, ElementName=Ellipse}"
                     HorizontalAlignment="Center">
@@ -153,10 +153,10 @@
                        FontWeight="Bold">
                     <Label.Content>
                         <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                            <Binding Path="CurrentVTotalByAccount.Total" FallbackValue="" Mode="OneWay"
+                            <Binding Path="SelectedTotalByAccountViewModel.Total" FallbackValue="" Mode="OneWay"
                                      UpdateSourceTrigger="PropertyChanged">
                             </Binding>
-                            <Binding Path="CurrentVTotalByAccount.Symbol" FallbackValue="" Mode="OneWay"
+                            <Binding Path="SelectedTotalByAccountViewModel.Symbol" FallbackValue="" Mode="OneWay"
                                      UpdateSourceTrigger="PropertyChanged">
                             </Binding>
                         </MultiBinding>
@@ -245,7 +245,7 @@
                               VerticalScrollBarVisibility="Disabled">
 
                     <ItemsControl x:Name="ItemsControlVTotalAccount"
-                                  ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}"
+                                  ItemsSource="{Binding TotalByAccountViewModels, UpdateSourceTrigger=PropertyChanged}"
                                   Loaded="ItemsControlVTotalAccount_OnLoaded">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

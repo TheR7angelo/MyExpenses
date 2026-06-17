@@ -145,48 +145,8 @@ public partial class DashBoardPage
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
 
-        var (currentYear, currentMonth, _) = DateTime.Now;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        // using var context = new DataBaseContextOld();
-        // var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
-        //
-        // if (recurrences.Any())
-        // {
-        //     var mainWindow = System.Windows.Application.Current.MainWindow!;
-        //     var actualWidth = mainWindow.ActualWidth;
-        //     var actualHeight = mainWindow.ActualHeight;
-        //     var size = new Size(actualWidth, actualHeight);
-        //
-        //     // ReSharper disable once HeapView.ObjectAllocation.Evident
-        //     // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
-        //     // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-        //     var recurrentAddWindow = new RecurrentAddWindow(size);
-        //     recurrentAddWindow.ShowDialog();
-        // }
-
-        UpdateMonthLanguage();
-
-        // Years =
-        // [
-        //     ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
-        //         .Select(s => s.ToString())
-        // ];
-
-        // if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
-        // var lastYear = int.Parse(Years.Max()!);
-        // for (var year = lastYear + 1; year <= currentYear; year++)
-        // {
-        //     Years.Insert(0, year.ToString());
-        // }
-        //
-        // SelectedYear = currentYear.ToString();
-        SelectedMonth = Months[currentMonth - 1];
-
         RefreshAccountTotal();
-        //
+
         InitializeComponent();
         //
         // // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -354,10 +314,10 @@ public partial class DashBoardPage
     private void Interface_OnThemeChanged()
         => UpdatePieChartLegendTextPaint();
 
-    private void Interface_OnLanguageChanged()
-    {
-        UpdateMonthLanguage();
-    }
+    // private void Interface_OnLanguageChanged()
+    // {
+    //     UpdateMonthLanguage();
+    // }
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();

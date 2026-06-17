@@ -10,6 +10,7 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Utils.Strings;
 
@@ -17,6 +18,11 @@ namespace MyExpenses.Presentation.ViewModel;
 
 public partial class DashBoardViewModel : ViewModelBase
 {
+    public ObservableCollection<TotalByAccountViewModel> TotalByAccountViewModels { get; } = [];
+
+    [ObservableProperty]
+    public partial TotalByAccountViewModel? SelectedTotalByAccountViewModel { get; set; }
+
     [ObservableProperty]
     public partial int IndexOfPositiveNegativeChartValues { get; set; } = 1;
 
@@ -86,9 +92,24 @@ public partial class DashBoardViewModel : ViewModelBase
         {
             LoadRecurringExpense(currentYear, currentMonth, cancellationToken),
             LoadAllExpenseYear(currentYear, cancellationToken),
-            LoadAllMonthName(currentMonth)
+            LoadAllMonthName(currentMonth), LoadTotalByAccount(cancellationToken)
         };
         await Task.WhenAll(tasks);
+    }
+
+    private async Task LoadTotalByAccount(CancellationToken cancellationToken = default)
+    {
+        var result = await _accountPresentationService.GetAllTotalByAccountViewModelAsync(cancellationToken);
+        if (result.IsSuccess)
+        {
+            TotalByAccountViewModels.AddRangeAndSort(result.Value!, s => s.Name);
+            SelectedTotalByAccountViewModel = TotalByAccountViewModels.FirstOrDefault();
+        }
+        else
+        {
+            // TODO trad
+            _dialogService.ShowMessageBox("Error", "Can't load total by account. Try again later", MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
     }
 
     private Task LoadAllMonthName(int? currentMonth = null)
