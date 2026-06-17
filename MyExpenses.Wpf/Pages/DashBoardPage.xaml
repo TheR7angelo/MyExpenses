@@ -14,6 +14,7 @@
       xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
 
       Title="DashBoard"
@@ -25,8 +26,15 @@
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <!-- d:DataContext="{d:DesignInstance viewModel:DashBoardViewModel}" -->
+
+    d:DataContext="{d:DesignInstance viewModel:DashBoardViewModel}">
+    <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}"> -->
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
@@ -284,17 +292,17 @@
 
                         <Style.Triggers>
 
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
-                            <!-- -->
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
-                            <!-- -->
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                            </DataTrigger>
 
                         </Style.Triggers>
                     </Style>
@@ -317,17 +325,17 @@
 
                         <Style.Triggers>
 
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
-                            <!-- -->
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
-                            <!-- -->
-                            <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2"> -->
-                            <!--     <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" /> -->
-                            <!-- </DataTrigger> -->
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                <Setter Property="ToolTip" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                            </DataTrigger>
 
                         </Style.Triggers>
                     </Style>
@@ -348,17 +356,17 @@
 
                            <Style.Triggers>
 
-                               <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0"> -->
-                               <!--     <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" /> -->
-                               <!-- </DataTrigger> -->
-                               <!-- -->
-                               <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1"> -->
-                               <!--     <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" /> -->
-                               <!-- </DataTrigger> -->
-                               <!-- -->
-                               <!-- <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2"> -->
-                               <!--     <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" /> -->
-                               <!-- </DataTrigger> -->
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="0">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyNegativeBudgetChartDistribution}}" />
+                               </DataTrigger>
+
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="1">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyGlobalBudgetChartDistribution}}" />
+                               </DataTrigger>
+
+                               <DataTrigger Binding="{Binding IndexOfPositiveNegativeChartValues}" Value="2">
+                                   <Setter Property="Content" Value="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.MonthlyPositiveBudgetChartDistribution}}" />
+                               </DataTrigger>
 
                            </Style.Triggers>
                        </Style>

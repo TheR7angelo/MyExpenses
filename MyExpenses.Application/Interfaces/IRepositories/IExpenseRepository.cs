@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Accounts;
 using Domain.Models.Expenses;
 using Domain.Models.Systems;
@@ -391,4 +392,21 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>A task that represents the asynchronous operation. The result is a DeletionResult indicating success or failure of the deletion process.</returns>
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all active recurrences of expenses for a given year and month.
+    /// </summary>
+    /// <param name="year">The year for which to retrieve the active recurrences.</param>
+    /// <param name="month">The month for which to retrieve the active recurrences.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A Result containing an IEnumerable of RecursiveExpenseDomain objects representing the active recurrences.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all unique years in which expenses have been recorded.
+    /// </summary>
+    /// <param name="sortOrder">The order in which to sort the years. Can be Ascending, Descending, or None.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A Result containing an enumerable of integers representing the unique expense years.</returns>
+    public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
 }

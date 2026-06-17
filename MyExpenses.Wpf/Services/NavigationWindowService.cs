@@ -127,6 +127,12 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         window.ShowDialog();
     }
 
+    public void ShowRecurringExpenseWindow()
+    {
+        var window = provider.GetRequiredService<RecurrentAddWindow>();
+        window.ShowDialog();
+    }
+
     public void OpenGithubPage()
     {
         const string url = "https://github.com/TheR7angelo/MyExpenses";

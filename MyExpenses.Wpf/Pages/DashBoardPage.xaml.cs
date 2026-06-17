@@ -59,7 +59,7 @@ public partial class DashBoardPage
 
     private int IndexOfPositiveNegativeChartValues { get; set; } = 1;
 
-    public ObservableCollection<string> Years { get; }
+    public ObservableCollection<string> Years { get; } = [];
     public ObservableCollection<string> Months { get; } = [];
 
     public static readonly DependencyProperty SelectedYearProperty = DependencyProperty.Register(nameof(SelectedYear),
@@ -135,7 +135,7 @@ public partial class DashBoardPage
     {
         // InitializeComponent();
 
-        // DataContext = dashBoardViewModel;
+        DataContext = dashBoardViewModel;
 
         Instance = this;
         _accountPresentationService = accountPresentationService;
@@ -169,20 +169,20 @@ public partial class DashBoardPage
 
         UpdateMonthLanguage();
 
-        Years =
-        [
-            ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
-                .Select(s => s.ToString())
-        ];
+        // Years =
+        // [
+        //     ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
+        //         .Select(s => s.ToString())
+        // ];
 
-        if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
-        var lastYear = int.Parse(Years.Max()!);
-        for (var year = lastYear + 1; year <= currentYear; year++)
-        {
-            Years.Insert(0, year.ToString());
-        }
-
-        SelectedYear = currentYear.ToString();
+        // if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
+        // var lastYear = int.Parse(Years.Max()!);
+        // for (var year = lastYear + 1; year <= currentYear; year++)
+        // {
+        //     Years.Insert(0, year.ToString());
+        // }
+        //
+        // SelectedYear = currentYear.ToString();
         SelectedMonth = Months[currentMonth - 1];
 
         RefreshAccountTotal();

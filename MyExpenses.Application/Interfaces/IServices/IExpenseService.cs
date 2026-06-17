@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Expenses;
 
@@ -111,4 +112,21 @@ public interface IExpenseService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a deletion result indicating whether the deletion was successful and any deleted items.</returns>
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all active recurrences for a given year and month.
+    /// </summary>
+    /// <param name="year">The year for which to retrieve the active recurrences.</param>
+    /// <param name="month">The month for which to retrieve the active recurrences.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with an array of <see cref="RecursiveExpenseDto"/> representing all active recurrences.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all expense years sorted according to the specified order.
+    /// </summary>
+    /// <param name="sortOrder">The sort order for the expense years.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of integers representing all expense years.</returns>
+    public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
 }

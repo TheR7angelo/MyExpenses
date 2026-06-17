@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Interfaces.IRepositories;
@@ -93,4 +94,14 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         var modePaymentDomain = mapper.MapToDomain(modePaymentDto);
         return expenseRepository.DeleteModePaymentAsync(modePaymentDomain, cancellationToken);
     }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    {
+        var result = await expenseRepository.GetAllActiveRecurrences(year, month, cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
+    }
+
+    public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder,
+        CancellationToken cancellationToken = default)
+        => expenseRepository.GetAllExpenseYear(sortOrder, cancellationToken);
 }

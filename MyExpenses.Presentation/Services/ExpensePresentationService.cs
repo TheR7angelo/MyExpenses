@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Validation;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.Interfaces.IRepositories;
@@ -139,4 +140,14 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         var modePaymentDto = mapper.MapToDto(modePaymentViewModel);
         return expenseService.DeleteModePaymentAsync(modePaymentDto, cancellationToken);
     }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    {
+        var result = await expenseService.GetAllActiveRecurrences(year, month, cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
+    }
+
+    public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder,
+        CancellationToken cancellationToken = default)
+        => expenseService.GetAllExpenseYear(sortOrder, cancellationToken);
 }

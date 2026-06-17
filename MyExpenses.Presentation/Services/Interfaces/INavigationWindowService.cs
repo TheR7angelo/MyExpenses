@@ -99,6 +99,12 @@ public interface INavigationWindowService
     public void ShowColorManagementWindow(ColorViewModel? color);
 
     /// <summary>
+    /// Displays the "Recurring Expense" window as a dialog.
+    /// This method is used to navigate to the interface where users can manage or configure recurring expenses.
+    /// </summary>
+    public void ShowRecurringExpenseWindow();
+
+    /// <summary>
     /// Opens the official GitHub page associated with the application.
     /// This method is typically used to navigate users to the repository or documentation hosted on GitHub for further information or assistance.
     /// </summary>

@@ -1,4 +1,6 @@
 using System.Globalization;
+using CommunityToolkit.Mvvm.Messaging;
+using MyExpenses.Presentation.Messages;
 
 namespace MyExpenses.Wpf.Localisations;
 
@@ -15,5 +17,7 @@ public class LocalizationService
     {
         CurrentCulture = new CultureInfo(culture);
         LanguageChanged?.Invoke(this, EventArgs.Empty);
+
+        WeakReferenceMessenger.Default.Send(new LanguageChangedMessage(CurrentCulture));
     }
 }

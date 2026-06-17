@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
@@ -126,4 +127,21 @@ public interface IExpensePresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains a deletion result.</returns>
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all active recurrences for the specified year and month.
+    /// </summary>
+    /// <param name="year">The year to retrieve active recurrences for.</param>
+    /// <param name="month">The month to retrieve active recurrences for.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of recursive expense view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all expense years.
+    /// </summary>
+    /// <param name="sortOrder">The sort order for the expense years. Use SortOrder.Ascending for ascending order and SortOrder.Descending for descending order.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of expense years or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
 }

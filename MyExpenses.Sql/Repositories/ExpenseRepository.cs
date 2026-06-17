@@ -1,3 +1,4 @@
+using Domain.Models;
 using Domain.Models.Accounts;
 using Domain.Models.Dependencies;
 using Domain.Models.Expenses;
@@ -1163,6 +1164,66 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         {
             logger.LogError(e, "Failed to delete mode payment with id {ModePaymentId}", modePaymentDomain.Id);
             return DeletionResult.Failure(ErrorCode.DatabaseError, $"Failed to delete mode payment: {e.Message}");
+        }
+    }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all recurring expense with year={Year} and month={Month}", year, month);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var result = await context.TRecursiveExpenses
+                    .Where(s => !s.ForceDeactivate)
+                    .Where(s => s.IsActive)
+                    .Where(s => s.NextDueDate.Year <= year && s.NextDueDate.Month <= month)
+                    .ProjectToDomain()
+                    .ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} recurring expense", result.Length);
+
+            return Result<IEnumerable<RecursiveExpenseDomain>>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load recurring expense");
+            return Result<IEnumerable<RecursiveExpenseDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load recurring expense");
+        }
+    }
+
+    public async Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Year-round loading available for all existing expenses");
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var query = context.THistories
+                .Where(s => s.Date.HasValue)
+                .Select(s => s.Date!.Value.Year)
+                .Distinct();
+
+            query = sortOrder switch
+            {
+                SortOrder.Ascending => query.OrderBy(x => x),
+                SortOrder.Descending => query.OrderByDescending(x => x),
+                _ => query
+            };
+
+            var result = await query.ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} year", result.Length);
+
+            return Result<IEnumerable<int>>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load year");
+            return Result<IEnumerable<int>>.Failure(ErrorCode.DatabaseError, "Failed to load year");
         }
     }
 
