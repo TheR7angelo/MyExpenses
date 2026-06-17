@@ -82,18 +82,6 @@ public partial class DashBoardPage
         set => SetValue(SelectedMonthProperty, value);
     }
 
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
-        typeof(Local), typeof(DashBoardPage), new PropertyMetadata(default(Local)));
-
-    public Local LocalLanguage
-    {
-        get => (Local)GetValue(LocalLanguageProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(LocalLanguageProperty, value);
-    }
-
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
         DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(TotalByAccountViewModel), typeof(DashBoardPage),
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -245,25 +233,6 @@ public partial class DashBoardPage
 
     #endregion
 
-    private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        MsgBox.Show(DashBoardManagementResources.MessageBoxAddMonthErrorTitle,
-            DashBoardManagementResources.MessageBoxAddMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
-    }
-
-    private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
-    {
-        var now = DateOnly.FromDateTime(DateTime.Now);
-        UpdateFilterDate(now);
-    }
-
     private void ButtonDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
         var response = MsgBox.Show(
@@ -295,18 +264,6 @@ public partial class DashBoardPage
         PointRecord(vHistory);
     }
 
-    private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        MsgBox.Show(DashBoardManagementResources.MessageBoxRemoveMonthErrorTitle,
-            DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
-    }
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
@@ -348,9 +305,6 @@ public partial class DashBoardPage
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
         PointRecord(vHistory);
     }
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => RefreshDataGrid();
 
     #endregion
 
@@ -405,20 +359,6 @@ public partial class DashBoardPage
         }
 
         _navigationWindowService.ManageExpense(historyViewModel);
-    }
-
-    private DateOnly GetDateOnlyFilter()
-    {
-        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
-            ? DateTime.Now.Month
-            : Months.IndexOf(SelectedMonth) + 1;
-
-        var year = string.IsNullOrEmpty(SelectedYear)
-            ? DateTime.Now.Year
-            : int.Parse(SelectedYear);
-
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
-        return date;
     }
 
     private void PointRecord(VHistory vHistory)
@@ -552,19 +492,6 @@ public partial class DashBoardPage
     //     // RefreshAccountTotal(StaticVTotalByAccount!.Id);
     // }
 
-    private bool UpdateFilterDate(DateOnly date)
-    {
-        var yearStr = date.Year.ToString();
-        if (!Years.Contains(yearStr)) return false;
-
-        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
-
-        var monthIndex = date.Month - 1;
-        SelectedMonth = Months[monthIndex];
-
-        return true;
-    }
-
     private string? GetAccountName(string? accountName = null)
     {
         if (!string.IsNullOrEmpty(accountName)) return accountName;
@@ -573,32 +500,6 @@ public partial class DashBoardPage
         if (radioButtons.Count == 0) return null;
 
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
-    }
-
-    private void UpdateMonthLanguage()
-    {
-        var currentCulture = CultureInfo.CurrentCulture;
-        LocalLanguage = currentCulture.ToLocal();
-
-        var months = currentCulture.DateTimeFormat.MonthNames
-            .Where(s => !string.IsNullOrEmpty(s))
-            .Select(s => s.ToFirstCharUpper()).ToList();
-
-        if (Months.Count is 0)
-        {
-            Months.AddRange(months);
-        }
-        else
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
-            for (var i = 0; i < months.Count; i++)
-            {
-                Months[i] = months[i];
-            }
-
-            SelectedMonth = selectedMonth;
-        }
     }
 
     private void UpdatePieChartData(string? accountName = null, int? monthInt = null, int? yearInt = null)

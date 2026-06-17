@@ -178,7 +178,11 @@
                             margin:PanelExtensions.MarginForAllChildren="3">
 
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            Click="ButtonAddMonth_OnClick">
+                            Command="{Binding ManageMoveMonthCommand}">
+
+                        <Button.CommandParameter>
+                            <system:Int32>1</system:Int32>
+                        </Button.CommandParameter>
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="PlusBold" />
@@ -187,7 +191,8 @@
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                            Click="ButtonDateNow_OnClick">
+                            Command="{Binding ManageDateNowCommand}">
+                            <!-- Click="ButtonDateNow_OnClick"> -->
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="ClockFast" />
@@ -196,7 +201,11 @@
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}"
-                            Click="ButtonRemoveMonth_OnClick">
+                            Command="{Binding ManageMoveMonthCommand}">
+
+                            <Button.CommandParameter>
+                                <system:Int32>-1</system:Int32>
+                            </Button.CommandParameter>
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="MinusThick" />
@@ -218,8 +227,14 @@
                               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource MaterialDesignFilledComboBox}"
                               materialDesign:TextFieldAssist.HasClearButton="True"
-                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxYearsHintAssist}}"
-                              SelectionChanged="Selector_OnSelectionChanged">
+                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxYearsHintAssist}}">
+
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="SelectionChanged">
+                                <b:InvokeCommandAction Command="{Binding LoadExpenseRecordCommand}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+
                     </ComboBox>
 
                     <ComboBox Grid.Column="1"
@@ -227,8 +242,14 @@
                               SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource MaterialDesignFilledComboBox}"
                               materialDesign:TextFieldAssist.HasClearButton="True"
-                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxMonthHintAssist}}"
-                              SelectionChanged="Selector_OnSelectionChanged">
+                              materialDesign:HintAssist.Hint="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ComboBoxMonthHintAssist}}">
+
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="SelectionChanged">
+                                <b:InvokeCommandAction Command="{Binding LoadExpenseRecordCommand}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+
                     </ComboBox>
 
                 </Grid>

@@ -87,6 +87,42 @@ public partial class DashBoardViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private void OnManageMoveMonth(int deltaMonth)
+    {
+        var (year, month) = ExtractMonthAndYearFromSelection();
+        year ??= DateTime.Now.Year;
+        month ??= DateTime.Now.Month;
+
+        var dateOnly = new DateOnly((int)year, (int)month, 1);
+        dateOnly = dateOnly.AddMonths(deltaMonth);
+
+        UpdateFilterDate(dateOnly);
+    }
+
+    [RelayCommand]
+    private void OnManageDateNow()
+    {
+        var dateOnly = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, 1);
+        UpdateFilterDate(dateOnly);
+    }
+
+    private void UpdateFilterDate(DateOnly dateOnly)
+    {
+        var (year, _) = ExtractMonthAndYearFromSelection();
+        year ??= DateTime.Now.Year;
+
+        if (dateOnly.Year != year && !Years.Contains(dateOnly.Year.ToString()))
+        {
+            _dialogService.ShowMessageBox("Warning", "No more data are available",
+                MessageBoxButton.Ok, MsgBoxImage.Warning);
+            return;
+        }
+
+        SelectedYear = dateOnly.Year.ToString();
+        SelectedMonth = Months[dateOnly.Month - 1];
+    }
+
+    [RelayCommand]
     private async Task OnTotalByAccountCheck(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default)
     {
         SelectedTotalByAccountViewModel = totalByAccountViewModel;
@@ -109,6 +145,7 @@ public partial class DashBoardViewModel : ViewModelBase
         await LoadExpenseRecord(cancellationToken);
     }
 
+    [RelayCommand]
     private async Task LoadExpenseRecord(CancellationToken cancellationToken = default)
     {
         if (SelectedTotalByAccountViewModel is null) return;
