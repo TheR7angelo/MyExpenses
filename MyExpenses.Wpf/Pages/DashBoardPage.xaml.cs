@@ -150,22 +150,22 @@ public partial class DashBoardPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
-
-        if (recurrences.Any())
-        {
-            var mainWindow = System.Windows.Application.Current.MainWindow!;
-            var actualWidth = mainWindow.ActualWidth;
-            var actualHeight = mainWindow.ActualHeight;
-            var size = new Size(actualWidth, actualHeight);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
-            // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-            var recurrentAddWindow = new RecurrentAddWindow(size);
-            recurrentAddWindow.ShowDialog();
-        }
+        // using var context = new DataBaseContextOld();
+        // var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
+        //
+        // if (recurrences.Any())
+        // {
+        //     var mainWindow = System.Windows.Application.Current.MainWindow!;
+        //     var actualWidth = mainWindow.ActualWidth;
+        //     var actualHeight = mainWindow.ActualHeight;
+        //     var size = new Size(actualWidth, actualHeight);
+        //
+        //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+        //     // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
+        //     // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
+        //     var recurrentAddWindow = new RecurrentAddWindow(size);
+        //     recurrentAddWindow.ShowDialog();
+        // }
 
         UpdateMonthLanguage();
 
