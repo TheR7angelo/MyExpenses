@@ -84,6 +84,13 @@ public partial class DashBoardViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private async Task OnTotalByAccountCheck(TotalByAccountViewModel totalByAccountViewModel, CancellationToken cancellationToken = default)
+    {
+        SelectedTotalByAccountViewModel = totalByAccountViewModel;
+        await LoadExpenseRecord(cancellationToken);
+    }
+
+    [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         var (currentYear, currentMonth, _) = DateTime.Now;
@@ -95,6 +102,13 @@ public partial class DashBoardViewModel : ViewModelBase
             LoadAllMonthName(currentMonth), LoadTotalByAccount(cancellationToken)
         };
         await Task.WhenAll(tasks);
+
+        await LoadExpenseRecord(cancellationToken);
+    }
+
+    private async Task LoadExpenseRecord(CancellationToken cancellationToken = default)
+    {
+        // TODO work
     }
 
     private async Task LoadTotalByAccount(CancellationToken cancellationToken = default)

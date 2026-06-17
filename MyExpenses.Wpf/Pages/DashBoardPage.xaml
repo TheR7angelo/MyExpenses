@@ -245,8 +245,7 @@
                               VerticalScrollBarVisibility="Disabled">
 
                     <ItemsControl x:Name="ItemsControlVTotalAccount"
-                                  ItemsSource="{Binding TotalByAccountViewModels, UpdateSourceTrigger=PropertyChanged}"
-                                  Loaded="ItemsControlVTotalAccount_OnLoaded">
+                                  ItemsSource="{Binding TotalByAccountViewModels, UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" margin:PanelExtensions.MarginForAllChildren="3" />
@@ -258,8 +257,14 @@
                                              Margin="3"
                                              Content="{Binding Name}"
                                              Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
-                                             IsChecked="{Binding IsChecked}"
-                                             Checked="RadioButtonVTotalAccount_OnChecked">
+                                             IsChecked="{Binding IsChecked, Mode=TwoWay}">
+
+                                             <b:Interaction.Triggers>
+                                                 <b:EventTrigger EventName="Checked">
+                                                     <b:InvokeCommandAction Command="{Binding DataContext.TotalByAccountCheckCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding .}"  />
+                                                 </b:EventTrigger>
+                                             </b:Interaction.Triggers>
+
                                 </RadioButton>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

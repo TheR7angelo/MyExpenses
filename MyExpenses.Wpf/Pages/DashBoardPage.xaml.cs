@@ -42,7 +42,7 @@ public partial class DashBoardPage
 {
     // public ObservableCollection<VHistory> VHistories { get; } = [];
     public ObservableCollection<HistoryViewModel> VHistories { get; } = [];
-    public ObservableCollection<TotalByAccountViewModel> VTotalByAccounts { get; } = [];
+    // public ObservableCollection<TotalByAccountViewModel> VTotalByAccounts { get; } = [];
 
     private DataGridRow? DataGridRow { get; set; }
 
@@ -145,7 +145,7 @@ public partial class DashBoardPage
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
 
-        RefreshAccountTotal();
+        // RefreshAccountTotal();
 
         InitializeComponent();
         //
@@ -319,8 +319,8 @@ public partial class DashBoardPage
     //     UpdateMonthLanguage();
     // }
 
-    private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
-        => RefreshRadioButtonSelected();
+    // private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
+    //     => RefreshRadioButtonSelected();
 
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
@@ -351,22 +351,6 @@ public partial class DashBoardPage
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => RefreshDataGrid();
-
-    private void RadioButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
-    {
-        var button = (RadioButton)sender;
-        if (button.DataContext is not TotalByAccountViewModel vTotalByAccount) return;
-
-        StaticVTotalByAccount = vTotalByAccount;
-
-        // Total = vTotalByAccount.Total;
-        // Symbol = vTotalByAccount.Symbol;
-
-        var name = vTotalByAccount.Name;
-        if (string.IsNullOrEmpty(name)) return;
-
-        RefreshDataGrid(name);
-    }
 
     #endregion
 
@@ -454,54 +438,54 @@ public partial class DashBoardPage
     }
 
     // ReSharper disable once HeapView.ClosureAllocation
-    private void RefreshAccountTotal(int id)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
-        if (newVTotalByAccount is null) return;
+    // private void RefreshAccountTotal(int id)
+    // {
+    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+    //     // Necessary instantiation of DataBaseContext to interact with the database.
+    //     // This creates a scoped database context for performing queries and modifications in the database.
+    //     using var context = new DataBaseContextOld();
+    //     var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+    //     if (newVTotalByAccount is null) return;
+    //
+    //     // ReSharper disable once HeapView.DelegateAllocation
+    //     var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+    //     if (vTotalByAccount is null) return;
+    //
+    //     newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
+    // }
 
-        // ReSharper disable once HeapView.DelegateAllocation
-        var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
-        if (vTotalByAccount is null) return;
-
-        newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
-    }
-
-    private async void RefreshAccountTotal()
-    {
-        // ReSharper disable once HeapView.ClosureAllocation
-        var newVTotalByAccounts = (await _accountPresentationService.GetAllTotalByAccountViewModelAsync())
-            .Value!.ToList();
-
-        var itemsToDelete = VTotalByAccounts
-            // ReSharper disable HeapView.DelegateAllocation
-            // ReSharper disable once HeapView.ClosureAllocation
-            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToArray();
-        // ReSharper restore HeapView.DelegateAllocation
-
-        foreach (var item in itemsToDelete)
-        {
-            VTotalByAccounts.Remove(item);
-        }
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        foreach (var vTotalByAccount in newVTotalByAccounts)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
-            if (exist is not null)
-            {
-                _accountDtoViewModelMapper.Merge(vTotalByAccount, exist);
-            }
-            else
-            {
-                VTotalByAccounts.AddAndSort(vTotalByAccount, s => s.Name!);
-            }
-        }
-    }
+    // private async void RefreshAccountTotal()
+    // {
+    //     // ReSharper disable once HeapView.ClosureAllocation
+    //     var newVTotalByAccounts = (await _accountPresentationService.GetAllTotalByAccountViewModelAsync())
+    //         .Value!.ToList();
+    //
+    //     var itemsToDelete = VTotalByAccounts
+    //         // ReSharper disable HeapView.DelegateAllocation
+    //         // ReSharper disable once HeapView.ClosureAllocation
+    //         .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToArray();
+    //     // ReSharper restore HeapView.DelegateAllocation
+    //
+    //     foreach (var item in itemsToDelete)
+    //     {
+    //         VTotalByAccounts.Remove(item);
+    //     }
+    //
+    //     // ReSharper disable once HeapView.ClosureAllocation
+    //     foreach (var vTotalByAccount in newVTotalByAccounts)
+    //     {
+    //         // ReSharper disable once HeapView.DelegateAllocation
+    //         var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
+    //         if (exist is not null)
+    //         {
+    //             _accountDtoViewModelMapper.Merge(vTotalByAccount, exist);
+    //         }
+    //         else
+    //         {
+    //             VTotalByAccounts.AddAndSort(vTotalByAccount, s => s.Name!);
+    //         }
+    //     }
+    // }
 
     private void RefreshDataGrid(string? accountName = null)
     {
@@ -549,24 +533,24 @@ public partial class DashBoardPage
         UpdatePieChartData(null, monthInt, yearInt);
     }
 
-    private void RefreshRadioButtonSelected()
-    {
-        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
-
-        var radioButton = StaticVTotalByAccount is null
-            ? radioButtons.FirstOrDefault()
-            : radioButtons.FirstOrDefault(rb =>
-                rb.DataContext is TotalByAccountViewModel vTotalByAccount &&
-                vTotalByAccount.Id.Equals(StaticVTotalByAccount.Id));
-
-        StaticVTotalByAccount = radioButton?.DataContext as TotalByAccountViewModel;
-
-        if (radioButton is null) return;
-        radioButton.IsChecked = true;
-
-        RefreshDataGrid();
-        RefreshAccountTotal(StaticVTotalByAccount!.Id);
-    }
+    // private void RefreshRadioButtonSelected()
+    // {
+    //     var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
+    //
+    //     var radioButton = StaticVTotalByAccount is null
+    //         ? radioButtons.FirstOrDefault()
+    //         : radioButtons.FirstOrDefault(rb =>
+    //             rb.DataContext is TotalByAccountViewModel vTotalByAccount &&
+    //             vTotalByAccount.Id.Equals(StaticVTotalByAccount.Id));
+    //
+    //     StaticVTotalByAccount = radioButton?.DataContext as TotalByAccountViewModel;
+    //
+    //     if (radioButton is null) return;
+    //     radioButton.IsChecked = true;
+    //
+    //     RefreshDataGrid();
+    //     // RefreshAccountTotal(StaticVTotalByAccount!.Id);
+    // }
 
     private bool UpdateFilterDate(DateOnly date)
     {
