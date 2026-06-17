@@ -431,7 +431,7 @@
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                   IsReadOnly="True" AutoGenerateColumns="False"
-                  ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding HistoryViewModels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
                   HorizontalScrollBarVisibility="Auto"

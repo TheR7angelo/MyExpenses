@@ -409,4 +409,15 @@ public interface IExpenseRepository
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
     /// <returns>A Result containing an enumerable of integers representing the unique expense years.</returns>
     public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a collection of expense history records for the specified account.
+    /// </summary>
+    /// <param name="accountId">The ID of the account for which to retrieve expenses.</param>
+    /// <param name="selectedYear">Optional year filter for the expenses.</param>
+    /// <param name="selectedMonth">Optional month filter for the expenses.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A task that represents the asynchronous operation. The result contains a collection of expense history records.</returns>
+    public Task<Result<IEnumerable<HistoryDomain>>> GetAllExpenses(int accountId, int? selectedYear = null,
+        int? selectedMonth = null, CancellationToken cancellationToken = default);
 }

@@ -1227,6 +1227,43 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
+    public async Task<Result<IEnumerable<HistoryDomain>>> GetAllExpenses(int accountId, int? selectedYear = null, int? selectedMonth = null,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all available existing expenses with filter : AccountId={AccountId}, Year={SelectedYear}, Month={SelectedMonth}", accountId, selectedYear, selectedMonth);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var query = context.THistories
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.CurrencyFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s.AccountTypeFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s.ColorFkNavigation)
+                .Include(s => s.ModePaymentFkNavigation)
+                .Include(s => s.PlaceFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.FromAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.BankTransferFkNavigation).ThenInclude(s => s!.ToAccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+                .Where(s => s.AccountFk == accountId);
+
+            if (selectedYear is not null) query = query.Where(s => s.Date.HasValue && s.Date.Value.Year == selectedYear.Value);
+            if (selectedMonth is not null) query = query.Where(s => s.Date.HasValue && s.Date.Value.Month == selectedMonth.Value);
+
+            var result = await query.OrderBy(s => s.Date).ProjectToDomain().ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} expenses", result.Length);
+
+            return Result<IEnumerable<HistoryDomain>>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load expenses");
+            return Result<IEnumerable<HistoryDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load expenses");
+        }
+    }
+
     private static THistory FormateBankTransferHistory(AccountDomain accountDomain, HistoryDomain historyDomain, int multiplier = 1)
     {
         return new THistory

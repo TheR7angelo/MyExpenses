@@ -129,4 +129,15 @@ public interface IExpenseService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of integers representing all expense years.</returns>
     public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of expenses for a given account, optionally filtering by year and month.
+    /// </summary>
+    /// <param name="accountId">The ID of the account to retrieve expenses for.</param>
+    /// <param name="selectedYear">The optional year to filter expenses. If null, all years are returned.</param>
+    /// <param name="selectedMonth">The optional month to filter expenses. If null, all months are returned.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of <see cref="HistoryDto"/> representing the expenses.</returns>
+    public Task<Result<IEnumerable<HistoryDto>>> GetAllExpenses(int accountId, int? selectedYear = null,
+        int? selectedMonth = null, CancellationToken cancellationToken = default);
 }

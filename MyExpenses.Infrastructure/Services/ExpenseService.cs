@@ -104,4 +104,11 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
     public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder,
         CancellationToken cancellationToken = default)
         => expenseRepository.GetAllExpenseYear(sortOrder, cancellationToken);
+
+    public async Task<Result<IEnumerable<HistoryDto>>> GetAllExpenses(int accountId, int? selectedYear = null, int? selectedMonth = null,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await expenseRepository.GetAllExpenses(accountId, selectedYear, selectedMonth, cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
+    }
 }

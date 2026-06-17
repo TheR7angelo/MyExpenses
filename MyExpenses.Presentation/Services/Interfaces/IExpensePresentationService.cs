@@ -1,5 +1,6 @@
 using Domain.Models;
 using Domain.Models.Validation;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -144,4 +145,15 @@ public interface IExpensePresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains a collection of expense years or an error if the operation fails.</returns>
     public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of expenses for a specific account.
+    /// </summary>
+    /// <param name="accountId">The ID of the account.</param>
+    /// <param name="selectedYear">Optional. The year to filter expenses.</param>
+    /// <param name="selectedMonth">Optional. The month to filter expenses.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of expense view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<HistoryViewModel>>> GetAllExpenses(int accountId, int? selectedYear = null,
+        int? selectedMonth = null, CancellationToken cancellationToken = default);
 }

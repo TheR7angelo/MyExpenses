@@ -150,4 +150,11 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
     public Task<Result<IEnumerable<int>>> GetAllExpenseYear(SortOrder sortOrder,
         CancellationToken cancellationToken = default)
         => expenseService.GetAllExpenseYear(sortOrder, cancellationToken);
+
+    public async Task<Result<IEnumerable<HistoryViewModel>>> GetAllExpenses(int accountId, int? selectedYear = null, int? selectedMonth = null,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await expenseService.GetAllExpenses(accountId, selectedYear, selectedMonth, cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
+    }
 }

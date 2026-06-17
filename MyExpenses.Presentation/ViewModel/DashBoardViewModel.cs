@@ -11,6 +11,7 @@ using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Utils.Strings;
 
@@ -18,6 +19,8 @@ namespace MyExpenses.Presentation.ViewModel;
 
 public partial class DashBoardViewModel : ViewModelBase
 {
+    public ObservableCollection<HistoryViewModel> HistoryViewModels { get; } = [];
+
     public ObservableCollection<TotalByAccountViewModel> TotalByAccountViewModels { get; } = [];
 
     [ObservableProperty]
@@ -108,7 +111,38 @@ public partial class DashBoardViewModel : ViewModelBase
 
     private async Task LoadExpenseRecord(CancellationToken cancellationToken = default)
     {
-        // TODO work
+        if (SelectedTotalByAccountViewModel is null) return;
+
+        var (year, month) = ExtractMonthAndYearFromSelection();
+        var result = await _expensePresentationService.GetAllExpenses(SelectedTotalByAccountViewModel.Id,
+            year, month, cancellationToken);
+
+        HistoryViewModels.Clear();
+
+        if (result.IsSuccess)
+        {
+            HistoryViewModels.AddRange(result.Value!);
+        }
+        else
+        {
+            // TODO trad
+            _dialogService.ShowMessageBox("Error",
+                "An error occurred when trying to load the expenses record. Please try again later.",
+                MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
+    }
+
+    private (int? Year, int? Month) ExtractMonthAndYearFromSelection()
+    {
+        int? monthInt = null;
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            monthInt = Months.IndexOf(SelectedMonth) + 1;
+        }
+
+        _ = int.TryParse(SelectedYear, out var yearInt);
+
+        return (yearInt, monthInt);
     }
 
     private async Task LoadTotalByAccount(CancellationToken cancellationToken = default)
