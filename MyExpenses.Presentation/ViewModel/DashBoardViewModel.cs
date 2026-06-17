@@ -104,6 +104,7 @@ public partial class DashBoardViewModel : ViewModelBase
         {
             TotalByAccountViewModels.AddRangeAndSort(result.Value!, s => s.Name);
             SelectedTotalByAccountViewModel = TotalByAccountViewModels.FirstOrDefault();
+            SelectedTotalByAccountViewModel?.IsChecked = true;
         }
         else
         {

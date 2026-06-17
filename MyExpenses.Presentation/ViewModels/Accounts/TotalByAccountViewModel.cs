@@ -24,4 +24,7 @@ public partial class TotalByAccountViewModel : ObservableObject
 
     [ObservableProperty]
     public partial bool IsDeleting { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsChecked { get; set; }
 }

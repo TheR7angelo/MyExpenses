@@ -258,6 +258,7 @@
                                              Margin="3"
                                              Content="{Binding Name}"
                                              Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                             IsChecked="{Binding IsChecked}"
                                              Checked="RadioButtonVTotalAccount_OnChecked">
                                 </RadioButton>
                             </DataTemplate>
