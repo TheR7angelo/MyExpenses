@@ -1,36 +1,18 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using Domain.Models.Dependencies;
-using FilterDataGrid;
-using MyExpenses.Application.Interfaces.Mappings;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Models.Sql.Queries;
-using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Presentation.Enums;
-using MyExpenses.Presentation.Mappings.Interfaces;
-using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
-using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Strings;
-using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Utils.FilterDataGrid;
-using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
@@ -46,21 +28,21 @@ public partial class DashBoardPage
 
     private DataGridRow? DataGridRow { get; set; }
 
-    public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
+    // public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
-    private PieChartManager PieChartManager { get; }
+    // private PieChartManager PieChartManager { get; }
 
-    private static (bool Positive, bool Negative)[] PositiveNegativeChartValues =>
-    [
-        (false, true),
-        (true, true),
-        (true, false)
-    ];
+    // private static (bool Positive, bool Negative)[] PositiveNegativeChartValues =>
+    // [
+    //     (false, true),
+    //     (true, true),
+    //     (true, false)
+    // ];
 
-    private int IndexOfPositiveNegativeChartValues { get; set; } = 1;
+    // private int IndexOfPositiveNegativeChartValues { get; set; } = 1;
 
-    public ObservableCollection<string> Years { get; } = [];
-    public ObservableCollection<string> Months { get; } = [];
+    // public ObservableCollection<string> Years { get; } = [];
+    // public ObservableCollection<string> Months { get; } = [];
 
     public static readonly DependencyProperty SelectedYearProperty = DependencyProperty.Register(nameof(SelectedYear),
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -93,43 +75,20 @@ public partial class DashBoardPage
         set => SetValue(CurrentVTotalByAccountProperty, value);
     }
 
-    private static DashBoardPage Instance { get; set; } = null!;
-
-    private static TotalByAccountViewModel? _staticVTotalByAccount;
-    private static TotalByAccountViewModel? StaticVTotalByAccount
-    {
-        get => _staticVTotalByAccount;
-        set
-        {
-            _staticVTotalByAccount = value;
-            Instance.CurrentVTotalByAccount = value;
-        }
-    }
-
-    private readonly IAccountPresentationService _accountPresentationService;
-    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
-    private readonly IExpenseDtoDomainMapper _expenseDtoDomainMapper;
-    private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    // private readonly IExpenseDtoDomainMapper _expenseDtoDomainMapper;
+    // private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
 
     private readonly IDialogService _dialogService;
 
-    public DashBoardPage(IAccountPresentationService accountPresentationService,
-        IExpenseDtoDomainMapper expenseDtoDomainMapper,
-        IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
-        IAccountDtoViewModelMapper accountDtoViewModelMapper,
+    public DashBoardPage(
+        // IExpenseDtoDomainMapper expenseDtoDomainMapper,
+        // IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         IDialogService dialogService, DashBoardViewModel dashBoardViewModel)
     {
-        // InitializeComponent();
-
-        DataContext = dashBoardViewModel;
-
-        Instance = this;
-        _accountPresentationService = accountPresentationService;
-        _expenseDtoDomainMapper = expenseDtoDomainMapper;
-        _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
-        _accountDtoViewModelMapper = accountDtoViewModelMapper;
+        // _expenseDtoDomainMapper = expenseDtoDomainMapper;
+        // _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
 
@@ -138,7 +97,7 @@ public partial class DashBoardPage
         InitializeComponent();
         //
         // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        PieChartManager = new PieChartManager(PieChart, CategoryTotals);
+        // PieChartManager = new PieChartManager(PieChart, CategoryTotals);
         //
         // UpdateLanguage();
         //
@@ -184,6 +143,8 @@ public partial class DashBoardPage
         //         VTotalByAccounts!.AddAndSort(result.Value, s => s!.Name);
         //     }
         // });
+
+        DataContext = dashBoardViewModel;
     }
 
     #region Action
@@ -374,7 +335,7 @@ public partial class DashBoardPage
         history.AddOrEdit();
         Log.Information("The recording was successfully pointed");
 
-        RefreshDataGrid();
+        // RefreshDataGrid();
     }
 
     // ReSharper disable once HeapView.ClosureAllocation
@@ -427,51 +388,51 @@ public partial class DashBoardPage
     //     }
     // }
 
-    private void RefreshDataGrid(string? accountName = null)
-    {
-        if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
+    // private void RefreshDataGrid(string? accountName = null)
+    // {
+    //     if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
+    //
+    //     if (string.IsNullOrEmpty(accountName)) return;
+    //
+    //     VHistories.Clear();
+    //
+    //     var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
+    //     var results = accountName.GetFilteredHistoryDomain(monthInt, yearInt);
+    //
+    //     var historiesDto = results.Histories.Select(_expenseDtoDomainMapper.MapToDto);
+    //     var historiesViewModel = historiesDto.Select(_expenseDtoViewModelMapper.MapToViewModel);
+    //
+    //     VHistories.AddRange(historiesViewModel);
+    //
+    //     UpdatePieChartData(accountName, monthInt, yearInt);
+    // }
 
-        if (string.IsNullOrEmpty(accountName)) return;
+    // private (int? Year, int? Month) ExtractMonthAndYearFromSelection()
+    // {
+    //     int? monthInt = null;
+    //     if (!string.IsNullOrEmpty(SelectedMonth))
+    //     {
+    //         monthInt = Months.IndexOf(SelectedMonth) + 1;
+    //     }
+    //
+    //     int? yearInt = null;
+    //     if (!string.IsNullOrEmpty(SelectedYear))
+    //     {
+    //         _ = SelectedYear.ToInt(out yearInt);
+    //     }
+    //
+    //     return (yearInt, monthInt);
+    // }
 
-        VHistories.Clear();
-
-        var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
-        var results = accountName.GetFilteredHistoryDomain(monthInt, yearInt);
-
-        var historiesDto = results.Histories.Select(_expenseDtoDomainMapper.MapToDto);
-        var historiesViewModel = historiesDto.Select(_expenseDtoViewModelMapper.MapToViewModel);
-
-        VHistories.AddRange(historiesViewModel);
-
-        UpdatePieChartData(accountName, monthInt, yearInt);
-    }
-
-    private (int? Year, int? Month) ExtractMonthAndYearFromSelection()
-    {
-        int? monthInt = null;
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            monthInt = Months.IndexOf(SelectedMonth) + 1;
-        }
-
-        int? yearInt = null;
-        if (!string.IsNullOrEmpty(SelectedYear))
-        {
-            _ = SelectedYear.ToInt(out yearInt);
-        }
-
-        return (yearInt, monthInt);
-    }
-
-    private void RefreshPositiveNegativeChartValues(int valueToAdd)
-    {
-        IndexOfPositiveNegativeChartValues =
-            (IndexOfPositiveNegativeChartValues + valueToAdd + PositiveNegativeChartValues.Length)
-            % PositiveNegativeChartValues.Length;
-
-        var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
-        UpdatePieChartData(null, monthInt, yearInt);
-    }
+    // private void RefreshPositiveNegativeChartValues(int valueToAdd)
+    // {
+    //     IndexOfPositiveNegativeChartValues =
+    //         (IndexOfPositiveNegativeChartValues + valueToAdd + PositiveNegativeChartValues.Length)
+    //         % PositiveNegativeChartValues.Length;
+    //
+    //     var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
+    //     UpdatePieChartData(null, monthInt, yearInt);
+    // }
 
     // private void RefreshRadioButtonSelected()
     // {
@@ -492,28 +453,28 @@ public partial class DashBoardPage
     //     // RefreshAccountTotal(StaticVTotalByAccount!.Id);
     // }
 
-    private string? GetAccountName(string? accountName = null)
-    {
-        if (!string.IsNullOrEmpty(accountName)) return accountName;
+    // private string? GetAccountName(string? accountName = null)
+    // {
+    //     if (!string.IsNullOrEmpty(accountName)) return accountName;
+    //
+    //     var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+    //     if (radioButtons.Count == 0) return null;
+    //
+    //     return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
+    // }
 
-        var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-        if (radioButtons.Count == 0) return null;
-
-        return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
-    }
-
-    private void UpdatePieChartData(string? accountName = null, int? monthInt = null, int? yearInt = null)
-    {
-        if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
-        if (string.IsNullOrEmpty(accountName)) return;
-
-        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
-
-        var (positive, negative) = PositiveNegativeChartValues[IndexOfPositiveNegativeChartValues];
-        var categoriesTotals = filteredData.AggregateCategoryTotalsBySign(out var grandTotal, positive, negative);
-
-        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
-    }
+    // private void UpdatePieChartData(string? accountName = null, int? monthInt = null, int? yearInt = null)
+    // {
+    //     if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
+    //     if (string.IsNullOrEmpty(accountName)) return;
+    //
+    //     var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
+    //
+    //     var (positive, negative) = PositiveNegativeChartValues[IndexOfPositiveNegativeChartValues];
+    //     var categoriesTotals = filteredData.AggregateCategoryTotalsBySign(out var grandTotal, positive, negative);
+    //
+    //     PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
+    // }
 
     private void UpdatePieChartLegendTextPaint()
     {
