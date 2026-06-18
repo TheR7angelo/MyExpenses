@@ -1,6 +1,7 @@
 using Domain.Models;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Analysis;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services.Interfaces;
@@ -156,4 +157,16 @@ public interface IExpensePresentationService
     /// <returns>A task representing the asynchronous operation. The task result contains a collection of expense view models or an error if the operation fails.</returns>
     public Task<Result<IEnumerable<HistoryViewModel>>> GetAllExpenses(int accountId, int? selectedYear = null,
         int? selectedMonth = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of detail total categories for a given account.
+    /// </summary>
+    /// <param name="accountId">The ID of the account to retrieve categories for.</param>
+    /// <param name="year">Optional year filter for the categories.</param>
+    /// <param name="month">Optional month filter for the categories.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of detail total category view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<DetailTotalCategoryViewModel>>> GetAllDetailTotalCategories(int accountId,
+        int? year = null,
+        int? month = null, CancellationToken cancellationToken = default);
 }

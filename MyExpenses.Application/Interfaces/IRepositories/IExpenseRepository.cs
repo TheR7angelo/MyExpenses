@@ -1,5 +1,6 @@
 using Domain.Models;
 using Domain.Models.Accounts;
+using Domain.Models.Analysis;
 using Domain.Models.Expenses;
 using Domain.Models.Systems;
 using Domain.Models.Validation;
@@ -420,4 +421,16 @@ public interface IExpenseRepository
     /// <returns>A task that represents the asynchronous operation. The result contains a collection of expense history records.</returns>
     public Task<Result<IEnumerable<HistoryDomain>>> GetAllExpenses(int accountId, int? selectedYear = null,
         int? selectedMonth = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the detailed total categories for a specific account and optional year/month.
+    /// </summary>
+    /// <param name="accountId">The ID of the account for which to retrieve detail total categories.</param>
+    /// <param name="year">Optional year filter for the detail total categories.</param>
+    /// <param name="month">Optional month filter for the detail total categories.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing an enumeration of detail total category domains associated with the specified account and filters.</returns>
+    public Task<Result<IEnumerable<DetailTotalCategoryDomain>>> GetAllDetailTotalCategories(int accountId,
+        int? year = null,
+        int? month = null, CancellationToken cancellationToken = default);
 }

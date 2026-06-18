@@ -1,5 +1,6 @@
 using Domain.Models;
 using Domain.Models.Validation;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
@@ -109,6 +110,13 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         CancellationToken cancellationToken = default)
     {
         var result = await expenseRepository.GetAllExpenses(accountId, selectedYear, selectedMonth, cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
+    }
+
+    public async Task<Result<IEnumerable<DetailTotalCategoryDto>>> GetAllDetailTotalCategories(int accountId,
+        int? year = null, int? month = null, CancellationToken cancellationToken = default)
+    {
+        var result = await expenseRepository.GetAllDetailTotalCategories(accountId, year, month, cancellationToken);
         return result.MapSequence(mapper.MapToDto);
     }
 }

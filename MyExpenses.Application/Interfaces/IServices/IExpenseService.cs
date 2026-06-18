@@ -1,5 +1,6 @@
 using Domain.Models;
 using Domain.Models.Validation;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
 
 namespace MyExpenses.Application.Interfaces.IServices;
@@ -140,4 +141,15 @@ public interface IExpenseService
     /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of <see cref="HistoryDto"/> representing the expenses.</returns>
     public Task<Result<IEnumerable<HistoryDto>>> GetAllExpenses(int accountId, int? selectedYear = null,
         int? selectedMonth = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a detailed total of categories for a given account.
+    /// </summary>
+    /// <param name="accountId">The ID of the account to retrieve category totals for.</param>
+    /// <param name="year">The year to filter by. If not provided, all years are considered.</param>
+    /// <param name="month">The month to filter by. If not provided, all months are considered.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of <see cref="DetailTotalCategoryDto"/> representing the detailed total categories for the account.</returns>
+    public Task<Result<IEnumerable<DetailTotalCategoryDto>>> GetAllDetailTotalCategories(int accountId,
+        int? year = null, int? month = null, CancellationToken cancellationToken = default);
 }

@@ -192,7 +192,6 @@
 
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                             Command="{Binding ManageDateNowCommand}">
-                            <!-- Click="ButtonDateNow_OnClick"> -->
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="ClockFast" />
@@ -231,7 +230,7 @@
 
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="SelectionChanged">
-                                <b:InvokeCommandAction Command="{Binding LoadExpenseRecordCommand}" />
+                                <b:InvokeCommandAction Command="{Binding ManageMoveChartAndGridRecordsCommand}" />
                             </b:EventTrigger>
                         </b:Interaction.Triggers>
 
@@ -246,7 +245,7 @@
 
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="SelectionChanged">
-                                <b:InvokeCommandAction Command="{Binding LoadExpenseRecordCommand}" />
+                                <b:InvokeCommandAction Command="{Binding ManageMoveChartAndGridRecordsCommand}" />
                             </b:EventTrigger>
                         </b:Interaction.Triggers>
 
@@ -342,7 +341,15 @@
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle" />
             </Button>
 
-            <wpf:PieChart Grid.Row="0" Grid.Column="1" x:Name="PieChart" />
+            <wpf:PieChart Grid.Row="0" Grid.Column="1" x:Name="PieChart">
+
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Loaded">
+                        <b:InvokeCommandAction Command="{Binding DataContext.LoadPieChartCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding ElementName=PieChart}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+
+            </wpf:PieChart>
 
             <Button Grid.Row="0" Grid.Column="2"
                     Command="{Binding ManagePieChartCommand}">
@@ -405,7 +412,8 @@
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
 
-                <ItemsControl ItemsSource="{Binding CategoryTotals, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl ItemsSource="{Binding CategoryTotalViewModels}">
+
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" margin:PanelExtensions.MarginForAllChildren="3" />

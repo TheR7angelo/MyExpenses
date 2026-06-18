@@ -1,8 +1,10 @@
 using Domain.Models.Accounts;
+using Domain.Models.Analysis;
 using Domain.Models.Expenses;
 using Domain.Models.Systems;
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Application.Interfaces.Mappings;
@@ -74,4 +76,6 @@ public partial class ExpenseDtoDomainMapper(ISystemDtoDomainMapper systemDtoDoma
             ? Result<(BankTransferDto, IEnumerable<HistoryDto>)>.Failure(historiesDomain.ErrorCode, historiesDomain.InternalMessage ?? string.Empty)
             : Result<(BankTransferDto, IEnumerable<HistoryDto>)>.Success((bankTransferDto, historyDtos), historiesDomain.InternalMessage ?? string.Empty);
     }
+
+    public partial DetailTotalCategoryDto MapToDto(DetailTotalCategoryDomain src);
 }

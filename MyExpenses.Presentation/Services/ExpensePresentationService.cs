@@ -5,6 +5,7 @@ using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModels.Analysis;
 using MyExpenses.Presentation.ViewModels.Expenses;
 
 namespace MyExpenses.Presentation.Services;
@@ -155,6 +156,13 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         CancellationToken cancellationToken = default)
     {
         var result = await expenseService.GetAllExpenses(accountId, selectedYear, selectedMonth, cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
+    }
+
+    public async Task<Result<IEnumerable<DetailTotalCategoryViewModel>>> GetAllDetailTotalCategories(int accountId,
+        int? year = null, int? month = null, CancellationToken cancellationToken = default)
+    {
+        var result = await expenseService.GetAllDetailTotalCategories(accountId, year, month, cancellationToken);
         return result.MapSequence(mapper.MapToViewModel);
     }
 }

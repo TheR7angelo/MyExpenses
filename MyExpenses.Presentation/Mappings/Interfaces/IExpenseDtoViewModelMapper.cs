@@ -1,5 +1,7 @@
 using Domain.Models.Validation;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
+using MyExpenses.Presentation.ViewModels.Analysis;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using CategoryTypeViewModel = MyExpenses.Presentation.ViewModels.Expenses.CategoryTypeViewModel;
 
@@ -207,4 +209,15 @@ public interface IExpenseDtoViewModelMapper
     /// A new <see cref="ModePaymentViewModel"/> object that is a clone of the provided one.
     /// </returns>
     public ModePaymentViewModel Clone(ModePaymentViewModel src);
+
+    /// <summary>
+    /// Maps a <see cref="DetailTotalCategoryDto"/> to a <see cref="DetailTotalCategoryViewModel"/>.
+    /// </summary>
+    /// <param name="src">
+    /// The source <see cref="DetailTotalCategoryDto"/> to be mapped.
+    /// </param>
+    /// <returns>
+    /// A <see cref="DetailTotalCategoryViewModel"/> containing the mapped data from the provided <see cref="DetailTotalCategoryDto"/>.
+    /// </returns>
+    public DetailTotalCategoryViewModel MapToViewModel(DetailTotalCategoryDto src);
 }

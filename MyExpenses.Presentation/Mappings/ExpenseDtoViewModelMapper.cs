@@ -1,9 +1,11 @@
 using Domain.Models.Validation;
 using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
 using MyExpenses.Application.Dtos.Systems;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Analysis;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Systems;
 using Riok.Mapperly.Abstractions;
@@ -105,6 +107,8 @@ public partial class ExpenseDtoViewModelMapper(IAccountDtoViewModelMapper accoun
     }
 
     public partial ModePaymentViewModel Clone(ModePaymentViewModel src);
+
+    public partial DetailTotalCategoryViewModel MapToViewModel(DetailTotalCategoryDto src);
 
     private PlaceDto MapToDto(PlaceViewModel source)
         => locationDtoViewModelMapper.MapToDto(source);

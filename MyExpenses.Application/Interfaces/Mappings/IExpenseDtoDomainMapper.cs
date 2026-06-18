@@ -1,5 +1,7 @@
+using Domain.Models.Analysis;
 using Domain.Models.Expenses;
 using Domain.Models.Validation;
+using MyExpenses.Application.Dtos.Analysis;
 using MyExpenses.Application.Dtos.Expenses;
 
 namespace MyExpenses.Application.Interfaces.Mappings;
@@ -106,4 +108,11 @@ public interface IExpenseDtoDomainMapper
     /// that have been mapped from the input tuple.
     /// </returns>
     public Result<(BankTransferDto bankTransfer, IEnumerable<HistoryDto> historyDtos)> Map(Result<(BankTransferDomain bankTransferDomain, IEnumerable<HistoryDomain> historiesDomain)> historiesDomain);
+
+    /// <summary>
+    /// Maps the DetailTotalCategoryDomain object to a DetailTotalCategoryDto object.
+    /// </summary>
+    /// <param name="src">The source DetailTotalCategoryDomain object to map.</param>
+    /// <returns>A DetailTotalCategoryDto object that is mapped from the source object.</returns>
+    public DetailTotalCategoryDto MapToDto(DetailTotalCategoryDomain src);
 }

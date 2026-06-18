@@ -1,5 +1,6 @@
 using Domain.Models;
 using Domain.Models.Accounts;
+using Domain.Models.Analysis;
 using Domain.Models.Dependencies;
 using Domain.Models.Expenses;
 using Domain.Models.Systems;
@@ -1261,6 +1262,40 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         {
             logger.LogError(e, "Failed to load expenses");
             return Result<IEnumerable<HistoryDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load expenses");
+        }
+    }
+
+    public async Task<Result<IEnumerable<DetailTotalCategoryDomain>>> GetAllDetailTotalCategories(int accountId, int? year = null, int? month = null, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all available existing detail total category with filter : AccountId={AccountId}, Year={Year}, Month={Month}", accountId, year, month);
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var query = context.VDetailTotalCategories
+                .Where(s => s.AccountId == accountId);
+
+            if (month.HasValue)
+            {
+                query = query.Where(s => s.Month == month.Value);
+            }
+
+            if (year.HasValue)
+            {
+                query = query.Where(s => s.Year == year.Value);
+            }
+
+            var record = await query
+                .ProjectToDomain().ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} detail total category", record.Length);
+            return Result<IEnumerable<DetailTotalCategoryDomain>>.Success(record);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load detail total category");
+            return Result<IEnumerable<DetailTotalCategoryDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load detail total category");
         }
     }
 

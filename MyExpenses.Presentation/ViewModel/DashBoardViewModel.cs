@@ -4,13 +4,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models;
+using LiveChartsCore.Kernel.Sketches;
 using Microsoft.Extensions.Logging;
-using MyExpenses.Application.Interfaces.Mappings;
 using MyExpenses.Presentation.Enums;
-using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Analysis;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Utils.Strings;
@@ -25,6 +25,8 @@ public partial class DashBoardViewModel : ViewModelBase
 
     [ObservableProperty]
     public partial TotalByAccountViewModel? SelectedTotalByAccountViewModel { get; set; }
+
+    public ObservableCollection<CategoryTotalViewModel> CategoryTotalViewModels { get; } = [];
 
     [ObservableProperty]
     public partial int IndexOfPositiveNegativeChartValues { get; set; } = 1;
@@ -45,28 +47,21 @@ public partial class DashBoardViewModel : ViewModelBase
         (true, false)
     ];
 
+    private PieChartManager? PieChartManager { get; set; }
+
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
-    private readonly IExpenseDtoDomainMapper _expenseDtoDomainMapper;
-    private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
-    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly IDialogService _dialogService;
     private readonly ILogger<DashBoardViewModel> _logger;
 
     public DashBoardViewModel(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
-        IExpenseDtoDomainMapper expenseDtoDomainMapper,
-        IExpenseDtoViewModelMapper expenseDtoViewModelMapper,
-        IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         IDialogService dialogService, ILogger<DashBoardViewModel> logger)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
-        _expenseDtoDomainMapper = expenseDtoDomainMapper;
-        _expenseDtoViewModelMapper = expenseDtoViewModelMapper;
-        _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
         _logger = logger;
@@ -84,6 +79,25 @@ public partial class DashBoardViewModel : ViewModelBase
         if (SelectedMonth is null) await LoadAllMonthName();
         var index = Months.IndexOf(SelectedMonth!);
         await LoadAllMonthName(index + 1);
+    }
+
+    [RelayCommand]
+    private async Task OnLoadPieChart(IPieChartView pieChartView, CancellationToken cancellationToken = default)
+    {
+        PieChartManager = new PieChartManager(pieChartView, CategoryTotalViewModels);
+
+        var (currentYear, currentMonth, _) = DateTime.Now;
+        await LoadPieChartRecords(currentYear, currentMonth, cancellationToken);
+    }
+
+    [RelayCommand]
+    private async Task OnManageMoveChartAndGridRecords(CancellationToken cancellationToken = default)
+    {
+        var tasks = new List<Task>
+        {
+            LoadExpenseRecord(cancellationToken), LoadPieChartRecords(cancellationToken: cancellationToken)
+        };
+        await Task.WhenAll(tasks);
     }
 
     [RelayCommand]
@@ -143,6 +157,33 @@ public partial class DashBoardViewModel : ViewModelBase
         await Task.WhenAll(tasks);
 
         await LoadExpenseRecord(cancellationToken);
+        await LoadPieChartRecords(currentYear, currentMonth, cancellationToken);
+    }
+
+    private async Task LoadPieChartRecords(int? year = null, int? month = null,
+        CancellationToken cancellationToken = default)
+    {
+        if (SelectedTotalByAccountViewModel is null || PieChartManager is null) return;
+
+        var (currentYear, currentMonth) = ExtractMonthAndYearFromSelection();
+        year ??= currentYear;
+        month ??= currentMonth;
+
+        var results = await _expensePresentationService.GetAllDetailTotalCategories(SelectedTotalByAccountViewModel.Id, year, month, cancellationToken);
+        if (results.IsSuccess)
+        {
+            var (positive, negative) = PositiveNegativeChartValues[IndexOfPositiveNegativeChartValues];
+            var categoriesTotals = results.Value!.AggregateCategoryTotalsBySign(out var grandTotal, positive, negative);
+
+            PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
+        }
+        else
+        {
+            // TODO trad
+            _dialogService.ShowMessageBox("Error",
+                "An error occurred when trying to load the detail total category record. Please try again later.",
+                MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
     }
 
     [RelayCommand]
@@ -270,13 +311,12 @@ public partial class DashBoardViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void OnManagePieChart(int valueToAdd)
+    private async Task OnManagePieChart(int valueToAdd, CancellationToken cancellationToken = default)
     {
         IndexOfPositiveNegativeChartValues =
             (IndexOfPositiveNegativeChartValues + valueToAdd + PositiveNegativeChartValues.Length)
             % PositiveNegativeChartValues.Length;
 
-        // var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
-        // UpdatePieChartData(null, monthInt, yearInt);
+        await LoadPieChartRecords(cancellationToken: cancellationToken);
     }
 }
