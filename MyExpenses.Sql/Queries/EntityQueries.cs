@@ -447,7 +447,7 @@ public static class EntityQueries
         using var context = new DataBaseContextOld();
 
         var query = context.VDetailTotalCategories
-            .Where(s => s.Account == accountName);
+            .Where(s => s.AccountName == accountName);
 
         if (month.HasValue)
         {
@@ -517,7 +517,7 @@ public static class EntityQueries
         }
 
         var categoriesTotals = data
-            .GroupBy(s => s.Category)
+            .GroupBy(s => s.CategoryName)
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // The allocation here is necessary as a new instance of VDetailTotalCategory is created for each group.
             .Select(g => new CategoryTotalData

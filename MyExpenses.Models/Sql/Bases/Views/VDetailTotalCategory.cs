@@ -19,13 +19,16 @@ public class VDetailTotalCategory
     [Column("day", TypeName = "INT")]
     public int? Day { get; init; }
 
-    [Column("account")]
-    [MaxLength(55)]
-    public string? Account { get; init; }
+    [Column("account_id")]
+    public int AccountId { get; init; }
 
-    [Column("category")]
+    [Column("account_name")]
     [MaxLength(55)]
-    public string? Category { get; init; }
+    public string? AccountName { get; init; }
+
+    [Column("category_name")]
+    [MaxLength(55)]
+    public string? CategoryName { get; init; }
 
     [Column("value")]
     public double? Value { get; init; }

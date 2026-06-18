@@ -1,5 +1,7 @@
+using Domain.Models.Analysis;
 using Domain.Models.Systems;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.Sql.Bases.Views;
 using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Sql.Mappings;
@@ -26,4 +28,8 @@ public static partial class SystemMapper
     [MapperIgnoreTarget(nameof(TRecursiveFrequency.TRecursiveExpenses))]
     [MapperIgnoreTarget(nameof(TRecursiveFrequency.ERecursiveFrequency))]
     public static partial TRecursiveFrequency MapToEntity(this RecursiveFrequencyDomain src);
+
+    public static partial IQueryable<DetailTotalCategoryDomain> ProjectToDomain(this IQueryable<VDetailTotalCategory> src);
+
+    public static partial DetailTotalCategoryDomain MapToDomain(this VDetailTotalCategory src);
 }
