@@ -43,6 +43,7 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.Total))]
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.TotalPointed))]
     [MapperIgnoreTarget(nameof(TotalByAccountViewModel.TotalNotPointed))]
+    [MapperIgnoreTarget(nameof(TotalByAccountViewModel.IsChecked))]
     [MapperIgnoreSource(nameof(AccountViewModel.HasErrors))]
     [MapperIgnoreSource(nameof(AccountViewModel.AccountTypeViewModel))]
     [MapperIgnoreSource(nameof(AccountViewModel.Active))]
