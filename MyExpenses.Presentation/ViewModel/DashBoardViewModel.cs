@@ -228,6 +228,7 @@ public partial class DashBoardViewModel : ViewModelBase
         var result = await _accountPresentationService.GetAllTotalByAccountViewModelAsync(cancellationToken);
         if (result.IsSuccess)
         {
+            TotalByAccountViewModels.Clear();
             TotalByAccountViewModels.AddRangeAndSort(result.Value!, s => s.Name);
             SelectedTotalByAccountViewModel = TotalByAccountViewModels.FirstOrDefault();
             SelectedTotalByAccountViewModel?.IsChecked = true;
