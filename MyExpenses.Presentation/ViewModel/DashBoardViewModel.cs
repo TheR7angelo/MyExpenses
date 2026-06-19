@@ -4,9 +4,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models;
+using Domain.Models.Dependencies;
 using LiveChartsCore.Kernel.Sketches;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
@@ -51,17 +53,20 @@ public partial class DashBoardViewModel : ViewModelBase
 
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
+    private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly IDialogService _dialogService;
     private readonly ILogger<DashBoardViewModel> _logger;
 
     public DashBoardViewModel(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
+        IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         IDialogService dialogService, ILogger<DashBoardViewModel> logger)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
+        _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
         _logger = logger;
@@ -72,6 +77,30 @@ public partial class DashBoardViewModel : ViewModelBase
     private void RegisterMessage()
     {
         WeakReferenceMessenger.Default.Register<LanguageChangedMessage>(this, OnLanguageChange);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChange);
+    }
+
+    private async void OnAccountChange(object recipient, EntityChangedMessage<AccountViewModel> message)
+    {
+        if (message.Value is not {EntityType: DependencyType.Account, Content: var accountViewModel }) return;
+
+        switch (message.Value.DataAction)
+        {
+            case DataAction.Update:
+            {
+                var item = TotalByAccountViewModels.FirstOrDefault(s => s.Id == accountViewModel.Id);
+                if (item is null) return;
+                _accountDtoViewModelMapper.Merge(accountViewModel, item);
+                break;
+            }
+            case DataAction.Add:
+            {
+                var result = await _accountPresentationService.GetTotalByAccountViewModelAsync(accountViewModel);
+                if (!result.IsSuccess) return;
+                TotalByAccountViewModels!.AddAndSort(result.Value, s => s!.Name);
+                break;
+            }
+        }
     }
 
     private async void OnLanguageChange(object recipient, LanguageChangedMessage languageChangedMessage)
