@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
+using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Analysis;
@@ -27,9 +28,6 @@ public partial class DashBoardViewModel : ViewModelBase
 
     [ObservableProperty]
     public partial TotalByAccountViewModel? SelectedTotalByAccountViewModel { get; set; }
-
-    [ObservableProperty]
-    public partial HistoryViewModel? SelectedHistoryViewModel { get; set; }
 
     public ObservableCollection<CategoryTotalViewModel> CategoryTotalViewModels { get; } = [];
 
@@ -56,6 +54,7 @@ public partial class DashBoardViewModel : ViewModelBase
 
     private readonly IAccountPresentationService _accountPresentationService;
     private readonly IExpensePresentationService _expensePresentationService;
+    private readonly IExpenseActionService _expenseActionService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
     private readonly IDialogService _dialogService;
@@ -63,12 +62,14 @@ public partial class DashBoardViewModel : ViewModelBase
 
     public DashBoardViewModel(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
+        IExpenseActionService expenseActionService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         IDialogService dialogService, ILogger<DashBoardViewModel> logger)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
+        _expenseActionService = expenseActionService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
         _dialogService = dialogService;
@@ -140,8 +141,39 @@ public partial class DashBoardViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void OnSelectedContextExpense(HistoryViewModel? item)
-        => SelectedHistoryViewModel = item;
+    private async Task OnDeleteExpense(HistoryViewModel? item, CancellationToken cancellationToken = default)
+    {
+        if (item is null) return;
+
+        await _expenseActionService.DeleteHistory(item, cancellationToken);
+    }
+
+    [RelayCommand]
+    private void OnEditExpense(HistoryViewModel? item)
+    {
+        if (item is null) return;
+
+        if (item.BankTransferViewModel is not null)
+        {
+            var response = _dialogService.ShowMessageBox(ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferCaption,
+                ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferContent,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
+            if (response is not MessageBoxResult.Yes) return;
+        }
+
+        _navigationWindowService.ManageExpense(item);
+    }
+
+    [RelayCommand]
+    private async Task OnPointedExpense(HistoryViewModel? item, CancellationToken cancellationToken = default)
+    {
+        if (item is null) return;
+        item.AcceptChanges();
+
+        item.IsPointed = !item.IsPointed;
+        var result = await _expenseActionService.UpdateExpense(item, cancellationToken);
+        if (!result) item.IsPointed = !item.IsPointed;
+    }
 
     [RelayCommand]
     private async Task OnLoadPieChart(IPieChartView pieChartView, CancellationToken cancellationToken = default)
@@ -261,7 +293,8 @@ public partial class DashBoardViewModel : ViewModelBase
 
         if (result.IsSuccess)
         {
-            HistoryViewModels.AddRange(result.Value!);
+            var records = result.Value!.OrderByDescending(s => s.Date);
+            HistoryViewModels.AddRange(records);
         }
         else
         {

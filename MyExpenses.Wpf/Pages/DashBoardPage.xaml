@@ -469,13 +469,6 @@
 
                   dgx:DataGridFilter.IsAutoFilterEnabled="True">
 
-            <b:Interaction.Triggers>
-                <b:EventTrigger EventName="PreviewMouseRightButtonDown">
-                    <b:InvokeCommandAction Command="{Binding SelectedContextExpenseCommand}"
-                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}" />
-                </b:EventTrigger>
-            </b:Interaction.Triggers>
-
             <DataGrid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
 
@@ -488,18 +481,23 @@
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem
-                        Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
-                        Click="MenuItemEditRecord_OnClick">
+
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
+                              Command="{Binding EditExpenseCommand}"
+                              CommandParameter="{Binding PlacementTarget.(Selector.SelectedItem), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                     </MenuItem>
-                    <MenuItem
-                        Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
-                        Click="MenuItemPointed_OnClick">
+
+
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
+                              Command="{Binding PointedExpenseCommand}"
+                              CommandParameter="{Binding PlacementTarget.(Selector.SelectedItem), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                     </MenuItem>
-                    <MenuItem
-                        Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
-                        Click="MenuItemDeleteRecord_OnClick">
+
+                    <MenuItem Header="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
+                              Command="{Binding DeleteExpenseCommand}"
+                              CommandParameter="{Binding PlacementTarget.(Selector.SelectedItem), RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                     </MenuItem>
+
                 </ContextMenu>
             </DataGrid.ContextMenu>
 
@@ -595,17 +593,20 @@
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
                                         Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
-                                        Click="ButtonEditRecord_OnClick">
+                                        Command="{Binding DataContext.EditExpenseCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding .}">
                                 </Button>
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
                                         Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPointed}}"
-                                        Click="ButtonPointedRecord_OnClick">
+                                        Command="{Binding DataContext.PointedExpenseCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding .}">
                                 </Button>
 
                                 <Button Style="{StaticResource MaterialDesignPaperButton}"
                                         Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
-                                        Click="ButtonDeleteRecord_OnClick">
+                                        Command="{Binding DataContext.DeleteExpenseCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding .}">
                                 </Button>
 
                             </StackPanel>
