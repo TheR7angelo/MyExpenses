@@ -68,57 +68,68 @@
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAccountManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonAccountManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:AccountManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAccountTypeManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonAccountTypeManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:AccountTypeManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonCategoryTypeManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonCategoryTypeManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:CategoryTypeManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonLocationManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonLocationManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:LocationManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonColorManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonColorManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:ColorManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonCurrencyManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonCurrencyManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:CurrencyManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonModePaymentManagementContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonModePaymentManagement_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:ModePaymentManagementPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonRecurrentExpenseContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonRecurrentExpense_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:RecurrentExpensePage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonMakeBankTransferContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonMakeBankTransfer_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:BankTransferPage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonRecordExpenseContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonRecordExpense_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:RecordExpensePage}">
                 </Button>
 
                 <Button Content="{loc:Tr {x:Static dashboardResources:DashBoardResourceManager.ButtonAnalyticsContent}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonAnalytics_OnClick">
+                        Command="{Binding MovePageCommand}"
+                        CommandParameter="{x:Type local:AnalyticsPage}">
                 </Button>
 
             </WrapPanel>
@@ -264,8 +275,7 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Disabled">
 
-                    <ItemsControl x:Name="ItemsControlVTotalAccount"
-                                  ItemsSource="{Binding TotalByAccountViewModels, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl ItemsSource="{Binding TotalByAccountViewModels, UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" margin:PanelExtensions.MarginForAllChildren="3" />

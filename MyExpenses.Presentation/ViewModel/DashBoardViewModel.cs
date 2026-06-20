@@ -57,6 +57,7 @@ public partial class DashBoardViewModel : ViewModelBase
     private readonly IExpenseActionService _expenseActionService;
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
     private readonly INavigationWindowService _navigationWindowService;
+    private readonly INavigationService _navigationService;
     private readonly IDialogService _dialogService;
     private readonly ILogger<DashBoardViewModel> _logger;
 
@@ -65,6 +66,7 @@ public partial class DashBoardViewModel : ViewModelBase
         IExpenseActionService expenseActionService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
+        INavigationService navigationService,
         IDialogService dialogService, ILogger<DashBoardViewModel> logger)
     {
         _accountPresentationService = accountPresentationService;
@@ -72,6 +74,7 @@ public partial class DashBoardViewModel : ViewModelBase
         _expenseActionService = expenseActionService;
         _accountDtoViewModelMapper = accountDtoViewModelMapper;
         _navigationWindowService = navigationWindowService;
+        _navigationService = navigationService;
         _dialogService = dialogService;
         _logger = logger;
 
@@ -138,6 +141,14 @@ public partial class DashBoardViewModel : ViewModelBase
         if (SelectedMonth is null) await LoadAllMonthName();
         var index = Months.IndexOf(SelectedMonth!);
         await LoadAllMonthName(index + 1);
+    }
+
+    [RelayCommand]
+    private void OnMovePage(Type? type)
+    {
+        if (type is null) return;
+
+        _navigationService.Navigate(type.Name);
     }
 
     [RelayCommand]
