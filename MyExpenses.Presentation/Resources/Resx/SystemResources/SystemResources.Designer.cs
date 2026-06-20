@@ -195,6 +195,24 @@ namespace MyExpenses.Presentation.Resources.Resx.SystemResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string MessageBoxEditItemsQuestionCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemsQuestionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current changes are pending, do you really want to update them ?{0}{1}.
+        /// </summary>
+        public static string MessageBoxEditItemsQuestionContent {
+            get {
+                return ResourceManager.GetString("MessageBoxEditItemsQuestionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The color name :.
         /// </summary>
         public static string TextBoxColorNameHintAssist {

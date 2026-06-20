@@ -65,4 +65,10 @@
     <data name="MessageboxColorDeleteErrorContent" xml:space="preserve">
         <value>An error occurred while deleting the color. Please try again</value>
     </data>
+    <data name="MessageBoxEditItemsQuestionContent" xml:space="preserve">
+        <value>The current changes are pending, do you really want to update them ?{0}{1}</value>
+    </data>
+    <data name="MessageBoxEditItemsQuestionCaption" xml:space="preserve">
+        <value>Confirmation</value>
+    </data>
 </root>
