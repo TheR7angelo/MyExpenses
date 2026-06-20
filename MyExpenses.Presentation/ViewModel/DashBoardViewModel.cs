@@ -78,6 +78,32 @@ public partial class DashBoardViewModel : ViewModelBase
     {
         WeakReferenceMessenger.Default.Register<LanguageChangedMessage>(this, OnLanguageChange);
         WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, OnAccountChange);
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
+        {
+            OnItemDeleted(m, HistoryViewModels, DependencyType.Expense, x => x.Id);
+            OnAccountDelete(m);
+        });
+    }
+
+    private void OnAccountDelete(EntityChangedMessage<int[]> message)
+    {
+        if (message.Value.EntityType is not DependencyType.Account || message.Value.DataAction is not DataAction.Delete) return;
+
+        var ids = message.Value.Content;
+        if (!TotalByAccountViewModels.Any(s => ids.Contains(s.Id))) return;
+
+        foreach (var id in ids)
+        {
+            var toRemove = TotalByAccountViewModels.First(s => s.Id.Equals(id));
+            TotalByAccountViewModels.Remove(toRemove);
+            if (SelectedTotalByAccountViewModel == toRemove) SelectedTotalByAccountViewModel = null;
+        }
+
+        if (TotalByAccountViewModels.FirstOrDefault(s => s.IsChecked) is not null || !TotalByAccountViewModels.Any()) return;
+
+        var first = TotalByAccountViewModels.First();
+        first.IsChecked = true;
+        SelectedTotalByAccountViewModel = first;
     }
 
     private async void OnAccountChange(object recipient, EntityChangedMessage<AccountViewModel> message)
