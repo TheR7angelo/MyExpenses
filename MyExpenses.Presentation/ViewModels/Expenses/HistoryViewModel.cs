@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using MyExpenses.Presentation.Resources.Resx.DashBoardResources;
 using MyExpenses.Presentation.Validations.Validator;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Locations;
@@ -39,7 +40,7 @@ public partial class HistoryViewModel : BaseViewModel
     [ObservableProperty]
     public partial PlaceViewModel? PlaceViewModel { get; set; }
 
-    [DirtyTrackedProperty]
+    [DirtyTrackedProperty(DisplayNameResourceType = typeof(DashBoardResources), DisplayNameResourceName = nameof(DashBoardResources.DataGridTextColumnHeaderPointed))]
     [ObservableProperty]
     public partial bool IsPointed { get; set; }
 
