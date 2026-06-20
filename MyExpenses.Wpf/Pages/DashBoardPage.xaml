@@ -468,6 +468,13 @@
 
                   dgx:DataGridFilter.IsAutoFilterEnabled="True">
 
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="PreviewMouseRightButtonDown">
+                    <b:InvokeCommandAction Command="{Binding SelectedContextExpenseCommand}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
             <DataGrid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
 
@@ -477,14 +484,6 @@
                 </ControlTemplate>
 
             </DataGrid.Resources>
-
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                    <EventSetter Event="PreviewMouseRightButtonDown"
-                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
-                    </EventSetter>
-                </Style>
-            </DataGrid.ItemContainerStyle>
 
             <DataGrid.ContextMenu>
                 <ContextMenu>

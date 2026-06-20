@@ -28,6 +28,9 @@ public partial class DashBoardViewModel : ViewModelBase
     [ObservableProperty]
     public partial TotalByAccountViewModel? SelectedTotalByAccountViewModel { get; set; }
 
+    [ObservableProperty]
+    public partial HistoryViewModel? SelectedHistoryViewModel { get; set; }
+
     public ObservableCollection<CategoryTotalViewModel> CategoryTotalViewModels { get; } = [];
 
     [ObservableProperty]
@@ -135,6 +138,10 @@ public partial class DashBoardViewModel : ViewModelBase
         var index = Months.IndexOf(SelectedMonth!);
         await LoadAllMonthName(index + 1);
     }
+
+    [RelayCommand]
+    private void OnSelectedContextExpense(HistoryViewModel? item)
+        => SelectedHistoryViewModel = item;
 
     [RelayCommand]
     private async Task OnLoadPieChart(IPieChartView pieChartView, CancellationToken cancellationToken = default)
