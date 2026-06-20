@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Messages;
 using MyExpenses.Presentation.Resources.Resx.AccountResources;
+using MyExpenses.Presentation.Resources.Resx.SystemResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Validator;
 using TheR7angelo.DirtyTracking.Abstractions;
@@ -374,25 +375,40 @@ public abstract class AActionService(IDialogService dialogService, ILogger logge
     }
 
     /// <summary>
-    /// Displays a confirmation dialog asking the user if they want to proceed with updating multiple items,
-    /// showing the changes as a list of old and new values.
+    /// Displays a confirmation dialog to the user for pending updates, showing detailed information
+    /// about the changes and allowing the user to accept or decline the update process.
     /// </summary>
-    /// <param name="oldNames">An array of the old names or values of the items being updated. May contain nulls if old values are not available.</param>
-    /// <param name="newNames">An array of the new names or values of the items being updated. Must have the same length as <paramref name="oldNames"/>.</param>
-    /// <returns>A boolean indicating whether the user confirmed the update (true) or canceled it (false).</returns>
-    /// <exception cref="ArgumentException">Thrown when the lengths of <paramref name="oldNames"/> and <paramref name="newNames"/> are not equal.</exception>
-    private bool AskUpdateConfirmation(string?[] oldNames, string?[] newNames)
+    /// <param name="propertiesName">
+    /// An array of property names that are being updated. These represent the labels or display names
+    /// for the properties involved in the change.
+    /// </param>
+    /// <param name="oldValues">
+    /// An array of the old values of the properties prior to the update. The order must match
+    /// the <paramref name="propertiesName"/> array.
+    /// </param>
+    /// <param name="newValues">
+    /// An array of the new values that the properties will be updated to. The order must match
+    /// the <paramref name="propertiesName"/> array.
+    /// </param>
+    /// <returns>
+    /// Returns <c>true</c> if the user confirms the update; otherwise, <c>false</c>.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the lengths of <paramref name="propertiesName"/>, <paramref name="oldValues"/>,
+    /// and <paramref name="newValues"/> are not equal.
+    /// </exception>
+    private bool AskUpdateConfirmation(string?[] propertiesName, string?[] oldValues, string?[] newValues)
     {
-        if (oldNames.Length != newNames.Length)
+        if (propertiesName.Length != oldValues.Length || oldValues.Length != newValues.Length)
         {
-            throw new ArgumentException(@"the number of old names must be equal to the number of new names", nameof(oldNames));
+            throw new ArgumentException(@"the number of old names must be equal to the number of new names", nameof(oldValues));
         }
 
-        var lines = oldNames.Select((t, i) => $"- \"{t}\" → \"{newNames[i]}\"");
+        var lines = propertiesName.Select((t, i) => $"- {t}: \"{oldValues[i]}\" → \"{newValues[i]}\"");
         var changes = string.Join(Environment.NewLine, lines);
 
-        var response = dialogService.ShowMessageBox(AccountResources.MessageBoxEditItemQuestionCaption,
-            string.Format(AccountResources.MessageBoxEditItemQuestionContent, Environment.NewLine, changes),
+        var response = dialogService.ShowMessageBox(SystemResources.MessageBoxEditItemsQuestionContent,
+            string.Format(SystemResources.MessageBoxEditItemsQuestionContent, Environment.NewLine, changes),
             MessageBoxButton.YesNo,MsgBoxImage.Question);
 
         return response is MessageBoxResult.Yes;
@@ -414,10 +430,11 @@ public abstract class AActionService(IDialogService dialogService, ILogger logge
     internal bool AskUpdateConfirmation(IDirtyTrackable dirtyTrackable)
     {
         var pendingChanges = dirtyTrackable.PendingChanges;
+        var propertyNames = pendingChanges.Select(s => s.DisplayPropertyName).ToArray();
         var oldValues = pendingChanges.Select(s => s.OldValueDisplay).ToArray();
         var newValues = pendingChanges.Select(s => s.NewValueDisplay).ToArray();
 
-        return AskUpdateConfirmation(oldValues, newValues);
+        return AskUpdateConfirmation(propertyNames, oldValues, newValues);
     }
 
     /// <summary>
