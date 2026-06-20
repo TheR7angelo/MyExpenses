@@ -465,6 +465,7 @@
                   CanUserReorderColumns="False"
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
+                  SelectionMode="Single"
 
                   dgx:DataGridFilter.IsAutoFilterEnabled="True">
 
