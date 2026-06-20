@@ -40,7 +40,8 @@ public partial class HistoryViewModel : BaseViewModel
     [ObservableProperty]
     public partial PlaceViewModel? PlaceViewModel { get; set; }
 
-    [DirtyTrackedProperty(DisplayNameResourceType = typeof(DashBoardResources), DisplayNameResourceName = nameof(DashBoardResources.DataGridTextColumnHeaderPointed))]
+    [DirtyTrackedProperty(DisplayNameResourceType = typeof(DashBoardResources), DisplayNameResourceName = nameof(DashBoardResources.DataGridTextColumnHeaderPointed),
+        DisplayValueProviderType = typeof(BoolDisplayValueProvider))]
     [ObservableProperty]
     public partial bool IsPointed { get; set; }
 

@@ -60,6 +60,24 @@ namespace MyExpenses.Presentation.Resources.Resx.SystemResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to False.
+        /// </summary>
+        public static string BoolDisplayValueProviderFalseValue {
+            get {
+                return ResourceManager.GetString("BoolDisplayValueProviderFalseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to True.
+        /// </summary>
+        public static string BoolDisplayValueProviderTrueValue {
+            get {
+                return ResourceManager.GetString("BoolDisplayValueProviderTrueValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ButtonCancelContentColor {

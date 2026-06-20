@@ -71,4 +71,10 @@
     <data name="MessageBoxEditItemsQuestionCaption" xml:space="preserve">
         <value>Confirmation</value>
     </data>
+    <data name="BoolDisplayValueProviderTrueValue" xml:space="preserve">
+        <value>Vrai</value>
+    </data>
+    <data name="BoolDisplayValueProviderFalseValue" xml:space="preserve">
+        <value>Faux</value>
+    </data>
 </root>
