@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Services.Interfaces;
 
 namespace MyExpenses.Wpf.Services;
@@ -19,6 +20,13 @@ public sealed class NavigationService : INavigationService
     /// navigation target pages and their associated dependencies in the navigation process.
     /// </summary>
     private readonly IServiceProvider _serviceProvider;
+
+    /// <summary>
+    /// Instance of <see cref="ILogger{NavigationService}"/> used to log diagnostic information
+    /// and errors occurring in the navigation process. Facilitates tracking application flow,
+    /// debugging, and monitoring navigation-related behaviors.
+    /// </summary>
+    private readonly ILogger<NavigationService> _logger;
 
     /// <summary>
     /// Dictionary that maps route names to their corresponding <see cref="Type"/> representations
@@ -75,9 +83,11 @@ public sealed class NavigationService : INavigationService
     /// Service providing navigation logic for WPF applications.
     /// Manages page routing, browser-style history, and global cursor states during transitions.
     /// </summary>
-    public NavigationService(IServiceProvider serviceProvider)
+    public NavigationService(IServiceProvider serviceProvider, ILogger<NavigationService> logger)
     {
         _serviceProvider = serviceProvider;
+        _logger = logger;
+
         RegisterRoutesFromAssembly();
     }
 
@@ -136,20 +146,26 @@ public sealed class NavigationService : INavigationService
 
         if (!_routes.TryGetValue(route, out var pageType))
         {
+            _logger.LogError("Unknown navigation route: {Route}", route);
             throw new ArgumentException($@"Unknown navigation route: {route}", nameof(route));
         }
 
         try
         {
-            // On attend que l'état "occupé" soit appliqué
             await SetBusyState(true);
+
+            _logger.LogInformation("Navigating to {Route}", route);
 
             var page = _serviceProvider.GetRequiredService(pageType);
             _navigationService.Navigate(page, parameter);
             UpdateNavigationState();
+
+            _logger.LogInformation("Navigated successfully");
         }
-        catch
+        catch (Exception exception)
         {
+            _logger.LogError(exception, "An error occur");
+
             await SetBusyState(false);
             throw;
         }
