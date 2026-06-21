@@ -4,14 +4,18 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
-      xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-      xmlns:recurrentExpenseFrequencyConverter="clr-namespace:MyExpenses.Wpf.Converters.RecurrentExpenseFrequencyConverter"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
+      xmlns:dashboardResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.DashBoardResources;assembly=MyExpenses.Presentation"
+      xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+      xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
+      xmlns:expenses="clr-namespace:MyExpenses.Presentation.ViewModels.Expenses;assembly=MyExpenses.Presentation"
       mc:Ignorable="d"
 
       Title="RecurrentExpensePage"
+      Language="{Binding Source={x:Static localisations:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,7 +24,7 @@
 
     <Page.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
-        <recurrentExpenseFrequencyConverter:RecurrentExpenseFrequencyConverter x:Key="RecurrentExpenseFrequencyConverter" />
+        <converters:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -30,7 +34,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Height="56"
+        <Button Grid.Row="0"
+                Height="56"
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                 Click="ButtonAddNewRecurrent_OnClick">
@@ -42,61 +47,76 @@
             </Button.Content>
         </Button>
 
-        <filterDataGrid:FilterDataGrid Grid.Row="1"
-                                       ShowStatusBar="True" ShowElapsedTime="True"
-                                       FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
-                                       ItemsSource="{Binding VRecursiveExpenses, Mode=OneWay}"
-                                       IsReadOnly="True" AutoGenerateColumns="False"
-                                       CanUserAddRows="False" CanUserDeleteRows="False"
-                                       CanUserReorderColumns="False"
-                                       HorizontalScrollBarVisibility="Auto"
-                                       VerticalScrollBarVisibility="Auto"
+        <DataGrid Grid.Row="1"
+                  IsReadOnly="True" AutoGenerateColumns="False"
+                  ItemsSource="{Binding RecurringExpenses, Mode=OneWay}"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  SelectionMode="Single"
 
-                                       FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                  dgx:DataGridFilter.IsAutoFilterEnabled="True">
 
-            <filterDataGrid:FilterDataGrid.Resources>
+            <DataGrid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
-            </filterDataGrid:FilterDataGrid.Resources>
 
-            <filterDataGrid:FilterDataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                    <EventSetter Event="PreviewMouseRightButtonDown"
-                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
-                    </EventSetter>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
-            </filterDataGrid:FilterDataGrid.ItemContainerStyle>
 
-            <filterDataGrid:FilterDataGrid.ContextMenu>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+
+                <ControlTemplate x:Key="MultipleChoiceFilter">
+                    <dgx:MultipleChoiceFilter
+                        Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}" />
+                </ControlTemplate>
+
+            </DataGrid.Resources>
+
+            <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem
-                        Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Click="MenuItemEditRecurrentExpense_OnClick">
+
+                    <MenuItem Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
+                              Click="MenuItemEditRecurrentExpense_OnClick">
                     </MenuItem>
-                    <MenuItem
-                        Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Click="MenuItemDeleteRecord_OnClick">
+
+                    <MenuItem Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
+                              Click="MenuItemDeleteRecord_OnClick">
                     </MenuItem>
+
                 </ContextMenu>
-            </filterDataGrid:FilterDataGrid.ContextMenu>
+            </DataGrid.ContextMenu>
 
-            <filterDataGrid:FilterDataGrid.Columns>
+            <DataGrid.Columns>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnAccount" IsColumnFiltered="True"
-                                                  Binding="{Binding Account}">
-                </filterDataGrid:DataGridTextColumn>
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderAccount}}"
+                                    Binding="{Binding AccountViewModel.Name, FallbackValue=''}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnDescription" IsColumnFiltered="True"
-                                                   Binding="{Binding Description}">
-                </filterDataGrid:DataGridTextColumn>
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderDescription}}"
+                                    Binding="{Binding Description}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNote" IsColumnFiltered="True"
-                                                   Binding="{Binding Note}">
-                </filterDataGrid:DataGridTextColumn>
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderNote}}"
+                                    Binding="{Binding Note}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnCategory" IsColumnFiltered="True"
-                                                       SortMemberPath="Category" FieldName="Category">
-                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderCategory}}"
+                                        SortMemberPath="CategoryTypeViewModel.Name"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Left"
@@ -105,104 +125,133 @@
                                 <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                                          Stroke="{DynamicResource MaterialDesignBody}"
                                          StrokeThickness="1.5"
-                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                         Fill="{Binding CategoryTypeViewModel.Color.HexadecimalColorCode, FallbackValue=Transparent, TargetNullValue=Transparent, Mode=OneWay}"
                                          Margin="0, 0, 3, 0">
                                 </Ellipse>
 
-                                <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+                                <TextBlock Text="{Binding CategoryTypeViewModel.Name, FallbackValue='', TargetNullValue=''}" Margin="3, 0, 0, 0" />
 
                             </StackPanel>
                         </DataTemplate>
-                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                </filterDataGrid:DataGridTemplateColumn>
+                    </DataGridTemplateColumn.CellTemplate>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnModePayment" IsColumnFiltered="True"
-                                                   Binding="{Binding ModePayment}">
-                </filterDataGrid:DataGridTextColumn>
+                </DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnValue" IsColumnFiltered="True"
-                                                       SortMemberPath="Value" FieldName="Value">
-                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderModePayment}}"
+                                    Binding="{Binding ModePaymentViewModel.Name, FallbackValue=''}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderValue}}"
+                                        SortMemberPath="Value"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
                                         <Binding Path="Value" />
-                                        <Binding Path="Symbol" />
+                                        <Binding Path="AccountViewModel.CurrencyViewModel.Symbol" FallbackValue="" />
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
                         </DataTemplate>
-                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                </filterDataGrid:DataGridTemplateColumn>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnStartDate" IsColumnFiltered="True"
-                                                   Binding="{Binding StartDate}">
-                </filterDataGrid:DataGridTextColumn>
+                <DataGridTemplateColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderStartDate}}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveTotal" IsColumnFiltered="True"
-                                                   Binding="{Binding RecursiveTotal}">
-                </filterDataGrid:DataGridTextColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StartDate, Converter={StaticResource DateOnlyToStringConverter},  ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveCount" IsColumnFiltered="True"
-                                                   Binding="{Binding RecursiveCount}">
-                </filterDataGrid:DataGridTextColumn>
+                </DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnFrequency" IsColumnFiltered="True"
-                                                   Binding="{Binding Frequency}">
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderRecursiveTotal}}"
+                                    Binding="{Binding RecursiveTotal}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                            <Setter Property="ToolTip" Value="{Binding ERecursiveFrequency, Converter={StaticResource RecurrentExpenseFrequencyConverter}}" />
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderRecursiveCount}}"
+                                    Binding="{Binding RecursiveCount}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderFrequency}}"
+                                    Binding="{Binding RecursiveFrequencyViewModel.Frequency, FallbackValue=''}">
+
+                    <DataGridTextColumn.CellStyle>
+                        <Style d:DataContext="{d:DesignInstance expenses:RecursiveExpenseViewModel}" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="ToolTip" Value="{Binding RecursiveFrequencyViewModel.Description, FallbackValue=''}" />
                         </Style>
-                    </filterDataGrid:DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn.CellStyle>
 
-                </filterDataGrid:DataGridTextColumn>
+                </DataGridTextColumn>
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNextDueDate" IsColumnFiltered="True"
-                                                   Binding="{Binding NextDueDate}">
-                </filterDataGrid:DataGridTextColumn>
+                <DataGridTemplateColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderNextDueDate}}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
 
-                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnPlace" IsColumnFiltered="True"
-                                                   Binding="{Binding Place}">
-                </filterDataGrid:DataGridTextColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding NextDueDate, Converter={StaticResource DateOnlyToStringConverter},  ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
 
-                <filterDataGrid:DataGridCheckBoxColumn x:Name="DataGridCheckBoxColumnIsActive" IsColumnFiltered="True"
-                                                   Binding="{Binding IsActive}">
-                </filterDataGrid:DataGridCheckBoxColumn>
+                </DataGridTemplateColumn>
 
-                <filterDataGrid:DataGridCheckBoxColumn x:Name="DataGridCheckBoxColumnForceDeactivate" IsColumnFiltered="True"
-                                                       Binding="{Binding ForceDeactivate}">
-                </filterDataGrid:DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderPlace}}"
+                                    Binding="{Binding PlaceViewModel.Name, FallbackValue=''}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnActions" IsColumnFiltered="False"
-                                                       IsReadOnly="True">
-                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                    <DataGridTextColumn.CellStyle>
+                        <Style d:DataContext="{d:DesignInstance expenses:RecursiveExpenseViewModel}" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="ToolTip" Value="{Binding PlaceViewModel.Address, FallbackValue=''}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
 
-                                <StackPanel Orientation="Vertical"
-                                            margin:PanelExtensions.MarginForAllChildren="3">
+                </DataGridTextColumn>
 
-                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecurrentExpensePage}}}"
-                                            Click="ButtonEditRecord_OnClick">
-                                    </Button>
+                <DataGridCheckBoxColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTextColumnHeaderIsActive}}"
+                                        IsThreeState="False"
+                                        Binding="{Binding IsActive}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridCheckBoxColumn>
 
-                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecurrentExpensePage}}}"
-                                            Click="ButtonDeleteRecord_OnClick">
-                                    </Button>
+                <DataGridCheckBoxColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridCheckBoxColumnHeaderForceDeactivate}}"
+                                        IsThreeState="False"
+                                        Binding="{Binding ForceDeactivate}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource MultipleChoiceFilter}">
+                </DataGridCheckBoxColumn>
 
-                                </StackPanel>
+                <DataGridTemplateColumn Header="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridTemplateColumnHeaderActions}}"
+                                        dgx:DataGridFilterColumn.IsFilterVisible="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        margin:PanelExtensions.MarginForAllChildren="3">
 
-                            </DataTemplate>
-                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                </filterDataGrid:DataGridTemplateColumn>
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderEditRecord}}"
+                                        Click="ButtonEditRecord_OnClick">
+                                </Button>
 
-            </filterDataGrid:FilterDataGrid.Columns>
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{localisations:Tr {x:Static dashboardResources:DashBoardResourceManager.DataGridMenuItemHeaderDeleteRecord}}"
+                                        Click="ButtonDeleteRecord_OnClick">
+                                </Button>
 
-        </filterDataGrid:FilterDataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 
