@@ -3,9 +3,9 @@ using Domain.Models.Expenses;
 using Domain.Models.Validation;
 using MyExpenses.Presentation.Validations.Attributes;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Locations;
 using MyExpenses.Presentation.ViewModels.Systems;
 using TheR7angelo.DirtyTracking.Abstractions;
-using PlaceViewModel = MyExpenses.Presentation.ViewModels.Locations.PlaceViewModel;
 
 namespace MyExpenses.Presentation.ViewModels.Expenses;
 
