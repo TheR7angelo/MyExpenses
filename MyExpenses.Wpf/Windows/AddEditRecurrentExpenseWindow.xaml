@@ -8,9 +8,14 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
+        xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
+        xmlns:expenseResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
+        xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
         mc:Ignorable="d"
 
         Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        Language="{Binding Source={x:Static localisations:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
@@ -39,7 +44,6 @@
     <mah:MetroWindow.Resources>
         <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
-        <converters:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter" />
         <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
@@ -69,7 +73,7 @@
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist}}"
                   ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -90,7 +94,7 @@
 
         <ComboBox Grid.Row="0" Grid.Column="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static locationResources:LocationResourceManager.ComboBoxBaseMapHintAssist}}"
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}"
                   SelectionChanged="SelectorTile_OnSelectionChanged">
@@ -108,7 +112,7 @@
         </wpf:MapControl>
 
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxDescriptionHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
@@ -116,7 +120,7 @@
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxNoteHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNoteHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Note}"
@@ -126,7 +130,7 @@
         <ComboBox Grid.Row="3" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxCategoryTypeHintAssist}}"
                   ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathCategoryType}"
@@ -147,7 +151,7 @@
         <ComboBox Grid.Row="4" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxModePaymentHintAssist}}"
                   ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathModePayment}"
@@ -167,7 +171,7 @@
         </Button>
 
         <TextBox Grid.Row="5" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
@@ -191,7 +195,7 @@
         <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxFrequencyHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFrequencyHintAssist}}"
                   ItemsSource="{Binding RecursiveFrequencies, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.FrequencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathFrequencyFk}"
@@ -201,7 +205,7 @@
         </ComboBox>
 
         <TextBox Grid.Row="7" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveTotalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveTotalHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -211,7 +215,7 @@
         </TextBox>
 
         <TextBox Grid.Row="7" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveCountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveCountHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -221,7 +225,7 @@
         </TextBox>
 
         <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePickerStartDate"
-                    materialDesign:HintAssist.Hint="{Binding DatePickerStartDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerStartDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsTodayHighlighted="True"
@@ -229,7 +233,7 @@
         </DatePicker>
 
         <DatePicker Grid.Row="8" Grid.Column="1" x:Name="DatePickerNextDueDate"
-                    materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNextDueDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.NextDueDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsTodayHighlighted="True">
@@ -247,7 +251,7 @@
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="{Binding CheckBoxForceDeactivate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxForceDeactivateHintAssist}}"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
 
@@ -256,7 +260,7 @@
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="{Binding CheckBoxIsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxIsActiveHintAssist}}"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30"
                       IsEnabled="False">
             </CheckBox>
@@ -280,7 +284,7 @@
                       x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCountryHintAssist}}"
                       ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCountry_OnSelectionChanged">
@@ -290,7 +294,7 @@
                       x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCityHintAssist}}"
                       ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCity_OnSelectionChanged">
@@ -300,7 +304,7 @@
                       x:Name="ComboBoxSelectorPlace"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceHintAssist}}"
                       ItemsSource="{Binding PlacesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding RecursiveExpense.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathPlace}"

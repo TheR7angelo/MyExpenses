@@ -94,7 +94,7 @@
         <value>Main reason:</value>
     </data>
     <data name="TextBoxValueHintAssist" xml:space="preserve">
-        <value>Amount:</value>
+        <value>Amount :</value>
     </data>
     <data name="TitleWindowAddCategoryTypeName" xml:space="preserve">
         <value>Add new category type</value>
@@ -212,5 +212,29 @@
     </data>
     <data name="MessageBoxGetAllDependenciesExpenseErrorContent" xml:space="preserve">
         <value>An error occurred while getting the dependencies, please try again</value>
+    </data>
+    <data name="TextBoxNoteHintAssist" xml:space="preserve">
+        <value>Note :</value>
+    </data>
+    <data name="ComboBoxFrequencyHintAssist" xml:space="preserve">
+        <value>Frequency :</value>
+    </data>
+    <data name="TextBoxRecursiveTotalHintAssist" xml:space="preserve">
+        <value>Total number :</value>
+    </data>
+    <data name="TextBoxRecursiveCountHintAssist" xml:space="preserve">
+        <value>Number of executions :</value>
+    </data>
+    <data name="DatePickerStartDateHintAssist" xml:space="preserve">
+        <value>Start date :</value>
+    </data>
+    <data name="TextBoxNextDueDateHintAssist" xml:space="preserve">
+        <value>Next due date :</value>
+    </data>
+    <data name="CheckBoxForceDeactivateHintAssist" xml:space="preserve">
+        <value>Force deactivate :</value>
+    </data>
+    <data name="CheckBoxIsActiveHintAssist" xml:space="preserve">
+        <value>Is active :</value>
     </data>
 </root>

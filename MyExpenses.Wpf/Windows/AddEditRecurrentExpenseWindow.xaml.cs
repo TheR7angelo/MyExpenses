@@ -19,7 +19,6 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
-using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -30,7 +29,6 @@ using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
-using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
@@ -61,193 +59,6 @@ public partial class AddEditRecurrentExpenseWindow
     {
         get => (string)GetValue(WindowTitleProperty);
         set => SetValue(WindowTitleProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxAccountHintAssist
-    {
-        get => (string)GetValue(ComboBoxAccountHintAssistProperty);
-        set => SetValue(ComboBoxAccountHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxBackgroundHintAssist
-    {
-        get => (string)GetValue(ComboBoxBackgroundHintAssistProperty);
-        set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxDescriptionHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxDescriptionHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxDescriptionHintAssist
-    {
-        get => (string)GetValue(TextBoxDescriptionHintAssistProperty);
-        set => SetValue(TextBoxDescriptionHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxNoteHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxNoteHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxNoteHintAssist
-    {
-        get => (string)GetValue(TextBoxNoteHintAssistProperty);
-        set => SetValue(TextBoxNoteHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxModePaymentHintAssist
-    {
-        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
-        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxCategoryTypeHintAssist
-    {
-        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
-        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxValueHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxValueHintAssist
-    {
-        get => (string)GetValue(TextBoxValueHintAssistProperty);
-        set => SetValue(TextBoxValueHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxFrequencyHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxFrequencyHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxFrequencyHintAssist
-    {
-        get => (string)GetValue(ComboBoxFrequencyHintAssistProperty);
-        set => SetValue(ComboBoxFrequencyHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxRecursiveTotalHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxRecursiveTotalHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxRecursiveTotalHintAssist
-    {
-        get => (string)GetValue(TextBoxRecursiveTotalHintAssistProperty);
-        set => SetValue(TextBoxRecursiveTotalHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxRecursiveCountHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxRecursiveCountHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxRecursiveCountHintAssist
-    {
-        get => (string)GetValue(TextBoxRecursiveCountHintAssistProperty);
-        set => SetValue(TextBoxRecursiveCountHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty DatePickerStartDateHintAssistProperty =
-        DependencyProperty.Register(nameof(DatePickerStartDateHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string DatePickerStartDateHintAssist
-    {
-        get => (string)GetValue(DatePickerStartDateHintAssistProperty);
-        set => SetValue(DatePickerStartDateHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxNextDueDateHintAssistProperty =
-        DependencyProperty.Register(nameof(TextBoxNextDueDateHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string TextBoxNextDueDateHintAssist
-    {
-        get => (string)GetValue(TextBoxNextDueDateHintAssistProperty);
-        set => SetValue(TextBoxNextDueDateHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty CheckBoxForceDeactivateProperty =
-        DependencyProperty.Register(nameof(CheckBoxForceDeactivate), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string CheckBoxForceDeactivate
-    {
-        get => (string)GetValue(CheckBoxForceDeactivateProperty);
-        set => SetValue(CheckBoxForceDeactivateProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty CheckBoxIsActiveProperty =
-        DependencyProperty.Register(nameof(CheckBoxIsActive), typeof(string), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(string)));
-
-    public string CheckBoxIsActive
-    {
-        get => (string)GetValue(CheckBoxIsActiveProperty);
-        set => SetValue(CheckBoxIsActiveProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxPlaceCountryHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxPlaceCountryHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxPlaceCountryHintAssist
-    {
-        get => (string)GetValue(ComboBoxPlaceCountryHintAssistProperty);
-        set => SetValue(ComboBoxPlaceCountryHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxPlaceCityHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxPlaceCityHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxPlaceCityHintAssist
-    {
-        get => (string)GetValue(ComboBoxPlaceCityHintAssistProperty);
-        set => SetValue(ComboBoxPlaceCityHintAssistProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ComboBoxPlaceHintAssistProperty =
-        DependencyProperty.Register(nameof(ComboBoxPlaceHintAssist), typeof(string),
-            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string ComboBoxPlaceHintAssist
-    {
-        get => (string)GetValue(ComboBoxPlaceHintAssistProperty);
-        set => SetValue(ComboBoxPlaceHintAssistProperty, value);
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -970,24 +781,6 @@ public partial class AddEditRecurrentExpenseWindow
         DatePickerNextDueDate.Language = xmlLanguage;
 
         WindowTitle = AddEditRecurrentExpenseWindowResources.WindowTitle;
-
-        ComboBoxAccountHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxAccountHintAssist;
-        ComboBoxBackgroundHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxBackgroundHintAssist;
-        TextBoxDescriptionHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxDescriptionHintAssist;
-        TextBoxNoteHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxNoteHintAssist;
-        ComboBoxModePaymentHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxModePaymentHintAssist;
-        ComboBoxCategoryTypeHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxCategoryTypeHintAssist;
-        TextBoxValueHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxValueHintAssist;
-        ComboBoxFrequencyHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxFrequencyHintAssist;
-        TextBoxRecursiveTotalHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxRecursiveTotalHintAssist;
-        TextBoxRecursiveCountHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxRecursiveCountHintAssist;
-        DatePickerStartDateHintAssist = AddEditRecurrentExpenseWindowResources.DatePickerStartDateHintAssist;
-        TextBoxNextDueDateHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxNextDueDateHintAssist;
-        CheckBoxForceDeactivate = AddEditRecurrentExpenseWindowResources.CheckBoxForceDeactivate;
-        CheckBoxIsActive = AddEditRecurrentExpenseWindowResources.CheckBoxIsActive;
-        ComboBoxPlaceCountryHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCountryHintAssist;
-        ComboBoxPlaceCityHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCityHintAssist;
-        ComboBoxPlaceHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceHintAssist;
 
         ButtonValidContent = AddEditRecurrentExpenseWindowResources.ButtonValidContent;
         ButtonDeleteContent = AddEditRecurrentExpenseWindowResources.ButtonDeleteContent;

@@ -206,4 +206,28 @@
     <data name="MessageBoxGetAllDependenciesExpenseErrorContent" xml:space="preserve">
         <value>Une erreur s’est produite lors de l’obtention des dépendances, veuillez réessayer</value>
     </data>
+    <data name="TextBoxNoteHintAssist" xml:space="preserve">
+        <value>Note :</value>
+    </data>
+    <data name="ComboBoxFrequencyHintAssist" xml:space="preserve">
+        <value>Fréquence :</value>
+    </data>
+    <data name="TextBoxRecursiveTotalHintAssist" xml:space="preserve">
+        <value>Nombre total :</value>
+    </data>
+    <data name="TextBoxRecursiveCountHintAssist" xml:space="preserve">
+        <value>Nombre d’exécutions :</value>
+    </data>
+    <data name="DatePickerStartDateHintAssist" xml:space="preserve">
+        <value>Date de début :</value>
+    </data>
+    <data name="TextBoxNextDueDateHintAssist" xml:space="preserve">
+        <value>Prochain délai d’échéance :</value>
+    </data>
+    <data name="CheckBoxForceDeactivateHintAssist" xml:space="preserve">
+        <value>Désactivation forcée :</value>
+    </data>
+    <data name="CheckBoxIsActiveHintAssist" xml:space="preserve">
+        <value>Est actif :</value>
+    </data>
 </root>

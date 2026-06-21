@@ -26,6 +26,14 @@ public static class ExpenseResourceManager
     public static string ButtonDeleteContentCategoryType => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonDeleteContentCategoryType)}";
 
     public static string TextBoxDescriptionHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxDescriptionHintAssist)}";
+    public static string TextBoxNoteHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxNoteHintAssist)}";
+    public static string ComboBoxFrequencyHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxFrequencyHintAssist)}";
+    public static string TextBoxRecursiveTotalHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxRecursiveTotalHintAssist)}";
+    public static string TextBoxRecursiveCountHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxRecursiveCountHintAssist)}";
+    public static string DatePickerStartDateHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.DatePickerStartDateHintAssist)}";
+    public static string TextBoxNextDueDateHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TextBoxNextDueDateHintAssist)}";
+    public static string CheckBoxForceDeactivateHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.CheckBoxForceDeactivateHintAssist)}";
+    public static string CheckBoxIsActiveHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.CheckBoxIsActiveHintAssist)}";
     public static string TimePickerWhenHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.TimePickerWhenHintAssist)}";
     public static string ComboBoxPlaceCountryHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxPlaceCountryHintAssist)}";
     public static string ComboBoxPlaceCityHintAssist => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ComboBoxPlaceCityHintAssist)}";

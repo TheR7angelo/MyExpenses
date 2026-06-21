@@ -249,6 +249,24 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force deactivate :.
+        /// </summary>
+        public static string CheckBoxForceDeactivateHintAssist {
+            get {
+                return ResourceManager.GetString("CheckBoxForceDeactivateHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is active :.
+        /// </summary>
+        public static string CheckBoxIsActiveHintAssist {
+            get {
+                return ResourceManager.GetString("CheckBoxIsActiveHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pointed operation :.
         /// </summary>
         public static string CheckBoxPointed {
@@ -272,6 +290,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string ComboBoxColorValueHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxColorValueHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency :.
+        /// </summary>
+        public static string ComboBoxFrequencyHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxFrequencyHintAssist", resourceCulture);
             }
         }
         
@@ -326,6 +353,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string ComboBoxToAccountHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxToAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date :.
+        /// </summary>
+        public static string DatePickerStartDateHintAssist {
+            get {
+                return ResourceManager.GetString("DatePickerStartDateHintAssist", resourceCulture);
             }
         }
         
@@ -591,7 +627,43 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount:.
+        ///   Looks up a localized string similar to Next due date :.
+        /// </summary>
+        public static string TextBoxNextDueDateHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxNextDueDateHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note :.
+        /// </summary>
+        public static string TextBoxNoteHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxNoteHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of executions :.
+        /// </summary>
+        public static string TextBoxRecursiveCountHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxRecursiveCountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total number :.
+        /// </summary>
+        public static string TextBoxRecursiveTotalHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxRecursiveTotalHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount :.
         /// </summary>
         public static string TextBoxValueHintAssist {
             get {
