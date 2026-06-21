@@ -6,11 +6,10 @@ using CommunityToolkit.Mvvm.Messaging;
 using Domain.Models;
 using Domain.Models.Dependencies;
 using LiveChartsCore.Kernel.Sketches;
-using Microsoft.Extensions.Logging;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Messages;
-using MyExpenses.Presentation.Resources.Resx.ExpenseResources;
+using MyExpenses.Presentation.Resources.Resx.DashBoardResources;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Analysis;
@@ -167,13 +166,6 @@ public partial class DashBoardViewModel : ViewModelBase
     private readonly IDialogService _dialogService;
 
     /// <summary>
-    /// Provides logging functionality for the DashBoardViewModel class, enabling detailed tracking
-    /// and recording of application events, errors, and other diagnostic information during runtime.
-    /// This logger is used throughout the view model to report issues, log operations, and debug behaviors.
-    /// </summary>
-    private readonly ILogger<DashBoardViewModel> _logger;
-
-    /// <summary>
     /// Provides the core functionality for the dashboard view model.
     /// This class serves as a central point for managing dashboard-related logic,
     /// including account and expense handling, navigation, dialog management,
@@ -200,16 +192,13 @@ public partial class DashBoardViewModel : ViewModelBase
     /// <param name="dialogService">
     /// A service for managing dialogs within the application.
     /// </param>
-    /// <param name="logger">
-    /// A logging service to capture diagnostic and operational information.
-    /// </param>
     public DashBoardViewModel(IAccountPresentationService accountPresentationService,
         IExpensePresentationService expensePresentationService,
         IExpenseActionService expenseActionService,
         IAccountDtoViewModelMapper accountDtoViewModelMapper,
         INavigationWindowService navigationWindowService,
         INavigationService navigationService,
-        IDialogService dialogService, ILogger<DashBoardViewModel> logger)
+        IDialogService dialogService)
     {
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
@@ -218,7 +207,6 @@ public partial class DashBoardViewModel : ViewModelBase
         _navigationWindowService = navigationWindowService;
         _navigationService = navigationService;
         _dialogService = dialogService;
-        _logger = logger;
 
         RegisterMessage();
     }
@@ -353,8 +341,8 @@ public partial class DashBoardViewModel : ViewModelBase
 
         if (item.BankTransferViewModel is not null)
         {
-            var response = _dialogService.ShowMessageBox(ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferCaption,
-                ExpenseResources.MessageBoxUpdateExpenseLindedBankTranferContent,
+            var response = _dialogService.ShowMessageBox(DashBoardResources.MessageBoxUpdateExpenseLindedBankTranferCaption,
+                DashBoardResources.MessageBoxUpdateExpenseLindedBankTranferContent,
                 MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
             if (response is not MessageBoxResult.Yes) return;
         }
@@ -533,9 +521,8 @@ public partial class DashBoardViewModel : ViewModelBase
         }
         else
         {
-            // TODO trad
-            _dialogService.ShowMessageBox("Error",
-                "An error occurred when trying to load the detail total category record. Please try again later.",
+            _dialogService.ShowMessageBox(DashBoardResources.MessageBoxLoadingAllDetailTotalCategoriesErrorCaption,
+                DashBoardResources.MessageBoxLoadingAllDetailTotalCategoriesErrorContent,
                 MessageBoxButton.Ok, MsgBoxImage.Error);
         }
     }
@@ -565,9 +552,8 @@ public partial class DashBoardViewModel : ViewModelBase
         }
         else
         {
-            // TODO trad
-            _dialogService.ShowMessageBox("Error",
-                "An error occurred when trying to load the expenses record. Please try again later.",
+            _dialogService.ShowMessageBox(DashBoardResources.MessageBoxLoadingAllExpenseRecordErrorCaption,
+                DashBoardResources.MessageBoxLoadingAllExpenseRecordErrorContent,
                 MessageBoxButton.Ok, MsgBoxImage.Error);
         }
     }
@@ -613,8 +599,9 @@ public partial class DashBoardViewModel : ViewModelBase
         }
         else
         {
-            // TODO trad
-            _dialogService.ShowMessageBox("Error", "Can't load total by account. Try again later", MessageBoxButton.Ok, MsgBoxImage.Error);
+            _dialogService.ShowMessageBox(DashBoardResources.MessageBoxLoadingAccountTotalErrorCaption,
+                DashBoardResources.MessageBoxLoadingAccountTotalErrorContent,
+                MessageBoxButton.Ok, MsgBoxImage.Error);
         }
     }
 
@@ -708,9 +695,8 @@ public partial class DashBoardViewModel : ViewModelBase
         }
         else
         {
-            _logger.LogError("Error loading recurring expenses for current month and year");
-            // TODO trad
-            _dialogService.ShowMessageBox("Error", "Error loading recurring expenses for current month and year",
+            _dialogService.ShowMessageBox(DashBoardResources.MessageBoxLoadingAllRecurringExpenseErrorCaption,
+                DashBoardResources.MessageBoxLoadingAllRecurringExpenseErrorContent,
                 MessageBoxButton.Ok, MsgBoxImage.Error);
         }
     }
