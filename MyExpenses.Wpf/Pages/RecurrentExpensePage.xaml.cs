@@ -1,18 +1,16 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FilterDataGrid;
 using Microsoft.Data.Sqlite;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
-using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using Serilog;
@@ -23,93 +21,19 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class RecurrentExpensePage
 {
-    #region DependencyProperty
-
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
-        typeof(Local), typeof(RecurrentExpensePage), new PropertyMetadata(default(Local)));
-
-    public Local LocalLanguage
-    {
-        get => (Local)GetValue(LocalLanguageProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(LocalLanguageProperty, value);
-    }
-
-    public static readonly DependencyProperty DateFormatStringProperty =
-        DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(RecurrentExpensePage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string DateFormatString
-    {
-        get => (string)GetValue(DateFormatStringProperty);
-        set => SetValue(DateFormatStringProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
-        DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
-
-    public string DataGridMenuItemHeaderEditRecord
-    {
-        get => (string)GetValue(DataGridMenuItemHeaderEditRecordProperty);
-        set => SetValue(DataGridMenuItemHeaderEditRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
-        DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
-
-    public string DataGridMenuItemHeaderDeleteRecord
-    {
-        get => (string)GetValue(DataGridMenuItemHeaderDeleteRecordProperty);
-        set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonContentEditRecordProperty =
-        DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(RecurrentExpensePage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentEditRecord
-    {
-        get => (string)GetValue(ButtonContentEditRecordProperty);
-        set => SetValue(ButtonContentEditRecordProperty, value);
-    }
-
-    public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
-        DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(RecurrentExpensePage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string ButtonContentDeleteRecord
-    {
-        get => (string)GetValue(ButtonContentDeleteRecordProperty);
-        set => SetValue(ButtonContentDeleteRecordProperty, value);
-    }
-
-    #endregion
-
     private DataGridRow? DataGridRow { get; set; }
 
-    public ObservableCollection<VRecursiveExpense> VRecursiveExpenses { get; } = [];
+    public ObservableCollection<RecursiveExpenseViewModel> RecurringExpenses { get; } = [];
 
-    public RecurrentExpensePage()
+    private readonly IExpensePresentationService _expensePresentationService;
+
+    public RecurrentExpensePage(IExpensePresentationService expensePresentationService)
     {
-        UpdateLocalLanguage();
+        _expensePresentationService = expensePresentationService;
 
         InitializeComponent();
 
-        UpdateLanguage();
-
         UpdateDataGrid();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
@@ -146,9 +70,6 @@ public partial class RecurrentExpensePage
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
 
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
@@ -232,53 +153,20 @@ public partial class RecurrentExpensePage
         UpdateDataGrid();
     }
 
-    private void UpdateDataGrid()
+    private async void UpdateDataGrid()
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
-        var records = context.VRecursiveExpenses
-            .OrderBy(s => !s.IsActive)
-            .ThenBy(s => s.NextDueDate)
-            .ThenByDescending(s => !s.ForceDeactivate)
-            .ToList();
+        var result = await _expensePresentationService.GetAllRecurringExpense();
+        if (result.IsSuccess)
+        {
+            var records = result.Value!;
 
-        VRecursiveExpenses.Clear();
-        VRecursiveExpenses.AddRange(records);
-    }
-
-    private void UpdateLanguage()
-    {
-        DateFormatString = RecurrentExpensePageResources.DateFormatString;
-        UpdateLocalLanguage();
-
-        DataGridTextColumnAccount.Header = RecurrentExpensePageResources.DataGridTextColumnAccountHeader;
-        DataGridTextColumnDescription.Header = RecurrentExpensePageResources.DataGridTextColumnDescriptionHeader;
-        DataGridTextColumnNote.Header = RecurrentExpensePageResources.DataGridTextColumnNoteHeader;
-        DataGridTemplateColumnCategory.Header = RecurrentExpensePageResources.DataGridTemplateColumnCategoryHeader;
-        DataGridTextColumnModePayment.Header = RecurrentExpensePageResources.DataGridTextColumnModePaymentHeader;
-        DataGridTemplateColumnValue.Header = RecurrentExpensePageResources.DataGridTemplateColumnValueHeader;
-        DataGridTextColumnStartDate.Header = RecurrentExpensePageResources.DataGridTextColumnStartDateHeader;
-        DataGridTextColumnRecursiveTotal.Header = RecurrentExpensePageResources.DataGridTextColumnRecursiveTotalHeader;
-        DataGridTextColumnRecursiveCount.Header = RecurrentExpensePageResources.DataGridTextColumnRecursiveCountHeader;
-        DataGridTextColumnFrequency.Header = RecurrentExpensePageResources.DataGridTextColumnFrequencyHeader;
-        DataGridTextColumnNextDueDate.Header = RecurrentExpensePageResources.DataGridTextColumnNextDueDateHeader;
-        DataGridTextColumnPlace.Header = RecurrentExpensePageResources.DataGridTextColumnPlaceHeader;
-        DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
-        DataGridCheckBoxColumnForceDeactivate.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnForceDeactivateHeader;
-        DataGridTemplateColumnActions.Header = RecurrentExpensePageResources.DataGridTemplateColumnActionsHeader;
-        DataGridMenuItemHeaderEditRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderEditRecord;
-        DataGridMenuItemHeaderDeleteRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderDeleteRecord;
-
-        ButtonContentEditRecord = RecurrentExpensePageResources.ButtonContentEditRecord;
-        ButtonContentDeleteRecord = RecurrentExpensePageResources.ButtonContentDeleteRecord;
-    }
-
-    private void UpdateLocalLanguage()
-    {
-        var currentCulture = CultureInfo.CurrentCulture;
-        LocalLanguage = currentCulture.ToLocal();
+            RecurringExpenses.Clear();
+            RecurringExpenses.AddRange(records);
+        }
+        else
+        {
+            MessageBox.Show(result.ErrorCode.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     #endregion
