@@ -294,6 +294,96 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadingAccountTotalErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAccountTotalErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurs while loading the total per account. Please try again later.
+        /// </summary>
+        public static string MessageBoxLoadingAccountTotalErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAccountTotalErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadingAllDetailTotalCategoriesErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllDetailTotalCategoriesErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to load the detail total category record. Please try again later.
+        /// </summary>
+        public static string MessageBoxLoadingAllDetailTotalCategoriesErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllDetailTotalCategoriesErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadingAllExpenseRecordErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllExpenseRecordErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to load all expenses. Please try again later.
+        /// </summary>
+        public static string MessageBoxLoadingAllExpenseRecordErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllExpenseRecordErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxLoadingAllRecurringExpenseErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllRecurringExpenseErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while loading all recurring expenses, please try again later.
+        /// </summary>
+        public static string MessageBoxLoadingAllRecurringExpenseErrorContent {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingAllRecurringExpenseErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attention.
+        /// </summary>
+        public static string MessageBoxUpdateExpenseLindedBankTranferCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateExpenseLindedBankTranferCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This expense is related to a bank transfer, do you really want to change it ?.
+        /// </summary>
+        public static string MessageBoxUpdateExpenseLindedBankTranferContent {
+            get {
+                return ResourceManager.GetString("MessageBoxUpdateExpenseLindedBankTranferContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overall monthly budget breakdown.
         /// </summary>
         public static string MonthlyGlobalBudgetChartDistribution {

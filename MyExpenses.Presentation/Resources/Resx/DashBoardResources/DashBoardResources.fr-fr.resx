@@ -98,4 +98,34 @@
     <data name="DataGridFilterSelectAll" xml:space="preserve">
         <value>Sélectionner tout</value>
     </data>
+    <data name="MessageBoxLoadingAllDetailTotalCategoriesErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxLoadingAllDetailTotalCategoriesErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la tentative de chargement de l’enregistrement de catégorie totale détaillée. Veuillez réessayer plus tard</value>
+    </data>
+    <data name="MessageBoxLoadingAllExpenseRecordErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxLoadingAllExpenseRecordErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la tentative de chargement de toute les dépenses. Veuillez réessayer plus tard</value>
+    </data>
+    <data name="MessageBoxLoadingAccountTotalErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxLoadingAccountTotalErrorContent" xml:space="preserve">
+        <value>Une erreur se produit lors du chargement du total par compte. Veuillez réessayer plus tard</value>
+    </data>
+    <data name="MessageBoxLoadingAllRecurringExpenseErrorCaption" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxLoadingAllRecurringExpenseErrorContent" xml:space="preserve">
+        <value>Une erreur s’est produite lors du chargement de toutes les dépenses récurrentes, veuillez réessayer plus tard</value>
+    </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferCaption" xml:space="preserve">
+        <value>Attention</value>
+    </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
+        <value>Cette dépense est liée à un virement bancaire, voulez-vous vraiment la modifier ?</value>
+    </data>
 </root>

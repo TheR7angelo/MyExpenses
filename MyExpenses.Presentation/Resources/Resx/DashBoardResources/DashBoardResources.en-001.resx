@@ -98,4 +98,34 @@
     <data name="DataGridFilterSelectAll" xml:space="preserve">
         <value>Select all</value>
     </data>
+    <data name="MessageBoxLoadingAllDetailTotalCategoriesErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxLoadingAllDetailTotalCategoriesErrorContent" xml:space="preserve">
+        <value>An error occurred when trying to load the detail total category record. Please try again later</value>
+    </data>
+    <data name="MessageBoxLoadingAllExpenseRecordErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxLoadingAllExpenseRecordErrorContent" xml:space="preserve">
+        <value>An error occurred while trying to load all expenses. Please try again later</value>
+    </data>
+    <data name="MessageBoxLoadingAccountTotalErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxLoadingAccountTotalErrorContent" xml:space="preserve">
+        <value>An error occurs while loading the total per account. Please try again later</value>
+    </data>
+    <data name="MessageBoxLoadingAllRecurringExpenseErrorCaption" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxLoadingAllRecurringExpenseErrorContent" xml:space="preserve">
+        <value>An error occurred while loading all recurring expenses, please try again later</value>
+    </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferCaption" xml:space="preserve">
+        <value>Attention</value>
+    </data>
+    <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
+        <value>This expense is related to a bank transfer, do you really want to change it ?</value>
+    </data>
 </root>
