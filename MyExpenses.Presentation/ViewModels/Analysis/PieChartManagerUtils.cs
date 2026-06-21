@@ -19,8 +19,6 @@ public static class PieChartManagerUtils
 
         var categoriesTotals = data
             .GroupBy(s => s.CategoryName)
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The allocation here is necessary as a new instance of VDetailTotalCategory is created for each group.
             .Select(g => new CategoryTotalDataViewModel
             {
                 Category = g.Key,
@@ -99,8 +97,6 @@ public static class PieChartManagerUtils
         }
         else
         {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The PieSeries instance is created with the specified values to handle pie series operations.
             pieSeries = new PieSeries<double>
             {
                 Values = [absTotal],
@@ -126,8 +122,6 @@ public static class PieChartManagerUtils
         }
         else
         {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The CategoryTotal instance is created with the specified values to handle category total operations.
             var newCategoryTotal = new CategoryTotalViewModel
             {
                 Name = categoryTotal.Category,
