@@ -50,6 +50,8 @@ public partial class PlaceViewModel : BaseViewModel
 
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    public string Address => GetAddress();
+
     public string GetAddress()
     {
         var sb = new StringBuilder(5);
