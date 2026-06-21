@@ -135,4 +135,31 @@
     <data name="MessageBoxUpdateExpenseLindedBankTranferContent" xml:space="preserve">
         <value>This expense is related to a bank transfer, do you really want to change it ?</value>
     </data>
+    <data name="DataGridTextColumnHeaderAccount" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="DataGridCheckBoxColumnHeaderForceDeactivate" xml:space="preserve">
+        <value>Force deactivation</value>
+    </data>
+    <data name="DataGridTextColumnHeaderNote" xml:space="preserve">
+        <value>Note</value>
+    </data>
+    <data name="DataGridTextColumnHeaderNextDueDate" xml:space="preserve">
+        <value>Next due date</value>
+    </data>
+    <data name="DataGridTextColumnHeaderRecursiveCount" xml:space="preserve">
+        <value>Counter</value>
+    </data>
+    <data name="DataGridTextColumnHeaderRecursiveTotal" xml:space="preserve">
+        <value>Total</value>
+    </data>
+    <data name="DataGridTextColumnHeaderStartDate" xml:space="preserve">
+        <value>Start date</value>
+    </data>
+    <data name="DataGridTextColumnHeaderFrequency" xml:space="preserve">
+        <value>Frequency</value>
+    </data>
+    <data name="DataGridCheckBoxColumnHeaderIsActive" xml:space="preserve">
+        <value>Enable</value>
+    </data>
 </root>

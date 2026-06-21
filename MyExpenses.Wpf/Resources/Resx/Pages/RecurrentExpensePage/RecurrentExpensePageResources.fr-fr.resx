@@ -14,9 +14,6 @@
     <data name="DataGridTemplateColumnCategoryHeader" xml:space="preserve">
         <value>Catégorie</value>
     </data>
-    <data name="DataGridCheckBoxColumnIsActiveHeader" xml:space="preserve">
-        <value>Activer</value>
-    </data>
     <data name="DataGridTemplateColumnValueHeader" xml:space="preserve">
         <value>Valeur</value>
     </data>
@@ -29,29 +26,8 @@
     <data name="DataGridTextColumnModePaymentHeader" xml:space="preserve">
         <value>Mode de paiement</value>
     </data>
-    <data name="DataGridTextColumnNextDueDateHeader" xml:space="preserve">
-        <value>Prochaine date d'échéance</value>
-    </data>
-    <data name="DataGridTextColumnNoteHeader" xml:space="preserve">
-        <value>Note</value>
-    </data>
     <data name="DataGridTextColumnPlaceHeader" xml:space="preserve">
         <value>Lieu</value>
-    </data>
-    <data name="DataGridTextColumnFrequencyHeader" xml:space="preserve">
-        <value>Fréquence</value>
-    </data>
-    <data name="DataGridTextColumnRecursiveCountHeader" xml:space="preserve">
-        <value>Compteur</value>
-    </data>
-    <data name="DataGridTextColumnRecursiveTotalHeader" xml:space="preserve">
-        <value>Total</value>
-    </data>
-    <data name="DataGridTextColumnStartDateHeader" xml:space="preserve">
-        <value>Date de début</value>
-    </data>
-    <data name="DataGridCheckBoxColumnForceDeactivateHeader" xml:space="preserve">
-        <value>Forcer la désactivation</value>
     </data>
     <data name="DateFormatString" xml:space="preserve">
         <value>dd/MM/yyyy</value>

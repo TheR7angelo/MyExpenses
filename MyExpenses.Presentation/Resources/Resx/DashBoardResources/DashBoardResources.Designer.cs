@@ -177,6 +177,24 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force deactivation.
+        /// </summary>
+        public static string DataGridCheckBoxColumnHeaderForceDeactivate {
+            get {
+                return ResourceManager.GetString("DataGridCheckBoxColumnHeaderForceDeactivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string DataGridCheckBoxColumnHeaderIsActive {
+            get {
+                return ResourceManager.GetString("DataGridCheckBoxColumnHeaderIsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string DataGridFilterNo {
@@ -231,6 +249,15 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string DataGridTextColumnHeaderAccount {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string DataGridTextColumnHeaderCategory {
@@ -258,11 +285,38 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        public static string DataGridTextColumnHeaderFrequency {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderFrequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment method.
         /// </summary>
         public static string DataGridTextColumnHeaderModePayment {
             get {
                 return ResourceManager.GetString("DataGridTextColumnHeaderModePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next due date.
+        /// </summary>
+        public static string DataGridTextColumnHeaderNextDueDate {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderNextDueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string DataGridTextColumnHeaderNote {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderNote", resourceCulture);
             }
         }
         
@@ -281,6 +335,33 @@ namespace MyExpenses.Presentation.Resources.Resx.DashBoardResources {
         public static string DataGridTextColumnHeaderPointed {
             get {
                 return ResourceManager.GetString("DataGridTextColumnHeaderPointed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter.
+        /// </summary>
+        public static string DataGridTextColumnHeaderRecursiveCount {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderRecursiveCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string DataGridTextColumnHeaderRecursiveTotal {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderRecursiveTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        public static string DataGridTextColumnHeaderStartDate {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnHeaderStartDate", resourceCulture);
             }
         }
         

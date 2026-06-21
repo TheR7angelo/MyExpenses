@@ -14,9 +14,6 @@
     <data name="DataGridTemplateColumnCategoryHeader" xml:space="preserve">
         <value>Category</value>
     </data>
-    <data name="DataGridCheckBoxColumnIsActiveHeader" xml:space="preserve">
-        <value>Enable</value>
-    </data>
     <data name="DataGridTemplateColumnValueHeader" xml:space="preserve">
         <value>Value</value>
     </data>
@@ -29,26 +26,8 @@
     <data name="DataGridTextColumnModePaymentHeader" xml:space="preserve">
         <value>Payment method</value>
     </data>
-    <data name="DataGridTextColumnNextDueDateHeader" xml:space="preserve">
-        <value>Next due date</value>
-    </data>
-    <data name="DataGridTextColumnNoteHeader" xml:space="preserve">
-        <value>Note</value>
-    </data>
     <data name="DataGridTextColumnPlaceHeader" xml:space="preserve">
         <value>Place</value>
-    </data>
-    <data name="DataGridTextColumnFrequencyHeader" xml:space="preserve">
-        <value>Frequency</value>
-    </data>
-    <data name="DataGridTextColumnRecursiveCountHeader" xml:space="preserve">
-        <value>Counter</value>
-    </data>
-    <data name="DataGridTextColumnRecursiveTotalHeader" xml:space="preserve">
-        <value>Total</value>
-    </data>
-    <data name="DataGridCheckBoxColumnForceDeactivateHeader" xml:space="preserve">
-        <value>Force deactivation</value>
     </data>
     <data name="DateFormatString" xml:space="preserve">
         <value>yyyy/MM/dd</value>
@@ -82,8 +61,5 @@
     </data>
     <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
         <value>Actions</value>
-    </data>
-    <data name="DataGridTextColumnStartDateHeader" xml:space="preserve">
-        <value>Start date</value>
     </data>
 </root>

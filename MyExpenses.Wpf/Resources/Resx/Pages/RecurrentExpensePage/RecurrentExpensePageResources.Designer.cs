@@ -38,8 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage.RecurrentExpensePageReso" +
-                            "urces", typeof(RecurrentExpensePageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(("MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage.RecurrentExpensePageReso" +
+                            "urces"), typeof(RecurrentExpensePageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -75,24 +75,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         internal static string ButtonContentEditRecord {
             get {
                 return ResourceManager.GetString("ButtonContentEditRecord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Force deactivation.
-        /// </summary>
-        internal static string DataGridCheckBoxColumnForceDeactivateHeader {
-            get {
-                return ResourceManager.GetString("DataGridCheckBoxColumnForceDeactivateHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable.
-        /// </summary>
-        internal static string DataGridCheckBoxColumnIsActiveHeader {
-            get {
-                return ResourceManager.GetString("DataGridCheckBoxColumnIsActiveHeader", resourceCulture);
             }
         }
         
@@ -160,15 +142,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frequency.
-        /// </summary>
-        internal static string DataGridTextColumnFrequencyHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnFrequencyHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Payment method.
         /// </summary>
         internal static string DataGridTextColumnModePaymentHeader {
@@ -178,56 +151,11 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next due date.
-        /// </summary>
-        internal static string DataGridTextColumnNextDueDateHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnNextDueDateHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Note.
-        /// </summary>
-        internal static string DataGridTextColumnNoteHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnNoteHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Place.
         /// </summary>
         internal static string DataGridTextColumnPlaceHeader {
             get {
                 return ResourceManager.GetString("DataGridTextColumnPlaceHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Counter.
-        /// </summary>
-        internal static string DataGridTextColumnRecursiveCountHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnRecursiveCountHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total.
-        /// </summary>
-        internal static string DataGridTextColumnRecursiveTotalHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnRecursiveTotalHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start date.
-        /// </summary>
-        internal static string DataGridTextColumnStartDateHeader {
-            get {
-                return ResourceManager.GetString("DataGridTextColumnStartDateHeader", resourceCulture);
             }
         }
         
