@@ -115,13 +115,20 @@ public interface IExpenseService
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDto modePaymentDto, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a list of all active recurrences for a given year and month.
+    /// Retrieves a list of all active recurring expenses for the specified year and month.
     /// </summary>
-    /// <param name="year">The year for which to retrieve the active recurrences.</param>
-    /// <param name="month">The month for which to retrieve the active recurrences.</param>
+    /// <param name="year">The year to retrieve expenses for.</param>
+    /// <param name="month">The month to retrieve expenses for.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with an array of <see cref="RecursiveExpenseDto"/> representing all active recurrences.</returns>
-    public Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of <see cref="RecursiveExpenseDto"/> representing all active recurring expenses.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all recurring expenses from the system.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object with a collection of <see cref="RecursiveExpenseDto"/> representing all recurring expenses.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllRecurringExpense(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a list of all expense years sorted according to the specified order.

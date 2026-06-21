@@ -1168,7 +1168,7 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
         }
     }
 
-    public async Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -1177,11 +1177,46 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
             var result = await context.TRecursiveExpenses
-                    .Where(s => !s.ForceDeactivate)
-                    .Where(s => s.IsActive)
-                    .Where(s => s.NextDueDate.Year <= year && s.NextDueDate.Month <= month)
-                    .ProjectToDomain()
-                    .ToArrayAsync(cancellationToken);
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s!.ColorFkNavigation)
+                .Include(s => s.FrequencyFkNavigation)
+                .Include(s => s.ModePaymentFkNavigation)
+                .Include(s => s.PlaceFkNavigation)
+                .Where(s => !s.ForceDeactivate)
+                .Where(s => s.IsActive)
+                .Where(s => s.NextDueDate.Year <= year && s.NextDueDate.Month <= month)
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
+
+            logger.LogInformation("Loaded {Count} recurring expense", result.Length);
+
+            return Result<IEnumerable<RecursiveExpenseDomain>>.Success(result);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load recurring expense");
+            return Result<IEnumerable<RecursiveExpenseDomain>>.Failure(ErrorCode.DatabaseError, "Failed to load recurring expense");
+        }
+    }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllRecurringExpense(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Loading all recurring expense");
+
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var result = await context.TRecursiveExpenses
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s!.AccountTypeFkNavigation)
+                .Include(s => s.AccountFkNavigation).ThenInclude(s => s!.CurrencyFkNavigation)
+                .Include(s => s.CategoryTypeFkNavigation).ThenInclude(s => s!.ColorFkNavigation)
+                .Include(s => s.FrequencyFkNavigation)
+                .Include(s => s.ModePaymentFkNavigation)
+                .Include(s => s.PlaceFkNavigation)
+                .ProjectToDomain()
+                .ToArrayAsync(cancellationToken);
 
             logger.LogInformation("Loaded {Count} recurring expense", result.Length);
 

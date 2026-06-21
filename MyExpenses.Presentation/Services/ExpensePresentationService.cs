@@ -142,9 +142,15 @@ public class ExpensePresentationService(IExpenseService expenseService, IExpense
         return expenseService.DeleteModePaymentAsync(modePaymentDto, cancellationToken);
     }
 
-    public async Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default)
     {
-        var result = await expenseService.GetAllActiveRecurrences(year, month, cancellationToken);
+        var result = await expenseService.GetAllActiveRecurringExpense(year, month, cancellationToken);
+        return result.MapSequence(mapper.MapToViewModel);
+    }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllRecurringExpense(CancellationToken cancellationToken = default)
+    {
+        var result = await expenseService.GetAllRecurringExpense(cancellationToken);
         return result.MapSequence(mapper.MapToViewModel);
     }
 

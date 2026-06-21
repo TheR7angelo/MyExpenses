@@ -395,13 +395,20 @@ public interface IExpenseRepository
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentDomain modePaymentDomain, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all active recurrences of expenses for a given year and month.
+    /// Retrieves a list of active recurring expenses for the specified year and month.
     /// </summary>
-    /// <param name="year">The year for which to retrieve the active recurrences.</param>
-    /// <param name="month">The month for which to retrieve the active recurrences.</param>
+    /// <param name="year">The year for which to retrieve active recurring expenses.</param>
+    /// <param name="month">The month for which to retrieve active recurring expenses.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
-    /// <returns>A Result containing an IEnumerable of RecursiveExpenseDomain objects representing the active recurrences.</returns>
-    public Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+    /// <returns>A result containing a list of recursive expense domains representing the active recurring expenses for the specified year and month.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a collection of recurring expenses.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation, if needed.</param>
+    /// <returns>A result containing a sequence of <see cref="RecursiveExpenseDomain"/> representing the recurring expenses.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseDomain>>> GetAllRecurringExpense(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a list of all unique years in which expenses have been recorded.

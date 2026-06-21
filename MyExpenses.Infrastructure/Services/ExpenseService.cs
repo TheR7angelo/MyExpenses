@@ -96,9 +96,15 @@ public class ExpenseService(IExpenseRepository expenseRepository, IExpenseDtoDom
         return expenseRepository.DeleteModePaymentAsync(modePaymentDomain, cancellationToken);
     }
 
-    public async Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default)
     {
-        var result = await expenseRepository.GetAllActiveRecurrences(year, month, cancellationToken);
+        var result = await expenseRepository.GetAllActiveRecurringExpense(year, month, cancellationToken);
+        return result.MapSequence(mapper.MapToDto);
+    }
+
+    public async Task<Result<IEnumerable<RecursiveExpenseDto>>> GetAllRecurringExpense(CancellationToken cancellationToken = default)
+    {
+        var result = await expenseRepository.GetAllRecurringExpense(cancellationToken);
         return result.MapSequence(mapper.MapToDto);
     }
 

@@ -131,13 +131,20 @@ public interface IExpensePresentationService
     public Task<DeletionResult> DeleteModePaymentAsync(ModePaymentViewModel modePaymentViewModel, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a list of all active recurrences for the specified year and month.
+    /// Retrieves all active recurring expenses for the specified year and month.
     /// </summary>
-    /// <param name="year">The year to retrieve active recurrences for.</param>
-    /// <param name="month">The month to retrieve active recurrences for.</param>
+    /// <param name="year">The year to retrieve active recurring expenses for.</param>
+    /// <param name="month">The month to retrieve active recurring expenses for.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains a collection of recursive expense view models or an error if the operation fails.</returns>
-    public Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurrences(int year, int month, CancellationToken cancellationToken = default);
+    public Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllActiveRecurringExpense(int year, int month, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a list of all recurring expenses.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation. The task result contains a collection of recursive expense view models or an error if the operation fails.</returns>
+    public Task<Result<IEnumerable<RecursiveExpenseViewModel>>> GetAllRecurringExpense(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a list of all expense years.
