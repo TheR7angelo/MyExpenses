@@ -682,64 +682,6 @@ public partial class AddEditRecurrentExpenseWindow
         UpdateIsActive();
     }
 
-    private void TextBoxValueDoubleOnly_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text;
-        var position = textBox.CaretIndex;
-
-        _ = txt.ToDouble(out var value);
-        RecursiveExpense.Value = value;
-
-        textBox.CaretIndex = position;
-    }
-
-    private void UIElementDoubleOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        if (txt.Equals("-") || txt.Equals("+"))
-        {
-            e.Handled = false;
-            return;
-        }
-
-        var canConvert = txt.ToDouble(out _);
-
-        e.Handled = !canConvert;
-    }
-
-    private void UIElementDoubleOnly_OnPreviewKeyDown(object sender, KeyEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var textBeforeEdit = textBox.Text;
-        var caretPosition = textBox.CaretIndex;
-
-        var characterToDelete = e.Key switch
-        {
-            Key.Delete when caretPosition < textBeforeEdit.Length => textBox.Text.Substring(caretPosition, 1),
-            Key.Back when caretPosition > 0 => textBox.Text.Substring(caretPosition - 1, 1),
-            _ => ""
-        };
-
-        if (characterToDelete != "." && characterToDelete != ",")
-        {
-            return;
-        }
-
-        var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
-
-        textAfterEdit = textAfterEdit.Replace(',', '.');
-        if (double.TryParse(textAfterEdit, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
-        {
-            return;
-        }
-
-        e.Handled = true;
-        textBox.CaretIndex = caretPosition;
-    }
-
     private void UIElementIntOnlyRecursiveTotal_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         var textBox = (TextBox)sender;

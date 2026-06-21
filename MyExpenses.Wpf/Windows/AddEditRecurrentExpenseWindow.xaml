@@ -173,13 +173,14 @@
 
         <TextBox Grid.Row="5" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist}}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                 AcceptsReturn="False" AcceptsTab="False"
                  materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 PreviewKeyDown="UIElementDoubleOnly_OnPreviewKeyDown"
-                 PreviewTextInput="UIElementDoubleOnly_OnPreviewTextInput"
-                 TextChanged="TextBoxValueDoubleOnly_OnTextChanged">
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
+                 controlAssist:NumericTextBoxAssist.AllowDecimal="True"
+                 controlAssist:NumericTextBoxAssist.AllowNegative="True"
+                 controlAssist:NumericTextBoxAssist.AllowPositive="True"
+                 controlAssist:NumericTextBoxAssist.MaxDecimal="2"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Button Grid.Row="5" Grid.Column="1"
