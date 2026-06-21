@@ -1215,7 +1215,11 @@ public class ExpenseRepository(IDbContextFactory<DataBaseContext> dbContextFacto
                 .Include(s => s.FrequencyFkNavigation)
                 .Include(s => s.ModePaymentFkNavigation)
                 .Include(s => s.PlaceFkNavigation)
+                .OrderBy(s => !s.IsActive)
+                .ThenByDescending(s => !s.ForceDeactivate)
+                .ThenBy(s => s.NextDueDate)
                 .ProjectToDomain()
+
                 .ToArrayAsync(cancellationToken);
 
             logger.LogInformation("Loaded {Count} recurring expense", result.Length);
