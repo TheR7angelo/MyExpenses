@@ -13,6 +13,7 @@
         xmlns:expenseResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
         xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
         xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
+        xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
         mc:Ignorable="d"
 
         Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -45,7 +46,6 @@
     <mah:MetroWindow.Resources>
         <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
-        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -116,7 +116,7 @@
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxDescriptionHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
+                 MaxLength="{x:Static expenses:RecursiveExpenseDomain.MaxDescriptionLength}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
@@ -124,7 +124,7 @@
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNoteHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Note}"
+                 MaxLength="{x:Static expenses:RecursiveExpenseDomain.MaxNoteLength}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
