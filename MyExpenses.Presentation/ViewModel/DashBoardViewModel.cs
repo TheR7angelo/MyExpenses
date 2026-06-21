@@ -688,7 +688,7 @@ public partial class DashBoardViewModel : ViewModelBase
     private async Task LoadRecurringExpense(int currentYear, int currentMonth,
         CancellationToken cancellationToken = default)
     {
-        var results = await _expensePresentationService.GetAllActiveRecurrences(currentYear, currentMonth, cancellationToken);
+        var results = await _expensePresentationService.GetAllActiveRecurringExpense(currentYear, currentMonth, cancellationToken);
         if (results.IsSuccess)
         {
             if (results.Value!.Any()) _navigationWindowService.ShowRecurringExpenseWindow();
