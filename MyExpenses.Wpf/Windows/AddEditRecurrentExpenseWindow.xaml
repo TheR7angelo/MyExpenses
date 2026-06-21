@@ -12,6 +12,7 @@
         xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
         xmlns:expenseResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.ExpenseResources;assembly=MyExpenses.Presentation"
         xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
+        xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
         mc:Ignorable="d"
 
         Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -248,21 +249,21 @@
 
             <CheckBox Grid.Column="0"
                       HorizontalAlignment="Left"
-                      FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxForceDeactivateHintAssist}}"
+                      controlAssist:CheckboxAssist.ContentAlignment="Left"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
 
             <CheckBox Grid.Column="1"
                       HorizontalAlignment="Left"
-                      FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxIsActiveHintAssist}}"
-                      materialDesign:CheckBoxAssist.CheckBoxSize="30"
-                      IsEnabled="False">
+                      controlAssist:CheckboxAssist.ContentAlignment="Left"
+                      controlAssist:CheckboxAssist.IsReadOnly="True"
+                      materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
 
         </Grid>
