@@ -191,17 +191,22 @@
         <ComboBox Grid.Row="3" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxCategoryTypeHintAssist}}"
-                  ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding RecursiveExpense.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathCategoryType}"
-                  DisplayMemberPath="{Binding DisplayMemberPathCategoryType}">
+                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxCategoryTypeNameHintAssist}}"
+                  ItemsSource="{Binding CategoryTypes}"
+                  SelectedItem="{Binding RecursiveExpenseViewModel.CategoryTypeViewModel}">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="3" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonCategoryType_OnClick">
+                Command="{Binding ManageCategoryTypeCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />
@@ -213,17 +218,21 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxModePaymentHintAssist}}"
-                  ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding RecursiveExpense.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathModePayment}"
-                  DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
-                  SelectionChanged="Selector_OnSelectionChanged">
+                  ItemsSource="{Binding ModePaymentViewModels}"
+                  SelectedItem="{Binding RecursiveExpenseViewModel.ModePaymentViewModel}">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="4" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonModePayment_OnClick">
+                Command="{Binding ManageModePaymentCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />

@@ -110,7 +110,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
 
         RecursiveExpenseViewModel?.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName is nameof(HistoryViewModel.PlaceViewModel))
+            if (e.PropertyName is nameof(RecursiveExpenseViewModel.PlaceViewModel))
             {
                 UpdateFiltersFromRecurringExpensePlace(RecursiveExpenseViewModel.PlaceViewModel);
             }
@@ -161,7 +161,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     // [RelayCommand]
     // private async Task OnDelete(CancellationToken cancellationToken = default)
     // {
-    //     var result = await _expenseActionService.DeleteHistory(HistoryViewModel, cancellationToken);
+    //     var result = await _expenseActionService.DeleteHistory(RecursiveExpenseViewModel, cancellationToken);
     //     if (result) _navigationService.GoBack();
     // }
 
@@ -169,8 +169,8 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     // private async Task OnValid(CancellationToken cancellationToken = default)
     // {
     //     var result = IsEditRecurringExpense
-    //         ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
-    //         : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
+    //         ? await _expenseActionService.UpdateExpense(RecursiveExpenseViewModel, cancellationToken)
+    //         : await _expenseActionService.CreateExpense(RecursiveExpenseViewModel, cancellationToken);
     //
     //     if (!result) return;
     //     if (IsEditRecurringExpense)
@@ -184,7 +184,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     //         MessageBoxButton.YesNo, MsgBoxImage.Question);
     //
     //     if (response is not MessageBoxResult.Yes) _navigationService.GoBack();
-    //     HistoryViewModel.Reset();
+    //     RecursiveExpenseViewModel.Reset();
     // }
 
     // [RelayCommand]
@@ -195,25 +195,25 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     private void OnManageAccount()
         => _navigationWindowService.ShowManageAccount(RecursiveExpenseViewModel.AccountViewModel);
 
-    // [RelayCommand]
-    // private void OnManageCategoryType()
-    //     => _navigationWindowService.ShowManageCategoryType(HistoryViewModel.CategoryTypeViewModel);
+    [RelayCommand]
+    private void OnManageCategoryType()
+        => _navigationWindowService.ShowManageCategoryType(RecursiveExpenseViewModel.CategoryTypeViewModel);
 
-    // [RelayCommand]
-    // private async Task OnManageModePayment(CancellationToken cancellationToken = default)
-    // {
-    //     if (HistoryViewModel.ModePaymentViewModel is null || HistoryViewModel.ModePaymentViewModel.CanBeDeleted)
-    //     {
-    //         await _expenseActionService.ManageModePaymentAction(HistoryViewModel.ModePaymentViewModel, cancellationToken);
-    //     }
-    //     else
-    //     {
-    //         _dialogService.ShowMessageBox(ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodCaption,
-    //             ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodContent,
-    //             MessageBoxButton.Ok,
-    //             MsgBoxImage.Warning);
-    //     }
-    // }
+    [RelayCommand]
+    private async Task OnManageModePayment(CancellationToken cancellationToken = default)
+    {
+        if (RecursiveExpenseViewModel.ModePaymentViewModel is null || RecursiveExpenseViewModel.ModePaymentViewModel.CanBeDeleted)
+        {
+            await _expenseActionService.ManageModePaymentAction(RecursiveExpenseViewModel.ModePaymentViewModel, cancellationToken);
+        }
+        else
+        {
+            _dialogService.ShowMessageBox(ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodCaption,
+                ExpenseResources.MessageBoxErrorEditDefaultPaymentMethodContent,
+                MessageBoxButton.Ok,
+                MsgBoxImage.Warning);
+        }
+    }
 
     // [RelayCommand]
     // private void OnDateNow()

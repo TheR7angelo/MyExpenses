@@ -93,17 +93,6 @@ public partial class AddEditRecurrentExpenseWindow
     public ObservableCollection<string> CitiesCollection { get; }
     public ObservableCollection<TPlace> PlacesCollection { get; }
 
-    public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
-    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
-    public string SelectedValuePathCategoryType { get; } = nameof(TCategoryType.Id);
-    public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
-    public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
-    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
-    public string SelectedValuePathFrequencyFk { get; } = nameof(TRecursiveFrequency.Id);
-    public string DisplayMemberPathFrequencyFk { get; } = nameof(TRecursiveFrequency.Frequency);
-    public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
-    public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
-
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
@@ -119,33 +108,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     public AddEditRecurrentExpenseWindow(RecurringExpenseManagementViewModel viewModel)
     {
-        // KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // using var context = new DataBaseContextOld();
-        // Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
-        // CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
-        // ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-        // RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
-        //
-        // PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
-        //
-        // var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
-        //     .Distinct();
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // CountriesCollection = new ObservableCollection<string>(records);
-        //
-        // records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // CitiesCollection = new ObservableCollection<string>(records);
-        //
-        // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        // var map = MapsuiMapExtensions.GetMap(true, backColor);
-        // map.Layers.Add(PlaceLayer);
-
         InitializeComponent();
-
-        // MapControl.Map = map;
 
         DataContext = viewModel;
     }
@@ -156,58 +119,6 @@ public partial class AddEditRecurrentExpenseWindow
     {
         DialogResult = false;
         Close();
-    }
-
-    private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
-    {
-        // TODO correct
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
-        // var categoryType = RecursiveExpense.CategoryTypeFk?.ToISql<TCategoryType>();
-        // if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
-        //
-        // var result = addEditCategoryTypeWindow.ShowDialog();
-        // if (result is not true) return;
-        //
-        // if (addEditCategoryTypeWindow.CategoryTypeDeleted)
-        // {
-        //     // ReSharper disable once HeapView.DelegateAllocation
-        //     var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == RecursiveExpense.CategoryTypeFk);
-        //     if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
-        // }
-        // else
-        // {
-        //     var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
-        //     Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
-        //
-        //     // ReSharper disable once HeapView.ClosureAllocation
-        //     var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
-        //
-        //     var (success, exception) = editedCategoryType.AddOrEdit();
-        //     if (success)
-        //     {
-        //         // TODO correct
-        //         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        //         // using var context = new DataBaseContextOld();
-        //         // editedCategoryTypeDeepCopy.ColorFkNavigation =
-        //             // context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
-        //
-        //         CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name);
-        //
-        //         Log.Information("Category type was successfully edited");
-        //         var json = editedCategoryTypeDeepCopy.ToJsonString();
-        //         Log.Information("{Json}", json);
-        //
-        //         Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
-        //             CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
-        //     }
-        //     else
-        //     {
-        //         Log.Error(exception, "An error occurred please retry");
-        //         Dialogs.MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
-        //             CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
-        //     }
-        // }
     }
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
