@@ -249,19 +249,19 @@
                  controlAssist:NumericTextBoxAssist.AllowPositive="True"
                  controlAssist:NumericTextBoxAssist.MaxDecimal="2"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding RecursiveExpenseViewModel.Value}">
         </TextBox>
 
-        <Button Grid.Row="5" Grid.Column="1"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
-            <!-- Click="ButtonModePayment_OnClick"> -->
-
-            <Button.Content>
-                <materialDesign:PackIcon Kind="Calculator" />
-            </Button.Content>
-
-        </Button>
+        <!-- <Button Grid.Row="5" Grid.Column="1" -->
+        <!--         HorizontalAlignment="Left" -->
+        <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"> -->
+        <!--     ~1~ Click="ButtonModePayment_OnClick"> @1@ -->
+        <!-- -->
+        <!--     <Button.Content> -->
+        <!--         <materialDesign:PackIcon Kind="Calculator" /> -->
+        <!--     </Button.Content> -->
+        <!-- -->
+        <!-- </Button> -->
 
         <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
