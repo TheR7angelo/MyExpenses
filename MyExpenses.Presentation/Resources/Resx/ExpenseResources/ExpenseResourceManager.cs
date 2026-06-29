@@ -42,4 +42,6 @@ public static class ExpenseResourceManager
     public static string ButtonValidExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonValidExpense)}";
     public static string ButtonCancelExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonCancelExpense)}";
     public static string ButtonDeleteExpense => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.ButtonDeleteExpense)}";
+    public static string AddRecurrentExpenseWindowTitle => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.AddRecurrentExpenseWindowTitle)}";
+    public static string EditRecurrentExpenseWindowTitle => $"{RessourceManagerNameExpenseRessources}:{nameof(ExpenseResources.EditRecurrentExpenseWindowTitle)}";
 }

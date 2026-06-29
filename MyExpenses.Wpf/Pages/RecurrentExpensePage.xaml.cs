@@ -25,11 +25,11 @@ public partial class RecurrentExpensePage
 
     public ObservableCollection<RecursiveExpenseViewModel> RecurringExpenses { get; } = [];
 
-    private readonly IExpensePresentationService _expensePresentationService;
+    private readonly INavigationWindowService _navigationWindowService;
 
-    public RecurrentExpensePage(IExpensePresentationService expensePresentationService)
+    public RecurrentExpensePage(INavigationWindowService navigationWindowService)
     {
-        _expensePresentationService = expensePresentationService;
+        _navigationWindowService = navigationWindowService;
 
         InitializeComponent();
 
@@ -44,12 +44,15 @@ public partial class RecurrentExpensePage
         // An instance of AddEditRecurrentExpenseWindow is created to manage adding or editing recurrent expenses.
         // ShowDialog() is called to display the window modally and capture the user's action.
         // If the dialog result is not true (e.g., the user cancels the operation), the method returns early.
-        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+        // var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+        //
+        // var result = addEditRecurrentExpenseWindow.ShowDialog();
+        // if (result is not true) return;
+        //
+        // UpdateDataGrid();
 
-        var result = addEditRecurrentExpenseWindow.ShowDialog();
-        if (result is not true) return;
-
-        UpdateDataGrid();
+        // TODO correct
+        _navigationWindowService.ShowManageRecurringExpense();
     }
 
     private void ButtonDeleteRecord_OnClick(object sender, RoutedEventArgs e)
@@ -140,33 +143,36 @@ public partial class RecurrentExpensePage
 
     private void EditRecurrentExpense(VRecursiveExpense vRecurrentExpense)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of AddEditRecurrentExpenseWindow is created to manage adding or editing recurrent expenses.
-        // ShowDialog() is called to display the window modally and capture the user's action.
-        // If the dialog result is not true (e.g., the user cancels the operation), the method returns early.
-        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
-        addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
+        // TODO correct
 
-        var result = addEditRecurrentExpenseWindow.ShowDialog();
-        if (result is not true) return;
-
-        UpdateDataGrid();
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // An instance of AddEditRecurrentExpenseWindow is created to manage adding or editing recurrent expenses.
+        // // ShowDialog() is called to display the window modally and capture the user's action.
+        // // If the dialog result is not true (e.g., the user cancels the operation), the method returns early.
+        // var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+        // addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
+        //
+        // var result = addEditRecurrentExpenseWindow.ShowDialog();
+        // if (result is not true) return;
+        //
+        // UpdateDataGrid();
     }
 
     private async void UpdateDataGrid()
     {
-        var result = await _expensePresentationService.GetAllRecurringExpense();
-        if (result.IsSuccess)
-        {
-            var records = result.Value!;
-
-            RecurringExpenses.Clear();
-            RecurringExpenses.AddRange(records);
-        }
-        else
-        {
-            MessageBox.Show(result.ErrorCode.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        // TODO correct
+        // var result = await _expensePresentationService.GetAllRecurringExpense();
+        // if (result.IsSuccess)
+        // {
+        //     var records = result.Value!;
+        //
+        //     RecurringExpenses.Clear();
+        //     RecurringExpenses.AddRange(records);
+        // }
+        // else
+        // {
+        //     MessageBox.Show(result.ErrorCode.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        // }
     }
 
     #endregion

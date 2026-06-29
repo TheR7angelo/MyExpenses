@@ -267,7 +267,7 @@
         </CheckBox>
 
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-              Visibility="{Binding IsHistoryEdit, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+              Visibility="{Binding IsEditExpense, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>
@@ -288,7 +288,7 @@
         </Grid>
 
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-              Visibility="{Binding IsHistoryEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Visibility="{Binding IsEditExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>

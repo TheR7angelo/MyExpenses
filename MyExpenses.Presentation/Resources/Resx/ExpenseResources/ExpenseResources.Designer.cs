@@ -60,6 +60,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a recurring expense.
+        /// </summary>
+        public static string AddRecurrentExpenseWindowTitle {
+            get {
+                return ResourceManager.GetString("AddRecurrentExpenseWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An additional reason cannot exceed {0} characters.
         /// </summary>
         public static string BankTransferViewModelValidatorAdditionalReasonTooLong {
@@ -371,6 +380,15 @@ namespace MyExpenses.Presentation.Resources.Resx.ExpenseResources {
         public static string DatePickerWhenHintAssist {
             get {
                 return ResourceManager.GetString("DatePickerWhenHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit a recurring expense.
+        /// </summary>
+        public static string EditRecurrentExpenseWindowTitle {
+            get {
+                return ResourceManager.GetString("EditRecurrentExpenseWindowTitle", resourceCulture);
             }
         }
         

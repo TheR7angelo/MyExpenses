@@ -1,10 +1,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
@@ -16,6 +14,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
@@ -39,16 +38,6 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
-    public static readonly DependencyProperty ValuePrefixTextProperty =
-        DependencyProperty.Register(nameof(ValuePrefixText), typeof(string), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(string?)));
-
-    public string? ValuePrefixText
-    {
-        get => (string?)GetValue(ValuePrefixTextProperty);
-        set => SetValue(ValuePrefixTextProperty, value);
-    }
-
     #region DependencyProperty
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -59,39 +48,6 @@ public partial class AddEditRecurrentExpenseWindow
     {
         get => (string)GetValue(WindowTitleProperty);
         set => SetValue(WindowTitleProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonValidContent
-    {
-        get => (string)GetValue(ButtonValidContentProperty);
-        set => SetValue(ButtonValidContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonDeleteContentProperty =
-        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonDeleteContent
-    {
-        get => (string)GetValue(ButtonDeleteContentProperty);
-        set => SetValue(ButtonDeleteContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonCancelContent
-    {
-        get => (string)GetValue(ButtonCancelContentProperty);
-        set => SetValue(ButtonCancelContentProperty, value);
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
@@ -163,39 +119,37 @@ public partial class AddEditRecurrentExpenseWindow
 
     #endregion
 
-    public AddEditRecurrentExpenseWindow()
+    public AddEditRecurrentExpenseWindow(RecurringExpenseManagementViewModel viewModel)
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-        Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
-        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
-        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-        RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
-
-        PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
-
-        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
-            .Distinct();
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        CountriesCollection = new ObservableCollection<string>(records);
-
-        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        CitiesCollection = new ObservableCollection<string>(records);
-
-        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        var map = MapsuiMapExtensions.GetMap(true, backColor);
-        map.Layers.Add(PlaceLayer);
+        // KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        //
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // using var context = new DataBaseContextOld();
+        // Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+        // CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        // ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
+        // RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
+        //
+        // PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
+        //
+        // var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
+        //     .Distinct();
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // CountriesCollection = new ObservableCollection<string>(records);
+        //
+        // records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // CitiesCollection = new ObservableCollection<string>(records);
+        //
+        // var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
+        // var map = MapsuiMapExtensions.GetMap(true, backColor);
+        // map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
-        UpdaterLanguage();
 
-        MapControl.Map = map;
+        // MapControl.Map = map;
 
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        DataContext = viewModel;
     }
 
     #region Action
@@ -537,17 +491,11 @@ public partial class AddEditRecurrentExpenseWindow
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
 
-    private void Interface_OnLanguageChanged()
-        => UpdaterLanguage();
-
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
-
-    private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => ValuePrefixText = ((int?)RecursiveExpense.AccountFk).GetSymbolCurrencyFromAccount();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -713,20 +661,6 @@ public partial class AddEditRecurrentExpenseWindow
         if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
 
         RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
-    }
-
-    private void UpdaterLanguage()
-    {
-        var cultureInfoCode = CultureInfo.CurrentCulture.Name;
-        var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
-        DatePickerStartDate.Language = xmlLanguage;
-        DatePickerNextDueDate.Language = xmlLanguage;
-
-        WindowTitle = AddEditRecurrentExpenseWindowResources.WindowTitle;
-
-        ButtonValidContent = AddEditRecurrentExpenseWindowResources.ButtonValidContent;
-        ButtonDeleteContent = AddEditRecurrentExpenseWindowResources.ButtonDeleteContent;
-        ButtonCancelContent = AddEditRecurrentExpenseWindowResources.ButtonCancelContent;
     }
 
     private void UpdateMapPoint(TPlace? place)

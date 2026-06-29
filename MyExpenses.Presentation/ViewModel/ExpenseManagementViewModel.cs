@@ -25,6 +25,11 @@ namespace MyExpenses.Presentation.ViewModel;
 /// </summary>
 public partial class ExpenseManagementViewModel : ViewModelBase
 {
+    [ObservableProperty]
+    public partial RecursiveExpenseViewModel RecursiveExpenseViewModel { get; set; } = new();
+
+    public ObservableCollection<RecursiveExpenseViewModel> RecursiveExpenseViewModels { get; } = [];
+
     /// <summary>View model for managing expense history.</summary>
     [ObservableProperty]
     public partial HistoryViewModel HistoryViewModel { get; private set; } = new();
@@ -61,9 +66,9 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [ObservableProperty]
     public partial string? SelectedCity { get; set; }
 
-    /// <summary>Indicates whether the current operation is an edit of a historical record.</summary>
+    /// <summary>Indicates whether the current operation is an edit of a expense record.</summary>
     [ObservableProperty]
-    public partial bool IsHistoryEdit { get; set; }
+    public partial bool IsEditExpense { get; set; }
 
     /// <summary>Stores the name of the property to be used for text searching in the LocationViewModel.</summary>
     public static string TextSearchLocationName { get; } = nameof(PlaceViewModel.Name);
@@ -249,12 +254,12 @@ public partial class ExpenseManagementViewModel : ViewModelBase
     [RelayCommand]
     private async Task OnValid(CancellationToken cancellationToken = default)
     {
-        var result = IsHistoryEdit
+        var result = IsEditExpense
             ? await _expenseActionService.UpdateExpense(HistoryViewModel, cancellationToken)
             : await _expenseActionService.CreateExpense(HistoryViewModel, cancellationToken);
 
         if (!result) return;
-        if (IsHistoryEdit)
+        if (IsEditExpense)
         {
             _navigationService.GoBack();
             return;
@@ -500,6 +505,6 @@ public partial class ExpenseManagementViewModel : ViewModelBase
         if (placeViewModel is not null) HistoryViewModel.PlaceViewModel = placeViewModel;
 
         HistoryViewModel.AcceptChanges();
-        IsHistoryEdit = true;
+        IsEditExpense = true;
     }
 }

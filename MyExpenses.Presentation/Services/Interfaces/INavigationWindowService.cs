@@ -68,6 +68,8 @@ public interface INavigationWindowService
     /// <param name="cancellationToken">A token that allows the operation to be canceled.</param>
     public Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default);
 
+    public void ShowManageRecurringExpense(RecursiveExpenseViewModel? recursiveExpenseViewModel = null);
+
     /// <summary>
     /// Manages the action for location window based on search results.
     /// This method processes the results from a nominatim search and potentially opens or updates a location management window.

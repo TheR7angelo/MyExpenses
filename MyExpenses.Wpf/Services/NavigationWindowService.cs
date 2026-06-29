@@ -66,13 +66,19 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
         window.ShowDialog();
     }
 
-    public async Task ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
+    async Task INavigationWindowService.ShowLocationManagementWindow(MPoint point, CancellationToken cancellationToken = default)
     {
         var results = await nominatimPresentationService.SearchAsync(point.Y, point.X, cancellationToken);
         var placeViewModel = ManageLocationWindowAction(results);
 
         if (placeViewModel is null) return;
         ShowLocationManagementWindow(placeViewModel, false);
+    }
+
+    public void ShowManageRecurringExpense(RecursiveExpenseViewModel? recursiveExpenseViewModel = null)
+    {
+        var window = provider.GetRequiredService<AddEditRecurrentExpenseWindow>();
+        window.ShowDialog();
     }
 
     public PlaceViewModel? ManageLocationWindowAction(Result<IEnumerable<NominatimSearchResultViewModel>> results)

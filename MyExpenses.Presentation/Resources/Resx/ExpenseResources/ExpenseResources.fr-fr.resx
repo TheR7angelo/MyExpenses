@@ -230,4 +230,10 @@
     <data name="CheckBoxIsActiveHintAssist" xml:space="preserve">
         <value>Est actif :</value>
     </data>
+    <data name="AddRecurrentExpenseWindowTitle" xml:space="preserve">
+        <value>Ajoutez une dépense récurrente</value>
+    </data>
+    <data name="EditRecurrentExpenseWindowTitle" xml:space="preserve">
+        <value>Éditez une dépense récurrente</value>
+    </data>
 </root>

@@ -14,9 +14,10 @@
         xmlns:locationResources="clr-namespace:MyExpenses.Presentation.Resources.Resx.LocationResources;assembly=MyExpenses.Presentation"
         xmlns:controlAssist="clr-namespace:MyExpenses.Wpf.ControlAssist"
         xmlns:expenses="clr-namespace:Domain.Models.Expenses;assembly=MyExpenses.Domain"
+        xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
 
-        Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
         Language="{Binding Source={x:Static localisations:LocalizationService.Instance}, Path=CurrentCulture.Name, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}"
 
         TitleCharacterCasing="Normal"
@@ -41,7 +42,25 @@
 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        d:DataContext="{d:DesignInstance viewModel:RecurringExpenseManagementViewModel}">
+
+    <mah:MetroWindow.Style>
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="Title" Value="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.AddRecurrentExpenseWindowTitle}}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditRecurringExpense}" Value="True">
+                    <Setter Property="Title" Value="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.EditRecurrentExpenseWindowTitle}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </mah:MetroWindow.Style>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <mah:MetroWindow.Resources>
         <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
@@ -76,10 +95,14 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFromAccountHintAssist}}"
                   ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding RecursiveExpense.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                  SelectionChanged="SelectorAccount_OnSelectionChanged">
+                  SelectedItem="{Binding RecursiveExpenseViewModel.AccountViewModel}">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
         </ComboBox>
 
         <Button Grid.Row="0" Grid.Column="1"
@@ -173,7 +196,7 @@
 
         <TextBox Grid.Row="5" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxValueHintAssist}}"
-                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:TextFieldAssist.PrefixText="{Binding RecursiveExpenseViewModel.AccountViewModel.CurrencyViewModel.Symbol, FallbackValue=''}"
                  controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
                  controlAssist:NumericTextBoxAssist.AllowDecimal="True"
                  controlAssist:NumericTextBoxAssist.AllowNegative="True"
