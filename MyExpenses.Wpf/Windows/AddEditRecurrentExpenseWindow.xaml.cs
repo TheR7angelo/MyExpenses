@@ -5,10 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui.Layers;
-using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation;
@@ -17,10 +14,8 @@ using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
@@ -118,6 +113,9 @@ public partial class AddEditRecurrentExpenseWindow
     public TRecursiveExpense RecursiveExpense { get; } = new();
 
     #endregion
+
+    private RecurringExpenseManagementViewModel RecurringExpenseManagementViewModel
+        => (RecurringExpenseManagementViewModel)DataContext;
 
     public AddEditRecurrentExpenseWindow(RecurringExpenseManagementViewModel viewModel)
     {
@@ -447,9 +445,6 @@ public partial class AddEditRecurrentExpenseWindow
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
 
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
-
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
 
@@ -561,9 +556,6 @@ public partial class AddEditRecurrentExpenseWindow
         // ReSharper restore HeapView.DelegateAllocation
     }
 
-    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
-
     private void TextBoxRecursiveTotal_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -664,20 +656,11 @@ public partial class AddEditRecurrentExpenseWindow
         RecursiveExpense.NextDueDate = dateOnly;
     }
 
-    private void UpdateTileLayer()
-    {
-        const string layerName = "Background";
-
-        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var tileLayer = new TileLayer(httpTileSource);
-        tileLayer.Name = layerName;
-
-        var layers = MapControl?.Map.Layers.FindLayer(layerName);
-        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
-
-        MapControl?.Map.Layers.Insert(0, tileLayer);
-    }
-
     #endregion
+
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var position = Mouse.GetPosition(MapControl);
+        RecurringExpenseManagementViewModel.LocationManagementViewModel.OnPositionChanged(position.X, position.Y, MapControl, true);
+    }
 }
