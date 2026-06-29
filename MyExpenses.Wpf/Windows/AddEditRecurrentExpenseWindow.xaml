@@ -175,7 +175,7 @@
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxDescriptionHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static expenses:RecursiveExpenseDomain.MaxDescriptionLength}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
@@ -183,7 +183,7 @@
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNoteHintAssist}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{x:Static expenses:RecursiveExpenseDomain.MaxNoteLength}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
