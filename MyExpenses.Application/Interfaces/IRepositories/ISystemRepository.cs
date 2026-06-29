@@ -109,4 +109,11 @@ public interface ISystemRepository
     /// including any dependencies affected.
     /// </returns>
     public Task<DeletionResult> DeleteColorAsync(ColorDomain colorDomain, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all frequency domains asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests, allowing the operation to be cancelled.</param>
+    /// <returns>A task containing the result of the operation, which may include a collection of recursive frequency domain objects or an error.</returns>
+    public Task<Result<IEnumerable<RecursiveFrequencyDomain>>> GetAllFrequencyDomainAsync(CancellationToken cancellationToken = default);
 }

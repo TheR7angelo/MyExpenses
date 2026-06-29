@@ -133,4 +133,11 @@ public interface ISystemService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an instance of <see cref="AppSettingsDto"/>.</returns>
     public Task<AppSettingsDto> GetAppSetting(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a collection of frequency-related data.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of <see cref="RecursiveFrequencyDto"/> objects wrapped in a <see cref="Result"/> object.</returns>
+    public Task<Result<IEnumerable<RecursiveFrequencyDto>>> GetAllFrequencyDtoAsync(CancellationToken cancellationToken = default);
 }

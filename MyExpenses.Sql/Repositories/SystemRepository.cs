@@ -181,6 +181,29 @@ public class SystemRepository(IDbContextFactory<DataBaseContext> dbContextFactor
         }
     }
 
+    public async Task<Result<IEnumerable<RecursiveFrequencyDomain>>> GetAllFrequencyDomainAsync(CancellationToken cancellationToken = default)
+    {
+        logger.LogInformation("Loading all frequency");
+
+        try
+        {
+            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+            var frequencies = await context.TRecursiveFrequencies
+                .AsNoTracking()
+                .ProjectToDomain()
+                .ToListAsync(cancellationToken);
+            logger.LogInformation("Loaded {Count} frequency", frequencies.Count);
+
+            return Result<IEnumerable<RecursiveFrequencyDomain>>.Success(frequencies);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to load all frequencies");
+            return Result<IEnumerable<RecursiveFrequencyDomain>>.Failure(ErrorCode.DatabaseError, $"Failed to load frequencies: {e.Message}");
+        }
+    }
+
     public async Task<bool> IsColorNameAvailableAsync(string name, CancellationToken cancellationToken = default)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

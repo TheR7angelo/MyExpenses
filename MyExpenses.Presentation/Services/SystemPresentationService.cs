@@ -86,9 +86,7 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
         var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
         var result = await systemService.CreateColorAsync(colorDto, cancellationToken);
 
-        return result.IsSuccess
-            ? Result<ColorViewModel>.Success(viewModelMapperMapper.MapToViewModel(result.Value!))
-            : Result<ColorViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
+        return result.Map(viewModelMapperMapper.MapToViewModel);
     }
 
     public async Task<Result<ColorViewModel>> UpdateColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
@@ -96,14 +94,18 @@ public class SystemPresentationService(ISystemDtoViewModelMapper viewModelMapper
         var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
         var result = await systemService.UpdateColorAsync(colorDto, cancellationToken);
 
-        return result.IsSuccess
-            ? Result<ColorViewModel>.Success(viewModelMapperMapper.MapToViewModel(result.Value!))
-            : Result<ColorViewModel>.Failure(result.ErrorCode, result.InternalMessage!);
+        return result.Map(viewModelMapperMapper.MapToViewModel);
     }
 
     public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default)
     {
         var colorDto = viewModelMapperMapper.MapToDto(colorViewModel);
         return systemService.DeleteColorAsync(colorDto, cancellationToken);
+    }
+
+    public async Task<Result<IEnumerable<RecursiveFrequencyViewModel>>> GetAllFrequencyViewModelAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await systemService.GetAllFrequencyDtoAsync(cancellationToken);
+        return result.MapSequence(systemDtoViewModelMapper.MapToViewModel);
     }
 }

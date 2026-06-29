@@ -114,4 +114,11 @@ public interface ISystemPresentationService
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="DeletionResult"/> indicating the result of the operation, including any dependencies that were deleted.</returns>
     public Task<DeletionResult> DeleteColorAsync(ColorViewModel colorViewModel, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all frequency view models.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation. The result of the task is a collection of <see cref="RecursiveFrequencyViewModel"/> representing the frequency view models.</returns>
+    public Task<Result<IEnumerable<RecursiveFrequencyViewModel>>> GetAllFrequencyViewModelAsync(CancellationToken cancellationToken = default);
 }

@@ -13,6 +13,7 @@ using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.Presentation.ViewModels.Expenses;
 using MyExpenses.Presentation.ViewModels.Locations;
+using MyExpenses.Presentation.ViewModels.Systems;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Utils.Converters;
 
@@ -32,6 +33,8 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     public ObservableCollection<CategoryTypeViewModel> CategoryTypes { get; } = [];
 
     public ObservableCollection<ModePaymentViewModel> ModePaymentViewModels { get; } = [];
+
+    public ObservableCollection<RecursiveFrequencyViewModel> RecursiveFrequencyViewModel { get; } = [];
 
     private ObservableCollection<PlaceViewModel> Places { get; } = [];
 
@@ -71,6 +74,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     private readonly IAccountDtoViewModelMapper _accountDtoViewModelMapper;
 
     private readonly IExpenseDtoViewModelMapper _expenseDtoViewModelMapper;
+    private readonly ISystemPresentationService _systemPresentationService;
 
     private readonly ILocationDtoViewModelMapper _locationDtoViewModelMapper;
 
@@ -79,6 +83,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     public RecurringExpenseManagementViewModel(LocationManagementViewModel locationManagementViewModel,
         IAccountPresentationService accountPresentationService, IExpensePresentationService expensePresentationService,
         ILocationPresentationService locationPresentationService,
+        ISystemPresentationService systemPresentationService,
         IExpenseActionService expenseActionService,
         INavigationWindowService navigationWindowService,
         INavigationService navigationService,
@@ -92,6 +97,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
         _accountPresentationService = accountPresentationService;
         _expensePresentationService = expensePresentationService;
         _locationPresentationService = locationPresentationService;
+        _systemPresentationService = systemPresentationService;
         _expenseActionService = expenseActionService;
         _navigationWindowService = navigationWindowService;
         _navigationService = navigationService;
@@ -231,13 +237,15 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
         var accountsTask = _accountPresentationService.GetAllAccountViewModelAsync(cancellationToken);
         var categoryTypesTask = _expensePresentationService.GetAllCategoryTypeViewModelAsync(cancellationToken);
         var modePaymentsTask = _expensePresentationService.GetAllModePaymentViewModelAsync(cancellationToken);
+        var frequencyTask = _systemPresentationService.GetAllFrequencyViewModelAsync(cancellationToken);
         var locationsTask = _locationPresentationService.GetAllPlaces(cancellationToken);
 
-        await Task.WhenAll(accountsTask, categoryTypesTask, modePaymentsTask, locationsTask);
+        await Task.WhenAll(accountsTask, categoryTypesTask, modePaymentsTask, frequencyTask, locationsTask);
 
         Accounts.AddRangeAndSort(accountsTask, x => x.Name!, logger: _logger);
         CategoryTypes.AddRangeAndSort(categoryTypesTask, x => x.Name!, logger: _logger);
         ModePaymentViewModels.AddRangeAndSort(modePaymentsTask, x => x.Name!, logger: _logger);
+        RecursiveFrequencyViewModel.AddRangeAndSort(frequencyTask, x => x.Frequency, logger: _logger);
         Places.AddRangeAndSort(locationsTask, x => x.Name!, logger: _logger);
 
         UpdateAvailableCountries();

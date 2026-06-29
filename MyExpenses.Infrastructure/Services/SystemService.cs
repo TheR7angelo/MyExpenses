@@ -440,6 +440,12 @@ public class SystemService(IAccountDtoDomainMapper mapperAccount, IExpenseDtoDom
         return _appSettingDto;
     }
 
+    public async Task<Result<IEnumerable<RecursiveFrequencyDto>>> GetAllFrequencyDtoAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await systemRepository.GetAllFrequencyDomainAsync(cancellationToken);
+        return result.MapSequence(systemDtoDomainMapper.MapToDto);
+    }
+
     private IEnumerable<DeletionDependency> GroupDependencies(IEnumerable<DeletionDependency> dependencies)
     {
         return dependencies
