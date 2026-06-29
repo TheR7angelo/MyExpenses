@@ -154,50 +154,6 @@ public partial class AddEditRecurrentExpenseWindow
 
     #region Action
 
-    private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
-
-        var account = RecursiveExpense.AccountFk.ToISql<TAccount>();
-        if (account is not null) addEditAccountWindow.SetTAccount(account);
-
-        addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult is not true) return;
-
-        if (addEditAccountWindow.DeleteAccount)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var accountToRemove = Accounts.FirstOrDefault(s => s.Id == RecursiveExpense.AccountFk);
-            if (accountToRemove is not null) Accounts.Remove(accountToRemove);
-        }
-        else
-        {
-            var editedAccount = addEditAccountWindow.Account;
-
-            Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
-            var (success, exception) = editedAccount.AddOrEdit();
-            if (success)
-            {
-                Log.Information("Account was successfully edited");
-                var json = editedAccount.ToJsonString();
-                Log.Information("{Json}", json);
-
-                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
-
-                // ReSharper disable once HeapView.DelegateAllocation
-                var accountToRemove = Accounts.FirstOrDefault(s => s.Id == RecursiveExpense.AccountFk);
-                Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
-
-                RecursiveExpense.AccountFk = editedAccount.Id;
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                Dialogs.MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
-            }
-        }
-    }
-
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
         DialogResult = false;

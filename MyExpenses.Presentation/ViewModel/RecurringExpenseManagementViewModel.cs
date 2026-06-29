@@ -121,41 +121,41 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
 
     private void RegisterMessages()
     {
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
-        //     OnEntityChanged(m, Accounts, DependencyType.Account,
-        //         getId: vm => vm.Id,
-        //         getName: vm => vm.Name,
-        //         merge: (src, target) => _accountDtoViewModelMapper.Merge(src, target),
-        //         update: vm => HistoryViewModel.AccountViewModel = vm));
-        //
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (_, m) =>
-        //     OnEntityChanged(m, CategoryTypes, DependencyType.CategoryType,
-        //         getId: vm => vm.Id,
-        //         getName: vm => vm.Name,
-        //         merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
-        //         update: vm => HistoryViewModel.CategoryTypeViewModel = vm));
-        //
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (_, m) =>
-        //     OnEntityChanged(m, ModePaymentViewModels, DependencyType.ModePayment,
-        //         getId: vm => vm.Id,
-        //         getName: vm => vm.Name,
-        //         merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
-        //         update: vm => HistoryViewModel.ModePaymentViewModel = vm));
-        //
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<PlaceViewModel>>(this, (_, m) =>
-        //     OnEntityChanged(m, Places, DependencyType.Place,
-        //         getId: vm => vm.Id,
-        //         getName: vm => vm.Name,
-        //         merge: (src, target) => _locationDtoViewModelMapper.Merge(src, target),
-        //         update: vm => HistoryViewModel.PlaceViewModel = vm));
-        //
-        // WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
-        // {
-        //     OnItemDeleted(m, Accounts, DependencyType.Account, x => x.Id);
-        //     OnItemDeleted(m, CategoryTypes, DependencyType.CategoryType, x => x.Id);
-        //     OnItemDeleted(m, ModePaymentViewModels, DependencyType.ModePayment, x => x.Id);
-        //     OnItemDeleted(m, Places, DependencyType.Place, x => x.Id);
-        // });
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<AccountViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, Accounts, DependencyType.Account,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _accountDtoViewModelMapper.Merge(src, target),
+                update: vm => RecursiveExpenseViewModel.AccountViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<CategoryTypeViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, CategoryTypes, DependencyType.CategoryType,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
+                update: vm => RecursiveExpenseViewModel.CategoryTypeViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<ModePaymentViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, ModePaymentViewModels, DependencyType.ModePayment,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _expenseDtoViewModelMapper.Merge(src, target),
+                update: vm => RecursiveExpenseViewModel.ModePaymentViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<PlaceViewModel>>(this, (_, m) =>
+            OnEntityChanged(m, Places, DependencyType.Place,
+                getId: vm => vm.Id,
+                getName: vm => vm.Name,
+                merge: (src, target) => _locationDtoViewModelMapper.Merge(src, target),
+                update: vm => RecursiveExpenseViewModel.PlaceViewModel = vm));
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage<int[]>>(this, (_, m) =>
+        {
+            OnItemDeleted(m, Accounts, DependencyType.Account, x => x.Id);
+            OnItemDeleted(m, CategoryTypes, DependencyType.CategoryType, x => x.Id);
+            OnItemDeleted(m, ModePaymentViewModels, DependencyType.ModePayment, x => x.Id);
+            OnItemDeleted(m, Places, DependencyType.Place, x => x.Id);
+        });
     }
     //
     // [RelayCommand]
@@ -191,9 +191,9 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     // private void OnCancel()
     //     => _navigationService.GoBack();
 
-    // [RelayCommand]
-    // private void OnManageAccount()
-    //     => _navigationWindowService.ShowManageAccount(HistoryViewModel.AccountViewModel);
+    [RelayCommand]
+    private void OnManageAccount()
+        => _navigationWindowService.ShowManageAccount(RecursiveExpenseViewModel.AccountViewModel);
 
     // [RelayCommand]
     // private void OnManageCategoryType()

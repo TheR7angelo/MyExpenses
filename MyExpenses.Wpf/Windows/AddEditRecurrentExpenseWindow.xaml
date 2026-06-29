@@ -108,7 +108,7 @@
         <Button Grid.Row="0" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonAccount_OnClick">
+                Command="{Binding ManageAccountCommand}">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />
