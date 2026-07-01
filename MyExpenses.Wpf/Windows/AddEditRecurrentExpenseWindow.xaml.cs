@@ -353,12 +353,6 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        // TODO correct
-        // UpdateNextDueDate();
-    }
-
     // private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     //     => UpdateNextDueDate();
 

@@ -273,7 +273,7 @@
 
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectionChanged">
-                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateWithRecursiveFrequencyViewModelCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
                 </b:EventTrigger>
             </b:Interaction.Triggers>
 
@@ -302,12 +302,18 @@
                  TextChanged="TextBoxRecursiveCount_OnTextChanged">
         </TextBox>
 
-        <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePickerStartDate"
+        <DatePicker Grid.Row="8" Grid.Column="0"
                     materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerStartDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpenseViewModel.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    IsTodayHighlighted="True"
-                    SelectedDateChanged="DatePicker_OnSelectedDateChanged">
+                    IsTodayHighlighted="True">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectedDateChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateWithDateCommand}" CommandParameter="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType=DatePicker}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
         </DatePicker>
 
         <DatePicker Grid.Row="8" Grid.Column="1" x:Name="DatePickerNextDueDate"
