@@ -104,15 +104,16 @@ public partial class RecurrentAddWindow
 
     public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; } = [];
 
-    public RecurrentAddWindow(Size currentSize)
+    // public RecurrentAddWindow(Size currentSize)
+    public RecurrentAddWindow()
     {
         UpdateLocalLanguage();
 
         InitializeComponent();
 
         UpdateLanguage();
-        Width = currentSize.Width;
-        Height = currentSize.Height;
+        // Width = currentSize.Width;
+        // Height = currentSize.Height;
 
         UpdateDataGrid();
 
