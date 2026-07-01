@@ -9,6 +9,9 @@ public partial class ModePaymentViewModel : BaseViewModel
 {
     public int Id { get; set; }
 
+    public EModePayment EModePayment
+        => (EModePayment)Id;
+
     [DirtyTrackedProperty]
     [ObservableProperty]
     public partial string? Name { get; set; }
@@ -21,4 +24,13 @@ public partial class ModePaymentViewModel : BaseViewModel
 
     [ObservableProperty]
     public partial bool IsDeleting { get; set; }
+}
+
+public enum EModePayment
+{
+    Another,
+    BankCard,
+    BankTransfer,
+    BankDirectDebit,
+    BankCheck
 }
