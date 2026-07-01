@@ -200,19 +200,24 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
 
     [RelayCommand]
     private void OnUpdateNextDueDateWithRecursiveFrequencyViewModel(RecursiveFrequencyViewModel? recursiveFrequencyViewModel)
-        => UpdateNexDueDate(null, recursiveFrequencyViewModel);
+        => UpdateNexDueDate(recursiveFrequencyViewModel: recursiveFrequencyViewModel);
 
     [RelayCommand]
     private void OnUpdateNextDueDateWithDate(DateTime? dateTime)
-        => UpdateNexDueDate(dateTime, null);
+        => UpdateNexDueDate(dateTime: dateTime);
 
-    private void UpdateNexDueDate(DateTime? dateTime = null,
-        RecursiveFrequencyViewModel? recursiveFrequencyViewModel = null)
+    [RelayCommand]
+    private void OnUpdateNextDueDateWithModePaymentViewModel(ModePaymentViewModel? modePaymentViewModel)
+        => UpdateNexDueDate(modePaymentViewModel: modePaymentViewModel);
+
+    private void UpdateNexDueDate(DateTime? dateTime = null, RecursiveFrequencyViewModel? recursiveFrequencyViewModel = null,
+        ModePaymentViewModel? modePaymentViewModel = null)
     {
         var startDate = dateTime.ToDateOnly() ?? RecursiveExpenseViewModel.StartDate;
         recursiveFrequencyViewModel ??= RecursiveExpenseViewModel.RecursiveFrequencyViewModel;
+        modePaymentViewModel ??= RecursiveExpenseViewModel.ModePaymentViewModel;
 
-        if (startDate is null || recursiveFrequencyViewModel is null || RecursiveExpenseViewModel.ModePaymentViewModel is null) return;
+        if (startDate is null || recursiveFrequencyViewModel is null || modePaymentViewModel is null) return;
 
         var cycle = RecursiveExpenseViewModel.RecursiveCount ?? 1;
 
@@ -241,7 +246,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
         //     dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value, RecursiveExpenseViewModel.ModePaymentViewModel.EModePayment, cycle);
         // }
 
-        var dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value, RecursiveExpenseViewModel.ModePaymentViewModel.EModePayment, cycle);
+        var dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value, modePaymentViewModel.EModePayment, cycle);
         RecursiveExpenseViewModel.NextDueDate = dateOnly;
     }
 

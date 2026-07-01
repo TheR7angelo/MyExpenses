@@ -221,6 +221,12 @@
                   ItemsSource="{Binding ModePaymentViewModels}"
                   SelectedItem="{Binding RecursiveExpenseViewModel.ModePaymentViewModel}">
 
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateWithModePaymentViewModelCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" />
