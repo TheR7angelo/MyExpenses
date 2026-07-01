@@ -354,10 +354,13 @@ public partial class AddEditRecurrentExpenseWindow
     }
 
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
-        => UpdateNextDueDate();
+    {
+        // TODO correct
+        // UpdateNextDueDate();
+    }
 
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateNextDueDate();
+    // private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    //     => UpdateNextDueDate();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -487,18 +490,6 @@ public partial class AddEditRecurrentExpenseWindow
         }
 
         UpdateIsActive();
-    }
-
-    private void UIElementIntOnlyRecursiveTotal_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        var success = txt.ToInt(out var value);
-
-        if (success) success = value! > 0;
-
-        e.Handled = !success;
     }
 
     #endregion

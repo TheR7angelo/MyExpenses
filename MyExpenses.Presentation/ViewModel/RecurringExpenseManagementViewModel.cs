@@ -198,6 +198,47 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     //     => _navigationService.GoBack();
 
     [RelayCommand]
+    private void OnUpdateNextDueDate(RecursiveFrequencyViewModel? recursiveFrequencyViewModel)
+        => UpdateNexDueDate(null, recursiveFrequencyViewModel);
+
+    private void UpdateNexDueDate(DateOnly? startDate = null,
+        RecursiveFrequencyViewModel? recursiveFrequencyViewModel = null)
+    {
+        startDate ??= RecursiveExpenseViewModel.StartDate;
+        recursiveFrequencyViewModel ??= RecursiveExpenseViewModel.RecursiveFrequencyViewModel;
+
+        if (startDate is null || recursiveFrequencyViewModel is null || RecursiveExpenseViewModel.ModePaymentViewModel is null) return;
+
+        var cycle = RecursiveExpenseViewModel.RecursiveCount ?? 1;
+
+        if (cycle <= 1)
+        {
+            RecursiveExpenseViewModel.NextDueDate = RecursiveExpenseViewModel.StartDate;
+            return;
+        }
+
+        DateOnly dateOnly;
+        if (IsEditRecurringExpense)
+        {
+            // TODO try
+            // var cycle = RecursiveExpense.RecursiveCount < 1 ? 1 : RecursiveExpense.RecursiveCount;
+            dateOnly = Utils.DateTimeExtensions.CalculateNextDueDate(recursiveFrequencyViewModel.ERecursiveFrequency,
+                startDate.Value, RecursiveExpenseViewModel.ModePaymentViewModel.EModePayment, cycle);
+        }
+        else
+        {
+            var now = DateOnly.FromDateTime(DateTime.Now);
+
+            dateOnly = startDate >= now
+                ? Utils.DateTimeExtensions.AdjustForWeekends(startDate.Value)
+                : Utils.DateTimeExtensions.CalculateNextDueDate(recursiveFrequencyViewModel.ERecursiveFrequency,
+                    startDate.Value, RecursiveExpenseViewModel.ModePaymentViewModel.EModePayment);
+        }
+
+        RecursiveExpenseViewModel.NextDueDate = dateOnly;
+    }
+
+    [RelayCommand]
     private void OnManageAccount()
         => _navigationWindowService.ShowManageAccount(RecursiveExpenseViewModel.AccountViewModel);
 

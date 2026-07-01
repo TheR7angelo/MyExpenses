@@ -267,21 +267,29 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxFrequencyHintAssist}}"
-                  ItemsSource="{Binding RecursiveFrequencies, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding RecursiveExpense.FrequencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathFrequencyFk}"
-                  DisplayMemberPath="{Binding DisplayMemberPathFrequencyFk}"
-                  ToolTip="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}"
-                  SelectionChanged="Selector_OnSelectionChanged">
+                  ItemsSource="{Binding RecursiveFrequencyViewModel}"
+                  SelectedItem="{Binding RecursiveExpenseViewModel.RecursiveFrequencyViewModel}"
+                  ToolTip="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Frequency}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
         <TextBox Grid.Row="7" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveTotalHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnlyRecursiveTotal_OnPreviewTextInput"
                  TextChanged="TextBoxRecursiveTotal_OnTextChanged">
         </TextBox>
 
@@ -289,16 +297,15 @@
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveCountHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnlyRecursiveTotal_OnPreviewTextInput"
                  TextChanged="TextBoxRecursiveCount_OnTextChanged">
         </TextBox>
 
         <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePickerStartDate"
                     materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.DatePickerStartDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
-                    SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding RecursiveExpenseViewModel.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsTodayHighlighted="True"
                     SelectedDateChanged="DatePicker_OnSelectedDateChanged">
         </DatePicker>
@@ -306,7 +313,7 @@
         <DatePicker Grid.Row="8" Grid.Column="1" x:Name="DatePickerNextDueDate"
                     materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNextDueDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
-                    SelectedDate="{Binding RecursiveExpense.NextDueDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding RecursiveExpenseViewModel.NextDueDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsTodayHighlighted="True">
         </DatePicker>
 
