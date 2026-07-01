@@ -477,13 +477,13 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void TextBoxRecursiveCount_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        var textBox = (TextBox)sender;
-        if (string.IsNullOrWhiteSpace(textBox.Text))
-        {
-            RecursiveExpense.RecursiveCount = 0;
-        }
-
-        UpdateIsActive();
+        // var textBox = (TextBox)sender;
+        // if (string.IsNullOrWhiteSpace(textBox.Text))
+        // {
+        //     RecursiveExpense.RecursiveCount = 0;
+        // }
+        //
+        // UpdateIsActive();
     }
 
     #endregion

@@ -210,8 +210,17 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     private void OnUpdateNextDueDateWithModePaymentViewModel(ModePaymentViewModel? modePaymentViewModel)
         => UpdateNexDueDate(modePaymentViewModel: modePaymentViewModel);
 
+    [RelayCommand]
+    private void OnUpdateNextDueDateWithRecursiveCount(string? recursiveTotal)
+    {
+        var success = int.TryParse(recursiveTotal, out var total);
+        if (!success) total = 1;
+
+        UpdateNexDueDate(cycle: total);
+    }
+
     private void UpdateNexDueDate(DateTime? dateTime = null, RecursiveFrequencyViewModel? recursiveFrequencyViewModel = null,
-        ModePaymentViewModel? modePaymentViewModel = null)
+        ModePaymentViewModel? modePaymentViewModel = null, int? cycle = null)
     {
         var startDate = dateTime.ToDateOnly() ?? RecursiveExpenseViewModel.StartDate;
         recursiveFrequencyViewModel ??= RecursiveExpenseViewModel.RecursiveFrequencyViewModel;
@@ -219,7 +228,7 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
 
         if (startDate is null || recursiveFrequencyViewModel is null || modePaymentViewModel is null) return;
 
-        var cycle = RecursiveExpenseViewModel.RecursiveCount ?? 1;
+        cycle ??= RecursiveExpenseViewModel.RecursiveCount ?? 1;
 
         if (cycle <= 1)
         {
@@ -246,7 +255,8 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
         //     dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value, RecursiveExpenseViewModel.ModePaymentViewModel.EModePayment, cycle);
         // }
 
-        var dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value, modePaymentViewModel.EModePayment, cycle);
+        var dateOnly = recursiveFrequencyViewModel.ERecursiveFrequency.CalculateNextDueDate(startDate.Value,
+            modePaymentViewModel.EModePayment, (int)cycle);
         RecursiveExpenseViewModel.NextDueDate = dateOnly;
     }
 

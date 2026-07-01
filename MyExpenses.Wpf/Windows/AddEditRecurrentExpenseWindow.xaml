@@ -306,6 +306,13 @@
                  Text="{Binding RecursiveExpenseViewModel.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
                  TextChanged="TextBoxRecursiveCount_OnTextChanged">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="TextChanged">
+                    <b:InvokeCommandAction Command="{Binding UpdateNextDueDateWithRecursiveCountCommand}" CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
         </TextBox>
 
         <DatePicker Grid.Row="8" Grid.Column="0"
