@@ -161,4 +161,10 @@
     <data name="MessageboxPlaceDeleteErrorContent" xml:space="preserve">
         <value>n error occurred while deleting the location. Please try again</value>
     </data>
+    <data name="MessageboxPlaceCannotUpdateErrorCaption" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+    <data name="MessageboxPlaceCannotUpdateErrorContent" xml:space="preserve">
+        <value>This location cannot be updated or deleted</value>
+    </data>
 </root>

@@ -61,6 +61,14 @@ public class NavigationWindowService(IServiceProvider provider, IDialogService d
     {
         placeViewModel ??= new PlaceViewModel();
 
+        if (!placeViewModel.CanBeDeleted)
+        {
+            dialogService.ShowMessageBox(LocationResources.MessageboxPlaceCannotUpdateErrorCaption,
+                LocationResources.MessageboxPlaceCannotUpdateErrorContent,
+                MessageBoxButton.Ok, MsgBoxImage.Warning);
+            return;
+        }
+
         var window = provider.GetRequiredService<AddEditLocationWindow>();
         window.LoadPlaceViewModel(placeViewModel, isEdit);
         window.ShowDialog();

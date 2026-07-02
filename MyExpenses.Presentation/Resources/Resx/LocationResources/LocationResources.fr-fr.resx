@@ -161,4 +161,10 @@
     <data name="MessageboxPlaceDeleteErrorContent" xml:space="preserve">
         <value>Une erreur est survenue lors de la suppression de l’emplacement. Veuillez réessayer</value>
     </data>
+    <data name="MessageboxPlaceCannotUpdateErrorCaption" xml:space="preserve">
+        <value>Avertissement</value>
+    </data>
+    <data name="MessageboxPlaceCannotUpdateErrorContent" xml:space="preserve">
+        <value>Cette localisation ne peut pas être mise à jour ni supprimée</value>
+    </data>
 </root>

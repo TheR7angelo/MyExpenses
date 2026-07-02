@@ -240,6 +240,24 @@ namespace MyExpenses.Presentation.Resources.Resx.LocationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string MessageboxPlaceCannotUpdateErrorCaption {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceCannotUpdateErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This location cannot be updated or deleted.
+        /// </summary>
+        public static string MessageboxPlaceCannotUpdateErrorContent {
+            get {
+                return ResourceManager.GetString("MessageboxPlaceCannotUpdateErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageboxPlaceCreateErrorCaption {
