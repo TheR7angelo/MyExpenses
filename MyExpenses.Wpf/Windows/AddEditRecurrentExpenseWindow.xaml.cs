@@ -1,9 +1,7 @@
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using BruTile.Predefined;
 using Mapsui.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -12,19 +10,15 @@ using MyExpenses.Presentation;
 using MyExpenses.Presentation.Converters;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.ViewModel;
-using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
-using TAccount = MyExpenses.Models.Sql.Bases.Tables.TAccount;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
@@ -32,16 +26,6 @@ namespace MyExpenses.Wpf.Windows;
 public partial class AddEditRecurrentExpenseWindow
 {
     #region DependencyProperty
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty WindowTitleProperty = DependencyProperty.Register(nameof(WindowTitle),
-        typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
-
-    public string WindowTitle
-    {
-        get => (string)GetValue(WindowTitleProperty);
-        set => SetValue(WindowTitleProperty, value);
-    }
 
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -81,20 +65,8 @@ public partial class AddEditRecurrentExpenseWindow
 
     #region Property
 
-    public ObservableCollection<TAccount> Accounts { get; }
-    public ObservableCollection<TCategoryType> CategoryTypes { get; }
-    public ObservableCollection<TModePayment> ModePayments { get; }
-    public ObservableCollection<TRecursiveFrequency> RecursiveFrequencies { get; }
-
-    public ObservableCollection<string> CountriesCollection { get; }
-
-    public ObservableCollection<string> CitiesCollection { get; }
-    public ObservableCollection<TPlace> PlacesCollection { get; }
-
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
-    public List<KnownTileSource> KnownTileSources { get; }
-    public KnownTileSource KnownTileSourceSelected { get; set; }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TRecursiveExpense RecursiveExpense { get; } = new();
@@ -168,56 +140,6 @@ public partial class AddEditRecurrentExpenseWindow
 
         Log.Error(exception, "An error occurred please retry");
         Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
-    }
-
-    private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
-    {
-        var modePayment = RecursiveExpense.ModePaymentFk?.ToISql<TModePayment>();
-        if (modePayment?.CanBeDeleted is false)
-        {
-            Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
-                ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
-            return;
-        }
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var addEditModePaymentWindow = new AddEditModePaymentWindow();
-        if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
-
-        var result = addEditModePaymentWindow.ShowDialog();
-        if (result is not true) return;
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == RecursiveExpense.ModePaymentFk);
-        if (addEditModePaymentWindow.ModePaymentDeleted)
-        {
-            if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
-        }
-        else
-        {
-            var editedModePayment = addEditModePaymentWindow.ModePayment;
-            Log.Information(
-                "Attempting to update mode payment id:\"{EditedModePaymentId}\", name:\"{EditedModePaymentName}\"",
-                editedModePayment.Id, editedModePayment.Name);
-
-            var (success, exception) = editedModePayment.AddOrEdit();
-            if (success)
-            {
-                ModePayments!.AddAndSort(modePaymentToRemove, editedModePayment, s => s!.Name!);
-                RecursiveExpense.ModePaymentFk = editedModePayment.Id;
-
-                Log.Information("Mode payment was successfully edited");
-                var json = editedModePayment.ToJsonString();
-                Log.Information("{Json}", json);
-
-                Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage, MsgBoxImage.Check);
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                Dialogs.MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage, MsgBoxImage.Error);
-            }
-        }
     }
 
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
@@ -351,117 +273,6 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    // private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    //     => UpdateNextDueDate();
-
-    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is not ComboBox comboBox) return;
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string city) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-        var query = context.TPlaces.Where(s => s.IsOpen);
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(city))
-        {
-            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.City == null)
-                : query.Where(s => s.City == city);
-        }
-        else
-        {
-            records = query;
-        }
-
-        if (SelectedCountry is null)
-        {
-            // ReSharper disable HeapView.DelegateAllocation
-            ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-            SelectedCountry = records.First().Country;
-            ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-            // ReSharper restore HeapView.DelegateAllocation
-        }
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-    }
-
-    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is not ComboBox comboBox) return;
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string country) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-        var query = context.TPlaces.Where(s => s.IsOpen);
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(country))
-        {
-            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.Country == null)
-                : query.Where(s => s.Country == country);
-        }
-        else
-        {
-            records = query;
-        }
-
-        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-
-        CitiesCollection.Clear();
-        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorPlace.SelectionChanged += SelectorPlace_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-    }
-
-    private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
-        UpdateMapPoint(place);
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-
-        var country = string.IsNullOrEmpty(place?.Country)
-            ? EmptyStringTreeViewConverterResources.Unknown
-            : place.Country;
-
-        var city = string.IsNullOrEmpty(place?.City)
-            ? EmptyStringTreeViewConverterResources.Unknown
-            : place.City;
-
-        ComboBoxSelectorCountry.SelectedItem = country;
-        ComboBoxSelectorCity.SelectedItem = city;
-        RecursiveExpense.PlaceFk = place?.Id;
-
-        // ReSharper disable HeapView.DelegateAllocation
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
-        // ReSharper restore HeapView.DelegateAllocation
-    }
-
     #endregion
 
     #region Function
@@ -475,13 +286,6 @@ public partial class AddEditRecurrentExpenseWindow
         EditRecurrentExpense = true;
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
     }
-
-    // private void UpdateIsActive()
-    // {
-    //     if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
-    //
-    //     RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
-    // }
 
     private void UpdateMapPoint(TPlace? place)
     {
@@ -498,35 +302,6 @@ public partial class AddEditRecurrentExpenseWindow
         PlaceLayer.Add(pointFeature);
         MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
     }
-
-    // private void UpdateNextDueDate()
-    // {
-    //     // ReSharper disable once HeapView.DelegateAllocation
-    //     var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
-    //     if (selectedFrequency is null && !EditRecurrentExpense)
-    //     {
-    //         RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
-    //         return;
-    //     }
-    //
-    //     DateOnly dateOnly;
-    //     if (EditRecurrentExpense)
-    //     {
-    //         var cycle = RecursiveExpense.RecursiveCount < 1 ? 1 : RecursiveExpense.RecursiveCount;
-    //         dateOnly = RecursiveExpense.ERecursiveFrequency
-    //             .CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk), cycle);
-    //     }
-    //     else
-    //     {
-    //         var now = DateOnly.FromDateTime(DateTime.Now);
-    //
-    //         dateOnly = RecursiveExpense.StartDate >= now
-    //             ? RecursiveExpense.StartDate.AdjustForWeekends()
-    //             : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
-    //     }
-    //
-    //     RecursiveExpense.NextDueDate = dateOnly;
-    // }
 
     #endregion
 

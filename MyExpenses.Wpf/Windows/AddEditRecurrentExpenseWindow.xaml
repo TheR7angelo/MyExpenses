@@ -388,9 +388,8 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCountryHintAssist}}"
-                      ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionChanged="SelectorCountry_OnSelectionChanged">
+                      ItemsSource="{Binding AvailableCountries}"
+                      SelectedItem="{Binding SelectedCountry}">
             </ComboBox>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
@@ -398,21 +397,25 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceCityHintAssist}}"
-                      ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionChanged="SelectorCity_OnSelectionChanged">
+                      ItemsSource="{Binding AvailableCities}"
+                      SelectedItem="{Binding SelectedCity}">
             </ComboBox>
 
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       x:Name="ComboBoxSelectorPlace"
+                      TextSearch.TextPath="{x:Static viewModel:RecurringExpenseManagementViewModel.TextSearchLocationName}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.ComboBoxPlaceHintAssist}}"
-                      ItemsSource="{Binding PlacesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding RecursiveExpense.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="{Binding SelectedValuePathPlace}"
-                      DisplayMemberPath="{Binding DisplayMemberPathPlaceName}"
-                      SelectionChanged="SelectorPlace_OnSelectionChanged">
+                      ItemsSource="{Binding FilteredPlaces}"
+                      SelectedItem="{Binding RecursiveExpenseViewModel.PlaceViewModel}">
+
+                      <ComboBox.ItemTemplate>
+                          <DataTemplate>
+                              <TextBlock Text="{Binding Name}" />
+                          </DataTemplate>
+                      </ComboBox.ItemTemplate>
+
             </ComboBox>
 
         </Grid>
