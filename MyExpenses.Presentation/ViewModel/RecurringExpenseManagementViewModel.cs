@@ -217,6 +217,14 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
         if (!success) total = 1;
 
         UpdateNexDueDate(cycle: total);
+        UpdateIsActive();
+    }
+
+    private void UpdateIsActive()
+    {
+        if (RecursiveExpenseViewModel.RecursiveTotal is null) RecursiveExpenseViewModel.IsActive = true;
+
+        RecursiveExpenseViewModel.IsActive = RecursiveExpenseViewModel.RecursiveTotal > RecursiveExpenseViewModel.RecursiveCount;
     }
 
     private void UpdateNexDueDate(DateTime? dateTime = null, RecursiveFrequencyViewModel? recursiveFrequencyViewModel = null,

@@ -294,18 +294,24 @@
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveTotalHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpenseViewModel.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 TextChanged="TextBoxRecursiveTotal_OnTextChanged">
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
+                 controlAssist:NumericTextBoxAssist.AllowDecimal="False"
+                 controlAssist:NumericTextBoxAssist.AllowNegative="False"
+                 controlAssist:NumericTextBoxAssist.AllowPositive="True">
         </TextBox>
 
         <TextBox Grid.Row="7" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxRecursiveCountHintAssist}}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpenseViewModel.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpenseViewModel.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 TextChanged="TextBoxRecursiveCount_OnTextChanged">
+                 controlAssist:NumericTextBoxAssist.IsNumericOnly="True"
+                 controlAssist:NumericTextBoxAssist.AllowDecimal="False"
+                 controlAssist:NumericTextBoxAssist.AllowNegative="False"
+                 controlAssist:NumericTextBoxAssist.AllowPositive="True">
 
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="TextChanged">
@@ -355,7 +361,7 @@
             <CheckBox Grid.Column="1"
                       HorizontalAlignment="Left"
                       IsThreeState="False"
-                      IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsChecked="{Binding RecursiveExpenseViewModel.IsActive, Mode=OneWay}"
                       Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxIsActiveHintAssist}}"
                       controlAssist:CheckboxAssist.ContentAlignment="Left"
                       controlAssist:CheckboxAssist.IsReadOnly="True"

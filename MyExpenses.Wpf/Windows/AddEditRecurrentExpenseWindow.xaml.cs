@@ -16,11 +16,9 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using Serilog;
@@ -464,28 +462,6 @@ public partial class AddEditRecurrentExpenseWindow
         // ReSharper restore HeapView.DelegateAllocation
     }
 
-    private void TextBoxRecursiveTotal_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        if (string.IsNullOrWhiteSpace(textBox.Text))
-        {
-            RecursiveExpense.RecursiveTotal = null;
-        }
-
-        UpdateIsActive();
-    }
-
-    private void TextBoxRecursiveCount_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        // var textBox = (TextBox)sender;
-        // if (string.IsNullOrWhiteSpace(textBox.Text))
-        // {
-        //     RecursiveExpense.RecursiveCount = 0;
-        // }
-        //
-        // UpdateIsActive();
-    }
-
     #endregion
 
     #region Function
@@ -500,12 +476,12 @@ public partial class AddEditRecurrentExpenseWindow
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
     }
 
-    private void UpdateIsActive()
-    {
-        if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
-
-        RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
-    }
+    // private void UpdateIsActive()
+    // {
+    //     if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
+    //
+    //     RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
+    // }
 
     private void UpdateMapPoint(TPlace? place)
     {
@@ -523,34 +499,34 @@ public partial class AddEditRecurrentExpenseWindow
         MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
     }
 
-    private void UpdateNextDueDate()
-    {
-        // ReSharper disable once HeapView.DelegateAllocation
-        var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
-        if (selectedFrequency is null && !EditRecurrentExpense)
-        {
-            RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
-            return;
-        }
-
-        DateOnly dateOnly;
-        if (EditRecurrentExpense)
-        {
-            var cycle = RecursiveExpense.RecursiveCount < 1 ? 1 : RecursiveExpense.RecursiveCount;
-            dateOnly = RecursiveExpense.ERecursiveFrequency
-                .CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk), cycle);
-        }
-        else
-        {
-            var now = DateOnly.FromDateTime(DateTime.Now);
-
-            dateOnly = RecursiveExpense.StartDate >= now
-                ? RecursiveExpense.StartDate.AdjustForWeekends()
-                : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
-        }
-
-        RecursiveExpense.NextDueDate = dateOnly;
-    }
+    // private void UpdateNextDueDate()
+    // {
+    //     // ReSharper disable once HeapView.DelegateAllocation
+    //     var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
+    //     if (selectedFrequency is null && !EditRecurrentExpense)
+    //     {
+    //         RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
+    //         return;
+    //     }
+    //
+    //     DateOnly dateOnly;
+    //     if (EditRecurrentExpense)
+    //     {
+    //         var cycle = RecursiveExpense.RecursiveCount < 1 ? 1 : RecursiveExpense.RecursiveCount;
+    //         dateOnly = RecursiveExpense.ERecursiveFrequency
+    //             .CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk), cycle);
+    //     }
+    //     else
+    //     {
+    //         var now = DateOnly.FromDateTime(DateTime.Now);
+    //
+    //         dateOnly = RecursiveExpense.StartDate >= now
+    //             ? RecursiveExpense.StartDate.AdjustForWeekends()
+    //             : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
+    //     }
+    //
+    //     RecursiveExpense.NextDueDate = dateOnly;
+    // }
 
     #endregion
 
