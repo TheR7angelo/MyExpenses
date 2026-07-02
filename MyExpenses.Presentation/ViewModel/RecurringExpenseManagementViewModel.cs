@@ -199,6 +199,10 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     //     => _navigationService.GoBack();
 
     [RelayCommand]
+    private void OnManagePlace()
+        => _navigationWindowService.ShowLocationManagementWindow(RecursiveExpenseViewModel.PlaceViewModel, false);
+
+    [RelayCommand]
     private void OnUpdateNextDueDateWithRecursiveFrequencyViewModel(RecursiveFrequencyViewModel? recursiveFrequencyViewModel)
         => UpdateNexDueDate(recursiveFrequencyViewModel: recursiveFrequencyViewModel);
 

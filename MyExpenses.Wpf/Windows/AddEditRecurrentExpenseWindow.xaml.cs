@@ -142,57 +142,6 @@ public partial class AddEditRecurrentExpenseWindow
         Dialogs.MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
     }
 
-    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        // TODO correct
-        // var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
-        // if (place?.CanBeDeleted is false)
-        // {
-        //     Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
-        //     return;
-        // }
-        //
-        // // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // var addEditLocationWindow = new AddEditLocationWindow();
-        // if (place is not null) addEditLocationWindow.SetPlace(place, false);
-        //
-        // var result = addEditLocationWindow.ShowDialog();
-        // if (result is not true) return;
-        //
-        // // ReSharper disable once HeapView.DelegateAllocation
-        // var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == RecursiveExpense.PlaceFk);
-        // if (addEditLocationWindow.PlaceDeleted)
-        // {
-        //     if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
-        //
-        //     return;
-        // }
-        //
-        // var editedPlace = addEditLocationWindow.Place;
-        // Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
-        //     editedPlace.Name);
-        //
-        // var (success, exception) = editedPlace.AddOrEdit();
-        // if (success)
-        // {
-        //     PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
-        //     RecursiveExpense.PlaceFk = editedPlace.Id;
-        //
-        //     Log.Information("Place was successfully edited");
-        //
-        //     // Loop crash
-        //     // var json = editedPlace.ToJsonString();
-        //     // Log.Information("{Json}", json);
-        //
-        //     Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     Dialogs.MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
-        // }
-    }
-
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
