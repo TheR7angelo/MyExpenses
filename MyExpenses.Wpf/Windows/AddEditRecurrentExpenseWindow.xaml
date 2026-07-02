@@ -335,7 +335,7 @@
 
         </DatePicker>
 
-        <DatePicker Grid.Row="8" Grid.Column="1" x:Name="DatePickerNextDueDate"
+        <DatePicker Grid.Row="8" Grid.Column="1"
                     materialDesign:HintAssist.Hint="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.TextBoxNextDueDateHintAssist}}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpenseViewModel.NextDueDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
