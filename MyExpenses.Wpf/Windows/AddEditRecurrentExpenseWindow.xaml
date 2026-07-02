@@ -352,7 +352,7 @@
             <CheckBox Grid.Column="0"
                       HorizontalAlignment="Left"
                       IsThreeState="False"
-                      IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsChecked="{Binding RecursiveExpenseViewModel.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Content="{localisations:Tr {x:Static expenseResources:ExpenseResourceManager.CheckBoxForceDeactivateHintAssist}}"
                       controlAssist:CheckboxAssist.ContentAlignment="Left"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30">
