@@ -12,6 +12,8 @@
       xmlns:localisations="clr-namespace:MyExpenses.Wpf.Localisations"
       xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
       xmlns:expenses="clr-namespace:MyExpenses.Presentation.ViewModels.Expenses;assembly=MyExpenses.Presentation"
+      xmlns:viewModel="clr-namespace:MyExpenses.Presentation.ViewModel;assembly=MyExpenses.Presentation"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
 
       Title="RecurrentExpensePage"
@@ -19,8 +21,13 @@
 
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      d:DataContext="{d:DesignInstance viewModel:RecurringExpenseManagementViewModel}">
 
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+      <b:Interaction.Triggers>
+          <b:EventTrigger EventName="Loaded">
+              <b:InvokeCommandAction Command="{Binding LoadRecurringExpenseCollectionCommand}" />
+          </b:EventTrigger>
+      </b:Interaction.Triggers>
 
     <Page.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
@@ -49,7 +56,7 @@
 
         <DataGrid Grid.Row="1"
                   IsReadOnly="True" AutoGenerateColumns="False"
-                  ItemsSource="{Binding RecurringExpenses, Mode=OneWay}"
+                  ItemsSource="{Binding RecursiveExpenseViewModels, Mode=OneWay}"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
                   HorizontalScrollBarVisibility="Auto"

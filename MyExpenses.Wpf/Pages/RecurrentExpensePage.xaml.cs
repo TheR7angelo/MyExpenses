@@ -7,11 +7,10 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModel;
 using MyExpenses.Presentation.ViewModels.Expenses;
-using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
-using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
@@ -27,13 +26,15 @@ public partial class RecurrentExpensePage
 
     private readonly INavigationWindowService _navigationWindowService;
 
-    public RecurrentExpensePage(INavigationWindowService navigationWindowService)
+    public RecurrentExpensePage(INavigationWindowService navigationWindowService, RecurringExpenseManagementViewModel viewModel)
     {
         _navigationWindowService = navigationWindowService;
 
         InitializeComponent();
 
         UpdateDataGrid();
+
+        DataContext = viewModel;
     }
 
     #region Action

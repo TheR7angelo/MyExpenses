@@ -305,6 +305,19 @@ public partial class RecurringExpenseManagementViewModel : ViewModelBase
     //     => _navigationWindowService.ShowLocationManagementWindow(HistoryViewModel.PlaceViewModel, false);
 
     [RelayCommand]
+    private async Task OnLoadRecurringExpenseCollection(CancellationToken cancellationToken = default)
+    {
+        var result = await _expensePresentationService.GetAllRecurringExpense(cancellationToken);
+        if (result.IsSuccess) RecursiveExpenseViewModels.AddRange(result.Value!);
+        else
+        {
+            // TODO trad
+            _dialogService.ShowMessageBox("Error", "Can't load recurring expense please try again",
+                MessageBoxButton.Ok, MsgBoxImage.Error);
+        }
+    }
+
+    [RelayCommand]
     private async Task OnLoad(CancellationToken cancellationToken = default)
     {
         LocationManagementViewModel.LoadCommand.Execute(null);
